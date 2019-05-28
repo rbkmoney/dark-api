@@ -18,8 +18,24 @@ spring:
       write-dates-as-timestamps: false
     default-property-inclusion: non_null
 
+magista:
+  client:
+    adapter:
+      url: http://127.0.0.1:8023/v2/stat
+      networkTimeout: 30000
+
+keycloak:
+  realm: internal
+  auth-server-url: http://keycloak:8080/auth
+  resource: dark-api
+  not-before: 0
+  ssl-required: none
+  realm-public-key:
+  manager.username:
+  manager.password:
+
+auth.enabled: true
+
 info:
   version: @project.version@
   stage: dev
-capi:
-  path: http://api.kenny.rbkmoney.net
