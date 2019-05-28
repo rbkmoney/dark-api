@@ -17,9 +17,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * @since 29.11.16
- **/
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {DarkApiApplication.class, TestRestController.class})
 @WebAppConfiguration
