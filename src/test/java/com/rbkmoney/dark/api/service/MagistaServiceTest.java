@@ -88,6 +88,7 @@ public class MagistaServiceTest {
                 null,
                 null);
 
+
         assertEquals("1", paymentsByQuery.getContinuationToken());
         paymentsByQuery.getResult().forEach(enrichedSearchResult -> {
             PaymentSearchResult payment = enrichedSearchResult.getPayment();
