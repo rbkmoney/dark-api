@@ -23,7 +23,7 @@ public class ErrorController {
     public static final String INVALID_REQUEST = "invalidRequest";
     private final ObjectMapper objectMapper;
 
-    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequest(MethodArgumentNotValidException e) {
         log.error("HttpClientErrorException.BadRequest exception e: ", e);

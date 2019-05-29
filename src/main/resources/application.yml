@@ -21,7 +21,7 @@ spring:
 magista:
   client:
     adapter:
-      url: http://127.0.0.1:8023/v2/stat
+      url: http://localhost:8022/v2/stat
       networkTimeout: 30000
 
 keycloak:
