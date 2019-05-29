@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 public class HelperUtils {
 
     static InvoiceCart getCart(com.rbkmoney.damsel.domain.InvoiceCart cart) {
+        if (cart == null) {
+            return null;
+        }
         InvoiceCart invoiceCart = new InvoiceCart();
         List<InvoiceLine> invoiceLines = cart.lines.stream()
                 .map(invoiceLine -> new InvoiceLine()

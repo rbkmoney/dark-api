@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.magista.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -16,27 +17,45 @@ public class PaymentsRequest {
         private EnrichedPayments enrichedPayments;
     }
 
+    public static final String PAYMENT_ID_PARAM = "payment_id";
+    public static final String PAYMENT_STATUS_PARAM = "payment_status";
+    public static final String PAYMENT_EMAIL_PARAM = "payment_email";
+    public static final String PAYMENT_IP_PARAM = "payment_ip";
+    public static final String PAYMENT_FINGERPRINT_PARAM = "payment_fingerprint";
+    public static final String PAYMENT_BANK_CARD_BIN_PARAM = "payment_bin";
+    public static final String PAYMENT_BANK_CARD_LAST_DIGITS_PARAM = "payment_last_digits";
+    public static final String PAYMENT_BANK_CARD_PAYMENT_SYSTEM_PARAM = "payment_system";
+    public static final String PAYMENT_BANK_CARD_TOKEN_PROVIDER_PARAM = "payment_token_provider";
+    public static final String PAYMENT_METHOD_PARAM = "payment_method";
+    public static final String PAYMENT_TERMINAL_PROVIDER_PARAM = "payment_terminal_provider";
+    public static final String PAYMENT_AMOUNT_PARAM = "payment_amount";
+    public static final String PAYMENT_FLOW_PARAM = "payment_flow";
+    public static final String PAYMENT_DOMAIN_REVISION_PARAM = "payment_domain_revision";
+    public static final String FROM_PAYMENT_DOMAIN_REVISION_PARAM = "from_payment_domain_revision";
+    public static final String TO_PAYMENT_DOMAIN_REVISION_PARAM = "to_payment_domain_revision";
+    public static final String PAYMENT_CUSTOMER_ID_PARAM = "payment_customer_id";
+
     @Data
     private class EnrichedPayments {
         private String shopID;
         private OffsetDateTime fromTime;
         private OffsetDateTime toTime;
         private Integer limit;
-        private String paymentStatus;
-        private String paymentFlow;
-        private String paymentMethod;
-        private String paymentTerminalProvider;
-        private String invoiceID;
-        private String paymentID;
-        private String payerEmail;
-        private String payerIP;
-        private String payerFingerprint;
-        private String customerID;
-        private String bin;
-        private String lastDigits;
-        private String bankCardTokenProvider;
-        private String bankCardPaymentSystem;
-        private Long paymentAmount;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentStatus;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentFlow;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentMethod;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentTerminalProvider;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String invoiceID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerEmail;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerIP;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerFingerprint;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentCustomerID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentBin;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentLastDigits;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentTokenProvider;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentSystem;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private Long paymentAmount;
     }
 
     public PaymentsRequest(String shopID,
@@ -73,11 +92,11 @@ public class PaymentsRequest {
         query.enrichedPayments.payerEmail = payerEmail;
         query.enrichedPayments.payerIP = payerIP;
         query.enrichedPayments.payerFingerprint = payerFingerprint;
-        query.enrichedPayments.customerID = customerID;
-        query.enrichedPayments.bin = bin;
-        query.enrichedPayments.lastDigits = lastDigits;
-        query.enrichedPayments.bankCardTokenProvider = bankCardTokenProvider;
-        query.enrichedPayments.bankCardPaymentSystem = bankCardPaymentSystem;
+        query.enrichedPayments.paymentCustomerID = customerID;
+        query.enrichedPayments.paymentBin = bin;
+        query.enrichedPayments.paymentLastDigits = lastDigits;
+        query.enrichedPayments.paymentTokenProvider = bankCardTokenProvider;
+        query.enrichedPayments.paymentSystem = bankCardPaymentSystem;
         query.enrichedPayments.paymentAmount = paymentAmount;
 
     }

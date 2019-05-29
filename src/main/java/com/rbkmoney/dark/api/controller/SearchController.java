@@ -1,9 +1,6 @@
 package com.rbkmoney.dark.api.controller;
 
-import com.rbkmoney.damsel.merch_stat.StatRequest;
-import com.rbkmoney.damsel.merch_stat.StatResponse;
 import com.rbkmoney.dark.api.config.WebConfig;
-import com.rbkmoney.dark.api.magista.dsl.MstDsl;
 import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;

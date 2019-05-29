@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.magista.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.OffsetDateTime;
@@ -22,10 +23,10 @@ public class RefundsRequest {
         private OffsetDateTime fromTime;
         private OffsetDateTime toTime;
         private Integer limit;
-        private String invoiceID;
-        private String paymentID;
-        private String refundID;
-        private String refundStatus;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String invoiceID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String refundID;
+        @JsonInclude(JsonInclude.Include.NON_NULL) private String refundStatus;
     }
 
     public RefundsRequest(String shopID,

@@ -23,7 +23,7 @@ public class StatPaymentToPaymentSearchResultConverter {
                 .currency(statPayment.currency_symbolic_code)
                 .fee(statPayment.fee)
                 .flow(statPayment.flow.isSetHold() ? new PaymentFlowHold() : new PaymentFlowInstant())
-                .geoLocationInfo(new GeoLocationInfo()
+                .geoLocationInfo(statPayment.location_info == null ? null : new GeoLocationInfo()
                         .cityGeoID(statPayment.location_info.city_geo_id)
                         .countryGeoID(statPayment.location_info.country_geo_id))
                 .id(statPayment.id)
@@ -65,7 +65,7 @@ public class StatPaymentToPaymentSearchResultConverter {
                                 .bin(bankCard.bin)
                                 .cardNumberMask(bankCard.masked_pan)
                                 .lastDigits(bankCard.masked_pan.substring(bankCard.masked_pan.lastIndexOf("*")))
-                                .tokenProvider(PaymentToolDetailsBankCard.TokenProviderEnum.fromValue(bankCard.token_provider.name())));
+                                .tokenProvider(bankCard.token_provider == null ? null : PaymentToolDetailsBankCard.TokenProviderEnum.fromValue(bankCard.token_provider.name())));
             }
             if (paymentResource.payment_tool.isSetDigitalWallet()) {
                 DigitalWallet digitalWallet = paymentResource.payment_tool.getDigitalWallet();
