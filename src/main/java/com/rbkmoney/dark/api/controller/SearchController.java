@@ -1,17 +1,32 @@
-package com.rbkmoney.dark.api.resource;
+package com.rbkmoney.dark.api.controller;
 
+import com.rbkmoney.dark.api.config.WebConfig;
+import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @Service
-public class SearchApiImpl implements SearchApi {
+@RequestMapping(name = WebConfig.PATH)
+@RequiredArgsConstructor
+public class SearchController implements SearchApi {
 
+    private final MagistaService magistaService;
+
+    @RequestMapping(value = "/search/payments",
+            produces = {"application/json; charset=utf-8"},
+            consumes = {"application/json; charset=utf-8"},
+            method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('search')")
     @Override
     public ResponseEntity<InlineResponse200> searchPayments(String xRequestID,
                                                             @Size(min = 1, max = 40) String shopID,
@@ -35,9 +50,34 @@ public class SearchApiImpl implements SearchApi {
                                                             @Valid String bankCardPaymentSystem,
                                                             @Min(1L) @Valid Long paymentAmount,
                                                             @Valid String continuationToken) {
-        return null;
+        InlineResponse200 response = magistaService.getPaymentsByQuery(shopID,
+                fromTime,
+                toTime,
+                limit,
+                paymentStatus,
+                paymentFlow,
+                paymentMethod,
+                paymentTerminalProvider,
+                invoiceID,
+                paymentID,
+                payerEmail,
+                payerIP,
+                payerFingerprint,
+                customerID,
+                bin,
+                lastDigits,
+                bankCardTokenProvider,
+                bankCardPaymentSystem,
+                paymentAmount,
+                continuationToken);
+        return ResponseEntity.ok(response);
     }
 
+    @RequestMapping(value = "/search/refunds",
+            produces = {"application/json; charset=utf-8"},
+            consumes = {"application/json; charset=utf-8"},
+            method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('search')")
     @Override
     public ResponseEntity<InlineResponse200> searchRefunds(String xRequestID,
                                                            @Size(min = 1, max = 40) String shopID,
@@ -50,6 +90,15 @@ public class SearchApiImpl implements SearchApi {
                                                            @Size(min = 1, max = 40) @Valid String refundID,
                                                            @Valid String refundStatus,
                                                            @Valid String continuationToken) {
-        return null;
+        InlineResponse200 response = magistaService.getRefundsByQuery(shopID,
+                fromTime,
+                toTime,
+                limit,
+                invoiceID,
+                paymentID,
+                refundID,
+                refundStatus,
+                continuationToken);
+        return ResponseEntity.ok(response);
     }
 }
