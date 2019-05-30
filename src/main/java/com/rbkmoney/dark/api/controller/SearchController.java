@@ -6,6 +6,7 @@ import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,7 @@ public class SearchController implements SearchApi {
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('search')")
     @Override
     public ResponseEntity<InlineResponse200> searchPayments(String xRequestID,
                                                             @Size(min = 1, max = 40) String shopID,
@@ -75,6 +77,7 @@ public class SearchController implements SearchApi {
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('search')")
     @Override
     public ResponseEntity<InlineResponse200> searchRefunds(String xRequestID,
                                                            @Size(min = 1, max = 40) String shopID,
