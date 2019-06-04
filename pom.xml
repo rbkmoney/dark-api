@@ -27,7 +27,7 @@
         <dockerfile.base.service.tag>bc95d0d6dc13c693acd2b274531a7d604b877bf3</dockerfile.base.service.tag>
         <dockerfile.registry>dr2.rbkmoney.com</dockerfile.registry>
         <shared.resources.version>0.3.6</shared.resources.version>
-        <swag.dark.api.version>1.12-ffa1012</swag.dark.api.version>
+        <swag.dark.api.version>1.25-5418be0</swag.dark.api.version>
         <dark.api.version>1.0.0-SNAPSHOT</dark.api.version>
         <mapstruct.processor.version>1.3.0.Final</mapstruct.processor.version>
         <questionary.version>1.3.0.Final</questionary.version>
