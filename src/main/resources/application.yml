@@ -39,3 +39,10 @@ auth.enabled: true
 info:
   version: @project.version@
   stage: dev
+
+questionary:
+  manager:
+    client:
+      adapter:
+        url: http://127.0.0.1:8022/v1/questionary
+        networkTimeout: 30000
