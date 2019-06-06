@@ -26,7 +26,7 @@ public class SearchController implements SearchApi {
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('search')")
+    @PreAuthorize("hasAuthority('invoices:read')")
     @Override
     public ResponseEntity<InlineResponse200> searchPayments(String xRequestID,
                                                             @Size(min = 1, max = 40) String shopID,
@@ -77,7 +77,7 @@ public class SearchController implements SearchApi {
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('search')")
+    @PreAuthorize("hasAuthority('invoices:read')")
     @Override
     public ResponseEntity<InlineResponse200> searchRefunds(String xRequestID,
                                                            @Size(min = 1, max = 40) String shopID,

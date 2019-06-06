@@ -11,7 +11,7 @@ public class CustomLoggingFilter extends CommonsRequestLoggingFilter {
 
     @Override
     protected boolean shouldLog(HttpServletRequest request) {
-        return !request.getServletPath().equals("/health");
+        return !request.getServletPath().contains("/health");
     }
 
 
