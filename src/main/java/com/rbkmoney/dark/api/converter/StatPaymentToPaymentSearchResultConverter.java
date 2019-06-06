@@ -37,12 +37,6 @@ public class StatPaymentToPaymentSearchResultConverter {
 
     private static PaymentSearchResult.StatusEnum getStatus(InvoicePaymentStatus status) {
         return PaymentSearchResult.StatusEnum.fromValue(status.getSetField().getFieldName());
-//        return status.isSetCancelled() ? PaymentSearchResult.StatusEnum.CANCELLED :
-//                status.isSetCaptured() ? PaymentSearchResult.StatusEnum.CAPTURED :
-//                        status.isSetFailed() ? PaymentSearchResult.StatusEnum.FAILED :
-//                                status.isSetPending() ? PaymentSearchResult.StatusEnum.PENDING :
-//                                        status.isSetRefunded() ? PaymentSearchResult.StatusEnum.REFUNDED :
-//                                                PaymentSearchResult.StatusEnum.PROCESSED;
     }
 
     private static Payer getPayer(com.rbkmoney.damsel.merch_stat.Payer payer) {

@@ -31,8 +31,6 @@ keycloak:
   not-before: 0
   ssl-required: none
   realm-public-key:
-  manager.username:
-  manager.password:
 
 auth.enabled: true
 
