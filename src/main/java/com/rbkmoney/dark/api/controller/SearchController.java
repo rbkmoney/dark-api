@@ -1,6 +1,5 @@
 package com.rbkmoney.dark.api.controller;
 
-import com.rbkmoney.dark.api.config.WebConfig;
 import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
@@ -16,13 +15,13 @@ import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @Service
-@RequestMapping(name = WebConfig.PATH)
+@RequestMapping(name = "/search")
 @RequiredArgsConstructor
 public class SearchController implements SearchApi {
 
     private final MagistaService magistaService;
 
-    @RequestMapping(value = "/search/payments",
+    @RequestMapping(value = "/payments",
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)
@@ -73,7 +72,7 @@ public class SearchController implements SearchApi {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(value = "/search/refunds",
+    @RequestMapping(value = "/refunds",
             produces = {"application/json; charset=utf-8"},
             consumes = {"application/json; charset=utf-8"},
             method = RequestMethod.GET)

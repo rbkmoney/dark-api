@@ -14,5 +14,4 @@ public class CustomLoggingFilter extends CommonsRequestLoggingFilter {
         return !request.getServletPath().contains("/health");
     }
 
-
 }
