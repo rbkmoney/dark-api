@@ -70,7 +70,7 @@ public class JwtTokenBuilder {
                     .put("typ", "Bearer")
                     .put("azp", "private-api")
                     .put("resource_access", new JSONObject()
-                            .put("dark-api", new JSONObject()
+                            .put("common-api", new JSONObject()
                                     .put("roles", new JSONArray(roles))))
                     .put("preferred_username", username)
                     .put("email", email).toString();
