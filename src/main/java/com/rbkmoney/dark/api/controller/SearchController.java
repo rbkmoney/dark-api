@@ -6,7 +6,6 @@ import com.rbkmoney.swag.dark_api.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -14,7 +13,6 @@ import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @RestController
-@PreAuthorize("hasAuthority('invoices:read')")
 @RequiredArgsConstructor
 public class SearchController implements SearchApi {
 
