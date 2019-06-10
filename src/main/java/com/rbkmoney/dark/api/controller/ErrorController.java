@@ -1,6 +1,5 @@
 package com.rbkmoney.dark.api.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbkmoney.dark.api.domain.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +20,6 @@ import java.net.http.HttpTimeoutException;
 public class ErrorController {
 
     public static final String INVALID_REQUEST = "invalidRequest";
-    private final ObjectMapper objectMapper;
 
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
