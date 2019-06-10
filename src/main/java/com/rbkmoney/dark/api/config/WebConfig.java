@@ -74,15 +74,4 @@ public class WebConfig {
         ContextUtils.setCustomMetadataValue(UserIdentityRealmExtensionKit.KEY, keycloakSecurityContext.getRealm());
     }
 
-    @Bean
-    public CustomLoggingFilter logFilter() {
-        CustomLoggingFilter loggingFilter = new CustomLoggingFilter();
-        loggingFilter.setIncludeQueryString(true);
-        loggingFilter.setIncludePayload(true);
-        loggingFilter.setIncludeQueryString(true);
-        loggingFilter.setIncludeClientInfo(true);
-        loggingFilter.setMaxPayloadLength(5120);
-        return loggingFilter;
-    }
-
 }

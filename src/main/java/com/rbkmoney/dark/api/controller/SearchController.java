@@ -4,11 +4,9 @@ import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -16,22 +14,17 @@ import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 @RestController
-@RequestMapping(name = "/search")
+@PreAuthorize("hasAuthority('invoices:read')")
 @RequiredArgsConstructor
 public class SearchController implements SearchApi {
 
     private final MagistaService magistaService;
 
-    @RequestMapping(value = "/payments",
-            produces = {"application/json; charset=utf-8"},
-            consumes = {"application/json; charset=utf-8"},
-            method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('invoices:read')")
     @Override
     public ResponseEntity<InlineResponse200> searchPayments(String xRequestID,
                                                             @Size(min = 1, max = 40) String shopID,
-                                                            @NotNull @Valid OffsetDateTime fromTime,
-                                                            @NotNull @Valid OffsetDateTime toTime,
+                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
+                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
                                                             @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
                                                             String xRequestDeadline,
                                                             @Valid String paymentStatus,
@@ -50,6 +43,7 @@ public class SearchController implements SearchApi {
                                                             @Valid String bankCardPaymentSystem,
                                                             @Min(1L) @Valid Long paymentAmount,
                                                             @Valid String continuationToken) {
+        log.info("Handling request for /search/payments, shopID: {}", shopID);
         InlineResponse200 response = magistaService.getPaymentsByQuery(shopID,
                 fromTime,
                 toTime,
@@ -73,16 +67,11 @@ public class SearchController implements SearchApi {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(value = "/refunds",
-            produces = {"application/json; charset=utf-8"},
-            consumes = {"application/json; charset=utf-8"},
-            method = RequestMethod.GET)
-    @PreAuthorize("hasAuthority('invoices:read')")
     @Override
     public ResponseEntity<InlineResponse200> searchRefunds(String xRequestID,
                                                            @Size(min = 1, max = 40) String shopID,
-                                                           @NotNull @Valid OffsetDateTime fromTime,
-                                                           @NotNull @Valid OffsetDateTime toTime,
+                                                           @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
+                                                           @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
                                                            @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
                                                            String xRequestDeadline,
                                                            @Size(min = 1, max = 40) @Valid String invoiceID,
@@ -90,6 +79,7 @@ public class SearchController implements SearchApi {
                                                            @Size(min = 1, max = 40) @Valid String refundID,
                                                            @Valid String refundStatus,
                                                            @Valid String continuationToken) {
+        log.info("Handling request for /search/refunds, shopID: {}", shopID);
         InlineResponse200 response = magistaService.getRefundsByQuery(shopID,
                 fromTime,
                 toTime,
