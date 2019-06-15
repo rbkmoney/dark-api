@@ -25,7 +25,7 @@ public class ErrorController {
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequest(IllegalArgumentException e) {
-        log.error("IllegalArgumentException e: ", e.getCause());
+        log.error("IllegalArgumentException", e.getCause());
         return ErrorResponse.builder()
                 .code(INVALID_REQUEST)
                 .message(e.getCause().getMessage())
@@ -35,7 +35,7 @@ public class ErrorController {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequest(MethodArgumentNotValidException e) {
-        log.error("MethodArgumentNotValidException e: ", e);
+        log.error("MethodArgumentNotValidException", e);
         return ErrorResponse.builder()
                 .code(INVALID_REQUEST)
                 .message(e.getMessage())
@@ -45,7 +45,7 @@ public class ErrorController {
     @ExceptionHandler({MissingServletRequestParameterException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequest(MissingServletRequestParameterException e) {
-        log.error("MethodArgumentNotValidException e: ", e);
+        log.error("MethodArgumentNotValidException", e);
         return ErrorResponse.builder()
                 .code(INVALID_REQUEST)
                 .message(e.getMessage())
@@ -62,7 +62,7 @@ public class ErrorController {
                     .message(e.getResponseBodyAsString())
                     .build();
         } catch (Exception ex) {
-            log.error("Error in exception parsing:", ex);
+            log.error("Error in exception parsing", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -70,7 +70,7 @@ public class ErrorController {
     @ExceptionHandler(HttpServerErrorException.ServiceUnavailable.class)
     @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
     public void handleHttpTimeoutException(HttpServerErrorException.ServiceUnavailable e) {
-        log.error("HttpServerErrorException e: ", e);
+        log.error("HttpServerErrorException", e);
     }
 
     @ExceptionHandler(HttpClientErrorException.BadRequest.class)
@@ -83,7 +83,7 @@ public class ErrorController {
                     .message(e.getResponseBodyAsString())
                     .build();
         } catch (Exception ex) {
-            log.error("Error in exception parsing:", ex);
+            log.error("Error in exception parsing", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -91,19 +91,19 @@ public class ErrorController {
     @ExceptionHandler(HttpTimeoutException.class)
     @ResponseStatus(HttpStatus.REQUEST_TIMEOUT)
     public void handleHttpTimeoutException(HttpTimeoutException e) {
-        log.error("HttpTimeoutException e: ", e);
+        log.error("HttpTimeoutException", e);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public void handleAccessDeniedException(AccessDeniedException e) {
-        log.error("AccessDeniedException e: ", e);
+        log.error("AccessDeniedException", e);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleInternalException(Exception e) {
-        log.error("InternalServerError e: ", e);
+        log.error("InternalServerError", e);
     }
 
 
