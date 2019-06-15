@@ -38,6 +38,7 @@ public class PaymentsRequest {
     @Data
     private class EnrichedPayments {
         private String shopID;
+        private String merchantId;
         private OffsetDateTime fromTime;
         private OffsetDateTime toTime;
         private Integer limit;
@@ -59,6 +60,7 @@ public class PaymentsRequest {
     }
 
     public PaymentsRequest(String shopID,
+                           String merchantId,
                            OffsetDateTime fromTime,
                            OffsetDateTime toTime,
                            Integer limit,
@@ -80,6 +82,7 @@ public class PaymentsRequest {
         query = new Query();
         query.enrichedPayments = new EnrichedPayments();
         query.enrichedPayments.shopID = shopID;
+        query.enrichedPayments.merchantId = merchantId;
         query.enrichedPayments.fromTime = fromTime;
         query.enrichedPayments.toTime = toTime;
         query.enrichedPayments.limit = limit;

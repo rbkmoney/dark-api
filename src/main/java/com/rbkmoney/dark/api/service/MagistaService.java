@@ -16,9 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -28,6 +26,7 @@ public class MagistaService {
     private final DarkMessiahStatisticsSrv.Iface magistaClient;
 
     public InlineResponse200 getPaymentsByQuery(String shopID,
+                                                String merchantId,
                                                 OffsetDateTime fromTime,
                                                 OffsetDateTime toTime,
                                                 Integer limit,
@@ -50,6 +49,7 @@ public class MagistaService {
         try {
             return fromStatResponse(magistaClient.getByQuery(new StatRequest()
                     .setDsl(MstDsl.createPaymentsRequest(shopID,
+                            merchantId,
                             fromTime,
                             toTime,
                             limit,
@@ -82,6 +82,7 @@ public class MagistaService {
     }
 
     public InlineResponse200 getRefundsByQuery(String shopID,
+                                               String merchantId,
                                                OffsetDateTime fromTime,
                                                OffsetDateTime toTime,
                                                Integer limit,
@@ -93,6 +94,7 @@ public class MagistaService {
         try {
             return fromStatResponse(magistaClient.getByQuery(new StatRequest()
                     .setDsl(MstDsl.createRefundsRequest(shopID,
+                            merchantId,
                             fromTime,
                             toTime,
                             limit,

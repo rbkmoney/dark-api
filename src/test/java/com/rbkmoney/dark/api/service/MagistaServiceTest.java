@@ -57,6 +57,7 @@ public class MagistaServiceTest {
                 null,
                 null,
                 null,
+                null,
                 null);
 
         assertEquals("1", paymentsByQuery.getContinuationToken());
@@ -79,6 +80,7 @@ public class MagistaServiceTest {
                 .thenReturn(createStatResponse());
 
         InlineResponse200 paymentsByQuery = magistaService.getRefundsByQuery(null,
+                null,
                 null,
                 null,
                 null,
