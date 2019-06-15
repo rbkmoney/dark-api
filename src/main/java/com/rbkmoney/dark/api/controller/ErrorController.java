@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -24,10 +25,10 @@ public class ErrorController {
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleBadRequest(IllegalArgumentException e) {
-        log.error("HttpClientErrorException.BadRequest exception e: ", e);
+        log.error("IllegalArgumentException e: ", e.getCause());
         return ErrorResponse.builder()
                 .code(INVALID_REQUEST)
-                .message(e.getMessage())
+                .message(e.getCause().getMessage())
                 .build();
     }
 
@@ -41,7 +42,18 @@ public class ErrorController {
                 .build();
     }
 
+    @ExceptionHandler({MissingServletRequestParameterException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequest(MissingServletRequestParameterException e) {
+        log.error("MethodArgumentNotValidException e: ", e);
+        return ErrorResponse.builder()
+                .code(INVALID_REQUEST)
+                .message(e.getMessage())
+                .build();
+    }
+
     @ExceptionHandler(HttpClientErrorException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleHttpClientError(HttpClientErrorException e) {
         log.error("Some exception: {}, {}", e.getStatusCode(), e.getResponseBodyAsString());
         try {
