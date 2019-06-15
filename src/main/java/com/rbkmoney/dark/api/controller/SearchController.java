@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -43,8 +44,10 @@ public class SearchController implements SearchApi {
                                                             @Valid String bankCardPaymentSystem,
                                                             @Min(1L) @Valid Long paymentAmount,
                                                             @Valid String continuationToken) {
-        log.info("Handling request for /search/payments, shopID: {}", shopID);
+        String partyId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("Handling request for /search/payments, shopID: {}, partyId: {}", shopID, partyId);
         InlineResponse200 response = magistaService.getPaymentsByQuery(shopID,
+                partyId,
                 fromTime,
                 toTime,
                 limit,
@@ -79,8 +82,10 @@ public class SearchController implements SearchApi {
                                                            @Size(min = 1, max = 40) @Valid String refundID,
                                                            @Valid String refundStatus,
                                                            @Valid String continuationToken) {
-        log.info("Handling request for /search/refunds, shopID: {}", shopID);
+        String partyId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        log.info("Handling request for /search/refunds, shopID: {}, partyId: {}", shopID, partyId);
         InlineResponse200 response = magistaService.getRefundsByQuery(shopID,
+                partyId,
                 fromTime,
                 toTime,
                 limit,

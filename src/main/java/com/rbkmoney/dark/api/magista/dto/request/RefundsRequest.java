@@ -20,6 +20,7 @@ public class RefundsRequest {
     @Data
     private class EnrichedRefunds {
         private String shopID;
+        private String merchantId;
         private OffsetDateTime fromTime;
         private OffsetDateTime toTime;
         private Integer limit;
@@ -30,6 +31,7 @@ public class RefundsRequest {
     }
 
     public RefundsRequest(String shopID,
+                          String merchantId,
                           OffsetDateTime fromTime,
                           OffsetDateTime toTime,
                           Integer limit,
@@ -40,6 +42,7 @@ public class RefundsRequest {
         query = new Query();
         query.enrichedRefunds = new EnrichedRefunds();
         query.enrichedRefunds.shopID = shopID;
+        query.enrichedRefunds.merchantId = merchantId;
         query.enrichedRefunds.fromTime = fromTime;
         query.enrichedRefunds.toTime = toTime;
         query.enrichedRefunds.limit = limit;

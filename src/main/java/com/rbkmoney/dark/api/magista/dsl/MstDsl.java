@@ -10,8 +10,6 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import com.rbkmoney.dark.api.magista.dto.request.PaymentsRequest;
 import com.rbkmoney.dark.api.magista.dto.request.RefundsRequest;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
 public class MstDsl {
@@ -27,6 +25,7 @@ public class MstDsl {
     }
 
     public static String createPaymentsRequest(String shopID,
+                                               String merchantId,
                                                OffsetDateTime fromTime,
                                                OffsetDateTime toTime,
                                                Integer limit,
@@ -47,6 +46,7 @@ public class MstDsl {
                                                Long paymentAmount) throws JsonProcessingException {
         return objectMapper.writeValueAsString(new PaymentsRequest(
                 shopID,
+                merchantId,
                 fromTime,
                 toTime,
                 limit,
@@ -69,6 +69,7 @@ public class MstDsl {
     }
 
     public static String createRefundsRequest(String shopID,
+                                              String merchantId,
                                               OffsetDateTime fromTime,
                                               OffsetDateTime toTime,
                                               Integer limit,
@@ -78,6 +79,7 @@ public class MstDsl {
                                               String refundStatus) throws JsonProcessingException {
         return objectMapper.writeValueAsString(new RefundsRequest(
                 shopID,
+                merchantId,
                 fromTime,
                 toTime,
                 limit,

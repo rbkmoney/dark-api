@@ -23,8 +23,18 @@ public class ErrorController {
 
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBadRequest(MethodArgumentNotValidException e) {
+    public ErrorResponse handleBadRequest(IllegalArgumentException e) {
         log.error("HttpClientErrorException.BadRequest exception e: ", e);
+        return ErrorResponse.builder()
+                .code(INVALID_REQUEST)
+                .message(e.getMessage())
+                .build();
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequest(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException e: ", e);
         return ErrorResponse.builder()
                 .code(INVALID_REQUEST)
                 .message(e.getMessage())
