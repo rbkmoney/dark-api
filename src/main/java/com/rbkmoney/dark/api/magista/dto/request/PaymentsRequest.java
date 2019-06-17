@@ -3,6 +3,7 @@ package com.rbkmoney.dark.api.magista.dto.request;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 
 /**
@@ -17,30 +18,12 @@ public class PaymentsRequest {
         private EnrichedPayments enrichedPayments;
     }
 
-    public static final String PAYMENT_ID_PARAM = "payment_id";
-    public static final String PAYMENT_STATUS_PARAM = "payment_status";
-    public static final String PAYMENT_EMAIL_PARAM = "payment_email";
-    public static final String PAYMENT_IP_PARAM = "payment_ip";
-    public static final String PAYMENT_FINGERPRINT_PARAM = "payment_fingerprint";
-    public static final String PAYMENT_BANK_CARD_BIN_PARAM = "payment_bin";
-    public static final String PAYMENT_BANK_CARD_LAST_DIGITS_PARAM = "payment_last_digits";
-    public static final String PAYMENT_BANK_CARD_PAYMENT_SYSTEM_PARAM = "payment_system";
-    public static final String PAYMENT_BANK_CARD_TOKEN_PROVIDER_PARAM = "payment_token_provider";
-    public static final String PAYMENT_METHOD_PARAM = "payment_method";
-    public static final String PAYMENT_TERMINAL_PROVIDER_PARAM = "payment_terminal_provider";
-    public static final String PAYMENT_AMOUNT_PARAM = "payment_amount";
-    public static final String PAYMENT_FLOW_PARAM = "payment_flow";
-    public static final String PAYMENT_DOMAIN_REVISION_PARAM = "payment_domain_revision";
-    public static final String FROM_PAYMENT_DOMAIN_REVISION_PARAM = "from_payment_domain_revision";
-    public static final String TO_PAYMENT_DOMAIN_REVISION_PARAM = "to_payment_domain_revision";
-    public static final String PAYMENT_CUSTOMER_ID_PARAM = "payment_customer_id";
-
     @Data
     private class EnrichedPayments {
         private String shopID;
         private String merchantId;
-        private OffsetDateTime fromTime;
-        private OffsetDateTime toTime;
+        private Instant fromTime;
+        private Instant toTime;
         private Integer limit;
         @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentStatus;
         @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentFlow;
@@ -83,8 +66,8 @@ public class PaymentsRequest {
         query.enrichedPayments = new EnrichedPayments();
         query.enrichedPayments.shopID = shopID;
         query.enrichedPayments.merchantId = merchantId;
-        query.enrichedPayments.fromTime = fromTime;
-        query.enrichedPayments.toTime = toTime;
+        query.enrichedPayments.fromTime = fromTime.toInstant();
+        query.enrichedPayments.toTime = toTime.toInstant();
         query.enrichedPayments.limit = limit;
         query.enrichedPayments.paymentStatus = paymentStatus;
         query.enrichedPayments.paymentFlow = paymentFlow;

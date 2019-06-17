@@ -35,12 +35,12 @@ public class MstDslTest {
                         null,
                         null
                 ), false);
-        JSONAssert.assertEquals("{'query': {'enriched_payments': {}}}",
+        JSONAssert.assertEquals("{'query': {'enriched_payments': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createPaymentsRequest(
                         null,
                         null,
-                        null,
-                        null,
+                        OffsetDateTime.parse("2016-03-22T00:12:00Z"),
+                        OffsetDateTime.parse("2016-03-22T01:12:00Z"),
                         null,
                         null,
                         null,
@@ -74,12 +74,12 @@ public class MstDslTest {
                         "1212",
                         RefundStatus.StatusEnum.SUCCEEDED.toString()
                 ), false);
-        JSONAssert.assertEquals("{'query': {'enriched_refunds': {}}}",
+        JSONAssert.assertEquals("{'query': {'enriched_refunds': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createRefundsRequest(
                         null,
                         null,
-                        null,
-                        null,
+                        OffsetDateTime.parse("2016-03-22T00:12:00Z"),
+                        OffsetDateTime.parse("2016-03-22T01:12:00Z"),
                         null,
                         null,
                         null,

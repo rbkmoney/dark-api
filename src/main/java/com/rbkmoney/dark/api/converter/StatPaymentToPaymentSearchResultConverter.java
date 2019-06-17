@@ -9,6 +9,7 @@ import com.rbkmoney.swag.dark_api.model.RecurrentPayer;
 import com.rbkmoney.swag.dark_api.model.*;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 
 import static com.rbkmoney.dark.api.converter.HelperUtils.getCart;
 
@@ -16,7 +17,7 @@ public class StatPaymentToPaymentSearchResultConverter {
 
     public static PaymentSearchResult convert(StatPayment statPayment, Content invoiceMetadata) {
         return new PaymentSearchResult()
-                .invoiceMetadata(new String(invoiceMetadata.getData()))
+                .invoiceMetadata(invoiceMetadata == null ? Map.of() : new String(invoiceMetadata.getData()))
                 .amount(statPayment.amount)
                 .cart(getCart(statPayment.cart))
                 .createdAt(OffsetDateTime.parse(statPayment.created_at))
@@ -29,7 +30,7 @@ public class StatPaymentToPaymentSearchResultConverter {
                 .id(statPayment.id)
                 .invoiceID(statPayment.invoice_id)
                 .makeRecurrent(statPayment.make_recurrent)
-                .metadata(new String(statPayment.context.getData()))
+                .metadata(statPayment.context == null ? Map.of() : new String(statPayment.context.getData()))
                 .payer(getPayer(statPayment.payer))
                 .shortID(statPayment.short_id)
                 .status(getStatus(statPayment.status));
@@ -58,7 +59,8 @@ public class StatPaymentToPaymentSearchResultConverter {
                                 .paymentSystem(PaymentToolDetailsBankCard.PaymentSystemEnum.fromValue(bankCard.payment_system.name()))
                                 .bin(bankCard.bin)
                                 .cardNumberMask(bankCard.masked_pan)
-                                .lastDigits(bankCard.masked_pan.substring(bankCard.masked_pan.lastIndexOf("*")))
+                                // todo add last digits?
+                                .lastDigits(null)
                                 .tokenProvider(bankCard.token_provider == null ? null : PaymentToolDetailsBankCard.TokenProviderEnum.fromValue(bankCard.token_provider.name())));
             }
             if (paymentResource.payment_tool.isSetDigitalWallet()) {
