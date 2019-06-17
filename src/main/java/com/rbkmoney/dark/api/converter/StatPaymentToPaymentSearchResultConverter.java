@@ -17,7 +17,7 @@ public class StatPaymentToPaymentSearchResultConverter {
 
     public static PaymentSearchResult convert(StatPayment statPayment, Content invoiceMetadata) {
         return new PaymentSearchResult()
-                .invoiceMetadata(new String(invoiceMetadata.getData()))
+                .invoiceMetadata(invoiceMetadata == null ? Map.of() : new String(invoiceMetadata.getData()))
                 .amount(statPayment.amount)
                 .cart(getCart(statPayment.cart))
                 .createdAt(OffsetDateTime.parse(statPayment.created_at))
