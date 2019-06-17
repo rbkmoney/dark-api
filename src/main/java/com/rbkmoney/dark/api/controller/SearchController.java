@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.KeycloakPrincipal;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,7 +45,7 @@ public class SearchController implements SearchApi {
                                                             @Valid String bankCardPaymentSystem,
                                                             @Min(1L) @Valid Long paymentAmount,
                                                             @Valid String continuationToken) {
-        String partyId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
         log.info("Handling request for /search/payments, shopID: {}, partyId: {}", shopID, partyId);
         InlineResponse200 response = magistaService.getPaymentsByQuery(shopID,
                 partyId,
@@ -82,7 +83,7 @@ public class SearchController implements SearchApi {
                                                            @Size(min = 1, max = 40) @Valid String refundID,
                                                            @Valid String refundStatus,
                                                            @Valid String continuationToken) {
-        String partyId = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
         log.info("Handling request for /search/refunds, shopID: {}, partyId: {}", shopID, partyId);
         InlineResponse200 response = magistaService.getRefundsByQuery(shopID,
                 partyId,
