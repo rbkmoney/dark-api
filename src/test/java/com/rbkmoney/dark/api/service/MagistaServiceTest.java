@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.OffsetDateTime;
+
 import static com.rbkmoney.dark.api.utils.TestDataUtils.createStatResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -40,8 +42,8 @@ public class MagistaServiceTest {
 
         InlineResponse200 paymentsByQuery = magistaService.getPaymentsByQuery(null,
                 null,
-                null,
-                null,
+                OffsetDateTime.parse("2016-03-22T00:12:00Z"),
+                OffsetDateTime.parse("2016-03-22T01:12:00Z"),
                 null,
                 null,
                 null,
@@ -81,8 +83,8 @@ public class MagistaServiceTest {
 
         InlineResponse200 paymentsByQuery = magistaService.getRefundsByQuery(null,
                 null,
-                null,
-                null,
+                OffsetDateTime.parse("2016-03-22T00:12:00Z"),
+                OffsetDateTime.parse("2016-03-22T01:12:00Z"),
                 null,
                 null,
                 null,

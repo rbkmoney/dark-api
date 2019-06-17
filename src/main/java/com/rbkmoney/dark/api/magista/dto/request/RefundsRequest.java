@@ -3,6 +3,7 @@ package com.rbkmoney.dark.api.magista.dto.request;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.OffsetDateTime;
 
 /**
@@ -21,8 +22,8 @@ public class RefundsRequest {
     private class EnrichedRefunds {
         private String shopID;
         private String merchantId;
-        private OffsetDateTime fromTime;
-        private OffsetDateTime toTime;
+        private Instant fromTime;
+        private Instant toTime;
         private Integer limit;
         @JsonInclude(JsonInclude.Include.NON_NULL) private String invoiceID;
         @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentID;
@@ -43,8 +44,8 @@ public class RefundsRequest {
         query.enrichedRefunds = new EnrichedRefunds();
         query.enrichedRefunds.shopID = shopID;
         query.enrichedRefunds.merchantId = merchantId;
-        query.enrichedRefunds.fromTime = fromTime;
-        query.enrichedRefunds.toTime = toTime;
+        query.enrichedRefunds.fromTime = fromTime.toInstant();
+        query.enrichedRefunds.toTime = toTime.toInstant();
         query.enrichedRefunds.limit = limit;
         query.enrichedRefunds.invoiceID = invoiceID;
         query.enrichedRefunds.paymentID = paymentID;
