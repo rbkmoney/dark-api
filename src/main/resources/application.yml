@@ -37,3 +37,7 @@ auth.enabled: true
 info:
   version: @project.version@
   stage: dev
+
+http.timeout:
+  read: 90
+  connect: 30

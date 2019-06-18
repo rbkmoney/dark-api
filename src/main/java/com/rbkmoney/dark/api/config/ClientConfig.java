@@ -12,15 +12,26 @@ import org.springframework.core.io.Resource;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 @Slf4j
 @Configuration
 public class ClientConfig {
 
+    @Value("${http.timeout.read}")
+    public Long readTimeoutSec;
+
+    @Value("${http.timeout.connect}")
+    public Long connectTimeoutSec;
+
     @Bean
     @Primary
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+        return builder
+                .setConnectTimeout(Duration.of(connectTimeoutSec, ChronoUnit.SECONDS))
+                .setReadTimeout(Duration.of(readTimeoutSec, ChronoUnit.SECONDS))
+                .build();
     }
 
     @Bean
