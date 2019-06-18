@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.converter;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbkmoney.damsel.base.Content;
 import com.rbkmoney.damsel.merch_stat.*;
@@ -21,7 +22,8 @@ import static com.rbkmoney.dark.api.converter.HelperUtils.getCart;
 @Slf4j
 public class StatPaymentToPaymentSearchResultConverter {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper()
+            .configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 
     public static PaymentSearchResult convert(StatPayment statPayment, Content invoiceMetadata) {
         try {
