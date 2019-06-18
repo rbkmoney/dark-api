@@ -46,7 +46,7 @@ public class StatPaymentToPaymentSearchResultConverter {
                     .shortID(statPayment.short_id)
                     .status(getStatus(statPayment.status));
         } catch (IOException e) {
-            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}", invoiceMetadata, statPayment.context);
+            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}", invoiceMetadata, statPayment.context, e);
             return null;
         }
     }
