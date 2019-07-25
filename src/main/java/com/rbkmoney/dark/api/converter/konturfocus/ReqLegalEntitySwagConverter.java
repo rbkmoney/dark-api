@@ -36,17 +36,13 @@ public class ReqLegalEntitySwagConverter
         }
         if (value.isSetBranches()) {
             List<Branch> swagBranchList = value.getBranches().stream()
-                    .map(branch -> {
-                        return ctx.convert(branch, Branch.class);
-                    })
+                    .map(branch -> ctx.convert(branch, Branch.class))
                     .collect(Collectors.toList());
             swagReqLegalEntity.setBranches(swagBranchList);
         }
         if (value.isSetHeads()) {
             List<Head> swagHeadList = value.getHeads().stream()
-                    .map(head -> {
-                        return ctx.convert(head, Head.class);
-                    })
+                    .map(head -> ctx.convert(head, Head.class))
                     .collect(Collectors.toList());
             swagReqLegalEntity.setHeads(swagHeadList);
         }
@@ -61,9 +57,7 @@ public class ReqLegalEntitySwagConverter
 
         if (value.isSetManagementCompanies()) {
             List<ManagementCompany> swagManagementCompanies = value.getManagementCompanies().stream()
-                    .map(managementCompany -> {
-                        return ctx.convert(managementCompany, ManagementCompany.class);
-                    })
+                    .map(managementCompany -> ctx.convert(managementCompany, ManagementCompany.class))
                     .collect(Collectors.toList());
             swagReqLegalEntity.setManagementCompanies(swagManagementCompanies);
         }

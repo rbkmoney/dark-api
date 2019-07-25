@@ -26,9 +26,7 @@ public class EgrDetailsIndividualEntitySwagConverter
         }
         if (value.isSetEgrRecords()) {
             List<EgrRecord> egrRecordList = value.getEgrRecords().stream()
-                    .map(egrRecord -> {
-                        return ctx.convert(egrRecord, EgrRecord.class);
-                    })
+                    .map(egrRecord -> ctx.convert(egrRecord, EgrRecord.class))
                     .collect(Collectors.toList());
 
             swagEgrDetailsIndividualEntity.setEgrRecords(egrRecordList);

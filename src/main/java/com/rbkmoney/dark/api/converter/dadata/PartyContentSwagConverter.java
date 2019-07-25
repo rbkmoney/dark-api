@@ -92,9 +92,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
 
         if (value.isSetFounders()) {
             List<Founder> founderList = value.getFounders().stream()
-                    .map(founder -> {
-                        return ctx.convert(founder, Founder.class);
-                    })
+                    .map(founder -> ctx.convert(founder, Founder.class))
                     .collect(Collectors.toList());
             partyContent.setFounders(founderList);
         }

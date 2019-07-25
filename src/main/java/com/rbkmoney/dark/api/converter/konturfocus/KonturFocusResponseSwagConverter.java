@@ -74,9 +74,7 @@ public class KonturFocusResponseSwagConverter
 
         if (value.isSetLicencesResponses()) {
             List<LicencesResponse> swagLicencesResponseList = value.getLicencesResponses().getLicenseResponses().stream()
-                    .map(licencesResponse -> {
-                        return ctx.convert(licencesResponse, LicencesResponse.class);
-                    })
+                    .map(licencesResponse -> ctx.convert(licencesResponse, LicencesResponse.class))
                     .collect(Collectors.toList());
             LicencesResponses licencesResponses = new LicencesResponses();
             licencesResponses.setResponses(swagLicencesResponseList);

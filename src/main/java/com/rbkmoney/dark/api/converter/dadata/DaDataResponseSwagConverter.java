@@ -24,9 +24,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagAddressResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.AddressResponse();
             AddressResponse addressResponse = value.getAddressResponse();
             List<DaDataAddress> daDataAddressList = addressResponse.getSuggestions().stream()
-                    .map(address -> {
-                        return ctx.convert(address, DaDataAddress.class);
-                    })
+                    .map(address -> ctx.convert(address, DaDataAddress.class))
                     .collect(Collectors.toList());
             swagAddressResponse.setSuggestions(daDataAddressList);
             daDataResponse = swagAddressResponse;
@@ -34,9 +32,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagBankResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.BankResponse();
             BankResponse bankResponse = value.getBankResponse();
             List<BankContent> bankContentList = bankResponse.getSuggestions().stream()
-                    .map(bankContent -> {
-                        return ctx.convert(bankContent, BankContent.class);
-                    })
+                    .map(bankContent -> ctx.convert(bankContent, BankContent.class))
                     .collect(Collectors.toList());
             swagBankResponse.setSuggestions(bankContentList);
             daDataResponse = swagBankResponse;
@@ -44,9 +40,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagFioResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.FioResponse();
             FioResponse fioResponse = value.getFioResponse();
             List<FioContent> fioContentList = fioResponse.getSuggestions().stream()
-                    .map(fioContent -> {
-                        return ctx.convert(fioContent, FioContent.class);
-                    })
+                    .map(fioContent -> ctx.convert(fioContent, FioContent.class))
                     .collect(Collectors.toList());
             swagFioResponse.setSuggestions(fioContentList);
             daDataResponse = swagFioResponse;
@@ -54,9 +48,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagOkvedResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.OkvedResponse();
             OkvedResponse okvedResponse = value.getOkvedResponse();
             List<OkvedContent> okvedContentList = okvedResponse.getSuggestions().stream()
-                    .map(okvedContent -> {
-                        return ctx.convert(okvedContent, OkvedContent.class);
-                    })
+                    .map(okvedContent -> ctx.convert(okvedContent, OkvedContent.class))
                     .collect(Collectors.toList());
             swagOkvedResponse.setSuggestions(okvedContentList);
             daDataResponse = swagOkvedResponse;
@@ -64,9 +56,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagFmsUnitResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.FmsUnitResponse();
             FmsUnitResponse fmsUnitResponse = value.getFmsUnitResponse();
             List<FmsUnitContent> fmsUnitContentList = fmsUnitResponse.getSuggestions().stream()
-                    .map(fmsUnitContent -> {
-                        return ctx.convert(fmsUnitContent, FmsUnitContent.class);
-                    })
+                    .map(fmsUnitContent -> ctx.convert(fmsUnitContent, FmsUnitContent.class))
                     .collect(Collectors.toList());
             swagFmsUnitResponse.setSuggestions(fmsUnitContentList);
             daDataResponse = swagFmsUnitResponse;
@@ -74,9 +64,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
             var swagPartyResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.PartyResponse();
             PartyResponse partyResponse = value.getPartyResponse();
             List<PartyContent> partyContentList = partyResponse.getSuggestions().stream()
-                    .map(partyContent -> {
-                        return ctx.convert(partyContent, PartyContent.class);
-                    })
+                    .map(partyContent -> ctx.convert(partyContent, PartyContent.class))
                     .collect(Collectors.toList());
             swagPartyResponse.setSuggestions(partyContentList);
             daDataResponse = swagPartyResponse;

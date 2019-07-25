@@ -19,9 +19,7 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         }
         if (value.isSetEgrRecords()) {
             List<EgrRecord> egrRecordList = value.getEgrRecords().stream()
-                    .map(egrRecord -> {
-                        return ctx.convert(egrRecord, EgrRecord.class);
-                    })
+                    .map(egrRecord -> ctx.convert(egrRecord, EgrRecord.class))
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setEgrRecords(egrRecordList);
         }
@@ -40,33 +38,25 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         }
         if (value.isSetFoundersUl()) {
             List<FounderFl> founderFlList = value.getFoundersFl().stream()
-                    .map(founderFL -> {
-                        return ctx.convert(founderFL, FounderFl.class);
-                    })
+                    .map(founderFL -> ctx.convert(founderFL, FounderFl.class))
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setFoundersFl(founderFlList);
         }
         if (value.isSetFoundersUl()) {
             List<FounderUl> founderUlList = value.getFoundersUl().stream()
-                    .map(founderUL -> {
-                        return ctx.convert(founderUL, FounderUl.class);
-                    })
+                    .map(founderUL -> ctx.convert(founderUL, FounderUl.class))
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setFoundersUl(founderUlList);
         }
         if (value.isSetPredecessors()) {
             List<FounderForeign> founderForeignList = value.getFoundersForeign().stream()
-                    .map(founderForeign -> {
-                        return ctx.convert(founderForeign, FounderForeign.class);
-                    })
+                    .map(founderForeign -> ctx.convert(founderForeign, FounderForeign.class))
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setFoundersForeign(founderForeignList);
         }
         if (value.isSetPredecessors()) {
             List<Predecessor> predecessorList = value.getPredecessors().stream()
-                    .map(predecessor -> {
-                        return ctx.convert(predecessor, Predecessor.class);
-                    })
+                    .map(predecessor -> ctx.convert(predecessor, Predecessor.class))
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setPredecessor(predecessorList);
         }
@@ -76,25 +66,19 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
             shareHolders.setDate(value.getShareHolders().getDate());
             if (value.getShareHolders().isSetShareHoldersFl()) {
                 List<ShareHolderFl> shareHolderFlList = value.getShareHolders().getShareHoldersFl().stream()
-                        .map(shareHolderFl -> {
-                            return ctx.convert(shareHolderFl, ShareHolderFl.class);
-                        })
+                        .map(shareHolderFl -> ctx.convert(shareHolderFl, ShareHolderFl.class))
                         .collect(Collectors.toList());
                 shareHolders.setShareHoldersFl(shareHolderFlList);
             }
             if (value.getShareHolders().isSetShareHoldersUl()) {
                 List<ShareHolderUl> shareHolderUlList = value.getShareHolders().getShareHoldersUl().stream()
-                        .map(shareHolderUL -> {
-                            return ctx.convert(shareHolderUL, ShareHolderUl.class);
-                        })
+                        .map(shareHolderUL -> ctx.convert(shareHolderUL, ShareHolderUl.class))
                         .collect(Collectors.toList());
                 shareHolders.setShareHoldersUl(shareHolderUlList);
             }
             if (value.getShareHolders().isSetShareHoldersFl()) {
                 List<ShareHolderOther> shareHolderOtherList = value.getShareHolders().getShareHoldersOther().stream()
-                        .map(shareHolderOther -> {
-                            return ctx.convert(shareHolderOther, ShareHolderOther.class);
-                        })
+                        .map(shareHolderOther -> ctx.convert(shareHolderOther, ShareHolderOther.class))
                         .collect(Collectors.toList());
                 shareHolders.setShareHoldersOther(shareHolderOtherList);
             }

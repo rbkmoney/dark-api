@@ -17,9 +17,7 @@ public class AddressResponseSwagConverter implements SwagConverter<AddressRespon
         AddressResponse addressResponse = new AddressResponse();
         if (value.isSetSuggestions()) {
             List<DaDataAddress> daDataAddressList = value.getSuggestions().stream()
-                    .map(address -> {
-                        return ctx.convert(address, DaDataAddress.class);
-                    })
+                    .map(address -> ctx.convert(address, DaDataAddress.class))
                     .collect(Collectors.toList());
             addressResponse.setSuggestions(daDataAddressList);
         }

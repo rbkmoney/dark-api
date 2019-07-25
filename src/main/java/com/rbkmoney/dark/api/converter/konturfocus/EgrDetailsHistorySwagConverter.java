@@ -17,9 +17,7 @@ public class EgrDetailsHistorySwagConverter implements SwagConverter<EgrDetailsH
         egrDetailsHistory.setDate(value.getDate());
         if (value.isSetFoundersFl()) {
             List<FounderFl> founderFlList = value.getFoundersFl().stream()
-                    .map(founderFL -> {
-                        return ctx.convert(founderFL, FounderFl.class);
-                    })
+                    .map(founderFL -> ctx.convert(founderFL, FounderFl.class))
                     .collect(Collectors.toList());
             egrDetailsHistory.setFoundersFl(founderFlList);
         }
