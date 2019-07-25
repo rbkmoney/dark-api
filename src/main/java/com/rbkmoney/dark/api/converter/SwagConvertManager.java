@@ -16,30 +16,30 @@ public class SwagConvertManager {
 
     private final Map<Class<?>, SwagConverter> swagConverterMap;
 
-    private final Map<Class<?>, Converter> simpleConverterMap;
+    private final Map<Class<?>, ThriftConverter> thriftConverterMap;
 
     private final List<SwagConverter> swagConverterList;
 
-    private final List<Converter> simpleConverterList;
+    private final List<ThriftConverter> thriftConverterList;
 
     @Autowired
     public SwagConvertManager(List<SwagConverter> swagConverterList,
-                              List<Converter> simpleConverterList) {
+                              List<ThriftConverter> thriftConverterList) {
         this.swagConverterList = swagConverterList;
-        this.simpleConverterList = simpleConverterList;
+        this.thriftConverterList = thriftConverterList;
         this.swagConverterMap = new HashMap<>();
-        this.simpleConverterMap = new HashMap<>();
+        this.thriftConverterMap = new HashMap<>();
         initSwagConverterList();
     }
 
     private void initSwagConverterList() {
         for (SwagConverter swagConverter : swagConverterList) {
-            Class<?> swagTypeArgument = getSwagConverterTypeArgument(swagConverter.getClass());
+            Class<?> swagTypeArgument = getTypeArgument(swagConverter.getClass());
             swagConverterMap.put(swagTypeArgument, swagConverter);
         }
-        for (Converter simpleConverter : simpleConverterList) {
-            Class<?> typeArgument = getConverterTypeArgument(simpleConverter.getClass());
-            simpleConverterMap.put(typeArgument, simpleConverter);
+        for (ThriftConverter thriftConverter : thriftConverterList) {
+            Class<?> typeArgument = getTypeArgument(thriftConverter.getClass());
+            thriftConverterMap.put(typeArgument, thriftConverter);
         }
     }
 
@@ -54,23 +54,20 @@ public class SwagConvertManager {
         return (S) swagConverter.toSwag(thriftVal, swagConverterContext);
     }
 
-    public <T, S> T convert(S value, Class<T> resultType) {
-        Converter simpleConverter = simpleConverterMap.get(resultType);
-        if (simpleConverter == null) {
+    public <T, S> T convertToThrift(S swagVal, Class<T> resultType) {
+        ThriftConverter thriftConverter = thriftConverterMap.get(resultType);
+        if (thriftConverter == null) {
             throw new IllegalArgumentException("Unregistered converter type: " + resultType.getSimpleName());
         }
 
-        return (T) simpleConverter.convert(value);
+        ThriftConverterContext thriftConverterContext = new ThriftConverterContext(Collections.unmodifiableMap(thriftConverterMap));
+
+        return (T) thriftConverter.toThrift(swagVal, thriftConverterContext);
     }
 
-    private Class<?> getSwagConverterTypeArgument(Class<?> clazz) {
+    private Class<?> getTypeArgument(Class<?> clazz) {
         ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericInterfaces()[0];
         return (Class<?>) parameterizedType.getActualTypeArguments()[0];
-    }
-
-    private Class<?> getConverterTypeArgument(Class<?> clazz) {
-        ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericInterfaces()[0];
-        return (Class<?>) parameterizedType.getActualTypeArguments()[1];
     }
 
 }

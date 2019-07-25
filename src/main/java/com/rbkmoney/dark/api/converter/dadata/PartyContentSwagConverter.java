@@ -15,6 +15,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
     public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value, SwagConverterContext ctx) {
         PartyContent partyContent = new PartyContent();
         if (value.isSetAddress()) {
+            DaDataAddress convert = ctx.convert(value.getAddress(), DaDataAddress.class);
             partyContent.setAddress(ctx.convert(value.getAddress(), DaDataAddress.class));
         }
         partyContent.setDocuments(ctx.convert(value.getDocuments(), PartyDocuments.class));
@@ -22,9 +23,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         partyContent.setKpp(value.getKpp());
         if (value.isSetLicenses()) {
             List<DaDataLicense> daDataLicenseList = value.getLicenses().stream()
-                    .map(license -> {
-                        return ctx.convert(license, DaDataLicense.class);
-                    })
+                    .map(license -> ctx.convert(license, DaDataLicense.class))
                     .collect(Collectors.toList());
             partyContent.setLicenses(daDataLicenseList);
         }

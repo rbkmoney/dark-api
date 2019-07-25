@@ -28,7 +28,7 @@ public class QuestionaryAggrProxyService {
 
     public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams) {
         try {
-            KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convert(konturFocusParams, KonturFocusRequestHolder.class);
+            KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
             var thriftKonturFocusResponse = questionaryAggrProxyClient.requestKonturFocus(
                     konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
             );
@@ -44,7 +44,7 @@ public class QuestionaryAggrProxyService {
 
     public DaDataResponse requestDaData(DaDataParams daDataParams) {
         try {
-            DaDataRequestHolder daDataRequestHolder = swagConvertManager.convert(daDataParams, DaDataRequestHolder.class);
+            DaDataRequestHolder daDataRequestHolder = swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
             var thriftDaDataResponse = questionaryAggrProxyClient.requestDaData(daDataRequestHolder.getDaDataRequest(),
                     daDataRequestHolder.getDaDataEndpoint());
             return swagConvertManager.convertFromThrift(thriftDaDataResponse, DaDataResponse.class);

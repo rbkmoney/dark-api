@@ -1,5 +1,7 @@
 package com.rbkmoney.dark.api.converter.konturfocus;
 
+import com.rbkmoney.dark.api.converter.ThriftConverter;
+import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.dark.api.model.KonturFocusRequestHolder;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusEndPoint;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusRequest;
@@ -11,10 +13,10 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KonturFocusParamToKonturFocusRequestConverter implements Converter<KonturFocusParams, KonturFocusRequestHolder> {
+public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConverter<KonturFocusRequestHolder, KonturFocusParams> {
 
     @Override
-    public KonturFocusRequestHolder convert(KonturFocusParams konturFocusParams) {
+    public KonturFocusRequestHolder toThrift(KonturFocusParams konturFocusParams, ThriftConverterContext ctx) {
         KonturFocusRequestHolder konturFocusRequestHolder = new KonturFocusRequestHolder();
         KonturFocusRequest konturFocusRequest = null;
         if (konturFocusParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusEndPoint.REQ

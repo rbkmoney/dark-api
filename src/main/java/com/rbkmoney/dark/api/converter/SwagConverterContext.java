@@ -13,11 +13,10 @@ public class SwagConverterContext {
     public <T, S> S convert(T thriftVal, Class<S> swagType) {
         SwagConverter swagConverter = converterMap.get(swagType);
         if (swagConverter == null) {
-            throw new IllegalArgumentException("Not registered converter type: " + swagType.getSimpleName());
+            throw new IllegalArgumentException("Unregistered converter type: " + swagType.getSimpleName());
         }
 
         return (S) swagConverter.toSwag(thriftVal, this);
     }
-
 
 }

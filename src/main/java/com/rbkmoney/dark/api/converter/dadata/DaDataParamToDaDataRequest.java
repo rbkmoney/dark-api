@@ -1,5 +1,7 @@
 package com.rbkmoney.dark.api.converter.dadata;
 
+import com.rbkmoney.dark.api.converter.ThriftConverter;
+import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataRequest;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
@@ -12,10 +14,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class DaDataParamToDaDataRequest implements Converter<DaDataParams, DaDataRequestHolder> {
+public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequestHolder, DaDataParams> {
 
     @Override
-    public DaDataRequestHolder convert(DaDataParams daDataParams) {
+    public DaDataRequestHolder toThrift(DaDataParams daDataParams, ThriftConverterContext thriftConverterContext) {
         DaDataRequestHolder daDataRequestHolder = new DaDataRequestHolder();
         DaDataRequest daDataRequest = new DaDataRequest();
         daDataRequestHolder.setDaDataRequest(daDataRequest);

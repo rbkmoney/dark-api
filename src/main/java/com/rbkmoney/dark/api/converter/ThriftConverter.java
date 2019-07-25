@@ -8,6 +8,6 @@ package com.rbkmoney.dark.api.converter;
  */
 public interface ThriftConverter<T, S> {
 
-    T toThrift(S value);
+    T toThrift(S value, ThriftConverterContext ctx);
 
 }
