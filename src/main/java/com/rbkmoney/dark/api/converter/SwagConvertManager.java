@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,8 +27,8 @@ public class SwagConvertManager {
                               List<Converter> simpleConverterList) {
         this.swagConverterList = swagConverterList;
         this.simpleConverterList = simpleConverterList;
-        this.swagConverterMap = new ConcurrentHashMap<>();
-        this.simpleConverterMap = new ConcurrentHashMap<>();
+        this.swagConverterMap = new HashMap<>();
+        this.simpleConverterMap = new HashMap<>();
         initSwagConverterList();
     }
 
