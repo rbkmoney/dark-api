@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FmsUnitContentSwagConverter implements SwagConverter<FmsUnitContent, com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent> {
+
     @Override
     public FmsUnitContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent value, SwagConverterContext ctx) {
         FmsUnitContent fmsUnitContent = new FmsUnitContent();
@@ -18,4 +19,5 @@ public class FmsUnitContentSwagConverter implements SwagConverter<FmsUnitContent
         fmsUnitContent.setUnrestrictedValue(value.getUnrestrictdValue());
         return fmsUnitContent;
     }
+
 }

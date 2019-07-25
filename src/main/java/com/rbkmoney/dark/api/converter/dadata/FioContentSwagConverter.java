@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FioContentSwagConverter implements SwagConverter<FioContent, com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent> {
+
     @Override
     public FioContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent value, SwagConverterContext ctx) {
         FioContent fioContent = new FioContent();
@@ -23,4 +24,5 @@ public class FioContentSwagConverter implements SwagConverter<FioContent, com.rb
 
         return fioContent;
     }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OpfSwagConverter implements SwagConverter<Opf, com.rbkmoney.questionary_proxy_aggr.base_dadata.Opf> {
+
     @Override
     public Opf toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.Opf value, SwagConverterContext ctx) {
         Opf swagOpf = new Opf();
@@ -16,4 +17,5 @@ public class OpfSwagConverter implements SwagConverter<Opf, com.rbkmoney.questio
         swagOpf.setType(value.getType());
         return swagOpf;
     }
+
 }

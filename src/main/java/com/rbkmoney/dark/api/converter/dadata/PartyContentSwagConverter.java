@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class PartyContentSwagConverter implements SwagConverter<PartyContent, com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent> {
+
     @Override
     public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value, SwagConverterContext ctx) {
         PartyContent partyContent = new PartyContent();

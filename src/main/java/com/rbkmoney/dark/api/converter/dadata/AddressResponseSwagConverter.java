@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class AddressResponseSwagConverter implements SwagConverter<AddressResponse, com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse> {
+
     @Override
     public AddressResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse value, SwagConverterContext ctx) {
         AddressResponse addressResponse = new AddressResponse();
@@ -24,4 +25,5 @@ public class AddressResponseSwagConverter implements SwagConverter<AddressRespon
         }
         return addressResponse;
     }
+
 }

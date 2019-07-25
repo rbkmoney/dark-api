@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DaDataLicensesSwagConverter implements SwagConverter<DaDataLicense, License> {
+
     @Override
     public DaDataLicense toSwag(License value, SwagConverterContext ctx) {
         DaDataLicense daDataLicense = new DaDataLicense();
@@ -23,4 +24,5 @@ public class DaDataLicensesSwagConverter implements SwagConverter<DaDataLicense,
         daDataLicense.setValidTo(value.getValidTo());
         return daDataLicense;
     }
+
 }

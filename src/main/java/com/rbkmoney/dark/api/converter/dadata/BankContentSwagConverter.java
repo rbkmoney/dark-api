@@ -2,12 +2,12 @@ package com.rbkmoney.dark.api.converter.dadata;
 
 import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
-import com.rbkmoney.questionary_proxy_aggr.dadata_address.Address;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BankContentSwagConverter implements SwagConverter<BankContent, com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent> {
+
     @Override
     public BankContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent value, SwagConverterContext ctx) {
         BankContent swagBankContent = new BankContent();
@@ -42,4 +42,5 @@ public class BankContentSwagConverter implements SwagConverter<BankContent, com.
 
         return swagBankContent;
     }
+
 }

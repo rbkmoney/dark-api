@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ManagementCompanySwagConverter implements SwagConverter<ManagementCompany, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ManagementCompany> {
+
     @Override
     public ManagementCompany toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ManagementCompany value, SwagConverterContext ctx) {
         ManagementCompany managementCompany = new ManagementCompany();
@@ -17,4 +18,5 @@ public class ManagementCompanySwagConverter implements SwagConverter<ManagementC
         managementCompany.setDate(value.getDate());
         return managementCompany;
     }
+
 }

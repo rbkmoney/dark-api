@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PartyDocumentSwagConverter implements SwagConverter<PartyDocuments, com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyDocuments> {
+
     @Override
     public PartyDocuments toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyDocuments value, SwagConverterContext ctx) {
         PartyDocuments partyDocuments = new PartyDocuments();
@@ -22,4 +23,5 @@ public class PartyDocumentSwagConverter implements SwagConverter<PartyDocuments,
         }
         return partyDocuments;
     }
+
 }

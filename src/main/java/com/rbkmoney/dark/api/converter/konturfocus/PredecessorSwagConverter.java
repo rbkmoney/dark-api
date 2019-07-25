@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PredecessorSwagConverter implements SwagConverter<Predecessor, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Predecessor> {
+
     @Override
     public Predecessor toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Predecessor value, SwagConverterContext ctx) {
         Predecessor predecessor = new Predecessor();
@@ -16,4 +17,5 @@ public class PredecessorSwagConverter implements SwagConverter<Predecessor, com.
         predecessor.setOgrn(value.getOgrn());
         return predecessor;
     }
+
 }

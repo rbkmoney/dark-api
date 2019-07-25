@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DaDataStateSwagConverter implements SwagConverter<DaDataState, com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState> {
+
     @Override
     public DaDataState toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState value, SwagConverterContext ctx) {
         DaDataState swagDaDataState = new DaDataState();
@@ -19,4 +20,5 @@ public class DaDataStateSwagConverter implements SwagConverter<DaDataState, com.
         }
         return swagDaDataState;
     }
+
 }

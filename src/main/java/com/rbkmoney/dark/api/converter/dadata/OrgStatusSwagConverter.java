@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrgStatusSwagConverter implements SwagConverter<OrgStatus, com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> {
+
     @Override
     public OrgStatus toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus value, SwagConverterContext ctx) {
         if (value == com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.ACTIVE) {
@@ -20,4 +21,5 @@ public class OrgStatusSwagConverter implements SwagConverter<OrgStatus, com.rbkm
         }
         throw new IllegalArgumentException("Unknown orgStatus: " + value.name());
     }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ToponimConverterSwagConverter implements SwagConverter<Toponim, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Toponim> {
+
     @Override
     public Toponim toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Toponim value, SwagConverterContext ctx) {
         Toponim swagToponim = new Toponim();
@@ -15,4 +16,5 @@ public class ToponimConverterSwagConverter implements SwagConverter<Toponim, com
         swagToponim.setTopoShortName(value.getTopoShortName());
         return swagToponim;
     }
+
 }

@@ -1,8 +1,5 @@
 package com.rbkmoney.dark.api.converter;
 
-import com.rbkmoney.dark.api.converter.SwagConverter;
-import org.apache.thrift.TBase;
-
 import java.util.Map;
 
 public class SwagConverterContext {
@@ -21,7 +18,6 @@ public class SwagConverterContext {
 
         return (S) swagConverter.toSwag(thriftVal, this);
     }
-
 
 
 }

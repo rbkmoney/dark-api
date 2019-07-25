@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BranchTypeSwagConverter implements SwagConverter<BranchType, com.rbkmoney.questionary_proxy_aggr.base_dadata.BranchType> {
+
     @Override
     public BranchType toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.BranchType value, SwagConverterContext ctx) {
         if (value == com.rbkmoney.questionary_proxy_aggr.base_dadata.BranchType.BRANCH) {
@@ -16,4 +17,5 @@ public class BranchTypeSwagConverter implements SwagConverter<BranchType, com.rb
         }
         throw new IllegalArgumentException("Unknown branchType: " + value.name());
     }
+
 }

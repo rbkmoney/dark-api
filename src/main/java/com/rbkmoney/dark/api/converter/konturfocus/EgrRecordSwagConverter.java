@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class EgrRecordSwagConverter implements SwagConverter<EgrRecord, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord> {
+
     @Override
     public EgrRecord toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord value, SwagConverterContext ctx) {
         EgrRecord swagEgrRecord = new EgrRecord();
@@ -48,4 +49,5 @@ public class EgrRecordSwagConverter implements SwagConverter<EgrRecord, com.rbkm
 
         return swagEgrRecord;
     }
+
 }

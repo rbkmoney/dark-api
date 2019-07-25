@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BranchSwagConverter implements SwagConverter<Branch, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Branch> {
+
     @Override
     public Branch toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Branch value, SwagConverterContext ctx) {
         Branch branch = new Branch();
@@ -22,4 +23,5 @@ public class BranchSwagConverter implements SwagConverter<Branch, com.rbkmoney.q
         }
         return branch;
     }
+
 }

@@ -3,7 +3,9 @@ package com.rbkmoney.dark.api.converter.konturfocus;
 import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.Contractor;
-import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
+import com.rbkmoney.swag.questionary_aggr_proxy.model.ReqContractor;
+import com.rbkmoney.swag.questionary_aggr_proxy.model.ReqIndividualEntity;
+import com.rbkmoney.swag.questionary_aggr_proxy.model.ReqLegalEntity;
 import org.springframework.stereotype.Component;
 
 @Component

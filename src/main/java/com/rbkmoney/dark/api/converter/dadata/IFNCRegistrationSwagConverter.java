@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IFNCRegistrationSwagConverter implements SwagConverter<IFNCRegistration, Registration> {
+
     @Override
     public IFNCRegistration toSwag(Registration value, SwagConverterContext ctx) {
         IFNCRegistration ifncRegistration = new IFNCRegistration();
@@ -18,4 +19,5 @@ public class IFNCRegistrationSwagConverter implements SwagConverter<IFNCRegistra
         ifncRegistration.setSeries(value.getSeries());
         return ifncRegistration;
     }
+
 }

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class LicencesResponseSwagConverter implements SwagConverter<LicencesResponse, com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponse> {
+
     @Override
     public LicencesResponse toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponse value, SwagConverterContext ctx) {
         LicencesResponse licencesResponse = new LicencesResponse();
@@ -38,4 +39,5 @@ public class LicencesResponseSwagConverter implements SwagConverter<LicencesResp
 
         return licencesResponse;
     }
+
 }

@@ -5,16 +5,17 @@ import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataRequest;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DaDataParamToDaDataRequest {
+@Component
+public class DaDataParamToDaDataRequest implements Converter<DaDataParams, DaDataRequestHolder> {
 
-    public static DaDataRequestHolder convert(DaDataParams daDataParams) {
+    @Override
+    public DaDataRequestHolder convert(DaDataParams daDataParams) {
         DaDataRequestHolder daDataRequestHolder = new DaDataRequestHolder();
         DaDataRequest daDataRequest = new DaDataRequest();
         daDataRequestHolder.setDaDataRequest(daDataRequest);
@@ -165,9 +166,9 @@ public class DaDataParamToDaDataRequest {
 
     private static com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType convertQueryType(QueryType queryType) {
         if (queryType == QueryType.BYIDENTIFIRE) {
-             return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.BY_INDENTIFIRE;
+            return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.BY_INDENTIFIRE;
         } else if (queryType == QueryType.FULLTEXTSEARCH) {
-             return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.FULL_TEXT_SEARCH;
+            return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.FULL_TEXT_SEARCH;
         }
         throw new IllegalArgumentException("Unknown queryType: " + queryType);
     }

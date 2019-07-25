@@ -44,9 +44,9 @@
 //    public void convertTest() throws IOException {
 //        var thriftKonturFocusReqResponse = TestDataUtils.createThriftKonturFocusReqResponse();
 //
-//        KonturFocusResponse convert = swagConvertManager.convert(thriftKonturFocusReqResponse, KonturFocusResponse.class);
+//        KonturFocusResponse convertFromThrift = swagConvertManager.convertFromThrift(thriftKonturFocusReqResponse, KonturFocusResponse.class);
 //        System.out.println(thriftKonturFocusReqResponse);
-//        //swagConvertManager.convert()
+//        //swagConvertManager.convertFromThrift()
 //    }
 //
 //}

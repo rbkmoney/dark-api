@@ -7,13 +7,14 @@ import com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsQu
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesQuery;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqQuery;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusParams;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class KonturFocusParamToKonturFocusRequestConverter {
+@Component
+public class KonturFocusParamToKonturFocusRequestConverter implements Converter<KonturFocusParams, KonturFocusRequestHolder> {
 
-    public static KonturFocusRequestHolder convert(KonturFocusParams konturFocusParams) {
+    @Override
+    public KonturFocusRequestHolder convert(KonturFocusParams konturFocusParams) {
         KonturFocusRequestHolder konturFocusRequestHolder = new KonturFocusRequestHolder();
         KonturFocusRequest konturFocusRequest = null;
         if (konturFocusParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusEndPoint.REQ

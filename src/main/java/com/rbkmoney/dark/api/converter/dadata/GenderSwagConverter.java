@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GenderSwagConverter implements SwagConverter<Gender, com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender> {
+
     @Override
     public Gender toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender value, SwagConverterContext ctx) {
         if (value == com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.FEMALE) {
@@ -18,4 +19,5 @@ public class GenderSwagConverter implements SwagConverter<Gender, com.rbkmoney.q
         }
         throw new IllegalArgumentException("Unknown gender type: " + value.name());
     }
+
 }

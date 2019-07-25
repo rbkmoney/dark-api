@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ShareHolderOtherSwagConverter implements SwagConverter<ShareHolderOther, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther> {
+
     @Override
     public ShareHolderOther toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther value, SwagConverterContext ctx) {
         ShareHolderOther shareHolderOther = new ShareHolderOther();
@@ -17,4 +18,5 @@ public class ShareHolderOtherSwagConverter implements SwagConverter<ShareHolderO
         shareHolderOther.setVotingSharesPercent((int) value.getVotingSharesPercent());
         return shareHolderOther;
     }
+
 }

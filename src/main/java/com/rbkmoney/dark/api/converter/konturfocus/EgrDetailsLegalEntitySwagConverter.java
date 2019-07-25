@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDetailsLegalEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity> {
+
     @Override
     public EgrDetailsLegalEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity value, SwagConverterContext ctx) {
         EgrDetailsLegalEntity egrDetailsLegalEntity = new EgrDetailsLegalEntity();
@@ -124,4 +125,5 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
 
         return egrDetailsLegalEntity;
     }
+
 }

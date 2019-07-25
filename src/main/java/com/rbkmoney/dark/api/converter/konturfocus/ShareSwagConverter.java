@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share> {
+
     @Override
     public Share toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share value, SwagConverterContext ctx) {
         Share share = new Share();
@@ -16,4 +17,5 @@ public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.que
         share.setSum(value.getSum());
         return share;
     }
+
 }

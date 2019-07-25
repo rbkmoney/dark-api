@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity> {
+
     @Override
     public Activity toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity value, SwagConverterContext ctx) {
         Activity swagActivity = new Activity();
@@ -38,4 +39,5 @@ public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmon
 
         return swagActivity;
     }
+
 }

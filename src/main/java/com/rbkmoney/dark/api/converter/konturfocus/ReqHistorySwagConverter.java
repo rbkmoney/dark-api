@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class ReqHistorySwagConverter implements SwagConverter<ReqHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory> {
+
     @Override
     public ReqHistory toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory value, SwagConverterContext ctx) {
         ReqHistory reqHistory = new ReqHistory();
@@ -64,4 +65,5 @@ public class ReqHistorySwagConverter implements SwagConverter<ReqHistory, com.rb
 
         return reqHistory;
     }
+
 }

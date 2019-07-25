@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ForeignAddressSwagConverter implements SwagConverter<ForeignAddress, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ForeignAddress> {
+
     @Override
     public ForeignAddress toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ForeignAddress value, SwagConverterContext ctx) {
         ForeignAddress swagForeignAddress = new ForeignAddress();
@@ -14,4 +15,5 @@ public class ForeignAddressSwagConverter implements SwagConverter<ForeignAddress
         swagForeignAddress.setCountryName(value.getCountryName());
         return swagForeignAddress;
     }
+
 }

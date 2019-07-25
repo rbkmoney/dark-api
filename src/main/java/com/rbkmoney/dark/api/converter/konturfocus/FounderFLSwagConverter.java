@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FounderFLSwagConverter implements SwagConverter<FounderFl, FounderFL> {
+
     @Override
     public FounderFl toSwag(FounderFL value, SwagConverterContext ctx) {
         FounderFl founderFl = new FounderFl();
@@ -21,4 +22,5 @@ public class FounderFLSwagConverter implements SwagConverter<FounderFl, FounderF
         }
         return founderFl;
     }
+
 }

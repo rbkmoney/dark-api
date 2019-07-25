@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, Address> {
+
     @Override
     public DaDataAddress toSwag(Address value, SwagConverterContext ctx) {
         DaDataAddress daDataAddress = new DaDataAddress();
@@ -140,4 +141,5 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
 
         return daDataAddress;
     }
+
 }

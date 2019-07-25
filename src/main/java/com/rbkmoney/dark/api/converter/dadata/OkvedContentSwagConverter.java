@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OkvedContentSwagConverter implements SwagConverter<OkvedContent, com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent> {
+
     @Override
     public OkvedContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent value, SwagConverterContext ctx) {
         OkvedContent okvedContent = new OkvedContent();
@@ -17,4 +18,5 @@ public class OkvedContentSwagConverter implements SwagConverter<OkvedContent, co
         okvedContent.setValue(value.getValue());
         return okvedContent;
     }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RegInfoSwagConverter implements SwagConverter<RegInfo, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.RegInfo> {
+
     @Override
     public RegInfo toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.RegInfo value, SwagConverterContext ctx) {
         RegInfo regInfo = new RegInfo();
@@ -14,4 +15,5 @@ public class RegInfoSwagConverter implements SwagConverter<RegInfo, com.rbkmoney
         regInfo.setRegName(value.getRegName());
         return regInfo;
     }
+
 }

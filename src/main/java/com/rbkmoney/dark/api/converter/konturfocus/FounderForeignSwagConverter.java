@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FounderForeignSwagConverter implements SwagConverter<FounderForeign, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign> {
+
     @Override
     public FounderForeign toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign value, SwagConverterContext ctx) {
         FounderForeign founderForeign = new FounderForeign();
@@ -20,4 +21,5 @@ public class FounderForeignSwagConverter implements SwagConverter<FounderForeign
         }
         return founderForeign;
     }
+
 }

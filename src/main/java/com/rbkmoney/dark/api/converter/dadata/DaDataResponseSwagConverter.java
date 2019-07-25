@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse, com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse> {
+
     @Override
     public DaDataResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse value, SwagConverterContext ctx) {
         DaDataResponse daDataResponse = null;
@@ -87,4 +88,5 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
 
         return daDataResponse;
     }
+
 }

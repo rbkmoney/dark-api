@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class EgrDetailsIndividualEntitySwagConverter
         implements SwagConverter<EgrDetailsIndividualEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity> {
+
     @Override
     public EgrDetailsIndividualEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity value,
                                              SwagConverterContext ctx) {
@@ -61,4 +62,5 @@ public class EgrDetailsIndividualEntitySwagConverter
 
         return swagEgrDetailsIndividualEntity;
     }
+
 }

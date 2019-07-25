@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EgrDetailsContractorSwagConverter implements SwagConverter<EgrDetailsContractor, Contractor> {
+
     @Override
     public EgrDetailsContractor toSwag(Contractor value, SwagConverterContext ctx) {
         if (value.isSetIndividualEntity()) {
@@ -19,4 +20,5 @@ public class EgrDetailsContractorSwagConverter implements SwagConverter<EgrDetai
         }
         throw new IllegalArgumentException("Need to specify individualEntity/LegalEntity");
     }
+
 }

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class EgrDetailsHistorySwagConverter implements SwagConverter<EgrDetailsHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsHistory> {
+
     @Override
     public EgrDetailsHistory toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsHistory value, SwagConverterContext ctx) {
         EgrDetailsHistory egrDetailsHistory = new EgrDetailsHistory();
@@ -68,4 +69,5 @@ public class EgrDetailsHistorySwagConverter implements SwagConverter<EgrDetailsH
 
         return egrDetailsHistory;
     }
+
 }

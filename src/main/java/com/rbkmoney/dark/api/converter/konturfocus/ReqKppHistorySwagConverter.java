@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReqKppHistorySwagConverter implements SwagConverter<ReqKppHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqKppHistory> {
+
     @Override
     public ReqKppHistory toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqKppHistory value, SwagConverterContext ctx) {
         ReqKppHistory swagReqKppHistory = new ReqKppHistory();
@@ -14,4 +15,5 @@ public class ReqKppHistorySwagConverter implements SwagConverter<ReqKppHistory, 
         swagReqKppHistory.setKpp(value.getKpp());
         return swagReqKppHistory;
     }
+
 }

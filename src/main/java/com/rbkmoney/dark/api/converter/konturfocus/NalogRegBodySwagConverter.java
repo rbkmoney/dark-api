@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class NalogRegBodySwagConverter implements SwagConverter<NalogRegBody, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.NalogRegBody> {
+
     @Override
     public NalogRegBody toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.NalogRegBody value, SwagConverterContext ctx) {
         NalogRegBody nalogRegBody = new NalogRegBody();
@@ -17,4 +18,5 @@ public class NalogRegBodySwagConverter implements SwagConverter<NalogRegBody, co
         nalogRegBody.setNalogRegDate(value.getNalogRegDate());
         return nalogRegBody;
     }
+
 }
