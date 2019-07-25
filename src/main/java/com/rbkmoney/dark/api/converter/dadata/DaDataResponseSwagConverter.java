@@ -32,7 +32,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
         } else if (value.isSetBankResponse()) {
             var swagBankResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.BankResponse();
             BankResponse bankResponse = value.getBankResponse();
-            List<BankContent> bankContentList = swagBankResponse.getSuggestions().stream()
+            List<BankContent> bankContentList = bankResponse.getSuggestions().stream()
                     .map(bankContent -> {
                         return ctx.convert(bankContent, BankContent.class);
                     })

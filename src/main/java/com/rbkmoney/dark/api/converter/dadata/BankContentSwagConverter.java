@@ -24,6 +24,7 @@ public class BankContentSwagConverter implements SwagConverter<BankContent, com.
         swagBankContent.setSwift(value.getSwift());
         swagBankContent.setValue(value.getValue());
         swagBankContent.setUnrestrictedValue(value.getUnrestrictedValue());
+        swagBankContent.setRkc(value.getRkc());
 
         if (value.isSetPayment()) {
             Payment payment = new Payment();

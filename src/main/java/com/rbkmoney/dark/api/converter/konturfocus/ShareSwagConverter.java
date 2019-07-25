@@ -13,6 +13,7 @@ public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.que
         share.setPercentageDenominator(value.getPercentageDenominator());
         share.setPercentageNominator(value.getPercentageNominator());
         share.setPercentagePlain((int) value.getPercentagePlain());
+        share.setSum(value.getSum());
         return share;
     }
 }
