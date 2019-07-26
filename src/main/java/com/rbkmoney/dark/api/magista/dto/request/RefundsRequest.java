@@ -13,24 +13,6 @@ import java.time.OffsetDateTime;
 public class RefundsRequest {
     private Query query;
 
-    @Data
-    private class Query {
-        private EnrichedRefunds enrichedRefunds;
-    }
-
-    @Data
-    private class EnrichedRefunds {
-        private String shopID;
-        private String merchantId;
-        private Instant fromTime;
-        private Instant toTime;
-        private Integer limit;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String invoiceID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String refundID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String refundStatus;
-    }
-
     public RefundsRequest(String shopID,
                           String merchantId,
                           OffsetDateTime fromTime,
@@ -51,5 +33,27 @@ public class RefundsRequest {
         query.enrichedRefunds.paymentID = paymentID;
         query.enrichedRefunds.refundID = refundID;
         query.enrichedRefunds.refundStatus = refundStatus;
+    }
+
+    @Data
+    private class Query {
+        private EnrichedRefunds enrichedRefunds;
+    }
+
+    @Data
+    private class EnrichedRefunds {
+        private String shopID;
+        private String merchantId;
+        private Instant fromTime;
+        private Instant toTime;
+        private Integer limit;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String invoiceID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String refundID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String refundStatus;
     }
 }

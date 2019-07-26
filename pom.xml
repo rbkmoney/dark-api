@@ -58,9 +58,19 @@
             <version>1.31-eba8b2b</version>
         </dependency>
         <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>swag-questionary-aggr</artifactId>
+            <version>1.5-f311a8a-server</version>
+        </dependency>
+        <dependency>
             <groupId>com.rbkmoney.geck</groupId>
             <artifactId>serializer</artifactId>
             <version>0.6.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>questionary-proxy-aggr-proto</artifactId>
+            <version>1.6-e2ed9e2</version>
         </dependency>
 
         <!--spring-->
@@ -127,6 +137,13 @@
             <version>2.18.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.benas</groupId>
+            <artifactId>random-beans</artifactId>
+            <version>3.6.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

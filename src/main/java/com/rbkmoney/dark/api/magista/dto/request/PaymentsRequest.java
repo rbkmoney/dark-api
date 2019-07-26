@@ -13,35 +13,6 @@ import java.time.OffsetDateTime;
 public class PaymentsRequest {
     private Query query;
 
-    @Data
-    private class Query {
-        private EnrichedPayments enrichedPayments;
-    }
-
-    @Data
-    private class EnrichedPayments {
-        private String shopID;
-        private String merchantId;
-        private Instant fromTime;
-        private Instant toTime;
-        private Integer limit;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentStatus;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentFlow;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentMethod;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentTerminalProvider;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String invoiceID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerEmail;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerIP;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String payerFingerprint;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentCustomerID;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentBin;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentLastDigits;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentTokenProvider;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private String paymentSystem;
-        @JsonInclude(JsonInclude.Include.NON_NULL) private Long paymentAmount;
-    }
-
     public PaymentsRequest(String shopID,
                            String merchantId,
                            OffsetDateTime fromTime,
@@ -85,5 +56,49 @@ public class PaymentsRequest {
         query.enrichedPayments.paymentSystem = bankCardPaymentSystem;
         query.enrichedPayments.paymentAmount = paymentAmount;
 
+    }
+
+    @Data
+    private class Query {
+        private EnrichedPayments enrichedPayments;
+    }
+
+    @Data
+    private class EnrichedPayments {
+        private String shopID;
+        private String merchantId;
+        private Instant fromTime;
+        private Instant toTime;
+        private Integer limit;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentStatus;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentFlow;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentMethod;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentTerminalProvider;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String invoiceID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String payerEmail;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String payerIP;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String payerFingerprint;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentCustomerID;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentBin;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentLastDigits;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentTokenProvider;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String paymentSystem;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Long paymentAmount;
     }
 }

@@ -41,3 +41,7 @@ info:
 http.timeout:
   read: 90
   connect: 30
+
+questionary-aggr-proxy:
+  url: http://localhost:8022/v1/questionary/proxy
+  networkTimeout: 30000
