@@ -10,15 +10,14 @@ public class ShareHolderUL implements SwagConverter<ShareHolderUl, com.rbkmoney.
 
     @Override
     public ShareHolderUl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderUL value, SwagConverterContext ctx) {
-        ShareHolderUl shareHolderUl = new ShareHolderUl();
-        shareHolderUl.setAddress(value.getAddress());
-        shareHolderUl.setCapitalSharesPercent((int) value.getCapitalSharesPercent());
-        shareHolderUl.setDate(value.getDate());
-        shareHolderUl.setFullName(value.getFullName());
-        shareHolderUl.setInn(value.getInn());
-        shareHolderUl.setOgrn(value.getOgrn());
-        shareHolderUl.setVotingSharesPercent((int) value.getVotingSharesPercent());
-        return shareHolderUl;
+        return new ShareHolderUl()
+                .address(value.getAddress())
+                .capitalSharesPercent((int) value.getCapitalSharesPercent())
+                .date(value.getDate())
+                .fullName(value.getFullName())
+                .inn(value.getInn())
+                .ogrn(value.getOgrn())
+                .votingSharesPercent((int) value.getVotingSharesPercent());
     }
 
 }

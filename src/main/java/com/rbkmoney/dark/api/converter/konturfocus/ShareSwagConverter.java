@@ -10,12 +10,11 @@ public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.que
 
     @Override
     public Share toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share value, SwagConverterContext ctx) {
-        Share share = new Share();
-        share.setPercentageDenominator(value.getPercentageDenominator());
-        share.setPercentageNominator(value.getPercentageNominator());
-        share.setPercentagePlain((int) value.getPercentagePlain());
-        share.setSum(value.getSum());
-        return share;
+        return new Share()
+                .percentageDenominator(value.getPercentageDenominator())
+                .percentageNominator(value.getPercentageNominator())
+                .percentagePlain((int) value.getPercentagePlain())
+                .sum(value.getSum());
     }
 
 }

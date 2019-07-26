@@ -10,13 +10,12 @@ public class ShareHolderOtherSwagConverter implements SwagConverter<ShareHolderO
 
     @Override
     public ShareHolderOther toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther value, SwagConverterContext ctx) {
-        ShareHolderOther shareHolderOther = new ShareHolderOther();
-        shareHolderOther.setAddress(value.getAddress());
-        shareHolderOther.setCapitalSharesPercent((int) value.getCapitalSharesPercent());
-        shareHolderOther.setDate(value.getDate());
-        shareHolderOther.setFullName(value.getFullName());
-        shareHolderOther.setVotingSharesPercent((int) value.getVotingSharesPercent());
-        return shareHolderOther;
+        return new ShareHolderOther()
+                .address(value.getAddress())
+                .capitalSharesPercent((int) value.getCapitalSharesPercent())
+                .date(value.getDate())
+                .fullName(value.getFullName())
+                .votingSharesPercent((int) value.getVotingSharesPercent());
     }
 
 }

@@ -5,13 +5,9 @@ import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataRequest;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,45 +18,55 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         DaDataRequestHolder daDataRequestHolder = new DaDataRequestHolder();
         DaDataRequest daDataRequest = new DaDataRequest();
         daDataRequestHolder.setDaDataRequest(daDataRequest);
-        if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.OKVED2) {
-            daDataRequestHolder.setDaDataEndpoint(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint.okved2);
-            OkvedQuery swagOkvedQuery = ((OkvedQuery) daDataParams.getRequest());
-            var thriftOkvedQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedQuery();
-            thriftOkvedQuery.setQuery(swagOkvedQuery.getQuery());
-            thriftOkvedQuery.setQueryType(convertQueryType(swagOkvedQuery.getQueryType()));
-            daDataRequest.setOkvedQuery(thriftOkvedQuery);
-        } else if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTFIO) {
-            daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fio);
-            FioQuery swagFioQuery = (FioQuery) daDataParams.getRequest();
-            var thriftFioQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioQuery();
-            thriftFioQuery.setQuery(swagFioQuery.getQuery());
-            thriftFioQuery.setCount(swagFioQuery.getCount().byteValue());
-            thriftFioQuery.setParts(swagFioQuery.getParts());
-            if (swagFioQuery.getGender() == Gender.FEMALE) {
-                thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.FEMALE);
-            } else if (swagFioQuery.getGender() == Gender.MALE) {
-                thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.MALE);
-            } else if (swagFioQuery.getGender() == Gender.UNKNOWN) {
-                thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.UNKNOWN);
-            }
-            daDataRequest.setFioQuery(thriftFioQuery);
-        } else if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTBANK) {
-            daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_bank);
-            BankQuery swagBankQuery = (BankQuery) daDataParams.getRequest();
-            daDataRequest.setBankQuery(convertBankQuery(swagBankQuery));
-        } else if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTPARTY) {
-            daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_party);
-            PartyQuery swagPartyQuery = (PartyQuery) daDataParams.getRequest();
-            daDataRequest.setPartyQuery(convertPartyQuery(swagPartyQuery));
-        } else if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTFMSUNIT) {
-            daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fms_unit);
-            FmsUnitQuery swagFmsUnitQuery = (FmsUnitQuery) daDataParams.getRequest();
-            daDataRequest.setFmsUnitQuery(convertFmsUnitQuery(swagFmsUnitQuery));
-        } else if (daDataParams.getEndpoint() == com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTADDRESS) {
-            daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_address);
-            AddressQuery swagAddressQuery = (AddressQuery) daDataParams.getRequest();
-            daDataRequest.setAddressQuery(convertAddressQuery(swagAddressQuery));
+        switch (daDataParams.getEndpoint()) {
+            case OKVED2:
+                daDataRequestHolder.setDaDataEndpoint(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint.okved2);
+                OkvedQuery swagOkvedQuery = ((OkvedQuery) daDataParams.getRequest());
+                var thriftOkvedQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedQuery();
+                thriftOkvedQuery.setQuery(swagOkvedQuery.getQuery());
+                thriftOkvedQuery.setQueryType(convertQueryType(swagOkvedQuery.getQueryType()));
+                daDataRequest.setOkvedQuery(thriftOkvedQuery);
+                break;
+            case SUGGESTFIO:
+                daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fio);
+                FioQuery swagFioQuery = (FioQuery) daDataParams.getRequest();
+                var thriftFioQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioQuery();
+                thriftFioQuery.setQuery(swagFioQuery.getQuery());
+                thriftFioQuery.setCount(swagFioQuery.getCount().byteValue());
+                thriftFioQuery.setParts(swagFioQuery.getParts());
+                if (swagFioQuery.getGender() == Gender.FEMALE) {
+                    thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.FEMALE);
+                } else if (swagFioQuery.getGender() == Gender.MALE) {
+                    thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.MALE);
+                } else if (swagFioQuery.getGender() == Gender.UNKNOWN) {
+                    thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.UNKNOWN);
+                }
+                daDataRequest.setFioQuery(thriftFioQuery);
+                break;
+            case SUGGESTBANK:
+                daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_bank);
+                BankQuery swagBankQuery = (BankQuery) daDataParams.getRequest();
+                daDataRequest.setBankQuery(convertBankQuery(swagBankQuery));
+                break;
+            case SUGGESTPARTY:
+                daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_party);
+                PartyQuery swagPartyQuery = (PartyQuery) daDataParams.getRequest();
+                daDataRequest.setPartyQuery(convertPartyQuery(swagPartyQuery));
+                break;
+            case SUGGESTFMSUNIT:
+                daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fms_unit);
+                FmsUnitQuery swagFmsUnitQuery = (FmsUnitQuery) daDataParams.getRequest();
+                daDataRequest.setFmsUnitQuery(convertFmsUnitQuery(swagFmsUnitQuery));
+                break;
+            case SUGGESTADDRESS:
+                daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_address);
+                AddressQuery swagAddressQuery = (AddressQuery) daDataParams.getRequest();
+                daDataRequest.setAddressQuery(convertAddressQuery(swagAddressQuery));
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown endpoint: " + daDataParams.getEndpoint().name());
         }
+
         return daDataRequestHolder;
     }
 

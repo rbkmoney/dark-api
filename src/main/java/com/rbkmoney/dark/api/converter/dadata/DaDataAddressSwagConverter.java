@@ -85,96 +85,85 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
     }
 
     private AddressAreaData convertAddressAreaData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressAreaData addressAreaData) {
-        AddressAreaData swagAddressAreaData = new AddressAreaData();
-        swagAddressAreaData.setArea(addressAreaData.getArea());
-        swagAddressAreaData.setAreaFiasId(addressAreaData.getAreaFiasId());
-        swagAddressAreaData.setAreaKladrId(addressAreaData.getAreaKladrId());
-        swagAddressAreaData.setAreaType(addressAreaData.getAreaType());
-        swagAddressAreaData.setAreaTypeFull(addressAreaData.getAreaTypeFull());
-        swagAddressAreaData.setAreaWithType(addressAreaData.getAreaWithType());
-        return swagAddressAreaData;
+        return new AddressAreaData()
+                .area(addressAreaData.getArea())
+                .areaFiasId(addressAreaData.getAreaFiasId())
+                .areaKladrId(addressAreaData.getAreaKladrId())
+                .areaType(addressAreaData.getAreaType())
+                .areaTypeFull(addressAreaData.getAreaTypeFull())
+                .areaWithType(addressAreaData.getAreaWithType());
     }
 
     private AddressBlockData convertAddressBlock(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressBlockData addressBlockData) {
-        AddressBlockData swagAddressBlockData = new AddressBlockData();
-        swagAddressBlockData.setBlockTypeFull(addressBlockData.getBlockTypeFull());
-        swagAddressBlockData.setBlockType(addressBlockData.getBlockType());
-        swagAddressBlockData.setBlock(addressBlockData.getBlock());
-        return swagAddressBlockData;
+        return new AddressBlockData()
+                .block(addressBlockData.getBlock())
+                .blockTypeFull(addressBlockData.getBlockTypeFull())
+                .blockType(addressBlockData.getBlockType());
     }
 
     private AddressCityData convertAddressCityData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData addressCityData) {
-        AddressCityData swagAddressCityData = new AddressCityData();
-        swagAddressCityData.setCity(addressCityData.getCity());
-        swagAddressCityData.setCityArea(addressCityData.getCityArea());
-        swagAddressCityData.setCityFiasId(addressCityData.getCityFiasId());
-        swagAddressCityData.setCityKladrId(addressCityData.getCityKladrId());
-        swagAddressCityData.setCityType(addressCityData.getCityType());
-        swagAddressCityData.setCityTypeFull(addressCityData.getCityTypeFull());
-        swagAddressCityData.setCityWithType(addressCityData.getCityWithType());
-        return swagAddressCityData;
+        return new AddressCityData()
+                .city(addressCityData.getCity())
+                .cityArea(addressCityData.getCityArea())
+                .cityFiasId(addressCityData.getCityFiasId())
+                .cityKladrId(addressCityData.getCityKladrId())
+                .cityType(addressCityData.getCityType())
+                .cityTypeFull(addressCityData.getCityTypeFull())
+                .cityWithType(addressCityData.getCityWithType());
     }
 
     private AddressCityDistrictData convertAddressCityDistrictData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityDistrictData addressCityDistrictData) {
-        AddressCityDistrictData swagAddressCityDistrictData = new AddressCityDistrictData();
-        swagAddressCityDistrictData.setCityDistrict(addressCityDistrictData.getCityDistrict());
-        swagAddressCityDistrictData.setCityDistrictFiasId(addressCityDistrictData.getCityDistrictFiasId());
-        swagAddressCityDistrictData.setCityDistrictKladrId(addressCityDistrictData.getCityDistrictKladrId());
-        swagAddressCityDistrictData.setCityDistrictType(addressCityDistrictData.getCityDistrictType());
-        swagAddressCityDistrictData.setCityDistrictTypeFull(addressCityDistrictData.getCityDistrictTypeFull());
-        swagAddressCityDistrictData.setCityDistrictWithType(addressCityDistrictData.getCityDistrictWithType());
-        return swagAddressCityDistrictData;
+        return new AddressCityDistrictData()
+                .cityDistrict(addressCityDistrictData.getCityDistrict())
+                .cityDistrictFiasId(addressCityDistrictData.getCityDistrictFiasId())
+                .cityDistrictKladrId(addressCityDistrictData.getCityDistrictKladrId())
+                .cityDistrictType(addressCityDistrictData.getCityDistrictType())
+                .cityDistrictTypeFull(addressCityDistrictData.getCityDistrictTypeFull())
+                .cityDistrictWithType(addressCityDistrictData.getCityDistrictWithType());
     }
 
     private AddressFlatData convertAddressFlatData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressFlatData addressFlatData) {
-        AddressFlatData swagAddressFlatData = new AddressFlatData();
-        swagAddressFlatData.setFlatType(addressFlatData.getFlatType());
-        swagAddressFlatData.setFlat(addressFlatData.getFlat());
-        swagAddressFlatData.setFlatPrice(addressFlatData.getFlatPrice());
-        swagAddressFlatData.setFlatArea(addressFlatData.getFlatArea());
-        swagAddressFlatData.setFlatTypeFull(addressFlatData.getFlatTypeFull());
-        return swagAddressFlatData;
+        return new AddressFlatData()
+                .flatType(addressFlatData.getFlatType())
+                .flat(addressFlatData.getFlat())
+                .flatPrice(addressFlatData.getFlatPrice())
+                .flatArea(addressFlatData.getFlatArea())
+                .flatTypeFull(addressFlatData.getFlatTypeFull());
     }
 
     private AddressHouseData convertAddressHouseData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressHouseData addressHouseData) {
-        AddressHouseData swagAddressHouseData = new AddressHouseData();
-        swagAddressHouseData.setHouse(addressHouseData.getHouse());
-        swagAddressHouseData.setHouseFiasId(addressHouseData.getHouseFiasId());
-        swagAddressHouseData.setHouseKladrId(addressHouseData.getHouseKladrId());
-        swagAddressHouseData.setHouseType(addressHouseData.getHouseType());
-        swagAddressHouseData.setHouseTypeFull(addressHouseData.getHouseTypeFull());
-        return swagAddressHouseData;
+        return new AddressHouseData()
+                .house(addressHouseData.getHouse())
+                .houseFiasId(addressHouseData.getHouseFiasId())
+                .houseKladrId(addressHouseData.getHouseKladrId())
+                .houseType(addressHouseData.getHouseType())
+                .houseTypeFull(addressHouseData.getHouseTypeFull());
     }
 
     private AddressRegionData convertAddressRegionData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressRegionData addressRegionData) {
-        AddressRegionData swagAddressRegionData = new AddressRegionData();
-        swagAddressRegionData.setRegion(addressRegionData.getRegion());
-        swagAddressRegionData.setRegionFiasId(addressRegionData.getRegionFiasId());
-        swagAddressRegionData.setRegionKladrId(addressRegionData.getRegionKladrId());
-        swagAddressRegionData.setRegionType(addressRegionData.getRegionType());
-        swagAddressRegionData.setRegionWithType(addressRegionData.getRegionWithType());
-        return swagAddressRegionData;
+        return new AddressRegionData()
+                .region(addressRegionData.getRegion())
+                .regionFiasId(addressRegionData.getRegionFiasId())
+                .regionKladrId(addressRegionData.getRegionKladrId())
+                .regionType(addressRegionData.getRegionType())
+                .regionWithType(addressRegionData.getRegionWithType());
     }
 
     private AddressSettlementData convertAddressSettlementData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressSettlementData addressSettlementData) {
-        AddressSettlementData swagAddressSettlementData = new AddressSettlementData();
-        swagAddressSettlementData.setSettlement(addressSettlementData.getSettlement());
-        swagAddressSettlementData.setSettlementFiasId(addressSettlementData.getSettlementFiasId());
-        swagAddressSettlementData.setSettlementKladrId(addressSettlementData.getSettlementKladrId());
-        swagAddressSettlementData.setSettlementType(addressSettlementData.getSettlementType());
-        swagAddressSettlementData.setSettlementTypeFull(addressSettlementData.getSettlementTypeFull());
-        swagAddressSettlementData.settlementWithType(addressSettlementData.getSettlementWithType());
-        return swagAddressSettlementData;
+        return new AddressSettlementData()
+                .settlement(addressSettlementData.getSettlement())
+                .settlementFiasId(addressSettlementData.getSettlementFiasId())
+                .settlementKladrId(addressSettlementData.getSettlementKladrId())
+                .settlementType(addressSettlementData.getSettlementType())
+                .settlementTypeFull(addressSettlementData.getSettlementTypeFull())
+                .settlementWithType(addressSettlementData.getSettlementWithType());
     }
 
     private AddressMetro convertAddressMetro(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro addressMetro) {
-        AddressMetro swagAddressMetro = new AddressMetro();
-        swagAddressMetro.setName(addressMetro.getName());
-        swagAddressMetro.setDistance(addressMetro.getDistance());
-        swagAddressMetro.setLine(addressMetro.getLine());
-        return swagAddressMetro;
+        return new AddressMetro()
+                .name(addressMetro.getName())
+                .distance(addressMetro.getDistance())
+                .line(addressMetro.getLine());
     }
-
-
 
 }

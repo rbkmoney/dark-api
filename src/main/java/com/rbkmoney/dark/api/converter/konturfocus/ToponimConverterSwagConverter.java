@@ -10,11 +10,10 @@ public class ToponimConverterSwagConverter implements SwagConverter<Toponim, com
 
     @Override
     public Toponim toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Toponim value, SwagConverterContext ctx) {
-        Toponim swagToponim = new Toponim();
-        swagToponim.setTopoValue(value.getTopoValue());
-        swagToponim.setTopoFullName(value.getTopoFullName());
-        swagToponim.setTopoShortName(value.getTopoShortName());
-        return swagToponim;
+        return new Toponim()
+                .topoValue(value.getTopoValue())
+                .topoFullName(value.getTopoFullName())
+                .topoShortName(value.getTopoShortName());
     }
 
 }
