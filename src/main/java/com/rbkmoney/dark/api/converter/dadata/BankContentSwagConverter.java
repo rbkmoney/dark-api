@@ -10,31 +10,29 @@ public class BankContentSwagConverter implements SwagConverter<BankContent, com.
 
     @Override
     public BankContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent value, SwagConverterContext ctx) {
-        BankContent swagBankContent = new BankContent();
+        BankContent swagBankContent = new BankContent()
+                .bic(value.getBic())
+                .correspondentAccount(value.getCorrespondentAccount())
+                .okpo(value.getOkpo())
+                .phone(value.getPhone())
+                .swift(value.getSwift())
+                .value(value.getValue())
+                .unrestrictedValue(value.getUnrestrictedValue())
+                .rkc(value.getRkc())
+                .registrationNumber(value.getRegistrationNumber());
+
         if (value.isSetAddress()) {
             swagBankContent.setAddress(ctx.convert(value.getAddress(), DaDataAddress.class));
         }
-        swagBankContent.setBic(value.getBic());
-        swagBankContent.setCorrespondentAccount(value.getCorrespondentAccount());
-        swagBankContent.setOkpo(value.getOkpo());
         if (value.isSetOpf()) {
             swagBankContent.setOpf(ctx.convert(value.getOpf(), Opf.class));
         }
-        swagBankContent.setPhone(value.getPhone());
-        swagBankContent.setSwift(value.getSwift());
-        swagBankContent.setValue(value.getValue());
-        swagBankContent.setUnrestrictedValue(value.getUnrestrictedValue());
-        swagBankContent.setRkc(value.getRkc());
-
         if (value.isSetPayment()) {
             swagBankContent.setPayment(convertPayment(value.getPayment()));
         }
-
         if (value.isSetStatus()) {
             swagBankContent.setStatus(ctx.convert(value.getStatus(), DaDataState.class));
         }
-
-        swagBankContent.setRegistrationNumber(value.getRegistrationNumber());
 
         return swagBankContent;
     }

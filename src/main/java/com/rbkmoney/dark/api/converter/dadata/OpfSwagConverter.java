@@ -10,12 +10,11 @@ public class OpfSwagConverter implements SwagConverter<Opf, com.rbkmoney.questio
 
     @Override
     public Opf toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.Opf value, SwagConverterContext ctx) {
-        Opf swagOpf = new Opf();
-        swagOpf.setCode(value.getCode());
-        swagOpf.setFullName(value.getFullName());
-        swagOpf.setShortName(value.getShortName());
-        swagOpf.setType(value.getType());
-        return swagOpf;
+        return new Opf()
+                .code(value.getCode())
+                .fullName(value.getFullName())
+                .shortName(value.getShortName())
+                .type(value.getType());
     }
 
 }

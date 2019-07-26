@@ -14,7 +14,6 @@ public class KonturFocusResponseSwagConverter
 
     @Override
     public KonturFocusResponse toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse value, SwagConverterContext ctx) {
-        KonturFocusResponse konturFocusResponse = null;
         if (value.isSetReqResponses()) {
             List<ReqResponse> swagReqResponseList = value.getReqResponses().getReqResponses().stream()
                     .map(thriftReqResponse -> {
@@ -42,7 +41,8 @@ public class KonturFocusResponseSwagConverter
                     .collect(Collectors.toList());
             ReqResponses reqResponses = new ReqResponses();
             reqResponses.setResponses(swagReqResponseList);
-            konturFocusResponse = reqResponses;
+
+            return reqResponses;
         }
 
         if (value.isSetEgrDetailsResponses()) {
@@ -53,7 +53,8 @@ public class KonturFocusResponseSwagConverter
                     .collect(Collectors.toList());
             EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
             egrDetailsResponses.setResponses(swagEgrDetailsResponseList);
-            konturFocusResponse = egrDetailsResponses;
+
+            return egrDetailsResponses;
         }
 
         if (value.isSetLicencesResponses()) {
@@ -62,14 +63,11 @@ public class KonturFocusResponseSwagConverter
                     .collect(Collectors.toList());
             LicencesResponses licencesResponses = new LicencesResponses();
             licencesResponses.setResponses(swagLicencesResponseList);
-            konturFocusResponse = licencesResponses;
+
+            return licencesResponses;
         }
 
-        if (konturFocusResponse == null) {
-            throw new IllegalArgumentException("Need to specify response value");
-        }
-
-        return konturFocusResponse;
+        throw new IllegalArgumentException("Need to specify response value");
     }
 
     private EgrDetailsResponse convertEgrDetailsResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse,

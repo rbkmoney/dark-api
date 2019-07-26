@@ -11,16 +11,16 @@ public class FioContentSwagConverter implements SwagConverter<FioContent, com.rb
 
     @Override
     public FioContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent value, SwagConverterContext ctx) {
-        FioContent fioContent = new FioContent();
+        FioContent fioContent = new FioContent()
+                .name(value.getName())
+                .unrestrictedValue(value.getUnrestrictedValue())
+                .value(value.getValue())
+                .qc((int) value.getQc())
+                .patronymic(value.getPatronymic())
+                .surname(value.getSurname());
         if (value.isSetGender()) {
             fioContent.setGender(ctx.convert(value.getGender(), Gender.class));
         }
-        fioContent.setName(value.getName());
-        fioContent.setUnrestrictedValue(value.getUnrestrictedValue());
-        fioContent.setValue(value.getValue());
-        fioContent.setQc((int) value.getQc());
-        fioContent.setPatronymic(value.getPatronymic());
-        fioContent.setSurname(value.getSurname());
 
         return fioContent;
     }

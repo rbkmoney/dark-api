@@ -11,10 +11,10 @@ public class DaDataStateSwagConverter implements SwagConverter<DaDataState, com.
 
     @Override
     public DaDataState toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState value, SwagConverterContext ctx) {
-        DaDataState swagDaDataState = new DaDataState();
-        swagDaDataState.setActualityDate(value.getActualityDate());
-        swagDaDataState.setLiquidationDate(value.getLiquidationDate());
-        swagDaDataState.setRegistratonDate(value.getRegistrationDate());
+        DaDataState swagDaDataState = new DaDataState()
+                .actualityDate(value.getActualityDate())
+                .liquidationDate(value.getLiquidationDate())
+                .registratonDate(value.getRegistrationDate());
         if (value.isSetStatus()) {
             swagDaDataState.setStatus(ctx.convert(value.getStatus(), OrgStatus.class));
         }

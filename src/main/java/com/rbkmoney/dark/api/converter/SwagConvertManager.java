@@ -54,10 +54,10 @@ public class SwagConvertManager {
         return (S) swagConverter.toSwag(thriftVal, swagConverterContext);
     }
 
-    public <T, S> T convertToThrift(S swagVal, Class<T> resultType) {
-        ThriftConverter thriftConverter = thriftConverterMap.get(resultType);
+    public <T, S> T convertToThrift(S swagVal, Class<T> thriftType) {
+        ThriftConverter thriftConverter = thriftConverterMap.get(thriftType);
         if (thriftConverter == null) {
-            throw new IllegalArgumentException("Unregistered converter type: " + resultType.getSimpleName());
+            throw new IllegalArgumentException("Unregistered converter type: " + thriftType.getSimpleName());
         }
 
         ThriftConverterContext thriftConverterContext = new ThriftConverterContext(Collections.unmodifiableMap(thriftConverterMap));

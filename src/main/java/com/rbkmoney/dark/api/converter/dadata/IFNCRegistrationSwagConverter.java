@@ -11,13 +11,12 @@ public class IFNCRegistrationSwagConverter implements SwagConverter<IFNCRegistra
 
     @Override
     public IFNCRegistration toSwag(Registration value, SwagConverterContext ctx) {
-        IFNCRegistration ifncRegistration = new IFNCRegistration();
-        ifncRegistration.setType(value.getType());
-        ifncRegistration.setIssueAuthority(value.getIssueAuthority());
-        ifncRegistration.setIssueDate(value.getIssueDate());
-        ifncRegistration.setNumber(value.getNumber());
-        ifncRegistration.setSeries(value.getSeries());
-        return ifncRegistration;
+        return new IFNCRegistration()
+                .type(value.getType())
+                .issueAuthority(value.getIssueAuthority())
+                .issueDate(value.getIssueDate())
+                .number(value.getNumber())
+                .series(value.getSeries());
     }
 
 }

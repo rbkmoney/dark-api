@@ -10,13 +10,12 @@ public class OkvedContentSwagConverter implements SwagConverter<OkvedContent, co
 
     @Override
     public OkvedContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent value, SwagConverterContext ctx) {
-        OkvedContent okvedContent = new OkvedContent();
-        okvedContent.setCode(value.getCode());
-        okvedContent.setIdx(value.getIdx());
-        okvedContent.setName(value.getName());
-        okvedContent.setSection(value.getSection());
-        okvedContent.setValue(value.getValue());
-        return okvedContent;
+        return new OkvedContent()
+                .code(value.getCode())
+                .idx(value.getIdx())
+                .name(value.getName())
+                .section(value.getSection())
+                .value(value.getValue());
     }
 
 }

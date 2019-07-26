@@ -14,34 +14,32 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
 
     @Override
     public DaDataAddress toSwag(Address value, SwagConverterContext ctx) {
-        DaDataAddress daDataAddress = new DaDataAddress();
-        daDataAddress.setBeltwayDistance(value.getBeltwayDistance());
-        daDataAddress.setBeltwayHit(value.getBeltwayHit());
-        daDataAddress.setCapitalMarker((int) value.getCapitalMarker());
-        daDataAddress.setContry(value.getCountry());
-        daDataAddress.setFederalDistrict(value.getFederalDistrict());
-        daDataAddress.setFiasActualityState((int) value.getFiasActualityState());
-        daDataAddress.setFiasId(value.getFiasId());
-        daDataAddress.setFiasCode(value.getFiasCode());
-        daDataAddress.setFiasLevel((int) value.getFiasLevel());
-        daDataAddress.setQcGeo((int) value.getQcGeo());
-        daDataAddress.setGeoLat(value.getGeoLat());
-        daDataAddress.setGeoLon(value.getGeoLon());
-        daDataAddress.setGeonameId(value.getGeonameId());
-        daDataAddress.setKladrId(value.getKladrId());
-        daDataAddress.setOkato(value.getOkato());
-        daDataAddress.setOktmo(value.getOktmo());
-        daDataAddress.setTaxOffice(value.getTaxOffice());
-        daDataAddress.setTaxOfficeLegal(value.getTaxOfficeLegal());
-        daDataAddress.setPostalBox(value.getPostalBox());
-        daDataAddress.setPostalCode(value.getPostalCode());
-        daDataAddress.setSource(value.getSource());
-        daDataAddress.setTimezone(value.getTimezone());
-        daDataAddress.setValue(value.getValue());
-        daDataAddress.setUnrestrictedValue(value.getUnrestrictedValue());
-        daDataAddress.setHistoryValues(value.getHistoryValues());
-        daDataAddress.setSquareMeterPrice(value.getSquareMeterPrice());
-        daDataAddress.setHistoryValues(value.getHistoryValues());
+        DaDataAddress daDataAddress = new DaDataAddress()
+                .beltwayDistance(value.getBeltwayDistance())
+                .beltwayHit(value.getBeltwayHit())
+                .capitalMarker((int) value.getCapitalMarker())
+                .contry(value.getCountry())
+                .federalDistrict(value.getFederalDistrict())
+                .fiasActualityState((int) value.getFiasActualityState())
+                .fiasId(value.getFiasId())
+                .fiasCode(value.getFiasCode())
+                .qcGeo((int) value.getQcGeo())
+                .geoLat(value.getGeoLat())
+                .geoLon(value.getGeoLon())
+                .geonameId(value.getGeonameId())
+                .kladrId(value.getKladrId())
+                .okato(value.getOkato())
+                .oktmo(value.getOktmo())
+                .taxOffice(value.getTaxOffice())
+                .taxOfficeLegal(value.getTaxOfficeLegal())
+                .postalBox(value.getPostalBox())
+                .postalCode(value.getPostalCode())
+                .source(value.getSource())
+                .timezone(value.getTimezone())
+                .value(value.getValue())
+                .unrestrictedValue(value.getUnrestrictedValue())
+                .historyValues(value.getHistoryValues())
+                .squareMeterPrice(value.getSquareMeterPrice());
 
         if (value.isSetArea()) {
             daDataAddress.setArea(convertAddressAreaData(value.getArea()));
@@ -52,7 +50,7 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
         }
 
         if (value.isSetCity()) {
-            daDataAddress.setCity(convertAddressCiyData(value.getCity()));
+            daDataAddress.setCity(convertAddressCityData(value.getCity()));
         }
 
         if (value.isSetFlatData()) {
@@ -104,7 +102,7 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
         return swagAddressBlockData;
     }
 
-    private AddressCityData convertAddressCiyData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData addressCityData) {
+    private AddressCityData convertAddressCityData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData addressCityData) {
         AddressCityData swagAddressCityData = new AddressCityData();
         swagAddressCityData.setCity(addressCityData.getCity());
         swagAddressCityData.setCityArea(addressCityData.getCityArea());

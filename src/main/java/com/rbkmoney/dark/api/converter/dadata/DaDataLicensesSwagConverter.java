@@ -11,18 +11,17 @@ public class DaDataLicensesSwagConverter implements SwagConverter<DaDataLicense,
 
     @Override
     public DaDataLicense toSwag(License value, SwagConverterContext ctx) {
-        DaDataLicense daDataLicense = new DaDataLicense();
-        daDataLicense.setActivities(value.getActivities());
-        daDataLicense.setAddresses(value.getAddresses());
-        daDataLicense.setIssueAuthority(value.getIssueAuthority());
-        daDataLicense.setIssueDate(value.getIssueDate());
-        daDataLicense.setNumber(value.getNumber());
-        daDataLicense.setSeries(value.getSeries());
-        daDataLicense.setSuspendAuthority(value.getSuspendAuthority());
-        daDataLicense.setSuspendDate(value.getSuspendDate());
-        daDataLicense.setValidFrom(value.getValidFrom());
-        daDataLicense.setValidTo(value.getValidTo());
-        return daDataLicense;
+        return new DaDataLicense()
+                .activities(value.getActivities())
+                .addresses(value.getAddresses())
+                .issueAuthority(value.getIssueAuthority())
+                .issueDate(value.getIssueDate())
+                .number(value.getNumber())
+                .series(value.getSeries())
+                .suspendAuthority(value.getSuspendAuthority())
+                .suspendDate(value.getSuspendDate())
+                .validFrom(value.getValidFrom())
+                .validTo(value.getValidTo());
     }
 
 }

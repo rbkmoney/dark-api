@@ -13,71 +13,60 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
 
     @Override
     public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value, SwagConverterContext ctx) {
-        PartyContent partyContent = new PartyContent();
+        PartyContent partyContent = new PartyContent()
+                .documents(ctx.convert(value.getDocuments(), PartyDocuments.class))
+                .inn(value.getInn())
+                .kpp(value.getKpp())
+                .ogrn(value.getOgrn())
+                .ogrnDate(value.getOgrnDate())
+                .okpo(value.getOkpo())
+                .value(value.getValue())
+                .unrestrictedValue(value.getUnrestrictedValue())
+                .opf(ctx.convert(value.getOpf(), Opf.class))
+                .branchCount(value.getBranchCount())
+                .branchType(ctx.convert(value.getBranchType(), BranchType.class))
+                .okved(value.getOkved())
+                .authorities(convertPartyAuthorities(value.getAuthorities()))
+                .hid(new DaDataHID().hid(value.getHid()))
+                .okvedType(value.getOkvedType());
+
         if (value.isSetAddress()) {
             DaDataAddress convert = ctx.convert(value.getAddress(), DaDataAddress.class);
             partyContent.setAddress(ctx.convert(value.getAddress(), DaDataAddress.class));
         }
-        partyContent.setDocuments(ctx.convert(value.getDocuments(), PartyDocuments.class));
-        partyContent.setInn(value.getInn());
-        partyContent.setKpp(value.getKpp());
         if (value.isSetLicenses()) {
             List<DaDataLicense> daDataLicenseList = value.getLicenses().stream()
                     .map(license -> ctx.convert(license, DaDataLicense.class))
                     .collect(Collectors.toList());
             partyContent.setLicenses(daDataLicenseList);
         }
-
         if (value.isSetName()) {
             partyContent.setName(convertOrgName(value.getName()));
         }
-
-        partyContent.setOgrn(value.getOgrn());
-        partyContent.setOgrnDate(value.getOgrnDate());
-        partyContent.setOkpo(value.getOkpo());
-        partyContent.setValue(value.getValue());
-        partyContent.setUnrestrictedValue(value.getUnrestrictedValue());
-        partyContent.setOpf(ctx.convert(value.getOpf(), Opf.class));
-        partyContent.setBranchCount(value.getBranchCount());
-        partyContent.setBranchType(ctx.convert(value.getBranchType(), BranchType.class));
-        partyContent.setOkved(value.getOkved());
-
         if (value.isSetCapital()) {
             partyContent.setCapital(convertPartyCapital(value.getCapital()));
         }
-
-        partyContent.setAuthorities(convertPartyAuthorities(value.getAuthorities()));
-
         if (value.isSetCitizenship()) {
             partyContent.setCitizenship(convertCitizenshipIP(value.getCitizenship()));
         }
-
-        DaDataHID daDataHID = new DaDataHID();
-        daDataHID.setHid(value.getHid());
-        partyContent.setHid(daDataHID);
-
         if (value.isSetManagement()) {
             partyContent.setManagement(convertManagement(value.getManagement()));
         }
-
         if (value.isSetFounders()) {
             List<Founder> founderList = value.getFounders().stream()
                     .map(founder -> ctx.convert(founder, Founder.class))
                     .collect(Collectors.toList());
             partyContent.setFounders(founderList);
         }
-
         if (value.isSetOkveds()) {
             List<PartyOkved> partyOkvedList = value.getOkveds().stream()
                     .map(this::convertPartyOkved)
                     .collect(Collectors.toList());
             partyContent.setOkveds(partyOkvedList);
         }
-
         if (value.isSetManagement()) {
             partyContent.setManagement(convertManagement(value.getManagement()));
         }
-
         if (value.isSetManagers()) {
             List<Manager> managerList = value.getManagers().stream()
                     .map(this::convertManager)
@@ -85,14 +74,11 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
 
             partyContent.setManagers(managerList);
         }
-
-        partyContent.setOkvedType(value.getOkvedType());
         if (value.getType() == com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.LEGAL) {
             partyContent.setOrgType(OrgType.LEGAL);
         } else if (value.getType() == com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.INDIVIDUAL) {
             partyContent.setOrgType(OrgType.INDIVIDUAL);
         }
-
         if (value.isSetState()) {
             partyContent.setState(ctx.convert(value.getState(), DaDataState.class));
         }
@@ -101,12 +87,11 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
     }
 
     private CitizenshipIP convertCitizenshipIP(com.rbkmoney.questionary_proxy_aggr.base_dadata.CitizenshipIP citizenshipIP) {
-        CitizenshipIP swagCitizenshipIP = new CitizenshipIP();
-        swagCitizenshipIP.setAplha3(citizenshipIP.getAlpha3());
-        swagCitizenshipIP.setCountryFullName(citizenshipIP.getCountryFullName());
-        swagCitizenshipIP.setCountryShortName(citizenshipIP.getCountryShortName());
-        swagCitizenshipIP.setNumeric(citizenshipIP.getNumeric());
-        return swagCitizenshipIP;
+        return new CitizenshipIP()
+                .aplha3(citizenshipIP.getAlpha3())
+                .countryFullName(citizenshipIP.getCountryFullName())
+                .countryShortName(citizenshipIP.getCountryShortName())
+                .numeric(citizenshipIP.getNumeric());
     }
 
     private PartyAuthorities convertPartyAuthorities(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyAuthorities partyAuthorities) {
@@ -127,58 +112,50 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
     }
 
     private PartyCapital convertPartyCapital(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyCapital partyCapital) {
-        PartyCapital swagPartyCapital = new PartyCapital();
-        swagPartyCapital.setType(partyCapital.getType());
-        swagPartyCapital.setValue(partyCapital.getValue());
-        return swagPartyCapital;
+        return new PartyCapital()
+                .type(partyCapital.getType())
+                .value(partyCapital.getValue());
     }
 
     private OrgName convertOrgName(com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgName orgName) {
-        OrgName swagOrgName = new OrgName();
-        swagOrgName.setFullName(orgName.getFullName());
-        swagOrgName.setShortName(orgName.getShortName());
-        swagOrgName.setFullWithOpf(orgName.getFullWithOpf());
-        swagOrgName.setShortWithOpf(orgName.getShortWithOpf());
-        swagOrgName.setLatin(orgName.getLatin());
-        return swagOrgName;
+        return new OrgName()
+                .fullName(orgName.getFullName())
+                .shortName(orgName.getShortName())
+                .fullWithOpf(orgName.getFullWithOpf())
+                .shortWithOpf(orgName.getShortWithOpf())
+                .latin(orgName.getLatin());
     }
 
     private Authorities convertAuthorities(com.rbkmoney.questionary_proxy_aggr.base_dadata.Authorities authorities) {
-        Authorities swagAuthorities = new Authorities();
-        swagAuthorities.setAddress(authorities.getAddress());
-        swagAuthorities.setCode(authorities.getCode());
-        swagAuthorities.setName(authorities.getName());
-        swagAuthorities.setType(authorities.getType());
-        return swagAuthorities;
+        return new Authorities()
+                .address(authorities.getAddress())
+                .code(authorities.getCode())
+                .name(authorities.getName())
+                .type(authorities.getType());
     }
 
     private PartyOkved convertPartyOkved(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyOkved partyOkved) {
-        PartyOkved swagPartyOkved = new PartyOkved();
-        swagPartyOkved.setCode(partyOkved.getCode());
-        swagPartyOkved.setName(partyOkved.getName());
-        swagPartyOkved.setType(partyOkved.getType());
-        swagPartyOkved.setMain(partyOkved.isMain());
-        return swagPartyOkved;
+        return new PartyOkved()
+                .code(partyOkved.getCode())
+                .name(partyOkved.getName())
+                .type(partyOkved.getType())
+                .main(partyOkved.isMain());
     }
 
     private Management convertManagement(com.rbkmoney.questionary_proxy_aggr.base_dadata.Management management) {
-        Management swagManagement = new Management();
-        swagManagement.setPost(management.getPost());
-        swagManagement.setName(management.getName());
-        return swagManagement;
+        return new Management()
+                .post(management.getPost())
+                .name(management.getName());
     }
 
     private Manager convertManager(com.rbkmoney.questionary_proxy_aggr.base_dadata.Manager manager) {
-        Manager swagManager = new Manager();
-        swagManager.setFio(manager.getFio());
-        DaDataHID daDataHID = new DaDataHID();
-        daDataHID.setHid(manager.getHid());
-        swagManager.setHid(daDataHID);
-        swagManager.setInn(manager.getInn());
-        swagManager.setName(manager.getName());
-        swagManager.setOgrn(manager.getOgrn());
-        swagManager.setPost(manager.getPost());
-
+        Manager swagManager = new Manager()
+                .fio(manager.getFio())
+                .hid(new DaDataHID().hid(manager.getHid()))
+                .inn(manager.getInn())
+                .name(manager.getName())
+                .ogrn(manager.getOgrn())
+                .post(manager.getPost());
         if (manager.getType() == com.rbkmoney.questionary_proxy_aggr.base_dadata.ManagerType.LEGAL) {
             swagManager.setType(ManagerType.LEGAL);
         } else if (manager.getType() == com.rbkmoney.questionary_proxy_aggr.base_dadata.ManagerType.EMPLOYEE) {

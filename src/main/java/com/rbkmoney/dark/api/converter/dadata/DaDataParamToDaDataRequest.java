@@ -118,7 +118,6 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         thriftBankQuery.setCount(swagBankQuery.getCount().byteValue());
         List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagBankQuery.getStatus().stream()
                 .map(this::convertOrgStatus)
-                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         thriftBankQuery.setStatus(thriftOrgStatusList);
         thriftBankQuery.setType(convertOrgType(swagBankQuery.getType()));
@@ -131,7 +130,6 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         thriftPartyQuery.setCount(swagPartyQuery.getCount().byteValue());
         List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagPartyQuery.getStatus().stream()
                 .map(this::convertOrgStatus)
-                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         thriftPartyQuery.setStatus(thriftOrgStatusList);
         thriftPartyQuery.setType(convertOrgType(swagPartyQuery.getType()));
@@ -181,18 +179,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         thriftAddressQuery.setCount(swagAddressQuery.getCount().byteValue());
         if (swagAddressQuery.getLocations() != null && !swagAddressQuery.getLocations().isEmpty()) {
             List<com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter> thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
-                    .map(addressLocationFilter -> {
-                        var thriftAddressLocationFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter();
-                        thriftAddressLocationFilter.setCityFiasId(addressLocationFilter.getCityFiasId());
-                        thriftAddressLocationFilter.setCity(addressLocationFilter.getCity());
-                        thriftAddressLocationFilter.setKladrId(addressLocationFilter.getKladrId());
-                        thriftAddressLocationFilter.setAreaFiasId(addressLocationFilter.getAreaFiasId());
-                        thriftAddressLocationFilter.setRegion(addressLocationFilter.getRegion());
-                        thriftAddressLocationFilter.setRegionFiasId(addressLocationFilter.getRegionFiasId());
-                        thriftAddressLocationFilter.setSettlementFiasId(addressLocationFilter.getSettlementFiasId());
-                        thriftAddressLocationFilter.setStreetFiasId(addressLocationFilter.getStreetFiasId());
-                        return thriftAddressLocationFilter;
-                    })
+                    .map(this::convertAddressLocationFilter)
                     .collect(Collectors.toList());
             thriftAddressQuery.setLocations(thriftAddressLocationFilters);
         }
@@ -207,6 +194,19 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
             thriftAddressQuery.setLocationsBoost(thriftLocationBoostFilters);
         }
         return thriftAddressQuery;
+    }
+
+    private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter convertAddressLocationFilter(AddressLocationFilter addressLocationFilter) {
+        var thriftAddressLocationFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter();
+        thriftAddressLocationFilter.setCityFiasId(addressLocationFilter.getCityFiasId());
+        thriftAddressLocationFilter.setCity(addressLocationFilter.getCity());
+        thriftAddressLocationFilter.setKladrId(addressLocationFilter.getKladrId());
+        thriftAddressLocationFilter.setAreaFiasId(addressLocationFilter.getAreaFiasId());
+        thriftAddressLocationFilter.setRegion(addressLocationFilter.getRegion());
+        thriftAddressLocationFilter.setRegionFiasId(addressLocationFilter.getRegionFiasId());
+        thriftAddressLocationFilter.setSettlementFiasId(addressLocationFilter.getSettlementFiasId());
+        thriftAddressLocationFilter.setStreetFiasId(addressLocationFilter.getStreetFiasId());
+        return thriftAddressLocationFilter;
     }
 
 }
