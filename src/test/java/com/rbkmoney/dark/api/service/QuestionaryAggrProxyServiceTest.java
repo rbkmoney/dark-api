@@ -81,8 +81,9 @@ public class QuestionaryAggrProxyServiceTest {
 
         LicencesResponses licencesResponses = (LicencesResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
-        Assert.assertEquals(thriftKonturFocusLicensesResponse.getLicencesResponses().getLicenseResponses().size(), licencesResponses.getResponses().size());
-        for (int i = 0; i < thriftKonturFocusLicensesResponse.getLicencesResponses().getLicenseResponses().size(); i++) {
+        int thriftLicensesSize = thriftKonturFocusLicensesResponse.getLicencesResponses().getLicenseResponses().size();
+        Assert.assertEquals(thriftLicensesSize, licencesResponses.getResponses().size());
+        for (int i = 0; i < thriftLicensesSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponse licencesResponse = thriftKonturFocusLicensesResponse.getLicencesResponses().getLicenseResponses().get(i);
             LicencesResponse swagLicencesResponse = licencesResponses.getResponses().get(i);
             licencesCompare(licencesResponse, swagLicencesResponse);
@@ -101,8 +102,9 @@ public class QuestionaryAggrProxyServiceTest {
 
         EgrDetailsResponses egrDetailsResponses = (EgrDetailsResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
-        Assert.assertEquals(thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().size(), egrDetailsResponses.getResponses().size());
-        for (int i = 0; i < thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().size(); i++) {
+        int thriftEgrDetailsSize = thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().size();
+        Assert.assertEquals(thriftEgrDetailsSize, egrDetailsResponses.getResponses().size());
+        for (int i = 0; i < thriftEgrDetailsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse = thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().get(i);
             EgrDetailsResponse swagEgrDetailsResponse = egrDetailsResponses.getResponses().get(i);
             egrDetailsCompare(egrDetailsResponse, swagEgrDetailsResponse);
@@ -120,9 +122,10 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(com.rbkmoney.swag.questionary_aggr_proxy.model.AddressQuery.class));
 
         AddressResponse addressResponse = (AddressResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDataAddressResponse.getAddressResponse().getSuggestions().size(), addressResponse.getSuggestions().size());
 
-        for (int i = 0; i < thriftDaDataAddressResponse.getAddressResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDataAddressResponse.getAddressResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, addressResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             Address address = thriftDaDataAddressResponse.getAddressResponse().getSuggestions().get(i);
             DaDataAddress daDataAddress = addressResponse.getSuggestions().get(i);
             addressCompare(address, daDataAddress);
@@ -140,9 +143,9 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(PartyQuery.class));
 
         PartyResponse partyResponse = (PartyResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDataPartyResponse.getPartyResponse().getSuggestions().size(), partyResponse.getSuggestions().size());
-
-        for (int i = 0; i < thriftDaDataPartyResponse.getPartyResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDataPartyResponse.getPartyResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, partyResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent partyContent = thriftDaDataPartyResponse.getPartyResponse().getSuggestions().get(i);
             PartyContent swagPartyContent = partyResponse.getSuggestions().get(i);
             partyCompare(partyContent, swagPartyContent);
@@ -160,9 +163,10 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(OkvedQuery.class));
 
         OkvedResponse okvedResponse = (OkvedResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDataOkvedResponse.getOkvedResponse().getSuggestions().size(), okvedResponse.getSuggestions().size());
 
-        for (int i = 0; i < thriftDaDataOkvedResponse.getOkvedResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDataOkvedResponse.getOkvedResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, okvedResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent okvedContent = thriftDaDataOkvedResponse.getOkvedResponse().getSuggestions().get(i);
             OkvedContent swagOkvedContent = okvedResponse.getSuggestions().get(i);
             okvedCompare(okvedContent, swagOkvedContent);
@@ -180,9 +184,10 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(BankQuery.class));
 
         BankResponse bankResponse = (BankResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDataBankResponse.getBankResponse().getSuggestions().size(), bankResponse.getSuggestions().size());
 
-        for (int i = 0; i < thriftDaDataBankResponse.getBankResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDataBankResponse.getBankResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, bankResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent bankContent = thriftDaDataBankResponse.getBankResponse().getSuggestions().get(i);
             BankContent swagBankContent = bankResponse.getSuggestions().get(i);
             bankCompare(bankContent, swagBankContent);
@@ -200,9 +205,10 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(FioQuery.class));
 
         FioResponse fioResponse = (FioResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDataFioResponse.getFioResponse().getSuggestions().size(), fioResponse.getSuggestions().size());
 
-        for (int i = 0; i < thriftDaDataFioResponse.getFioResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDataFioResponse.getFioResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, fioResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent fioContent = thriftDaDataFioResponse.getFioResponse().getSuggestions().get(i);
             FioContent swagFioContent = fioResponse.getSuggestions().get(i);
             fioCompare(fioContent, swagFioContent);
@@ -220,9 +226,10 @@ public class QuestionaryAggrProxyServiceTest {
         daDataParams.setRequest(EnhancedRandom.random(FmsUnitQuery.class));
 
         FmsUnitResponse fmsUnitResponse = (FmsUnitResponse) questionaryAggrProxyService.requestDaData(daDataParams);
-        Assert.assertEquals(thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().size(), fmsUnitResponse.getSuggestions().size());
 
-        for (int i = 0; i < thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().size(); i++) {
+        int thriftSuggestionsSize = thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().size();
+        Assert.assertEquals(thriftSuggestionsSize, fmsUnitResponse.getSuggestions().size());
+        for (int i = 0; i < thriftSuggestionsSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent fmsUnitContent = thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().get(i);
             FmsUnitContent swagFmsUnitContent = fmsUnitResponse.getSuggestions().get(i);
             fmsUnitCompare(fmsUnitContent, swagFmsUnitContent);

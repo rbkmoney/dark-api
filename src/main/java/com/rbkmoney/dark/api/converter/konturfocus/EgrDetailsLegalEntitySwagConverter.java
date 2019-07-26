@@ -62,45 +62,15 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         }
 
         if (value.isSetShareHolders()) {
-            ShareHolders shareHolders = new ShareHolders();
-            shareHolders.setDate(value.getShareHolders().getDate());
-            if (value.getShareHolders().isSetShareHoldersFl()) {
-                List<ShareHolderFl> shareHolderFlList = value.getShareHolders().getShareHoldersFl().stream()
-                        .map(shareHolderFl -> ctx.convert(shareHolderFl, ShareHolderFl.class))
-                        .collect(Collectors.toList());
-                shareHolders.setShareHoldersFl(shareHolderFlList);
-            }
-            if (value.getShareHolders().isSetShareHoldersUl()) {
-                List<ShareHolderUl> shareHolderUlList = value.getShareHolders().getShareHoldersUl().stream()
-                        .map(shareHolderUL -> ctx.convert(shareHolderUL, ShareHolderUl.class))
-                        .collect(Collectors.toList());
-                shareHolders.setShareHoldersUl(shareHolderUlList);
-            }
-            if (value.getShareHolders().isSetShareHoldersFl()) {
-                List<ShareHolderOther> shareHolderOtherList = value.getShareHolders().getShareHoldersOther().stream()
-                        .map(shareHolderOther -> ctx.convert(shareHolderOther, ShareHolderOther.class))
-                        .collect(Collectors.toList());
-                shareHolders.setShareHoldersOther(shareHolderOtherList);
-            }
-            egrDetailsLegalEntity.setShareHolders(shareHolders);
+            egrDetailsLegalEntity.setShareHolders(convertShareHolders(value.getShareHolders(), ctx));
         }
 
         if (value.isSetStatedCapital()) {
-            StatedCapital statedCapital = new StatedCapital();
-            statedCapital.setDate(value.getStatedCapital().getDate());
-            statedCapital.setSum(value.getStatedCapital().getSum());
-            egrDetailsLegalEntity.setStatedCapital(statedCapital);
+            egrDetailsLegalEntity.setStatedCapital(convertStatedCapital(value.getStatedCapital()));
         }
         if (value.isSetSuccessors()) {
             List<Successor> successorList = value.getSuccessors().stream()
-                    .map(successor -> {
-                        Successor swagSuccessor = new Successor();
-                        swagSuccessor.setDate(successor.getDate());
-                        swagSuccessor.setInn(successor.getInn());
-                        swagSuccessor.setName(successor.getName());
-                        swagSuccessor.setOgrn(successor.getOgrn());
-                        return swagSuccessor;
-                    })
+                    .map(this::convertSuccessor)
                     .collect(Collectors.toList());
             egrDetailsLegalEntity.setSuccessor(successorList);
         }
@@ -108,6 +78,47 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         egrDetailsLegalEntity.setHistory(ctx.convert(value.getHistory(), EgrDetailsHistory.class));
 
         return egrDetailsLegalEntity;
+    }
+
+    private ShareHolders convertShareHolders(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders shareHolders,
+                                             SwagConverterContext ctx) {
+        ShareHolders swagShareHolders = new ShareHolders();
+        swagShareHolders.setDate(shareHolders.getDate());
+        if (shareHolders.isSetShareHoldersFl()) {
+            List<ShareHolderFl> shareHolderFlList = shareHolders.getShareHoldersFl().stream()
+                    .map(shareHolderFl -> ctx.convert(shareHolderFl, ShareHolderFl.class))
+                    .collect(Collectors.toList());
+            swagShareHolders.setShareHoldersFl(shareHolderFlList);
+        }
+        if (shareHolders.isSetShareHoldersUl()) {
+            List<ShareHolderUl> shareHolderUlList = shareHolders.getShareHoldersUl().stream()
+                    .map(shareHolderUL -> ctx.convert(shareHolderUL, ShareHolderUl.class))
+                    .collect(Collectors.toList());
+            swagShareHolders.setShareHoldersUl(shareHolderUlList);
+        }
+        if (shareHolders.isSetShareHoldersFl()) {
+            List<ShareHolderOther> shareHolderOtherList = shareHolders.getShareHoldersOther().stream()
+                    .map(shareHolderOther -> ctx.convert(shareHolderOther, ShareHolderOther.class))
+                    .collect(Collectors.toList());
+            swagShareHolders.setShareHoldersOther(shareHolderOtherList);
+        }
+        return swagShareHolders;
+    }
+
+    private StatedCapital convertStatedCapital(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.StatedCapital statedCapital) {
+        StatedCapital swagStatedCapital = new StatedCapital();
+        swagStatedCapital.setDate(statedCapital.getDate());
+        swagStatedCapital.setSum(statedCapital.getSum());
+        return swagStatedCapital;
+    }
+
+    private Successor convertSuccessor(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Successor successor) {
+        Successor swagSuccessor = new Successor();
+        swagSuccessor.setDate(successor.getDate());
+        swagSuccessor.setInn(successor.getInn());
+        swagSuccessor.setName(successor.getName());
+        swagSuccessor.setOgrn(successor.getOgrn());
+        return swagSuccessor;
     }
 
 }

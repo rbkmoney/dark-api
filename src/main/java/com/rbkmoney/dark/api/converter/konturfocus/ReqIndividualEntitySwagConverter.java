@@ -22,11 +22,7 @@ public class ReqIndividualEntitySwagConverter
         swagReqIndividualEntity.setOkfs(value.getOkfs());
         swagReqIndividualEntity.setOkato(value.getOkato());
         if (value.isSetStatusDetail()) {
-            PrivateEntityStatusDetail privateEntityStatusDetail = new PrivateEntityStatusDetail();
-            privateEntityStatusDetail.setDate(value.getStatusDetail().getDate());
-            privateEntityStatusDetail.setDissolved(value.getStatusDetail().isDissolved());
-            privateEntityStatusDetail.setStatus(value.getStatusDetail().getStatus());
-            swagReqIndividualEntity.setStatusDetail(privateEntityStatusDetail);
+            swagReqIndividualEntity.setStatusDetail(convertPrivateEntityStatusDetail(value.getStatusDetail()));
         }
         if (value.isSetDissolutionDate()) {
             swagReqIndividualEntity.setDissolutionDate(value.getDissolutionDate());
@@ -35,6 +31,14 @@ public class ReqIndividualEntitySwagConverter
             swagReqIndividualEntity.setRegistrationDate(value.getRegistrationDate());
         }
         return swagReqIndividualEntity;
+    }
+
+    private PrivateEntityStatusDetail convertPrivateEntityStatusDetail(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.PrivateEntityStatusDetail privateEntityStatusDetail) {
+        PrivateEntityStatusDetail swagPrivateEntityStatusDetail = new PrivateEntityStatusDetail();
+        swagPrivateEntityStatusDetail.setDate(privateEntityStatusDetail.getDate());
+        swagPrivateEntityStatusDetail.setDissolved(privateEntityStatusDetail.isDissolved());
+        swagPrivateEntityStatusDetail.setStatus(privateEntityStatusDetail.getStatus());
+        return swagPrivateEntityStatusDetail;
     }
 
 }

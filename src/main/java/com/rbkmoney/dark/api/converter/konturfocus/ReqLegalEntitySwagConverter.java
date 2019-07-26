@@ -26,13 +26,7 @@ public class ReqLegalEntitySwagConverter
         swagReqLegalEntity.setDissolutionDate(value.getDissolutionDate());
         swagReqLegalEntity.setRegistrationDate(value.getRegistrationDate());
         if (value.isSetStatus()) {
-            LegalEntityStatusDetail swagLegalEntityStatusDetail = new LegalEntityStatusDetail();
-            swagLegalEntityStatusDetail.setStatus(value.getStatus().getStatus());
-            swagLegalEntityStatusDetail.setDate(value.getStatus().getDate());
-            swagLegalEntityStatusDetail.setDissolved(value.getStatus().isDissolved());
-            swagLegalEntityStatusDetail.setDissolving(value.getStatus().isDissolving());
-            swagLegalEntityStatusDetail.setReorganizing(value.getStatus().isReorganizing());
-            swagReqLegalEntity.setStatus(swagLegalEntityStatusDetail);
+            swagReqLegalEntity.setStatus(convertLegalEntityStatusDetail(value.getStatus()));
         }
         if (value.isSetBranches()) {
             List<Branch> swagBranchList = value.getBranches().stream()
@@ -67,6 +61,16 @@ public class ReqLegalEntitySwagConverter
         }
 
         return swagReqLegalEntity;
+    }
+
+    private LegalEntityStatusDetail convertLegalEntityStatusDetail(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.LegalEntityStatusDetail legalEntityStatusDetail) {
+        LegalEntityStatusDetail swagLegalEntityStatusDetail = new LegalEntityStatusDetail();
+        swagLegalEntityStatusDetail.setStatus(legalEntityStatusDetail.getStatus());
+        swagLegalEntityStatusDetail.setDate(legalEntityStatusDetail.getDate());
+        swagLegalEntityStatusDetail.setDissolved(legalEntityStatusDetail.isDissolved());
+        swagLegalEntityStatusDetail.setDissolving(legalEntityStatusDetail.isDissolving());
+        swagLegalEntityStatusDetail.setReorganizing(legalEntityStatusDetail.isReorganizing());
+        return swagLegalEntityStatusDetail;
     }
 
 }

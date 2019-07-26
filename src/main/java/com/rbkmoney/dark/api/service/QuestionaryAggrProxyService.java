@@ -29,9 +29,10 @@ public class QuestionaryAggrProxyService {
     public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams) {
         try {
             KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
-            var thriftKonturFocusResponse = questionaryAggrProxyClient.requestKonturFocus(
-                    konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
-            );
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse thriftKonturFocusResponse =
+                    questionaryAggrProxyClient.requestKonturFocus(
+                        konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
+                    );
             return swagConvertManager.convertFromThrift(thriftKonturFocusResponse, KonturFocusResponse.class);
         } catch (KonturFocusRequestException e) {
             log.error("Exception while sending request to KonturFocus", e);
@@ -45,8 +46,11 @@ public class QuestionaryAggrProxyService {
     public DaDataResponse requestDaData(DaDataParams daDataParams) {
         try {
             DaDataRequestHolder daDataRequestHolder = swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
-            var thriftDaDataResponse = questionaryAggrProxyClient.requestDaData(daDataRequestHolder.getDaDataRequest(),
-                    daDataRequestHolder.getDaDataEndpoint());
+            com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse thriftDaDataResponse =
+                    questionaryAggrProxyClient.requestDaData(
+                            daDataRequestHolder.getDaDataRequest(),
+                            daDataRequestHolder.getDaDataEndpoint()
+                    );
             return swagConvertManager.convertFromThrift(thriftDaDataResponse, DaDataResponse.class);
         } catch (DaDataRequestException e) {
             log.error("Exception while sending request to DaData", e);

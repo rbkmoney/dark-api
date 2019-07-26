@@ -6,6 +6,7 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataParams;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataResponse;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusParams;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,10 @@ import javax.validation.Valid;
 @Slf4j
 @Service
 @RestController
+@RequiredArgsConstructor
 public class QuestionaryAggrProxyController implements ProxyApi {
 
     private final QuestionaryAggrProxyService questionaryAggrProxyService;
-
-    public QuestionaryAggrProxyController(QuestionaryAggrProxyService questionaryAggrProxyService) {
-        this.questionaryAggrProxyService = questionaryAggrProxyService;
-    }
 
     @Override
     public ResponseEntity<DaDataResponse> requestDaData(String xRequestID, String authorization, @Valid DaDataParams daDataParams) {

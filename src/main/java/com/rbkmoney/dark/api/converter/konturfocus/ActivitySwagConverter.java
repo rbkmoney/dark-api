@@ -18,26 +18,32 @@ public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmon
         Activity swagActivity = new Activity();
         if (value.isSetComplementaryActivities()) {
             List<ComplementaryActivity> swagComplementaryActivityList = value.getComplementaryActivities().stream()
-                    .map(complementaryActivity -> {
-                        ComplementaryActivity swagComplementaryActivity = new ComplementaryActivity();
-                        swagComplementaryActivity.setCode(complementaryActivity.getCode());
-                        swagComplementaryActivity.setDate(complementaryActivity.getDate());
-                        swagComplementaryActivity.setText(complementaryActivity.getText());
-                        return swagComplementaryActivity;
-                    })
+                    .map(this::convertComplementaryActivity)
                     .collect(Collectors.toList());
             swagActivity.setComplementaryActivities(swagComplementaryActivityList);
         }
 
         if (value.isSetPrincipalActivity()) {
-            PrincipalActivity principalActivity = new PrincipalActivity();
-            principalActivity.setCode(value.getPrincipalActivity().getCode());
-            principalActivity.setDate(value.getPrincipalActivity().getDate());
-            principalActivity.setText(value.getPrincipalActivity().getText());
-            swagActivity.setPrincipalActivity(principalActivity);
+            swagActivity.setPrincipalActivity(convertPrincipalActivity(value.getPrincipalActivity()));
         }
 
         return swagActivity;
+    }
+
+    private ComplementaryActivity convertComplementaryActivity(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ComplementaryActivity complementaryActivity) {
+        ComplementaryActivity swagComplementaryActivity = new ComplementaryActivity();
+        swagComplementaryActivity.setCode(complementaryActivity.getCode());
+        swagComplementaryActivity.setDate(complementaryActivity.getDate());
+        swagComplementaryActivity.setText(complementaryActivity.getText());
+        return swagComplementaryActivity;
+    }
+
+    private PrincipalActivity convertPrincipalActivity(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.PrincipalActivity principalActivity) {
+        PrincipalActivity swagPrincipalActivity = new PrincipalActivity();
+        swagPrincipalActivity.setCode(principalActivity.getCode());
+        swagPrincipalActivity.setDate(principalActivity.getDate());
+        swagPrincipalActivity.setText(principalActivity.getText());
+        return swagPrincipalActivity;
     }
 
 }

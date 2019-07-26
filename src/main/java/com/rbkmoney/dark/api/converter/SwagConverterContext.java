@@ -1,14 +1,13 @@
 package com.rbkmoney.dark.api.converter;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class SwagConverterContext {
 
-    private Map<Class<?>, SwagConverter> converterMap;
-
-    public SwagConverterContext(Map<Class<?>, SwagConverter> converterMap) {
-        this.converterMap = converterMap;
-    }
+    private final Map<Class<?>, SwagConverter> converterMap;
 
     public <T, S> S convert(T thriftVal, Class<S> swagType) {
         SwagConverter swagConverter = converterMap.get(swagType);

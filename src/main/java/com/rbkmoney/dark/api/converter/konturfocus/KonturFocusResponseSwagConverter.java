@@ -26,19 +26,12 @@ public class KonturFocusResponseSwagConverter
                             var swagBriefReport = new com.rbkmoney.swag.questionary_aggr_proxy.model.BriefReport();
                             swagBriefReport.setHref(thriftReqResponse.getBriefReport().getHref());
                             if (thriftReqResponse.getBriefReport().isSetSummary()) {
-                                BriefReportSummary swagBriefReportSummary = new BriefReportSummary();
-                                swagBriefReportSummary.setGreenStatements(thriftReqResponse.getBriefReport().getSummary().isGreenStatements());
-                                swagBriefReportSummary.setRedStatements(thriftReqResponse.getBriefReport().getSummary().isRedStatements());
-                                swagBriefReportSummary.setYellowStatements(thriftReqResponse.getBriefReport().getSummary().isYellowStatements());
-                                swagBriefReport.setSummary(swagBriefReportSummary);
+                                swagBriefReport.setSummary(convertBriefReportSummary(thriftReqResponse.getBriefReport().getSummary()));
                             }
                             swagReqResponse.setBriefReport(swagBriefReport);
                         }
                         if (thriftReqResponse.isSetContactPhones()) {
-                            var swagContactPhones = new com.rbkmoney.swag.questionary_aggr_proxy.model.ContactPhones();
-                            swagContactPhones.setCount(thriftReqResponse.getContactPhones().getCount());
-                            swagContactPhones.setPhones(thriftReqResponse.getContactPhones().getPhones());
-                            swagReqResponse.setContactPhones(swagContactPhones);
+                            swagReqResponse.setContactPhones(convertContactPhones(thriftReqResponse.getContactPhones()));
                         }
                         if (thriftReqResponse.isSetPrivateEntity()) {
                             ReqContractor swagReqContractor = ctx.convert(thriftReqResponse.getPrivateEntity(), ReqContractor.class);
@@ -55,16 +48,7 @@ public class KonturFocusResponseSwagConverter
         if (value.isSetEgrDetailsResponses()) {
             List<EgrDetailsResponse> swagEgrDetailsResponseList = value.getEgrDetailsResponses().getEgrDetailsResponses().stream()
                     .map(thriftEgrDetailsResponse -> {
-                        EgrDetailsResponse swagEgrDetailsResponse = new EgrDetailsResponse();
-                        swagEgrDetailsResponse.setInn(thriftEgrDetailsResponse.getInn());
-                        swagEgrDetailsResponse.setFocusHref(thriftEgrDetailsResponse.getFocusHref());
-                        swagEgrDetailsResponse.setOgrn(thriftEgrDetailsResponse.getOgrn());
-
-                        if (thriftEgrDetailsResponse.isSetContractor()) {
-                            EgrDetailsContractor swagEgrDetailsContractor = ctx.convert(thriftEgrDetailsResponse.getContractor(), EgrDetailsContractor.class);
-                            swagEgrDetailsResponse.setContractor(swagEgrDetailsContractor);
-                        }
-                        return swagEgrDetailsResponse;
+                        return convertEgrDetailsResponse(thriftEgrDetailsResponse, ctx);
                     })
                     .collect(Collectors.toList());
             EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
@@ -86,6 +70,34 @@ public class KonturFocusResponseSwagConverter
         }
 
         return konturFocusResponse;
+    }
+
+    private EgrDetailsResponse convertEgrDetailsResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse,
+                                                         SwagConverterContext ctx) {
+        EgrDetailsResponse swagEgrDetailsResponse = new EgrDetailsResponse();
+        swagEgrDetailsResponse.setInn(egrDetailsResponse.getInn());
+        swagEgrDetailsResponse.setFocusHref(egrDetailsResponse.getFocusHref());
+        swagEgrDetailsResponse.setOgrn(egrDetailsResponse.getOgrn());
+        if (egrDetailsResponse.isSetContractor()) {
+            EgrDetailsContractor swagEgrDetailsContractor = ctx.convert(egrDetailsResponse.getContractor(), EgrDetailsContractor.class);
+            swagEgrDetailsResponse.setContractor(swagEgrDetailsContractor);
+        }
+        return swagEgrDetailsResponse;
+    }
+
+    private BriefReportSummary convertBriefReportSummary(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.BriefReportSummary briefReportSummary) {
+        BriefReportSummary swagBriefReportSummary = new BriefReportSummary();
+        swagBriefReportSummary.setGreenStatements(briefReportSummary.isGreenStatements());
+        swagBriefReportSummary.setRedStatements(briefReportSummary.isRedStatements());
+        swagBriefReportSummary.setYellowStatements(briefReportSummary.isYellowStatements());
+        return swagBriefReportSummary;
+    }
+
+    private ContactPhones convertContactPhones(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ContactPhones contactPhones) {
+        var swagContactPhones = new com.rbkmoney.swag.questionary_aggr_proxy.model.ContactPhones();
+        swagContactPhones.setCount(contactPhones.getCount());
+        swagContactPhones.setPhones(contactPhones.getPhones());
+        return swagContactPhones;
     }
 
 }

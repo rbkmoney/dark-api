@@ -29,13 +29,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         }
 
         if (value.isSetName()) {
-            OrgName orgName = new OrgName();
-            orgName.setFullName(value.getName().getFullName());
-            orgName.setShortName(value.getName().getShortName());
-            orgName.setFullWithOpf(value.getName().getFullWithOpf());
-            orgName.setShortWithOpf(value.getName().getShortWithOpf());
-            orgName.setLatin(value.getName().getLatin());
-            partyContent.setName(orgName);
+            partyContent.setName(convertOrgName(value.getName()));
         }
 
         partyContent.setOgrn(value.getOgrn());
@@ -49,34 +43,13 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         partyContent.setOkved(value.getOkved());
 
         if (value.isSetCapital()) {
-            PartyCapital partyCapital = new PartyCapital();
-            partyCapital.setType(value.getCapital().getType());
-            partyCapital.setValue(value.getCapital().getValue());
-            partyContent.setCapital(partyCapital);
+            partyContent.setCapital(convertPartyCapital(value.getCapital()));
         }
 
-        PartyAuthorities partyAuthorities = new PartyAuthorities();
-        if (value.getAuthorities().isSetFtsRegistration()) {
-            partyAuthorities.setFtsRegistration(convertAuthorities(value.getAuthorities().getFtsRegistration()));
-        }
-        if (value.getAuthorities().isSetFtsReport()) {
-            partyAuthorities.setFtsReport(convertAuthorities(value.getAuthorities().getFtsReport()));
-        }
-        if (value.getAuthorities().isSetPf()) {
-            partyAuthorities.setPf(convertAuthorities(value.getAuthorities().getPf()));
-        }
-        if (value.getAuthorities().isSetSif()) {
-            partyAuthorities.setSif(convertAuthorities(value.getAuthorities().getSif()));
-        }
-        partyContent.setAuthorities(partyAuthorities);
+        partyContent.setAuthorities(convertPartyAuthorities(value.getAuthorities()));
 
         if (value.isSetCitizenship()) {
-            CitizenshipIP citizenshipIP = new CitizenshipIP();
-            citizenshipIP.setAplha3(value.getCitizenship().getAlpha3());
-            citizenshipIP.setCountryFullName(value.getCitizenship().getCountryFullName());
-            citizenshipIP.setCountryShortName(value.getCitizenship().getCountryShortName());
-            citizenshipIP.setNumeric(value.getCitizenship().getNumeric());
-            partyContent.setCitizenship(citizenshipIP);
+            partyContent.setCitizenship(convertCitizenshipIP(value.getCitizenship()));
         }
 
         DaDataHID daDataHID = new DaDataHID();
@@ -84,10 +57,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         partyContent.setHid(daDataHID);
 
         if (value.isSetManagement()) {
-            Management management = new Management();
-            management.setName(value.getManagement().getName());
-            management.setPost(value.getManagement().getPost());
-            partyContent.setManagement(management);
+            partyContent.setManagement(convertManagement(value.getManagement()));
         }
 
         if (value.isSetFounders()) {
@@ -128,6 +98,49 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         }
 
         return partyContent;
+    }
+
+    private CitizenshipIP convertCitizenshipIP(com.rbkmoney.questionary_proxy_aggr.base_dadata.CitizenshipIP citizenshipIP) {
+        CitizenshipIP swagCitizenshipIP = new CitizenshipIP();
+        swagCitizenshipIP.setAplha3(citizenshipIP.getAlpha3());
+        swagCitizenshipIP.setCountryFullName(citizenshipIP.getCountryFullName());
+        swagCitizenshipIP.setCountryShortName(citizenshipIP.getCountryShortName());
+        swagCitizenshipIP.setNumeric(citizenshipIP.getNumeric());
+        return swagCitizenshipIP;
+    }
+
+    private PartyAuthorities convertPartyAuthorities(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyAuthorities partyAuthorities) {
+        PartyAuthorities swagPartyAuthorities = new PartyAuthorities();
+        if (partyAuthorities.isSetFtsRegistration()) {
+            swagPartyAuthorities.setFtsRegistration(convertAuthorities(partyAuthorities.getFtsRegistration()));
+        }
+        if (partyAuthorities.isSetFtsReport()) {
+            swagPartyAuthorities.setFtsReport(convertAuthorities(partyAuthorities.getFtsReport()));
+        }
+        if (partyAuthorities.isSetPf()) {
+            swagPartyAuthorities.setPf(convertAuthorities(partyAuthorities.getPf()));
+        }
+        if (partyAuthorities.isSetSif()) {
+            swagPartyAuthorities.setSif(convertAuthorities(partyAuthorities.getSif()));
+        }
+        return swagPartyAuthorities;
+    }
+
+    private PartyCapital convertPartyCapital(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyCapital partyCapital) {
+        PartyCapital swagPartyCapital = new PartyCapital();
+        swagPartyCapital.setType(partyCapital.getType());
+        swagPartyCapital.setValue(partyCapital.getValue());
+        return swagPartyCapital;
+    }
+
+    private OrgName convertOrgName(com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgName orgName) {
+        OrgName swagOrgName = new OrgName();
+        swagOrgName.setFullName(orgName.getFullName());
+        swagOrgName.setShortName(orgName.getShortName());
+        swagOrgName.setFullWithOpf(orgName.getFullWithOpf());
+        swagOrgName.setShortWithOpf(orgName.getShortWithOpf());
+        swagOrgName.setLatin(orgName.getLatin());
+        return swagOrgName;
     }
 
     private Authorities convertAuthorities(com.rbkmoney.questionary_proxy_aggr.base_dadata.Authorities authorities) {

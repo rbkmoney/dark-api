@@ -25,29 +25,33 @@ public class EgrRecordSwagConverter implements SwagConverter<EgrRecord, com.rbkm
 
         if (value.isSetCertificates()) {
             List<Certificate> certificateList = value.getCertificates().stream()
-                    .map(certificate -> {
-                        Certificate swagCertificate = new Certificate();
-                        swagCertificate.setDate(certificate.getDate());
-                        swagCertificate.setSerialNumber(certificate.getSerialNumber());
-                        return swagCertificate;
-                    })
+                    .map(this::convertCertificate)
                     .collect(Collectors.toList());
             swagEgrRecord.setCertificates(certificateList);
         }
 
         if (value.isSetDocuments()) {
             List<RecordDocument> recordDocumentList = value.getDocuments().stream()
-                    .map(recordDocument -> {
-                        RecordDocument swagRecordDocument = new RecordDocument();
-                        swagRecordDocument.setDate(recordDocument.getDate());
-                        swagRecordDocument.setName(recordDocument.getName());
-                        return swagRecordDocument;
-                    })
+                    .map(this::convertRecordDocument)
                     .collect(Collectors.toList());
             swagEgrRecord.setDocuments(recordDocumentList);
         }
 
         return swagEgrRecord;
+    }
+
+    private Certificate convertCertificate(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Certificate certificate) {
+        Certificate swagCertificate = new Certificate();
+        swagCertificate.setDate(certificate.getDate());
+        swagCertificate.setSerialNumber(certificate.getSerialNumber());
+        return swagCertificate;
+    }
+
+    private RecordDocument convertRecordDocument(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.RecordDocument recordDocument) {
+        RecordDocument swagRecordDocument = new RecordDocument();
+        swagRecordDocument.setDate(recordDocument.getDate());
+        swagRecordDocument.setName(recordDocument.getName());
+        return swagRecordDocument;
     }
 
 }

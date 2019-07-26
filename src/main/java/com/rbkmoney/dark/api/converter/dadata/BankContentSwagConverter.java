@@ -27,11 +27,7 @@ public class BankContentSwagConverter implements SwagConverter<BankContent, com.
         swagBankContent.setRkc(value.getRkc());
 
         if (value.isSetPayment()) {
-            Payment payment = new Payment();
-            payment.setName(value.getPayment().getName());
-            payment.setFullName(value.getPayment().getFullName());
-            payment.setShortName(value.getPayment().getShortName());
-            swagBankContent.setPayment(payment);
+            swagBankContent.setPayment(convertPayment(value.getPayment()));
         }
 
         if (value.isSetStatus()) {
@@ -41,6 +37,14 @@ public class BankContentSwagConverter implements SwagConverter<BankContent, com.
         swagBankContent.setRegistrationNumber(value.getRegistrationNumber());
 
         return swagBankContent;
+    }
+
+    private Payment convertPayment(com.rbkmoney.questionary_proxy_aggr.base_dadata.Payment payment) {
+        Payment swagPayment = new Payment();
+        swagPayment.setName(payment.getName());
+        swagPayment.setFullName(payment.getFullName());
+        swagPayment.setShortName(payment.getShortName());
+        return swagPayment;
     }
 
 }
