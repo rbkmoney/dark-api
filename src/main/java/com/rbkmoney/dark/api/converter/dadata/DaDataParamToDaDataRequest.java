@@ -79,51 +79,59 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     }
 
     private com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus convertOrgStatus(OrgStatus orgStatus) {
-        if (orgStatus == OrgStatus.ACTIVE) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.ACTIVE;
-        } else if (orgStatus == OrgStatus.LIQUIDATED) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.LIQUIDATED;
-        } else if (orgStatus == OrgStatus.LIQUIDATING) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.LIQUIDATING;
-        } else if (orgStatus == OrgStatus.REORGANIZING) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.REORGANIZING;
+        switch (orgStatus) {
+            case ACTIVE:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.ACTIVE;
+            case LIQUIDATED:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.LIQUIDATED;
+            case REORGANIZING:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.REORGANIZING;
+            case LIQUIDATING:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus.LIQUIDATING;
+            default:
+                throw new IllegalArgumentException("Unknown orgStatus: " + orgStatus);
         }
-        throw new IllegalArgumentException("Unknown orgStatus: " + orgStatus);
     }
 
     private com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType convertOrgType(OrgType orgType) {
-        if (orgType == OrgType.LEGAL) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.LEGAL;
-        } else if (orgType == OrgType.INDIVIDUAL) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.INDIVIDUAL;
+        switch (orgType) {
+            case LEGAL:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.LEGAL;
+            case INDIVIDUAL:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgType.INDIVIDUAL;
+            default:
+                throw new IllegalArgumentException("Unknown orgType: " + orgType);
         }
-        throw new IllegalArgumentException("Unknown orgType: " + orgType);
     }
 
     private com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType convertQueryType(QueryType queryType) {
-        if (queryType == QueryType.BYIDENTIFIRE) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.BY_INDENTIFIRE;
-        } else if (queryType == QueryType.FULLTEXTSEARCH) {
-            return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.FULL_TEXT_SEARCH;
+        switch (queryType) {
+            case BYIDENTIFIRE:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.BY_INDENTIFIRE;
+            case FULLTEXTSEARCH:
+                return com.rbkmoney.questionary_proxy_aggr.base_dadata.QueryType.FULL_TEXT_SEARCH;
+            default:
+                throw new IllegalArgumentException("Unknown queryType: " + queryType);
         }
-        throw new IllegalArgumentException("Unknown queryType: " + queryType);
     }
 
     private com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType convertBoundType(BoundType boundType) {
-        if (boundType == BoundType.AREA) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.area;
-        } else if (boundType == BoundType.CITY) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.city;
-        } else if (boundType == BoundType.HOUSE) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.house;
-        } else if (boundType == BoundType.REGION) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.region;
-        } else if (boundType == BoundType.SETTLEMENT) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.settlement;
-        } else if (boundType == BoundType.STREET) {
-            return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.street;
+        switch (boundType) {
+            case AREA:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.area;
+            case CITY:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.city;
+            case HOUSE:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.house;
+            case REGION:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.region;
+            case SETTLEMENT:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.settlement;
+            case STREET:
+                return com.rbkmoney.questionary_proxy_aggr.dadata_address.BoundType.street;
+            default:
+                throw new IllegalArgumentException("Unknown boundType: " + boundType);
         }
-        throw new IllegalArgumentException("Unknown boundType: " + boundType);
     }
 
     private com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankQuery convertBankQuery(BankQuery swagBankQuery) {
