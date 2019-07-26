@@ -19,7 +19,6 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
 
     @Override
     public DaDataResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse value, SwagConverterContext ctx) {
-        DaDataResponse daDataResponse = null;
         if (value.isSetAddressResponse()) {
             var swagAddressResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.AddressResponse();
             AddressResponse addressResponse = value.getAddressResponse();
@@ -27,7 +26,8 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(address -> ctx.convert(address, DaDataAddress.class))
                     .collect(Collectors.toList());
             swagAddressResponse.setSuggestions(daDataAddressList);
-            daDataResponse = swagAddressResponse;
+
+            return swagAddressResponse;
         } else if (value.isSetBankResponse()) {
             var swagBankResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.BankResponse();
             BankResponse bankResponse = value.getBankResponse();
@@ -35,7 +35,8 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(bankContent -> ctx.convert(bankContent, BankContent.class))
                     .collect(Collectors.toList());
             swagBankResponse.setSuggestions(bankContentList);
-            daDataResponse = swagBankResponse;
+
+            return swagBankResponse;
         } else if (value.isSetFioResponse()) {
             var swagFioResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.FioResponse();
             FioResponse fioResponse = value.getFioResponse();
@@ -43,7 +44,8 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(fioContent -> ctx.convert(fioContent, FioContent.class))
                     .collect(Collectors.toList());
             swagFioResponse.setSuggestions(fioContentList);
-            daDataResponse = swagFioResponse;
+
+            return swagFioResponse;
         } else if (value.isSetOkvedResponse()) {
             var swagOkvedResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.OkvedResponse();
             OkvedResponse okvedResponse = value.getOkvedResponse();
@@ -51,7 +53,8 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(okvedContent -> ctx.convert(okvedContent, OkvedContent.class))
                     .collect(Collectors.toList());
             swagOkvedResponse.setSuggestions(okvedContentList);
-            daDataResponse = swagOkvedResponse;
+
+            return swagOkvedResponse;
         } else if (value.isSetFmsUnitResponse()) {
             var swagFmsUnitResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.FmsUnitResponse();
             FmsUnitResponse fmsUnitResponse = value.getFmsUnitResponse();
@@ -59,7 +62,8 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(fmsUnitContent -> ctx.convert(fmsUnitContent, FmsUnitContent.class))
                     .collect(Collectors.toList());
             swagFmsUnitResponse.setSuggestions(fmsUnitContentList);
-            daDataResponse = swagFmsUnitResponse;
+
+            return swagFmsUnitResponse;
         } else if (value.isSetPartyResponse()) {
             var swagPartyResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.PartyResponse();
             PartyResponse partyResponse = value.getPartyResponse();
@@ -67,14 +71,11 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(partyContent -> ctx.convert(partyContent, PartyContent.class))
                     .collect(Collectors.toList());
             swagPartyResponse.setSuggestions(partyContentList);
-            daDataResponse = swagPartyResponse;
+
+            return swagPartyResponse;
         }
 
-        if (daDataResponse == null) {
-            throw new IllegalArgumentException("Unknown response type");
-        }
-
-        return daDataResponse;
+        throw new IllegalArgumentException("Unknown response type");
     }
 
 }

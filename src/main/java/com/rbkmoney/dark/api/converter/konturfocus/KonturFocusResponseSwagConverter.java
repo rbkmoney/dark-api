@@ -16,28 +16,7 @@ public class KonturFocusResponseSwagConverter
     public KonturFocusResponse toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse value, SwagConverterContext ctx) {
         if (value.isSetReqResponses()) {
             List<ReqResponse> swagReqResponseList = value.getReqResponses().getReqResponses().stream()
-                    .map(thriftReqResponse -> {
-                        ReqResponse swagReqResponse = new ReqResponse();
-                        swagReqResponse.setInn(thriftReqResponse.getInn());
-                        swagReqResponse.setOgrn(thriftReqResponse.getOgrn());
-                        swagReqResponse.setFocusHref(thriftReqResponse.getFocusHref());
-                        if (thriftReqResponse.isSetBriefReport()) {
-                            var swagBriefReport = new com.rbkmoney.swag.questionary_aggr_proxy.model.BriefReport();
-                            swagBriefReport.setHref(thriftReqResponse.getBriefReport().getHref());
-                            if (thriftReqResponse.getBriefReport().isSetSummary()) {
-                                swagBriefReport.setSummary(convertBriefReportSummary(thriftReqResponse.getBriefReport().getSummary()));
-                            }
-                            swagReqResponse.setBriefReport(swagBriefReport);
-                        }
-                        if (thriftReqResponse.isSetContactPhones()) {
-                            swagReqResponse.setContactPhones(convertContactPhones(thriftReqResponse.getContactPhones()));
-                        }
-                        if (thriftReqResponse.isSetPrivateEntity()) {
-                            ReqContractor swagReqContractor = ctx.convert(thriftReqResponse.getPrivateEntity(), ReqContractor.class);
-                            swagReqResponse.setContractor(swagReqContractor);
-                        }
-                        return swagReqResponse;
-                    })
+                    .map(thriftReqResponse -> convertReqResponse(thriftReqResponse, ctx))
                     .collect(Collectors.toList());
             ReqResponses reqResponses = new ReqResponses();
             reqResponses.setResponses(swagReqResponseList);
@@ -47,9 +26,7 @@ public class KonturFocusResponseSwagConverter
 
         if (value.isSetEgrDetailsResponses()) {
             List<EgrDetailsResponse> swagEgrDetailsResponseList = value.getEgrDetailsResponses().getEgrDetailsResponses().stream()
-                    .map(thriftEgrDetailsResponse -> {
-                        return convertEgrDetailsResponse(thriftEgrDetailsResponse, ctx);
-                    })
+                    .map(thriftEgrDetailsResponse -> convertEgrDetailsResponse(thriftEgrDetailsResponse, ctx))
                     .collect(Collectors.toList());
             EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
             egrDetailsResponses.setResponses(swagEgrDetailsResponseList);
@@ -68,6 +45,29 @@ public class KonturFocusResponseSwagConverter
         }
 
         throw new IllegalArgumentException("Need to specify response value");
+    }
+
+    private ReqResponse convertReqResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponse reqResponse, SwagConverterContext ctx) {
+        ReqResponse swagReqResponse = new ReqResponse();
+        swagReqResponse.setInn(reqResponse.getInn());
+        swagReqResponse.setOgrn(reqResponse.getOgrn());
+        swagReqResponse.setFocusHref(reqResponse.getFocusHref());
+        if (reqResponse.isSetBriefReport()) {
+            var swagBriefReport = new com.rbkmoney.swag.questionary_aggr_proxy.model.BriefReport();
+            swagBriefReport.setHref(reqResponse.getBriefReport().getHref());
+            if (reqResponse.getBriefReport().isSetSummary()) {
+                swagBriefReport.setSummary(convertBriefReportSummary(reqResponse.getBriefReport().getSummary()));
+            }
+            swagReqResponse.setBriefReport(swagBriefReport);
+        }
+        if (reqResponse.isSetContactPhones()) {
+            swagReqResponse.setContactPhones(convertContactPhones(reqResponse.getContactPhones()));
+        }
+        if (reqResponse.isSetPrivateEntity()) {
+            ReqContractor swagReqContractor = ctx.convert(reqResponse.getPrivateEntity(), ReqContractor.class);
+            swagReqResponse.setContractor(swagReqContractor);
+        }
+        return swagReqResponse;
     }
 
     private EgrDetailsResponse convertEgrDetailsResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse,

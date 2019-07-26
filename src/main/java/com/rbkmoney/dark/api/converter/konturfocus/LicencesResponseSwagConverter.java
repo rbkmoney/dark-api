@@ -30,17 +30,16 @@ public class LicencesResponseSwagConverter implements SwagConverter<LicencesResp
     }
 
     private KonturFocusLicense convertLicense(License license) {
-        KonturFocusLicense konturFocusLicense = new KonturFocusLicense();
-        konturFocusLicense.setActivity(license.getActivity());
-        konturFocusLicense.setAddresses(license.getAddresses());
-        konturFocusLicense.setDate(license.getDate());
-        konturFocusLicense.setDateStart(license.getDateStart());
-        konturFocusLicense.setDateEnd(license.getDateEnd());
-        konturFocusLicense.setIssuerNamer(license.getIssuerName());
-        konturFocusLicense.setOfficialNum(license.getOfficialNum());
-        konturFocusLicense.setServices(license.getServices());
-        konturFocusLicense.setStatusDescription(license.getStatusDescription());
-        return konturFocusLicense;
+        return new KonturFocusLicense()
+                .activity(license.getActivity())
+                .addresses(license.getAddresses())
+                .date(license.getDate())
+                .dateStart(license.getDateStart())
+                .dateEnd(license.getDateEnd())
+                .issuerNamer(license.getIssuerName())
+                .officialNum(license.getOfficialNum())
+                .services(license.getServices())
+                .statusDescription(license.getStatusDescription());
     }
 
 }

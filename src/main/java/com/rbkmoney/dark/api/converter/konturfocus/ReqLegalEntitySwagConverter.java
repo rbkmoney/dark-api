@@ -14,17 +14,17 @@ public class ReqLegalEntitySwagConverter
 
     @Override
     public ReqLegalEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqLegalEntity value, SwagConverterContext ctx) {
-        ReqLegalEntity swagReqLegalEntity = new ReqLegalEntity();
-        swagReqLegalEntity.setKpp(value.getKpp());
-        swagReqLegalEntity.setOkato(value.getOkato());
-        swagReqLegalEntity.setOkfs(value.getOkfs());
-        swagReqLegalEntity.setOkogu(value.getOkogu());
-        swagReqLegalEntity.setOkopf(value.getOkopf());
-        swagReqLegalEntity.setOkpo(value.getOkpo());
-        swagReqLegalEntity.setOktmo(value.getOktmo());
-        swagReqLegalEntity.setOpf(value.getOpf());
-        swagReqLegalEntity.setDissolutionDate(value.getDissolutionDate());
-        swagReqLegalEntity.setRegistrationDate(value.getRegistrationDate());
+        ReqLegalEntity swagReqLegalEntity = new ReqLegalEntity()
+                .kpp(value.getKpp())
+                .okato(value.getOkato())
+                .okfs(value.getOkfs())
+                .okogu(value.getOkogu())
+                .okopf(value.getOkopf())
+                .okpo(value.getOkpo())
+                .oktmo(value.getOktmo())
+                .opf(value.getOpf())
+                .dissolutionDate(value.getDissolutionDate())
+                .registrationDate(value.getRegistrationDate());
         if (value.isSetStatus()) {
             swagReqLegalEntity.setStatus(convertLegalEntityStatusDetail(value.getStatus()));
         }
