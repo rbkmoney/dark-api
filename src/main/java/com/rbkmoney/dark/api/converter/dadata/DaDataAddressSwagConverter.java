@@ -23,6 +23,7 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .fiasActualityState((int) value.getFiasActualityState())
                 .fiasId(value.getFiasId())
                 .fiasCode(value.getFiasCode())
+                .fiasLevel((int) value.getFiasLevel())
                 .qcGeo((int) value.getQcGeo())
                 .geoLat(value.getGeoLat())
                 .geoLon(value.getGeoLon())

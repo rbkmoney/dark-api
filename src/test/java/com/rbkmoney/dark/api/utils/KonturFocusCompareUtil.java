@@ -142,7 +142,7 @@ public class KonturFocusCompareUtil {
             Assert.assertEquals(statedCapital.getSum(), swagStatedCapital.getSum().longValue());
             Assert.assertEquals(statedCapital.getDate(), swagStatedCapital.getDate());
         }
-        for (int i = 0; i < thriftEgrDetailsHistory.getFoundersUl().size(); i++) {
+        for (int i = 0; i < thriftEgrDetailsHistory.getFoundersFl().size(); i++) {
             FounderFL founderFL = thriftEgrDetailsHistory.getFoundersFl().get(i);
             FounderFl swagFounderFl = swagEgrDetailsHistory.getFoundersFl().get(i);
             founderFlCompare(founderFL, swagFounderFl);

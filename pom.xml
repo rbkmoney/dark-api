@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary-aggr</artifactId>
-            <version>1.4-9e9056c-server</version>
+            <version>1.5-f311a8a-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>

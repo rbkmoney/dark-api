@@ -78,7 +78,7 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftPartyContent.getUnrestrictedValue(), swagPartyContent.getUnrestrictedValue());
         Assert.assertEquals(thriftPartyContent.getCapital().getType(), swagPartyContent.getCapital().getType());
         Assert.assertEquals(thriftPartyContent.getCapital().getValue(), swagPartyContent.getCapital().getValue());
-        Assert.assertEquals(thriftPartyContent.getCitizenship().getAlpha3(), swagPartyContent.getCitizenship().getAplha3());
+        Assert.assertEquals(thriftPartyContent.getCitizenship().getAlpha3(), swagPartyContent.getCitizenship().getAlpha3());
         Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryFullName(), swagPartyContent.getCitizenship().getCountryFullName());
         Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryShortName(), swagPartyContent.getCitizenship().getCountryShortName());
         Assert.assertEquals(thriftPartyContent.getHid(), swagPartyContent.getHid().getHid());

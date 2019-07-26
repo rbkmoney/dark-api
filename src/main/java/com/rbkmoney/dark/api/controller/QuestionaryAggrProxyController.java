@@ -23,13 +23,13 @@ public class QuestionaryAggrProxyController implements ProxyApi {
     private final QuestionaryAggrProxyService questionaryAggrProxyService;
 
     @Override
-    public ResponseEntity<DaDataResponse> requestDaData(String xRequestID, String authorization, @Valid DaDataParams daDataParams) {
+    public ResponseEntity<DaDataResponse> requestDaData(@Valid DaDataParams daDataParams) {
         DaDataResponse daDataResponse = questionaryAggrProxyService.requestDaData(daDataParams);
         return ResponseEntity.ok(daDataResponse);
     }
 
     @Override
-    public ResponseEntity<KonturFocusResponse> requestKonturFocus(String xRequestID, String authorization, @Valid KonturFocusParams konturFocusParams) {
+    public ResponseEntity<KonturFocusResponse> requestKonturFocus(@Valid KonturFocusParams konturFocusParams) {
         KonturFocusResponse konturFocusResponse = questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
         return ResponseEntity.ok(konturFocusResponse);
     }

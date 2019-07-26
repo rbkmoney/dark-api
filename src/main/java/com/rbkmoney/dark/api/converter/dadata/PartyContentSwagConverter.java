@@ -88,7 +88,7 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
 
     private CitizenshipIP convertCitizenshipIP(com.rbkmoney.questionary_proxy_aggr.base_dadata.CitizenshipIP citizenshipIP) {
         return new CitizenshipIP()
-                .aplha3(citizenshipIP.getAlpha3())
+                .alpha3(citizenshipIP.getAlpha3())
                 .countryFullName(citizenshipIP.getCountryFullName())
                 .countryShortName(citizenshipIP.getCountryShortName())
                 .numeric(citizenshipIP.getNumeric());
