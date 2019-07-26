@@ -159,7 +159,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         thriftFmsUnitQuery.setQuery(swagFmsUnitQuery.getQuery());
         thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
         if (swagFmsUnitQuery.getFilters() != null && !swagFmsUnitQuery.getFilters().isEmpty()) {
-            var thriftFmsUnitQueryFilters = swagFmsUnitQuery.getFilters().stream()
+            List<com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter> thriftFmsUnitQueryFilters = swagFmsUnitQuery.getFilters().stream()
                     .map(fmsUnitQueryFilter -> {
                         var thriftFmsUnitQueryFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter();
                         thriftFmsUnitQueryFilter.setRegionCode(fmsUnitQueryFilter.getRegionCode());
@@ -180,7 +180,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         thriftAddressQuery.setFromBound(convertBoundType(swagAddressQuery.getFromBound()));
         thriftAddressQuery.setCount(swagAddressQuery.getCount().byteValue());
         if (swagAddressQuery.getLocations() != null && !swagAddressQuery.getLocations().isEmpty()) {
-            var thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
+            List<com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter> thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
                     .map(addressLocationFilter -> {
                         var thriftAddressLocationFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter();
                         thriftAddressLocationFilter.setCityFiasId(addressLocationFilter.getCityFiasId());
@@ -197,7 +197,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
             thriftAddressQuery.setLocations(thriftAddressLocationFilters);
         }
         if (swagAddressQuery.getLocationsBoost() != null && !swagAddressQuery.getLocationsBoost().isEmpty()) {
-            var thriftLocationBoostFilters = swagAddressQuery.getLocationsBoost().stream()
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters = swagAddressQuery.getLocationsBoost().stream()
                     .map(locationBoostFilter -> {
                         var thriftLocationBoostFilter = new com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter();
                         thriftLocationBoostFilter.setKladrId(locationBoostFilter.getKladrId());
