@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.config;
 
+import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
 import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +37,20 @@ public class ClientConfig {
 
     @Bean
     public DarkMessiahStatisticsSrv.Iface magistaClient(@Value("${magista.client.adapter.url}") Resource resource,
-                                                         @Value("${magista.client.adapter.networkTimeout}") int timeout) throws IOException {
+                                                        @Value("${magista.client.adapter.networkTimeout}") int timeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(resource.getURI())
                 .withNetworkTimeout(timeout)
                 .build(DarkMessiahStatisticsSrv.Iface.class);
+    }
+
+    @Bean
+    public ClaimManagementSrv.Iface claimManagementClient(@Value("${claimmanagement.client.adapter.url}") Resource resource,
+                                                          @Value("${claimmanagement.client.adapter.networkTimeout}") int timeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(resource.getURI())
+                .withNetworkTimeout(timeout)
+                .build(ClaimManagementSrv.Iface.class);
     }
 
 }
