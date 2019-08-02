@@ -44,6 +44,7 @@ public class StatPaymentToPaymentSearchResultConverter {
                     .metadata(statPayment.context == null ? Map.of() : objectMapper.readValue(statPayment.context.getData(), HashMap.class))
                     .payer(getPayer(statPayment.payer))
                     .shortID(statPayment.short_id)
+
                     .status(getStatus(statPayment.status));
         } catch (IOException e) {
             log.error("Error at parsing invoice metadata: {} or statPayment.context: {}", invoiceMetadata, statPayment.context, e);
@@ -52,6 +53,7 @@ public class StatPaymentToPaymentSearchResultConverter {
     }
 
     private static PaymentSearchResult.StatusEnum getStatus(InvoicePaymentStatus status) {
+
         return PaymentSearchResult.StatusEnum.fromValue(status.getSetField().getFieldName());
     }
 

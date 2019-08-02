@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @Slf4j
-@Service
 @RestController
 @RequiredArgsConstructor
 public class QuestionaryAggrProxyController implements ProxyApi {
