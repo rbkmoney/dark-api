@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -61,20 +62,15 @@ public class ClaimManagementService {
         }
     }
 
-
-
-    public void acceptClaim() {
-
-    }
-
-        public void updateClaimById(String requestID,
-                                    String deadline,
-                                    Long claimID,
-                                    Integer claimRevision,
-                                    ClaimChangeset changeset) {
+    public void updateClaimById(String requestID,
+                                Long claimID,
+                                Integer claimRevision,
+                                String deadline,
+                                com.rbkmoney.swag.claim_management.model.Modification changeset) {
         try {
-            List<Modification> modificationList = createClaimConverter.convertChangesetToThrift(changeset);
-            claimManagementClient.updateClaim(requestID, claimID, claimRevision, modificationList);
+            Modification modificationList = createClaimConverter.convertModificationUnitToThrift(changeset);
+            //TODO: API swag и thrift отличаются
+            claimManagementClient.updateClaim(requestID, claimID, claimRevision, Arrays.asList(modificationList));
         } catch (PartyNotFound ex) {
             log.error("");
         } catch (ClaimNotFound ex) {
@@ -93,17 +89,12 @@ public class ClaimManagementService {
         }
     }
 
-    public void denyClaim() {
-
-    }
-
     public void revokeClaimById(String requestID,
-                                String deadline,
                                 Long claimID,
-                                Integer claimRevision) {
+                                Integer claimRevision,
+                                String deadline,
+                                String reason) {
         try {
-            //TODO: определить входящий reason
-            String reason = null;
             claimManagementClient.revokeClaim(requestID, claimID, claimRevision, reason);
         } catch (PartyNotFound ex) {
 
@@ -118,18 +109,5 @@ public class ClaimManagementService {
             throw new RuntimeException(ex);
         }
     }
-
-    public void getMetaData() {
-
-    }
-
-    public void setMetaData() {
-
-    }
-
-    public void removeMetaData() {
-
-    }
-
 
 }
