@@ -55,19 +55,22 @@ public class CreateClaimConverter {
     public List<Modification> convertChangesetToThrift(ClaimChangeset changeset) {
         List<Modification> modificationList = new ArrayList<>();
         for (ModificationUnit unit : changeset) {
-            Modification modification = new Modification();
-            //TODO: modification в протоколах расходятся. В трифте более подробно - так достаточно?
-            if (unit.getModification().getModificationType() == PARTYMODIFICATION) {
-                modification.setPartyModification(new PartyModification());
-            } else if (unit.getModification().getModificationType() == CLAIMMODIFICATION) {
-                modification.setClaimModfication(new ClaimModification());
-            } else {
-                log.warn("Modification not found");
-            }
-
-            modificationList.add(modification);
+            modificationList.add(convertModificationUnitToThrift(unit.getModification()));
         }
         return modificationList;
+    }
+
+    public Modification convertModificationUnitToThrift(com.rbkmoney.swag.claim_management.model.Modification unitModification) {
+        Modification modification = new Modification();
+        //TODO: modification в протоколах расходятся. В трифте более подробно - так достаточно?
+        if (unitModification.getModificationType() == PARTYMODIFICATION) {
+            modification.setPartyModification(new PartyModification());
+        } else if (unitModification.getModificationType() == CLAIMMODIFICATION) {
+            modification.setClaimModfication(new ClaimModification());
+        } else {
+            log.warn("Modification not found");
+        }
+        return modification;
     }
 
 }
