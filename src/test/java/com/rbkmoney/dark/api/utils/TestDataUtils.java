@@ -18,6 +18,8 @@ import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponses;
+import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.RussianBankAccount;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusParams;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.OkvedContent;
 import io.github.benas.randombeans.api.EnhancedRandom;
@@ -28,6 +30,8 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestDataUtils {
@@ -108,6 +112,81 @@ public class TestDataUtils {
         return daDataResponse;
     }
 
+    public static QuestionaryParams createIndividualEntityQuestionarySwag() {
+        QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
+        questionaryParams.setVersion("0");
+        IndividualEntityContractor individualEntityContractor = new IndividualEntityContractor();
+        RussianIndividualEntity russianIndividualEntity = EnhancedRandom.random(RussianIndividualEntity.class);
+        russianIndividualEntity.setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class));
+        russianIndividualEntity.setRegistrationInfo(EnhancedRandom.random(IndividualRegistrationInfo.class));
+        russianIndividualEntity.setResidencyInfo(EnhancedRandom.random(IndividualResidencyInfo.class));
+        russianIndividualEntity.getAdditionalInfo().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        russianIndividualEntity.getAdditionalInfo().setFinancialPosition(Collections.singletonList(new AnnualFinancialStatements()));
+        russianIndividualEntity.getAdditionalInfo().setBusinessInfo(Collections.singletonList(new AnotherBusiness().description("test")));
+        individualEntityContractor.setIndividualEntity(russianIndividualEntity);
+        questionaryParams.getData().setContractor(individualEntityContractor);
+        questionaryParams.getData().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        return questionaryParams;
+    }
+
+    public static com.rbkmoney.questionary.manage.QuestionaryParams createIndividualEntityQuestionaryThrift() throws IOException {
+        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
+        questionaryParams.setId("123456");
+        questionaryParams.setOwnerId("12413");
+        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
+        questionaryData = new MockTBaseProcessor(MockMode.ALL)
+                .process(questionaryData, new TBaseHandler<>(com.rbkmoney.questionary.manage.QuestionaryData.class));
+        var individualEntity = new com.rbkmoney.questionary.IndividualEntity();
+        individualEntity = new MockTBaseProcessor(MockMode.ALL)
+                .process(individualEntity, new TBaseHandler<>(com.rbkmoney.questionary.IndividualEntity.class));
+        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.individual_entity(individualEntity));
+        questionaryParams.setData(questionaryData);
+        return questionaryParams;
+    }
+
+    public static QuestionaryParams createLegalEntityQuestionarySwag() {
+        QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
+        questionaryParams.setVersion("0");
+        LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
+        RussianLegalEntity russianLegalEntity = EnhancedRandom.random(RussianLegalEntity.class);
+        russianLegalEntity.setRegistrationInfo(EnhancedRandom.random(LegalRegistrationInfo.class));
+        russianLegalEntity.setResidencyInfo(EnhancedRandom.random(LegalResidencyInfo.class));
+        russianLegalEntity.getLegalOwnerInfo().setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class));
+        russianLegalEntity.getAdditionalInfo().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        russianLegalEntity.getAdditionalInfo().setFinancialPosition(Collections.singletonList(new AnnualTaxReturnWithMark()));
+        russianLegalEntity.getAdditionalInfo().setBusinessInfo(Collections.singletonList(new RetailTradeBusiness()));
+        LegalOwnerInfo legalOwnerInfo = EnhancedRandom.random(LegalOwnerInfo.class);
+        legalOwnerInfo.setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class));
+        russianLegalEntity.setLegalOwnerInfo(legalOwnerInfo);
+        BeneficialOwner beneficialOwner = EnhancedRandom.random(BeneficialOwner.class);
+        beneficialOwner.setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class));
+        russianLegalEntity.setBeneficialOwner(Collections.singletonList(beneficialOwner));
+        FoundersInfo foundersInfo = new FoundersInfo();
+        foundersInfo.setFounders(Collections.singletonList(EnhancedRandom.random(RussianLegalEntityFounder.class)));
+        foundersInfo.setHeads(Collections.singletonList(EnhancedRandom.random(FounderHead.class)));
+        foundersInfo.setLegalOwner(EnhancedRandom.random(FounderHead.class));
+        russianLegalEntity.setFoundersInfo(foundersInfo);
+        legalEntityContractor.setLegalEntity(russianLegalEntity);
+        questionaryParams.getData().setContractor(legalEntityContractor);
+        questionaryParams.getData().setBankAccount(EnhancedRandom.random(RussianBankAccount.class));
+        return questionaryParams;
+    }
+
+    public static com.rbkmoney.questionary.manage.QuestionaryParams createLegalEntityQuestionaryThrift() throws IOException {
+        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
+        questionaryParams.setId("123456");
+        questionaryParams.setOwnerId("12413");
+        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
+        questionaryData = new MockTBaseProcessor(MockMode.ALL)
+                .process(questionaryData, new TBaseHandler<>(com.rbkmoney.questionary.manage.QuestionaryData.class));
+        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
+        legalEntity = new MockTBaseProcessor(MockMode.ALL)
+                .process(legalEntity, new TBaseHandler<>(com.rbkmoney.questionary.LegalEntity.class));
+        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
+        questionaryParams.setData(questionaryData);
+        return questionaryParams;
+    }
+
     public static StatResponse createStatResponse() {
         return new StatResponse()
                 .setData(createStatResponseData())
@@ -150,8 +229,7 @@ public class TestDataUtils {
         PaymentTool paymentTool = new PaymentTool();
         paymentTool.setBankCard(new BankCard("token", BankCardPaymentSystem.dankort, "123", "12*3"));
         paymentResourcePayer.setPaymentTool(paymentTool);
-        Payer payer = Payer.payment_resource(paymentResourcePayer);
-        return payer;
+        return Payer.payment_resource(paymentResourcePayer);
     }
 
 }
