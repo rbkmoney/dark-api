@@ -30,7 +30,7 @@ public class QuestionaryController implements QuestionaryApi {
     public ResponseEntity<String> saveQuestionary(@Valid QuestionaryParams questionaryParams) {
         try {
             Long version = questionaryService.saveQuestionary(questionaryParams, Long.parseLong(questionaryParams.getVersion()));
-            return ResponseEntity.ok(String.valueOf(version));
+            return ResponseEntity.ok(version.toString());
         } catch (NumberFormatException e) {
             log.error("Not valid version format: " + questionaryParams.getVersion(), e);
             throw new IllegalArgumentException(e);

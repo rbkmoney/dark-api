@@ -74,14 +74,10 @@ public class SwagConvertManager {
     private ParameterizedType findConverterParamType(Class converterImpl, Class converterType) {
         Type[] genericInterfaces = converterImpl.getGenericInterfaces();
         return Stream.of(genericInterfaces)
-                .filter(type -> {
-                    return ((ParameterizedType) type).getRawType() == converterType;
-                })
+                .filter(type -> ((ParameterizedType) type).getRawType() == converterType)
                 .map(type -> ((ParameterizedType) type))
                 .findFirst()
-                .orElseThrow(() -> {
-                    return new RuntimeException("Not found" + "converterType" + "interface for: " + converterImpl.getName());
-                });
+                .orElseThrow(() -> new RuntimeException("Not found" + "converterType" + "interface for: " + converterImpl.getName()));
     }
 
 }
