@@ -77,7 +77,8 @@ public class SwagConvertManager {
                 .filter(type -> ((ParameterizedType) type).getRawType() == converterType)
                 .map(type -> ((ParameterizedType) type))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Not found" + "converterType" + "interface for: " + converterImpl.getName()));
+                .orElseThrow(() -> new RuntimeException(String.format("Not found converterType interface for: %s",
+                        converterImpl.getName())));
     }
 
 }
