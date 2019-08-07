@@ -48,6 +48,7 @@ public class ClaimManagementFromThriftConverterImpl implements ClaimManagementFr
             modificationUnit.setModificationID(unit.getModificationId());
             modificationUnit.setCreatedAt(OffsetDateTime.parse(unit.getCreatedAt()));
             Modification modification = new Modification();
+            // TODO: проверить правильность заполнени
             if (unit.getModification().isSetClaimModfication()) {
                 modification.setModificationType(CLAIMMODIFICATION);
             } else if (unit.getModification().isSetPartyModification()) {
