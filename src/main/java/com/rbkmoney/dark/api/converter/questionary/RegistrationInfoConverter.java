@@ -37,19 +37,19 @@ public class RegistrationInfoConverter implements
     @Override
     public RegistrationInfo toThrift(com.rbkmoney.swag.questionary.model.RegistrationInfo value, ThriftConverterContext ctx) {
         if (value instanceof IndividualRegistrationInfo) {
-            var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo();
-            individualRegistrationInfo.setOgrnip(((IndividualRegistrationInfo) value).getOgrnip());
-            individualRegistrationInfo.setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationData());
-            individualRegistrationInfo.setRegistrationPlace(((IndividualRegistrationInfo) value).getRegistrationPlace());
+            var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo()
+                    .setOgrnip(((IndividualRegistrationInfo) value).getOgrnip())
+                    .setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationData())
+                    .setRegistrationPlace(((IndividualRegistrationInfo) value).getRegistrationPlace());
 
             return RegistrationInfo.individual_registration_info(individualRegistrationInfo);
         } else if (value instanceof LegalRegistrationInfo) {
-            var legalRegistrationInfo = new com.rbkmoney.questionary.LegalRegistrationInfo();
-            legalRegistrationInfo.setActualAddress(((LegalRegistrationInfo) value).getActualAddress());
-            legalRegistrationInfo.setOgrn(((LegalRegistrationInfo) value).getOgrn());
-            legalRegistrationInfo.setRegistrationAddress(((LegalRegistrationInfo) value).getRegistrationAddress());
-            legalRegistrationInfo.setRegistrationPlace(((LegalRegistrationInfo) value).getRegistrationPlace());
-            legalRegistrationInfo.setRegistrationDate(((LegalRegistrationInfo) value).getRegistrationDate());
+            var legalRegistrationInfo = new com.rbkmoney.questionary.LegalRegistrationInfo()
+                    .setActualAddress(((LegalRegistrationInfo) value).getActualAddress())
+                    .setOgrn(((LegalRegistrationInfo) value).getOgrn())
+                    .setRegistrationAddress(((LegalRegistrationInfo) value).getRegistrationAddress())
+                    .setRegistrationPlace(((LegalRegistrationInfo) value).getRegistrationPlace())
+                    .setRegistrationDate(((LegalRegistrationInfo) value).getRegistrationDate());
 
             return RegistrationInfo.legal_registration_info(legalRegistrationInfo);
         } else {

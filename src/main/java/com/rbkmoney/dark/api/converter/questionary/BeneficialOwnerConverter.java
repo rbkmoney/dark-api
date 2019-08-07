@@ -39,10 +39,10 @@ public class BeneficialOwnerConverter implements
 
     @Override
     public BeneficialOwner toThrift(com.rbkmoney.swag.questionary.model.BeneficialOwner value, ThriftConverterContext ctx) {
-        BeneficialOwner beneficialOwner = new BeneficialOwner();
-        beneficialOwner.setInn(value.getInn());
-        beneficialOwner.setPdlCategory(value.isPdlCategory());
-        beneficialOwner.setOwnershipPercentage(value.getOwnershipPercentage().byteValue());
+        BeneficialOwner beneficialOwner = new BeneficialOwner()
+                .setInn(value.getInn())
+                .setPdlCategory(value.isPdlCategory())
+                .setOwnershipPercentage(value.getOwnershipPercentage().byteValue());
         if (value.getRussianPrivateEntity() != null) {
             beneficialOwner.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
         }

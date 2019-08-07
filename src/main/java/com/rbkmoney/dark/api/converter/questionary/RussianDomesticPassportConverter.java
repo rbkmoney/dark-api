@@ -24,13 +24,12 @@ public class RussianDomesticPassportConverter implements
 
     @Override
     public com.rbkmoney.questionary.RussianDomesticPassport toThrift(RussianDomesticPassport value, ThriftConverterContext ctx) {
-        var russianDomesticPassport = new com.rbkmoney.questionary.RussianDomesticPassport();
-        russianDomesticPassport.setIssuerCode(value.getIssuerCode());
-        russianDomesticPassport.setIssuer(value.getIssuer());
-        russianDomesticPassport.setIssuedAt(value.getIssuedAt());
-        russianDomesticPassport.setNumber(value.getNumber());
-        russianDomesticPassport.setSeries(value.getSeries());
-        return russianDomesticPassport;
+        return new com.rbkmoney.questionary.RussianDomesticPassport()
+                .setIssuerCode(value.getIssuerCode())
+                .setIssuer(value.getIssuer())
+                .setIssuedAt(value.getIssuedAt())
+                .setNumber(value.getNumber())
+                .setSeries(value.getSeries());
     }
 
 }

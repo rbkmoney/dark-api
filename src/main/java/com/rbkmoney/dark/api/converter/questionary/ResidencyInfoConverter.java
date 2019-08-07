@@ -32,15 +32,15 @@ public class ResidencyInfoConverter implements
     @Override
     public ResidencyInfo toThrift(com.rbkmoney.swag.questionary.model.ResidencyInfo value, ThriftConverterContext ctx) {
         if (value instanceof IndividualResidencyInfo) {
-            var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo();
-            individualResidencyInfo.setTaxResident(((IndividualResidencyInfo) value).isTaxResident());
+            var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
+                    .setTaxResident(((IndividualResidencyInfo) value).isTaxResident());
 
             return ResidencyInfo.individual_residency_info(individualResidencyInfo);
         } else if (value instanceof LegalResidencyInfo) {
-            var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo();
-            legalResidencyInfo.setTaxResident(((LegalResidencyInfo) value).isTaxResident());
-            legalResidencyInfo.setOwnerResident(((LegalResidencyInfo) value).isOwnerResident());
-            legalResidencyInfo.setFatca(((LegalResidencyInfo) value).isFatca());
+            var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
+                    .setTaxResident(((LegalResidencyInfo) value).isTaxResident())
+                    .setOwnerResident(((LegalResidencyInfo) value).isOwnerResident())
+                    .setFatca(((LegalResidencyInfo) value).isFatca());
 
             return ResidencyInfo.legal_residency_info(legalResidencyInfo);
         }

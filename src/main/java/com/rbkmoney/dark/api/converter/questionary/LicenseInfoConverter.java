@@ -25,14 +25,12 @@ public class LicenseInfoConverter implements
 
     @Override
     public com.rbkmoney.questionary.LicenseInfo toThrift(LicenseInfo value, ThriftConverterContext ctx) {
-        var licenseInfo = new com.rbkmoney.questionary.LicenseInfo();
-        licenseInfo.setExpirationDate(value.getExpirationDate());
-        licenseInfo.setEffectiveDate(value.getEffectiveDate());
-        licenseInfo.setIssueDate(value.getIssueDate());
-        licenseInfo.setIssuerName(value.getIssuerName());
-        licenseInfo.setOfficialNum(value.getOfficialNum());
-        licenseInfo.setLicensedActivity(value.getLicensedActivity());
-
-        return licenseInfo;
+        return new com.rbkmoney.questionary.LicenseInfo()
+                .setExpirationDate(value.getExpirationDate())
+                .setEffectiveDate(value.getEffectiveDate())
+                .setIssueDate(value.getIssueDate())
+                .setIssuerName(value.getIssuerName())
+                .setOfficialNum(value.getOfficialNum())
+                .setLicensedActivity(value.getLicensedActivity());
     }
 }

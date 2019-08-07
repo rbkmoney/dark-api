@@ -22,11 +22,10 @@ public class MigrationCardInfoConverter implements
 
     @Override
     public MigrationCardInfo toThrift(com.rbkmoney.swag.questionary.model.MigrationCardInfo value, ThriftConverterContext ctx) {
-        MigrationCardInfo migrationCardInfo = new MigrationCardInfo();
-        migrationCardInfo.setExpirationDate(value.getExpirationDate());
-        migrationCardInfo.setBeginningDate(value.getBeginningDate());
-        migrationCardInfo.setCardNumber(value.getCardNumber());
-        return migrationCardInfo;
+        return new MigrationCardInfo()
+                .setExpirationDate(value.getExpirationDate())
+                .setBeginningDate(value.getBeginningDate())
+                .setCardNumber(value.getCardNumber());
     }
 
 }

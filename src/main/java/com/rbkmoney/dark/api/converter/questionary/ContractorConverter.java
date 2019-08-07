@@ -18,17 +18,15 @@ public class ContractorConverter implements
 
     @Override
     public com.rbkmoney.swag.questionary.model.Contractor toSwag(Contractor value, SwagConverterContext ctx) {
-        com.rbkmoney.swag.questionary.model.Contractor contractor = null;
         if (value.isSetIndividualEntity()) {
             IndividualEntity individualEntity = ctx.convert(value.getIndividualEntity(), IndividualEntity.class);
-            contractor = new IndividualEntityContractor().individualEntity(individualEntity);
+            return new IndividualEntityContractor().individualEntity(individualEntity);
         } else if (value.isSetLegalEntity()) {
             LegalEntity legalEntity = ctx.convert(value.getLegalEntity(), LegalEntity.class);
-            contractor = new LegalEntityContractor().legalEntity(legalEntity);
+            return new LegalEntityContractor().legalEntity(legalEntity);
         } else {
             throw new IllegalArgumentException("Unknown contractor type: " + value.getClass().getName());
         }
-        return contractor;
     }
 
     @Override

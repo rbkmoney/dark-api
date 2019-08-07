@@ -18,7 +18,6 @@ public class FounderConverter implements
 
     @Override
     public com.rbkmoney.swag.questionary.model.Founder toSwag(Founder value, SwagConverterContext ctx) {
-        com.rbkmoney.swag.questionary.model.Founder founder;
         if (value.isSetIndividualPersonFounder()) {
             IndividualPerson individualPerson = new IndividualPerson();
             if (value.getIndividualPersonFounder().isSetFio()) {
@@ -26,21 +25,19 @@ public class FounderConverter implements
             }
             individualPerson.setInn(value.getIndividualPersonFounder().getInn());
 
-            founder = individualPerson;
+            return individualPerson;
         } else if (value.isSetInternationalLegalEntityFounder()) {
-            founder = new InternationalLegalEntityFounder()
+            return new InternationalLegalEntityFounder()
                     .country(value.getInternationalLegalEntityFounder().getCountry())
                     .fullName(value.getInternationalLegalEntityFounder().getFullName());
         } else if (value.isSetRussianLegalEntityFounder()) {
-            founder = new RussianLegalEntityFounder()
+            return new RussianLegalEntityFounder()
                     .fullName(value.getRussianLegalEntityFounder().getFullName())
                     .inn(value.getRussianLegalEntityFounder().getInn())
                     .ogrn(value.getRussianLegalEntityFounder().getOgrn());
         } else {
             throw new IllegalArgumentException("Unknown founder type: " + value.getClass().getName());
         }
-
-        return founder;
     }
 
     @Override
@@ -54,16 +51,16 @@ public class FounderConverter implements
 
             return Founder.individual_person_founder(individualPerson);
         } else if (value instanceof InternationalLegalEntityFounder) {
-            var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder();
-            internationalLegalEntityFounder.setFullName(((InternationalLegalEntityFounder) value).getFullName());
-            internationalLegalEntityFounder.setCountry(((InternationalLegalEntityFounder) value).getCountry());
+            var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
+                    .setFullName(((InternationalLegalEntityFounder) value).getFullName())
+                    .setCountry(((InternationalLegalEntityFounder) value).getCountry());
 
             return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
         } else if (value instanceof RussianLegalEntityFounder) {
-            var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder();
-            russianLegalEntityFounder.setFullName(((RussianLegalEntityFounder) value).getFullName());
-            russianLegalEntityFounder.setInn(((RussianLegalEntityFounder) value).getInn());
-            russianLegalEntityFounder.setOgrn(((RussianLegalEntityFounder) value).getOgrn());
+            var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
+                    .setFullName(((RussianLegalEntityFounder) value).getFullName())
+                    .setInn(((RussianLegalEntityFounder) value).getInn())
+                    .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
 
             return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
         } else {

@@ -23,12 +23,11 @@ public class RussianBankAccountConverter implements
 
     @Override
     public RussianBankAccount toThrift(com.rbkmoney.swag.questionary.model.RussianBankAccount value, ThriftConverterContext ctx) {
-        RussianBankAccount russianBankAccount = new RussianBankAccount();
-        russianBankAccount.setBankName(value.getBankName());
-        russianBankAccount.setBankBik(value.getBankBik());
-        russianBankAccount.setBankPostAccount(value.getBankPostAccount());
-        russianBankAccount.setAccount(value.getAccount());
-        return russianBankAccount;
+        return new RussianBankAccount()
+                .setBankName(value.getBankName())
+                .setBankBik(value.getBankBik())
+                .setBankPostAccount(value.getBankPostAccount())
+                .setAccount(value.getAccount());
     }
 
 }

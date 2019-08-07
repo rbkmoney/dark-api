@@ -74,16 +74,16 @@ public class LegalEntityConverter implements
     @Override
     public LegalEntity toThrift(com.rbkmoney.swag.questionary.model.LegalEntity value, ThriftConverterContext ctx) {
         if (value instanceof RussianLegalEntity) {
-            var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity();
-            russianLegalEntity.setAdditionalSpace(((RussianLegalEntity) value).getAdditionalSpace());
-            russianLegalEntity.setForeignName(((RussianLegalEntity) value).getForeignName());
-            russianLegalEntity.setInn(((RussianLegalEntity) value).getInn());
-            russianLegalEntity.setLegalForm(((RussianLegalEntity) value).getLegalForm());
-            russianLegalEntity.setName(((RussianLegalEntity) value).getName());
-            russianLegalEntity.setOkatoCode(((RussianLegalEntity) value).getOkatoCode());
-            russianLegalEntity.setOkpoCode(((RussianLegalEntity) value).getOkpoCode());
-            russianLegalEntity.setPostalAddress(((RussianLegalEntity) value).getPostalAddress());
-            russianLegalEntity.setPropertyInfo(((RussianLegalEntity) value).getPropertyInfo());
+            var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity()
+                    .setAdditionalSpace(((RussianLegalEntity) value).getAdditionalSpace())
+                    .setForeignName(((RussianLegalEntity) value).getForeignName())
+                    .setInn(((RussianLegalEntity) value).getInn())
+                    .setLegalForm(((RussianLegalEntity) value).getLegalForm())
+                    .setName(((RussianLegalEntity) value).getName())
+                    .setOkatoCode(((RussianLegalEntity) value).getOkatoCode())
+                    .setOkpoCode(((RussianLegalEntity) value).getOkpoCode())
+                    .setPostalAddress(((RussianLegalEntity) value).getPostalAddress())
+                    .setPropertyInfo(((RussianLegalEntity) value).getPropertyInfo());
             if (((RussianLegalEntity) value).getFoundersInfo() != null) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(((RussianLegalEntity) value).getFoundersInfo(),
                         com.rbkmoney.questionary.FoundersInfo.class));

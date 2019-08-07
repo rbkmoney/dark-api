@@ -54,9 +54,9 @@ public class RussianIndividualEntityConverter implements
 
     @Override
     public RussianIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RussianIndividualEntity value, ThriftConverterContext ctx) {
-        RussianIndividualEntity russianIndividualEntity = new RussianIndividualEntity();
-        russianIndividualEntity.setInn(value.getInn());
-        russianIndividualEntity.setPropertyInfo(value.getPropertyInfo());
+        RussianIndividualEntity russianIndividualEntity = new RussianIndividualEntity()
+                .setInn(value.getInn())
+                .setPropertyInfo(value.getPropertyInfo());
         if (value.getRegistrationInfo() != null) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
         }

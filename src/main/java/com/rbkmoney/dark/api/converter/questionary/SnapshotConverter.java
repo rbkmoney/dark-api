@@ -21,10 +21,9 @@ public class SnapshotConverter implements ThriftConverter<Snapshot, com.rbkmoney
 
     @Override
     public Snapshot toThrift(com.rbkmoney.swag.questionary.model.Snapshot value, ThriftConverterContext ctx) {
-        Snapshot snapshot = new Snapshot();
-        snapshot.setVersion(Long.parseLong(value.getVersion()));
-        snapshot.setQuestionary(ctx.convert(value.getQuestionary(), com.rbkmoney.questionary.manage.Questionary.class));
-        return snapshot;
+        return new Snapshot()
+                .setVersion(Long.parseLong(value.getVersion()))
+                .setQuestionary(ctx.convert(value.getQuestionary(), com.rbkmoney.questionary.manage.Questionary.class));
     }
 
 }

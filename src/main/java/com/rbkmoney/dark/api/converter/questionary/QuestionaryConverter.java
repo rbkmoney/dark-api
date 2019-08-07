@@ -23,10 +23,10 @@ public class QuestionaryConverter implements
 
     @Override
     public Questionary toThrift(com.rbkmoney.swag.questionary.model.Questionary value, ThriftConverterContext ctx) {
-        Questionary questionary = new Questionary();
-        questionary.setId(value.getId());
-        questionary.setOwnerId(value.getOwnerID());
-        questionary.setData(ctx.convert(value.getData(), com.rbkmoney.questionary.manage.QuestionaryData.class));
+        Questionary questionary = new Questionary()
+                .setId(value.getId())
+                .setOwnerId(value.getOwnerID())
+                .setData(ctx.convert(value.getData(), com.rbkmoney.questionary.manage.QuestionaryData.class));
         return questionary;
     }
 

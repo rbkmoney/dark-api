@@ -25,14 +25,13 @@ public class IndividualPersonCategoriesConverter implements
 
     @Override
     public IndividualPersonCategories toThrift(com.rbkmoney.swag.questionary.model.IndividualPersonCategories value, ThriftConverterContext ctx) {
-        IndividualPersonCategories individualPersonCategories = new IndividualPersonCategories();
-        individualPersonCategories.setBehalfOfForeign(value.isBehalfOfForeign());
-        individualPersonCategories.setBeneficialOwner(value.isBeneficialOwner());
-        individualPersonCategories.setForeignPublicPerson(value.isForeignPublicPerson());
-        individualPersonCategories.setForeignRelativePerson(value.isForeignRelativePerson());
-        individualPersonCategories.setHasRepresentative(value.isHasRepresentative());
-        individualPersonCategories.setWorldwideOrgPublicPerson(value.isWorldwideOrgPublicPerson());
-        return individualPersonCategories;
+        return new IndividualPersonCategories()
+                .setBehalfOfForeign(value.isBehalfOfForeign())
+                .setBeneficialOwner(value.isBeneficialOwner())
+                .setForeignPublicPerson(value.isForeignPublicPerson())
+                .setForeignRelativePerson(value.isForeignRelativePerson())
+                .setHasRepresentative(value.isHasRepresentative())
+                .setWorldwideOrgPublicPerson(value.isWorldwideOrgPublicPerson());
     }
 
 }

@@ -22,11 +22,10 @@ public class PersonAnthroponymConverter implements
 
     @Override
     public PersonAnthroponym toThrift(com.rbkmoney.swag.questionary.model.PersonAnthroponym value, ThriftConverterContext ctx) {
-        PersonAnthroponym personAnthroponym = new PersonAnthroponym();
-        personAnthroponym.setFirstName(value.getFirstName());
-        personAnthroponym.setMiddleName(value.getMiddleName());
-        personAnthroponym.setSecondName(value.getSecondName());
-        return personAnthroponym;
+        return new PersonAnthroponym()
+                .setFirstName(value.getFirstName())
+                .setMiddleName(value.getMiddleName())
+                .setSecondName(value.getSecondName());
     }
 
 }

@@ -36,9 +36,9 @@ public class LegalOwnerInfoConverter implements
 
     @Override
     public com.rbkmoney.questionary.LegalOwnerInfo toThrift(LegalOwnerInfo value, ThriftConverterContext ctx) {
-        var legalOwnerInfo = new com.rbkmoney.questionary.LegalOwnerInfo();
-        legalOwnerInfo.setInn(value.getInn());
-        legalOwnerInfo.setPdlCategory(value.isPdlCategory());
+        var legalOwnerInfo = new com.rbkmoney.questionary.LegalOwnerInfo()
+                .setInn(value.getInn())
+                .setPdlCategory(value.isPdlCategory());
         if (value.getIdentityDocument() != null) {
             legalOwnerInfo.setIdentityDocument(ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
         }

@@ -21,10 +21,9 @@ public class ShopDetailsConverter implements
 
     @Override
     public ShopDetails toThrift(com.rbkmoney.swag.questionary.model.ShopDetails value, ThriftConverterContext ctx) {
-        ShopDetails shopDetails = new ShopDetails();
-        shopDetails.setName(value.getName());
-        shopDetails.setDescription(value.getDescription());
-        return shopDetails;
+        return new ShopDetails()
+                .setName(value.getName())
+                .setDescription(value.getDescription());
     }
 
 }

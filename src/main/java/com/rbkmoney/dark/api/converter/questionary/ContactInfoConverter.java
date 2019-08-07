@@ -21,9 +21,8 @@ public class ContactInfoConverter implements
 
     @Override
     public ContactInfo toThrift(com.rbkmoney.swag.questionary.model.ContactInfo value, ThriftConverterContext ctx) {
-        ContactInfo contactInfo = new ContactInfo();
-        contactInfo.setPhoneNumber(value.getPhoneNumber());
-        contactInfo.setEmail(value.getEmail());
-        return contactInfo;
+        return new ContactInfo()
+                .setPhoneNumber(value.getPhoneNumber())
+                .setEmail(value.getEmail());
     }
 }

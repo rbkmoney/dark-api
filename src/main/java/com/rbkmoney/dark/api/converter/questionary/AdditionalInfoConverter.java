@@ -61,24 +61,26 @@ public class AdditionalInfoConverter implements
 
     @Override
     public AdditionalInfo toThrift(com.rbkmoney.swag.questionary.model.AdditionalInfo value, ThriftConverterContext ctx) {
-        AdditionalInfo additionalInfo = new AdditionalInfo();
-        additionalInfo.setAccounting(value.getAccounting());
-        additionalInfo.setAccountingOrg(value.getAccountingOrg());
-        additionalInfo.setStaffCount(value.getStaffCount());
-        additionalInfo.setHasAccountant(value.isHasAccountant());
-        additionalInfo.setNKORelationTarget(value.getNkoRelationTarget());
-        additionalInfo.setRelationshipWithNKO(value.getRelationshipWithNko());
-        additionalInfo.setStorageFacilities(value.isStorageFacilities());
-        additionalInfo.setMainCounterparties(value.getMainCounterparties());
-        additionalInfo.setBenefitThirdParties(value.isBenefitThirdParties());
+        AdditionalInfo additionalInfo = new AdditionalInfo()
+                .setAccounting(value.getAccounting())
+                .setAccountingOrg(value.getAccountingOrg())
+                .setStaffCount(value.getStaffCount())
+                .setHasAccountant(value.isHasAccountant())
+                .setNKORelationTarget(value.getNkoRelationTarget())
+                .setRelationshipWithNKO(value.getRelationshipWithNko())
+                .setStorageFacilities(value.isStorageFacilities())
+                .setMainCounterparties(value.getMainCounterparties())
+                .setBenefitThirdParties(value.isBenefitThirdParties());
         if (value.getBankAccount() != null) {
             additionalInfo.setBankAccount(ctx.convert(value.getBankAccount(), com.rbkmoney.questionary.BankAccount.class));
         }
         if (value.getMontOperationCount() != null) {
-            additionalInfo.setMonthOperationCount(ctx.convert(value.getMontOperationCount(), com.rbkmoney.questionary.MonthOperationCount.class));
+            additionalInfo.setMonthOperationCount(ctx.convert(value.getMontOperationCount(),
+                    com.rbkmoney.questionary.MonthOperationCount.class));
         }
         if (value.getMonthOperationSum() != null) {
-            additionalInfo.setMonthOperationSum(ctx.convert(value.getMonthOperationSum(), com.rbkmoney.questionary.MonthOperationSum.class));
+            additionalInfo.setMonthOperationSum(ctx.convert(value.getMonthOperationSum(),
+                    com.rbkmoney.questionary.MonthOperationSum.class));
         }
         if (value.getFinancialPosition() != null) {
             List<com.rbkmoney.questionary.FinancialPosition> financialPositionList = value.getFinancialPosition().stream()
@@ -93,10 +95,12 @@ public class AdditionalInfoConverter implements
             additionalInfo.setBusinessInfo(businessInfoList);
         }
         if (value.getRelationIndividualEntity() != null) {
-            additionalInfo.setRelationIndividualEntity(ctx.convert(value.getRelationIndividualEntity(), com.rbkmoney.questionary.RelationIndividualEntity.class));
+            additionalInfo.setRelationIndividualEntity(ctx.convert(value.getRelationIndividualEntity(),
+                    com.rbkmoney.questionary.RelationIndividualEntity.class));
         }
         if (value.getBusinessReputation() != null) {
-            additionalInfo.setBusinessReputation(ctx.convert(value.getBusinessReputation(), com.rbkmoney.questionary.BusinessReputation.class));
+            additionalInfo.setBusinessReputation(ctx.convert(value.getBusinessReputation(),
+                    com.rbkmoney.questionary.BusinessReputation.class));
         }
 
         return additionalInfo;

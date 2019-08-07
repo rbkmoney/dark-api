@@ -34,12 +34,12 @@ public class RussianPrivateEntityConverter implements
 
     @Override
     public RussianPrivateEntity toThrift(com.rbkmoney.swag.questionary.model.RussianPrivateEntity value, ThriftConverterContext ctx) {
-        RussianPrivateEntity russianPrivateEntity = new RussianPrivateEntity();
-        russianPrivateEntity.setCitizenship(value.getCitizenship());
-        russianPrivateEntity.setBirthDate(value.getBirthDate());
-        russianPrivateEntity.setBirthPlace(value.getBirthPlace());
-        russianPrivateEntity.setActualAddress(value.getActualAddress());
-        russianPrivateEntity.setResidenceAddress(value.getResidenceAddress());
+        RussianPrivateEntity russianPrivateEntity = new RussianPrivateEntity()
+                .setCitizenship(value.getCitizenship())
+                .setBirthDate(value.getBirthDate())
+                .setBirthPlace(value.getBirthPlace())
+                .setActualAddress(value.getActualAddress())
+                .setResidenceAddress(value.getResidenceAddress());
         if (value.getContactInfo() != null) {
             russianPrivateEntity.setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
         }
