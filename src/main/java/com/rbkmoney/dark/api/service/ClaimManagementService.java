@@ -34,10 +34,10 @@ public class ClaimManagementService {
         return claimManagementFromThriftConverter.convertClaimFromThrift(claim);
     }
 
-    public List<Claim> searchClaims(String requestId, Integer limit, String continuationToken, List<String> claimStatuses)
+    public List<Claim> searchClaims(String partyId, Integer limit, String continuationToken, List<String> claimStatuses)
             throws TException {
         ClaimSearchQuery claimSearchQuery =
-                claimManagementToThriftConverter.convertSearchClaimsToThrift(requestId, limit, continuationToken, claimStatuses);
+                claimManagementToThriftConverter.convertSearchClaimsToThrift(partyId, limit, continuationToken, claimStatuses);
         List<com.rbkmoney.damsel.claim_management.Claim> claimList = claimManagementClient.searchClaims(claimSearchQuery);
         return claimManagementFromThriftConverter.convertClaimListFromThrift(claimList);
     }

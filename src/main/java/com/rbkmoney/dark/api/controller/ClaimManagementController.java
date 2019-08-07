@@ -10,9 +10,11 @@ import com.rbkmoney.swag.claim_management.model.Modification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
+import org.keycloak.KeycloakPrincipal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
@@ -89,8 +91,9 @@ public class ClaimManagementController implements ProcessingApi {
                                                           @Null String continuationToken,
                                                           @Null List<String> claimStatuses) {
         try {
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
             List<Claim> claims =
-                    claimManagementService.searchClaims(requestId, limit, continuationToken, claimStatuses);
+                    claimManagementService.searchClaims(partyId, limit, continuationToken, claimStatuses);
             log.info("For status list {} found {} claims", claimStatuses, claims.size());
             InlineResponse200 inlineResponse200 = new InlineResponse200()
                     .continuationToken(continuationToken)
