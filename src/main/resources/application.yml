@@ -45,3 +45,7 @@ http.timeout:
 questionary-aggr-proxy:
   url: http://localhost:8022/v1/questionary/proxy
   networkTimeout: 30000
+
+questionary:
+  url: http://localhost:8022/v1/questionary
+  networkTimeout: 30000
