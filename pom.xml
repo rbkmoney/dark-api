@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.6-d63cf2d-server</version>
         </dependency>
 
         <!--spring-->
