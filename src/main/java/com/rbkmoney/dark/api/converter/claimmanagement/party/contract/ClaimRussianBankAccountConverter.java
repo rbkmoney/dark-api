@@ -9,7 +9,7 @@ import static com.rbkmoney.swag.claim_management.model.PayoutToolInfo.PayoutTool
 
 @Component
 @RequiredArgsConstructor
-public class RussianBankAccountConverter
+public class ClaimRussianBankAccountConverter
         implements DarkApiConverter<RussianBankAccount, com.rbkmoney.swag.claim_management.model.RussianBankAccount> {
 
     @Override

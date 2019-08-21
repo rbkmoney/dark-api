@@ -97,7 +97,7 @@ public class ShopConvertersTest {
 
     @Test
     public void shopDetailsConverterTest() throws IOException {
-        ShopDetailsConverter converter = new ShopDetailsConverter();
+        ClaimShopDetailsConverter converter = new ClaimShopDetailsConverter();
         var swagShopDetails = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ShopDetails.class);
         swagShopDetails.setShopModificationType(DETAILSMODIFICATION);
         var resultShopContractModificationConverter = converter.convertToSwag(converter.convertToThrift(swagShopDetails));
@@ -118,7 +118,7 @@ public class ShopConvertersTest {
         ShopModificationUnitConverter converter = new ShopModificationUnitConverter(
                 new ShopParamsConverter(),
                 new ScheduleModificationConverter(),
-                new ShopDetailsConverter(),
+                new ClaimShopDetailsConverter(),
                 new ShopAccountParamsConverter(),
                 new ShopContractModificationConverter()
         );

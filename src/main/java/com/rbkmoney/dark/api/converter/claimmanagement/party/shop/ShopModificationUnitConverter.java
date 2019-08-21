@@ -21,7 +21,7 @@ public class ShopModificationUnitConverter
             com.rbkmoney.swag.claim_management.model.ScheduleModification> scheduleModificationConverter;
 
     private final DarkApiConverter<ShopDetails,
-            com.rbkmoney.swag.claim_management.model.ShopDetails> shopDetailsConverter;
+            com.rbkmoney.swag.claim_management.model.ShopDetails> claimShopDetailsConverter;
 
     private final DarkApiConverter<ShopAccountParams,
             com.rbkmoney.swag.claim_management.model.ShopAccountParams> shopAccountParamsConverter;
@@ -48,7 +48,7 @@ public class ShopModificationUnitConverter
                 break;
             case DETAILSMODIFICATION:
                 var swagShopDetails = (com.rbkmoney.swag.claim_management.model.ShopDetails) swagModification;
-                shopModification.setDetailsModification(shopDetailsConverter.convertToThrift(swagShopDetails));
+                shopModification.setDetailsModification(claimShopDetailsConverter.convertToThrift(swagShopDetails));
                 break;
             case CONTRACTMODIFICATION:
                 var swagShopContractModification =
@@ -108,7 +108,7 @@ public class ShopModificationUnitConverter
             swagShopModificationUnit.setModification(swagCategoryRef);
         } else if (shopModification.isSetDetailsModification()) {
             ShopDetails detailsModification = shopModification.getDetailsModification();
-            swagShopModificationUnit.setModification(shopDetailsConverter.convertToSwag(detailsModification));
+            swagShopModificationUnit.setModification(claimShopDetailsConverter.convertToSwag(detailsModification));
         } else if (shopModification.isSetLocationModification()) {
             ShopLocation shopLocation = shopModification.getLocationModification();
             var swagShopLocation = new com.rbkmoney.swag.claim_management.model.ShopLocation();

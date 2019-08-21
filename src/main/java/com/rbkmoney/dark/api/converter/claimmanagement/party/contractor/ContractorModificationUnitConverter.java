@@ -18,7 +18,7 @@ public class ContractorModificationUnitConverter
         implements DarkApiConverter<ContractorModificationUnit, com.rbkmoney.swag.claim_management.model.ContractorModificationUnit> {
 
     private final DarkApiConverter<Contractor,
-            com.rbkmoney.swag.claim_management.model.Contractor> contractorConverter;
+            com.rbkmoney.swag.claim_management.model.Contractor> claimContractorConverter;
 
     private final DarkApiConverter<ContractorIdentityDocumentsModification,
             com.rbkmoney.swag.claim_management.model.ContractorIdentityDocumentsModification> documentsModificationConvertor;
@@ -39,7 +39,7 @@ public class ContractorModificationUnitConverter
         switch (swagModification.getContractorModificationType()) {
             case CONTRACTOR:
                 var swagContractor = (com.rbkmoney.swag.claim_management.model.Contractor) swagModification;
-                contractorModification.setCreation(contractorConverter.convertToThrift(swagContractor));
+                contractorModification.setCreation(claimContractorConverter.convertToThrift(swagContractor));
                 break;
             case CONTRACTORIDENTIFICATIONLEVEL:
                 var swagContractorIdentificationLevel =
@@ -75,7 +75,7 @@ public class ContractorModificationUnitConverter
 
         if (contractorModificationUnit.getModification().isSetCreation()) {
             Contractor creation = contractorModificationUnit.getModification().getCreation();
-            swagContractorModificationUnit.setModification(contractorConverter.convertToSwag(creation));
+            swagContractorModificationUnit.setModification(claimContractorConverter.convertToSwag(creation));
         } else if (contractorModificationUnit.getModification().isSetIdentificationLevelModification()) {
             ContractorIdentificationLevel identificationLevelModification =
                     contractorModificationUnit.getModification().getIdentificationLevelModification();

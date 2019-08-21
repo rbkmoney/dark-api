@@ -19,7 +19,7 @@ public class PayoutToolInfoConverter
             com.rbkmoney.swag.claim_management.model.InternationalBankAccount> internationalBankAccountConverter;
 
     private final DarkApiConverter<RussianBankAccount,
-            com.rbkmoney.swag.claim_management.model.RussianBankAccount> russianBankAccountConverter;
+            com.rbkmoney.swag.claim_management.model.RussianBankAccount> claimRussianBankAccountConverter;
 
     @Override
     public PayoutToolInfo convertToThrift(com.rbkmoney.swag.claim_management.model.PayoutToolInfo swagPayoutToolInfo) {
@@ -30,7 +30,7 @@ public class PayoutToolInfoConverter
                 var swagRussianBankAccount =
                         (com.rbkmoney.swag.claim_management.model.RussianBankAccount) swagPayoutToolInfo;
                 payoutToolInfo.setRussianBankAccount(
-                        russianBankAccountConverter.convertToThrift(swagRussianBankAccount)
+                        claimRussianBankAccountConverter.convertToThrift(swagRussianBankAccount)
                 );
                 break;
             case INTERNATIONALBANKACCOUNT:
@@ -57,7 +57,7 @@ public class PayoutToolInfoConverter
     public com.rbkmoney.swag.claim_management.model.PayoutToolInfo convertToSwag(PayoutToolInfo payoutToolInfo) {
         if (payoutToolInfo.isSetRussianBankAccount()) {
             RussianBankAccount russianBankAccount = payoutToolInfo.getRussianBankAccount();
-            return russianBankAccountConverter.convertToSwag(russianBankAccount);
+            return claimRussianBankAccountConverter.convertToSwag(russianBankAccount);
         } else if (payoutToolInfo.isSetInternationalBankAccount()) {
             InternationalBankAccount internationalBankAccount = payoutToolInfo.getInternationalBankAccount();
             return internationalBankAccountConverter.convertToSwag(internationalBankAccount);

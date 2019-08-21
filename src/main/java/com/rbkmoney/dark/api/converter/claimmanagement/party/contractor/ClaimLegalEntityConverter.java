@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class LegalEntityConverter
+public class ClaimLegalEntityConverter
         implements DarkApiConverter<LegalEntity, com.rbkmoney.swag.claim_management.model.LegalEntity> {
 
     private final DarkApiConverter<InternationalLegalEntity,

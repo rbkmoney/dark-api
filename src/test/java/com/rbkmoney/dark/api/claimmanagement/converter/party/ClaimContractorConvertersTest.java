@@ -20,7 +20,7 @@ import static com.rbkmoney.swag.claim_management.model.Modification.Modification
 import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.CONTRACTORMODIFICATIONUNIT;
 import static org.junit.Assert.assertEquals;
 
-public class ContractorConvertersTest {
+public class ClaimContractorConvertersTest {
 
     @Test
     public void russianLegalEntityConverterTest() throws IOException {
@@ -90,7 +90,7 @@ public class ContractorConvertersTest {
 
     @Test
     public void legalEntityConverterTest() throws IOException {
-        LegalEntityConverter converter = new LegalEntityConverter(
+        ClaimLegalEntityConverter converter = new ClaimLegalEntityConverter(
                 new InternationalLegalEntityConverter(),
                 new RussianLegalEntityConverter()
         );
@@ -205,8 +205,8 @@ public class ContractorConvertersTest {
     @Test
     public void contractorModificationUnitConverterTest() throws IOException {
         ContractorModificationUnitConverter converter = new ContractorModificationUnitConverter(
-                new ContractorConverter(
-                        new LegalEntityConverter(
+                new ClaimContractorConverter(
+                        new ClaimLegalEntityConverter(
                                 new InternationalLegalEntityConverter(),
                                 new RussianLegalEntityConverter()
                         ),
@@ -245,8 +245,8 @@ public class ContractorConvertersTest {
 
     @Test
     public void contractorConverterTest() throws IOException {
-        ContractorConverter converter = new ContractorConverter(
-                new LegalEntityConverter(new InternationalLegalEntityConverter(), new RussianLegalEntityConverter()),
+        ClaimContractorConverter converter = new ClaimContractorConverter(
+                new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(), new RussianLegalEntityConverter()),
                 new PrivateEntityConverter());
         var swagContractor = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
         swagContractor.setContractorType(REGISTEREDUSER);

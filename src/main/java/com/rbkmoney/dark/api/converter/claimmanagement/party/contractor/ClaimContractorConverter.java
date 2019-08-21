@@ -10,10 +10,11 @@ import static com.rbkmoney.swag.claim_management.model.ContractorModification.Co
 
 @Component
 @RequiredArgsConstructor
-public class ContractorConverter implements DarkApiConverter<Contractor, com.rbkmoney.swag.claim_management.model.Contractor> {
+public class ClaimContractorConverter
+        implements DarkApiConverter<Contractor, com.rbkmoney.swag.claim_management.model.Contractor> {
 
     private final DarkApiConverter<LegalEntity,
-            com.rbkmoney.swag.claim_management.model.LegalEntity> legalEntityConverter;
+            com.rbkmoney.swag.claim_management.model.LegalEntity> claimLegalEntityConverter;
 
     private final DarkApiConverter<PrivateEntity,
             com.rbkmoney.swag.claim_management.model.PrivateEntity> privateEntityConverter;
@@ -24,7 +25,7 @@ public class ContractorConverter implements DarkApiConverter<Contractor, com.rbk
         switch (swagContractor.getContractorType()) {
             case LEGALENTITY:
                 var swagLegalEntity = (com.rbkmoney.swag.claim_management.model.LegalEntity) swagContractor;
-                contractor.setLegalEntity(legalEntityConverter.convertToThrift(swagLegalEntity));
+                contractor.setLegalEntity(claimLegalEntityConverter.convertToThrift(swagLegalEntity));
                 break;
             case PRIVATEENTITY:
                 var swagPrivateEntity = (com.rbkmoney.swag.claim_management.model.PrivateEntity) swagContractor;
@@ -45,7 +46,7 @@ public class ContractorConverter implements DarkApiConverter<Contractor, com.rbk
     @Override
     public com.rbkmoney.swag.claim_management.model.Contractor convertToSwag(Contractor creation) {
         if (creation.isSetLegalEntity()) {
-            return legalEntityConverter.convertToSwag(creation.getLegalEntity());
+            return claimLegalEntityConverter.convertToSwag(creation.getLegalEntity());
         } else if (creation.isSetPrivateEntity()) {
             PrivateEntity privateEntity = creation.getPrivateEntity();
 

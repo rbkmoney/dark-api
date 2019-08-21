@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.DETAILSMODIFICATION;
 
 @Component
-public class ShopDetailsConverter
+public class ClaimShopDetailsConverter
         implements DarkApiConverter<ShopDetails, com.rbkmoney.swag.claim_management.model.ShopDetails> {
 
     @Override

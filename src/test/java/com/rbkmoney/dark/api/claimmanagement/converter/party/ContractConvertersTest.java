@@ -24,7 +24,7 @@ public class ContractConvertersTest {
 
     @Test
     public void russianBankAccountConverterTest() throws IOException {
-        RussianBankAccountConverter converter = new RussianBankAccountConverter();
+        ClaimRussianBankAccountConverter converter = new ClaimRussianBankAccountConverter();
         var swagRussianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
         swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
         swagRussianBankAccount.setPayoutToolModificationType(null);
@@ -168,7 +168,7 @@ public class ContractConvertersTest {
         PayoutToolModificationUnitConverter converter = new PayoutToolModificationUnitConverter(
                 new PayoutToolInfoConverter(
                         new InternationalBankAccountConverter(),
-                        new RussianBankAccountConverter()
+                        new ClaimRussianBankAccountConverter()
                 )
         );
 
@@ -223,7 +223,7 @@ public class ContractConvertersTest {
                 new PayoutToolModificationUnitConverter(
                         new PayoutToolInfoConverter(
                                 new InternationalBankAccountConverter(),
-                                new RussianBankAccountConverter())),
+                                new ClaimRussianBankAccountConverter())),
                 new ContractAdjustmentModificationUnitConverter(),
                 new LegalAgreementConverter()
         );
