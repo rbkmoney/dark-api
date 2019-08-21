@@ -16,7 +16,7 @@ public class InternationalLegalEntityConverter
     public InternationalLegalEntity convertToThrift(
             com.rbkmoney.swag.claim_management.model.InternationalLegalEntity swagInternationalLegalEntity
     ) {
-        return  new InternationalLegalEntity()
+        return new InternationalLegalEntity()
                 .setLegalName(swagInternationalLegalEntity.getLegalName())
                 .setActualAddress(swagInternationalLegalEntity.getActualAddress())
                 .setRegisteredAddress(swagInternationalLegalEntity.getRegisteredAddress())

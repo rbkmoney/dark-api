@@ -26,7 +26,7 @@ public class ClaimManagementService {
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public Claim getClaimByID(String requestId, Long claimId) throws TException {
+    public Claim getClaimById(String requestId, Long claimId) throws TException {
         com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.getClaim(requestId, claimId);
         return claimManagementConverter.convertClaimToSwag(claim);
     }

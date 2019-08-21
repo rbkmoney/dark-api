@@ -93,7 +93,6 @@ public class ShopModificationUnitConverter
         swagShopModificationUnit.setPartyModificationType(SHOPMODIFICATIONUNIT);
         swagShopModificationUnit.setModificationType(PARTYMODIFICATION);
         swagShopModificationUnit.setId(shopModificationUnit.getId());
-        var swagShopModification = new com.rbkmoney.swag.claim_management.model.ShopModification();
 
         ShopModification shopModification = shopModificationUnit.getModification();
         if (shopModification.isSetCreation()) {
@@ -131,7 +130,6 @@ public class ShopModificationUnitConverter
             throw new IllegalArgumentException("Unknown party modification type!");
         }
 
-        swagShopModificationUnit.setModification(swagShopModification);
         return swagShopModificationUnit;
     }
 

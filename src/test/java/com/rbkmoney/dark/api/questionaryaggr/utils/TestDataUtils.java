@@ -1,4 +1,4 @@
-package com.rbkmoney.dark.api.utils;
+package com.rbkmoney.dark.api.questionaryaggr.utils;
 
 import com.rbkmoney.damsel.base.Content;
 import com.rbkmoney.damsel.domain.BankCardPaymentSystem;
@@ -10,7 +10,6 @@ import com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioResponse;
-import com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent;
 import com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyResponse;
@@ -19,12 +18,8 @@ import com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsRe
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponses;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusParams;
-import com.rbkmoney.swag.questionary_aggr_proxy.model.OkvedContent;
 import io.github.benas.randombeans.api.EnhancedRandom;
-import org.eclipse.jetty.util.IO;
-import org.mockito.Mock;
 
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.time.OffsetDateTime;

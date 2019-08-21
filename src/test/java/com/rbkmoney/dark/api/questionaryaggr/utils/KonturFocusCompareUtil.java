@@ -1,4 +1,4 @@
-package com.rbkmoney.dark.api.utils;
+package com.rbkmoney.dark.api.questionaryaggr.utils;
 
 import com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderFL;
 import com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderUL;

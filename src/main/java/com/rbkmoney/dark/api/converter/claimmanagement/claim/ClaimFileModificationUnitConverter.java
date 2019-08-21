@@ -12,7 +12,7 @@ import static com.rbkmoney.swag.claim_management.model.Modification.Modification
 
 @Component
 public class ClaimFileModificationUnitConverter
-        implements DarkApiConverter<FileModificationUnit,com.rbkmoney.swag.claim_management.model.FileModificationUnit> {
+        implements DarkApiConverter<FileModificationUnit, com.rbkmoney.swag.claim_management.model.FileModificationUnit> {
 
     @Override
     public FileModificationUnit convertToThrift(

@@ -60,6 +60,7 @@ public class ContractorModificationUnitConverter
                         swagModification.getContractorModificationType());
         }
 
+        contractorModificationUnit.setModification(contractorModification);
         return contractorModificationUnit;
     }
 

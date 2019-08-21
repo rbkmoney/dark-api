@@ -4,15 +4,11 @@ import com.rbkmoney.damsel.claim_management.ContractParams;
 import com.rbkmoney.damsel.domain.ContractTemplateRef;
 import com.rbkmoney.damsel.domain.PaymentInstitutionRef;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTPARAMS;
 
-@Slf4j
 @Component
-@RequiredArgsConstructor
 public class ContractModificationCreationConverter
         implements DarkApiConverter<ContractParams, com.rbkmoney.swag.claim_management.model.ContractParams> {
 
