@@ -13,7 +13,7 @@ public class ReportPreferencesConverter
         implements DarkApiConverter<ReportPreferences, com.rbkmoney.swag.claim_management.model.ReportPreferences> {
 
     private final DarkApiConverter<RepresentativeDocument,
-            com.rbkmoney.swag.claim_management.model.RepresentativeDocument> representativeDocumentConverter;
+                com.rbkmoney.swag.claim_management.model.RepresentativeDocument> representativeDocumentConverter;
 
     @Override
     public ReportPreferences convertToThrift(

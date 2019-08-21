@@ -4,7 +4,6 @@ import com.rbkmoney.damsel.claim_management.CommentCreated;
 import com.rbkmoney.damsel.claim_management.CommentModification;
 import com.rbkmoney.damsel.claim_management.CommentModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.COMMENTMODIFICATIONUNIT;
@@ -12,7 +11,6 @@ import static com.rbkmoney.swag.claim_management.model.CommentModification.Comme
 import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 
 @Component
-@RequiredArgsConstructor
 public class ClaimCommentModificationUnitConverter
         implements DarkApiConverter<CommentModificationUnit, com.rbkmoney.swag.claim_management.model.CommentModificationUnit> {
 

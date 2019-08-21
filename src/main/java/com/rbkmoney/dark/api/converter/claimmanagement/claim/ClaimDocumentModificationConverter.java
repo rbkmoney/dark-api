@@ -2,7 +2,6 @@ package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
 import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
@@ -10,7 +9,6 @@ import static com.rbkmoney.swag.claim_management.model.DocumentModification.Docu
 import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 
 @Component
-@RequiredArgsConstructor
 public class ClaimDocumentModificationConverter
         implements DarkApiConverter<DocumentModificationUnit, com.rbkmoney.swag.claim_management.model.DocumentModificationUnit> {
 
@@ -46,6 +44,11 @@ public class ClaimDocumentModificationConverter
         var swagDocumentModification = new com.rbkmoney.swag.claim_management.model.DocumentModification();
 
         if (documentModification.getModification().isSetCreation()) {
+            //TODO: проверить корректность
+            //var documentCreated = new com.rbkmoney.swag.claim_management.model.DocumentCreated();
+            //documentCreated.setDocumentModificationType(DOCUMENTCREATED);
+            //swagDocumentModificationUnit.setModification(documentCreated);
+
             swagDocumentModification.setDocumentModificationType(DOCUMENTCREATED);
         } else {
             throw new IllegalArgumentException("Unknown document modification type!");

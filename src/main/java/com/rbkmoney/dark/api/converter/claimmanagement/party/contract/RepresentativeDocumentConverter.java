@@ -48,7 +48,7 @@ public class RepresentativeDocumentConverter
             LegalAgreement powerOfAttorney = signer.getPowerOfAttorney();
             swagPowerOfAttorney.setLegalAgreementID(powerOfAttorney.getLegalAgreementId());
             swagPowerOfAttorney.setSignedAt(powerOfAttorney.getSignedAt());
-            swagPowerOfAttorney.setValidUntil(powerOfAttorney.getSignedAt());
+            swagPowerOfAttorney.setValidUntil(powerOfAttorney.getValidUntil());
             return swagPowerOfAttorney;
         } else {
             throw new IllegalArgumentException("Unknown representative document type!");

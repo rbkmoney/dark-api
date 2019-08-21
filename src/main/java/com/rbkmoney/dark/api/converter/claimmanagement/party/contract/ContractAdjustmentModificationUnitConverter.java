@@ -4,13 +4,11 @@ import com.rbkmoney.damsel.claim_management.ContractAdjustmentModification;
 import com.rbkmoney.damsel.claim_management.ContractAdjustmentModificationUnit;
 import com.rbkmoney.damsel.claim_management.ContractAdjustmentParams;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTADJUSTMENTMODIFICATIONUNIT;
 
 @Component
-@RequiredArgsConstructor
 public class ContractAdjustmentModificationUnitConverter
         implements DarkApiConverter<ContractAdjustmentModificationUnit, com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> {
 
@@ -29,6 +27,7 @@ public class ContractAdjustmentModificationUnitConverter
         );
 
         adjustmentModification.setCreation(contractAdjustmentParams);
+        adjustmentModificationUnit.setModification(adjustmentModification);
         return adjustmentModificationUnit;
     }
 
