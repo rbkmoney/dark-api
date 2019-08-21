@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>SNAPSHOT</version>
+            <version>1.7-f0e02d3-server</version>
         </dependency>
 
         <!--spring-->
