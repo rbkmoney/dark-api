@@ -41,7 +41,7 @@ public class ClaimStatusModificationConverter
                 return status;
             default:
                 throw new IllegalArgumentException("Status " + swagStatusModificationUnit.getStatus() +
-                        "in swagStatusModificationUnit not found!");
+                        " in swagStatusModificationUnit not found!");
         }
     }
 
