@@ -1,14 +1,12 @@
 package com.rbkmoney.dark.api.service;
 
+import com.rbkmoney.dark.api.questionaryaggr.utils.TestDataUtils;
 import com.rbkmoney.dark.api.utils.QuestionaryCompareUtil;
-import com.rbkmoney.dark.api.utils.TestDataUtils;
-import com.rbkmoney.questionary.BankAccount;
 import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
-import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.QuestionaryParams;
+import com.rbkmoney.swag.questionary.model.Snapshot;
 import org.apache.thrift.TException;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;

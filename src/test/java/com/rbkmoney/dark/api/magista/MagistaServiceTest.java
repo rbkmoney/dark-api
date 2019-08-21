@@ -1,6 +1,7 @@
-package com.rbkmoney.dark.api.service;
+package com.rbkmoney.dark.api.magista;
 
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
+import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.model.InlineResponse200;
 import com.rbkmoney.swag.dark_api.model.PaymentFlowHold;
 import com.rbkmoney.swag.dark_api.model.PaymentSearchResult;
@@ -16,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.OffsetDateTime;
 
-import static com.rbkmoney.dark.api.utils.TestDataUtils.createStatResponse;
+import static com.rbkmoney.dark.api.questionaryaggr.utils.TestDataUtils.createStatResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;

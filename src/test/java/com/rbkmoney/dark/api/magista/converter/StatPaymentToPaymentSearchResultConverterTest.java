@@ -1,7 +1,8 @@
-package com.rbkmoney.dark.api.converter;
+package com.rbkmoney.dark.api.magista.converter;
 
 import com.rbkmoney.damsel.base.Content;
 import com.rbkmoney.damsel.merch_stat.*;
+import com.rbkmoney.dark.api.converter.StatPaymentToPaymentSearchResultConverter;
 import com.rbkmoney.swag.dark_api.model.PaymentSearchResult;
 import org.junit.Assert;
 import org.junit.Test;

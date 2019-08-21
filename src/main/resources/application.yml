@@ -24,6 +24,12 @@ magista:
       url: http://localhost:8022/v2/stat
       networkTimeout: 30000
 
+claimmanagement:
+  client:
+    adapter:
+      url: http://localhost:8022/v1/claimmanagement
+      networkTimeout: 30000
+
 keycloak:
   realm: internal
   auth-server-url: http://keycloak:8080/auth

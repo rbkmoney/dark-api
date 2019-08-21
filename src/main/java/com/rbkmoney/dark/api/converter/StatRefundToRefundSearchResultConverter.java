@@ -19,6 +19,7 @@ public class StatRefundToRefundSearchResultConverter {
                 .invoiceID(statRefund.invoice_id)
                 .paymentID(statRefund.payment_id)
                 .reason(statRefund.reason)
+
                 .status(RefundSearchResult.StatusEnum.fromValue(statRefund.status.getSetField().getFieldName()));
     }
 

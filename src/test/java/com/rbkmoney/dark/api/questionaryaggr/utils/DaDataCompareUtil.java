@@ -1,4 +1,4 @@
-package com.rbkmoney.dark.api.utils;
+package com.rbkmoney.dark.api.questionaryaggr.utils;
 
 import com.rbkmoney.questionary_proxy_aggr.base_dadata.Registration;
 import com.rbkmoney.questionary_proxy_aggr.dadata_address.Address;
