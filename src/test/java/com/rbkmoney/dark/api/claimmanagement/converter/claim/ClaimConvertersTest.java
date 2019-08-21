@@ -153,11 +153,11 @@ public class ClaimConvertersTest {
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);
 
         Modification thriftModification = new Modification();
-        do {
-            thriftModification = new MockTBaseProcessor(MockMode.ALL)
-                    .process(thriftModification, new TBaseHandler<>(Modification.class));
-        } while (thriftModification.isSetPartyModification());
+        ClaimModification claimModification = new ClaimModification();
+        claimModification = new MockTBaseProcessor(MockMode.ALL)
+                    .process(claimModification, new TBaseHandler<>(ClaimModification.class));
 
+        thriftModification.setClaimModfication(claimModification);
         Modification resultThriftModification = converter.convertToThrift(
                 converter.convertToSwag(thriftModification)
         );
