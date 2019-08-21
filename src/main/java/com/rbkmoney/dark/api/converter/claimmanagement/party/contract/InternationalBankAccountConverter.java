@@ -39,15 +39,17 @@ public class InternationalBankAccountConverter
                     .setNumber(swagCorrespondentAccount.getNumber());
 
             var swagCorrespondentAccountBank = swagCorrespondentAccount.getBank();
-            correspondentAccount.setBank(swagCorrespondentAccountBank == null ?
-                    null : new InternationalBankDetails()
-                    .setAbaRtn(swagCorrespondentAccountBank.getAbaRtn())
-                    .setAddress(swagCorrespondentAccountBank.getAddress())
-                    .setBic(swagCorrespondentAccountBank.getBic())
-                    .setName(swagCorrespondentAccountBank.getName())
-                    .setCountry(Residence.valueOf(swagCorrespondentAccountBank.getCountry())));
+            if (swagInternationalBankAccount != null) {
+                correspondentAccount.setBank(new InternationalBankDetails()
+                        .setAbaRtn(swagCorrespondentAccountBank.getAbaRtn())
+                        .setAddress(swagCorrespondentAccountBank.getAddress())
+                        .setBic(swagCorrespondentAccountBank.getBic())
+                        .setName(swagCorrespondentAccountBank.getName())
+                        .setCountry(Residence.valueOf(swagCorrespondentAccountBank.getCountry())));
 
-            internationalBankAccount.setCorrespondentAccount(correspondentAccount);
+                internationalBankAccount.setCorrespondentAccount(correspondentAccount);
+            }
+
         }
 
         return internationalBankAccount;
