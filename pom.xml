@@ -68,9 +68,19 @@
             <version>1.4-faed0e4-server</version>
         </dependency>
         <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>swag-messages</artifactId>
+            <version>1.3-42742c8-server</version>
+        </dependency>
+        <dependency>
             <groupId>com.rbkmoney.geck</groupId>
             <artifactId>serializer</artifactId>
             <version>0.6.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>messages-proto</artifactId>
+            <version>1.9-7d12d00</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
