@@ -6,6 +6,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.LegalEntity;
 import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.LegalEntity.LegalEntityTypeEnum;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,8 +29,7 @@ public class LegalEntityConverter implements
                     .name(value.getRussianLegalEntity().getName())
                     .okatoCode(value.getRussianLegalEntity().getOkatoCode())
                     .okpoCode(value.getRussianLegalEntity().getOkpoCode())
-                    .postalAddress(value.getRussianLegalEntity().getPostalAddress())
-                    .propertyInfo(value.getRussianLegalEntity().getPropertyInfo());
+                    .postalAddress(value.getRussianLegalEntity().getPostalAddress());
             if (value.getRussianLegalEntity().isSetFoundersInfo()) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(value.getRussianLegalEntity().getFoundersInfo(), FoundersInfo.class));
             }
@@ -65,6 +65,11 @@ public class LegalEntityConverter implements
                 russianLegalEntity.setAdditionalInfo(ctx.convert(value.getRussianLegalEntity().getAdditionalInfo(), AdditionalInfo.class));
             }
 
+            if (value.getRussianLegalEntity().isSetPropertyInfoDocumentType()) {
+                russianLegalEntity.setPropertyInfoDocumentType(
+                        ctx.convert(value.getRussianLegalEntity().getPropertyInfoDocumentType(), PropertyInfoDocumentType.class));
+            }
+
             return russianLegalEntity;
         }
 
@@ -73,7 +78,7 @@ public class LegalEntityConverter implements
 
     @Override
     public LegalEntity toThrift(com.rbkmoney.swag.questionary.model.LegalEntity value, ThriftConverterContext ctx) {
-        if (value instanceof RussianLegalEntity) {
+        if (value.getLegalEntityType() == LegalEntityTypeEnum.RUSSIANLEGALENTITY) {
             var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity()
                     .setAdditionalSpace(((RussianLegalEntity) value).getAdditionalSpace())
                     .setForeignName(((RussianLegalEntity) value).getForeignName())
@@ -82,8 +87,7 @@ public class LegalEntityConverter implements
                     .setName(((RussianLegalEntity) value).getName())
                     .setOkatoCode(((RussianLegalEntity) value).getOkatoCode())
                     .setOkpoCode(((RussianLegalEntity) value).getOkpoCode())
-                    .setPostalAddress(((RussianLegalEntity) value).getPostalAddress())
-                    .setPropertyInfo(((RussianLegalEntity) value).getPropertyInfo());
+                    .setPostalAddress(((RussianLegalEntity) value).getPostalAddress());
             if (((RussianLegalEntity) value).getFoundersInfo() != null) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(((RussianLegalEntity) value).getFoundersInfo(),
                         com.rbkmoney.questionary.FoundersInfo.class));
@@ -117,6 +121,11 @@ public class LegalEntityConverter implements
             if (((RussianLegalEntity) value).getAdditionalInfo() != null) {
                 russianLegalEntity.setAdditionalInfo(ctx.convert(((RussianLegalEntity) value).getAdditionalInfo(),
                         com.rbkmoney.questionary.AdditionalInfo.class));
+            }
+            if (((RussianLegalEntity) value).getPropertyInfoDocumentType() != null) {
+                russianLegalEntity.setPropertyInfoDocumentType(
+                        ctx.convert(((RussianLegalEntity) value).getPropertyInfoDocumentType(),
+                                com.rbkmoney.questionary.PropertyInfoDocumentType.class));
             }
 
             return LegalEntity.russian_legal_entity(russianLegalEntity);

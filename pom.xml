@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>dark-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>dark-api</name>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary</artifactId>
-            <version>1.4-faed0e4-server</version>
+            <version>1.10-bf58980-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>ank-proto</artifactId>
-            <version>1.12-ffa1012</version>
+            <version>1.13-b10ca88</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

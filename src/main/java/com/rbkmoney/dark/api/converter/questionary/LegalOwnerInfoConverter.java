@@ -17,7 +17,10 @@ public class LegalOwnerInfoConverter implements
                                                                      SwagConverterContext ctx) {
         LegalOwnerInfo legalOwnerInfo = new LegalOwnerInfo()
                 .inn(value.getInn())
-                .pdlCategory(value.isPdlCategory());
+                .pdlCategory(value.isPdlCategory())
+                .pdlRelationDegree(value.getPdlRelationDegree())
+                .snils(value.getSnils())
+                .termOfOffice(value.getTermOfOffice());
         if (value.isSetIdentityDocument()) {
             legalOwnerInfo.setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
         }
@@ -30,6 +33,10 @@ public class LegalOwnerInfoConverter implements
         if (value.isSetRussianPrivateEntity()) {
             legalOwnerInfo.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
         }
+        if (value.isSetAuthorityConfirmingDocument()) {
+            legalOwnerInfo.setAuthorityConfirmingDocument(
+                    ctx.convert(value.getAuthorityConfirmingDocument(), AuthorityConfirmingDocument.class));
+        }
 
         return legalOwnerInfo;
     }
@@ -38,18 +45,29 @@ public class LegalOwnerInfoConverter implements
     public com.rbkmoney.questionary.LegalOwnerInfo toThrift(LegalOwnerInfo value, ThriftConverterContext ctx) {
         var legalOwnerInfo = new com.rbkmoney.questionary.LegalOwnerInfo()
                 .setInn(value.getInn())
-                .setPdlCategory(value.isPdlCategory());
+                .setPdlCategory(value.isPdlCategory())
+                .setPdlRelationDegree(value.getPdlRelationDegree())
+                .setSnils(value.getSnils())
+                .setTermOfOffice(value.getTermOfOffice());
         if (value.getIdentityDocument() != null) {
-            legalOwnerInfo.setIdentityDocument(ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
+            legalOwnerInfo.setIdentityDocument(
+                    ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
         }
         if (value.getResidenceApprove() != null) {
-            legalOwnerInfo.setResidenceApprove(ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
+            legalOwnerInfo.setResidenceApprove(
+                    ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
         }
         if (value.getMigrationCardInfo() != null) {
-            legalOwnerInfo.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
+            legalOwnerInfo.setMigrationCardInfo(
+                    ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
         }
         if (value.getRussianPrivateEntity() != null) {
-            legalOwnerInfo.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
+            legalOwnerInfo.setRussianPrivateEntity(
+                    ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
+        }
+        if (value.getAuthorityConfirmingDocument() != null) {
+            legalOwnerInfo.setAuthorityConfirmingDocument(
+                    ctx.convert(value.getAuthorityConfirmingDocument(), com.rbkmoney.questionary.AuthorityConfirmingDocument.class));
         }
 
         return legalOwnerInfo;

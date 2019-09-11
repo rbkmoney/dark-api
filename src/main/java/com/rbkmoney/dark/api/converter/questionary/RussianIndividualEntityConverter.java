@@ -8,6 +8,9 @@ import com.rbkmoney.questionary.RussianIndividualEntity;
 import com.rbkmoney.swag.questionary.model.*;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class RussianIndividualEntityConverter implements
         ThriftConverter<RussianIndividualEntity, com.rbkmoney.swag.questionary.model.RussianIndividualEntity>,
@@ -15,9 +18,9 @@ public class RussianIndividualEntityConverter implements
 
     @Override
     public com.rbkmoney.swag.questionary.model.RussianIndividualEntity toSwag(RussianIndividualEntity value, SwagConverterContext ctx) {
-        var russianIndividualEntity = new com.rbkmoney.swag.questionary.model.RussianIndividualEntity();
-        russianIndividualEntity.setInn(value.getInn());
-        russianIndividualEntity.setPropertyInfo(value.getPropertyInfo());
+        var russianIndividualEntity = new com.rbkmoney.swag.questionary.model.RussianIndividualEntity()
+                .inn(value.getInn())
+                .snils(value.getSnils());
         if (value.isSetRegistrationInfo()) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), RegistrationInfo.class));
         }
@@ -25,7 +28,7 @@ public class RussianIndividualEntityConverter implements
             russianIndividualEntity.setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
         }
         if (value.isSetLicenseInfo()) {
-            russianIndividualEntity.setLiceneInfo(ctx.convert(value.getLicenseInfo(), LicenseInfo.class));
+            russianIndividualEntity.setLicenseInfo(ctx.convert(value.getLicenseInfo(), LicenseInfo.class));
         }
         if (value.isSetMigrationCardInfo()) {
             russianIndividualEntity.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), MigrationCardInfo.class));
@@ -48,6 +51,16 @@ public class RussianIndividualEntityConverter implements
         if (value.isSetAdditionalInfo()) {
             russianIndividualEntity.setAdditionalInfo(ctx.convert(value.getAdditionalInfo(), AdditionalInfo.class));
         }
+        if (value.isSetPropertyInfoDocumentType()) {
+            russianIndividualEntity.setPropertyInfoDocumentType(
+                    ctx.convert(value.getPropertyInfoDocumentType(), PropertyInfoDocumentType.class));
+        }
+        if (value.isSetBeneficialOwners()) {
+            List<BeneficialOwner> beneficialOwnerList = value.getBeneficialOwners().stream()
+                    .map(beneficialOwner -> ctx.convert(beneficialOwner, BeneficialOwner.class))
+                    .collect(Collectors.toList());
+            russianIndividualEntity.setBeneficialOwners(beneficialOwnerList);
+        }
 
         return russianIndividualEntity;
     }
@@ -55,16 +68,15 @@ public class RussianIndividualEntityConverter implements
     @Override
     public RussianIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RussianIndividualEntity value, ThriftConverterContext ctx) {
         RussianIndividualEntity russianIndividualEntity = new RussianIndividualEntity()
-                .setInn(value.getInn())
-                .setPropertyInfo(value.getPropertyInfo());
+                .setInn(value.getInn());
         if (value.getRegistrationInfo() != null) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
         }
         if (value.getIdentityDocument() != null) {
             russianIndividualEntity.setIdentityDocument(ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
         }
-        if (value.getLiceneInfo() != null) {
-            russianIndividualEntity.setLicenseInfo(ctx.convert(value.getLiceneInfo(), com.rbkmoney.questionary.LicenseInfo.class));
+        if (value.getLicenseInfo() != null) {
+            russianIndividualEntity.setLicenseInfo(ctx.convert(value.getLicenseInfo(), com.rbkmoney.questionary.LicenseInfo.class));
         }
         if (value.getMigrationCardInfo() != null) {
             russianIndividualEntity.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
@@ -86,6 +98,16 @@ public class RussianIndividualEntityConverter implements
         }
         if (value.getAdditionalInfo() != null) {
             russianIndividualEntity.setAdditionalInfo(ctx.convert(value.getAdditionalInfo(), com.rbkmoney.questionary.AdditionalInfo.class));
+        }
+        if (value.getPropertyInfoDocumentType() != null) {
+            russianIndividualEntity.setPropertyInfoDocumentType(
+                    ctx.convert(value.getPropertyInfoDocumentType(), com.rbkmoney.questionary.PropertyInfoDocumentType.class));
+        }
+        if (value.getBeneficialOwners() != null) {
+            List<com.rbkmoney.questionary.BeneficialOwner> beneficialOwnerList = value.getBeneficialOwners().stream()
+                    .map(beneficialOwner -> ctx.convert(beneficialOwner, com.rbkmoney.questionary.BeneficialOwner.class))
+                    .collect(Collectors.toList());
+            russianIndividualEntity.setBeneficialOwners(beneficialOwnerList);
         }
 
         return russianIndividualEntity;

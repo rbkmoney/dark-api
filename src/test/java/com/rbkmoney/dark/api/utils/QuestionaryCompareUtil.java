@@ -1,9 +1,10 @@
 package com.rbkmoney.dark.api.utils;
 
 import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum;
+import com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,13 +21,11 @@ public class QuestionaryCompareUtil {
             individualPersonCategoriesCompare(thriftRussianIndividualEntity.getIndividualPersonCategories(),
                     ((RussianIndividualEntity) swagIndividualEntity).getIndividualPersonCategories());
             licenseInfoCompare(thriftRussianIndividualEntity.getLicenseInfo(),
-                    ((RussianIndividualEntity) swagIndividualEntity).getLiceneInfo());
+                    ((RussianIndividualEntity) swagIndividualEntity).getLicenseInfo());
             migrationCardInfoCompare(thriftRussianIndividualEntity.getMigrationCardInfo(),
                     ((RussianIndividualEntity) swagIndividualEntity).getMigrationCardInfo());
             principalActivityCompare(thriftRussianIndividualEntity.getPrincipalActivity(),
                     ((RussianIndividualEntity) swagIndividualEntity).getPrincipalActivity());
-            Assert.assertThat(thriftRussianIndividualEntity.getPropertyInfo(),
-                    CoreMatchers.is(((RussianIndividualEntity) swagIndividualEntity).getPropertyInfo()));
             registrationInfoCompare(thriftRussianIndividualEntity.getRegistrationInfo(),
                     ((RussianIndividualEntity) swagIndividualEntity).getRegistrationInfo());
             residencyInfoCompare(thriftRussianIndividualEntity.getResidencyInfo(),
@@ -35,27 +34,145 @@ public class QuestionaryCompareUtil {
                     ((RussianIndividualEntity) swagIndividualEntity).getResidenceApprove());
             russianPrivateEntityCompare(thriftRussianIndividualEntity.getRussianPrivateEntity(),
                     ((RussianIndividualEntity) swagIndividualEntity).getRussianPrivateEntity());
+            additionalInfoCompare(thriftRussianIndividualEntity.getAdditionalInfo(),
+                    ((RussianIndividualEntity) swagIndividualEntity).getAdditionalInfo());
         } else if (swagContractor instanceof LegalEntityContractor) {
-            com.rbkmoney.questionary.LegalEntity legalEntity = thriftContractor.getLegalEntity();
+            com.rbkmoney.questionary.LegalEntity thriftLegalEntity = thriftContractor.getLegalEntity();
             LegalEntity swagLegalEntity = ((LegalEntityContractor) swagContractor).getLegalEntity();
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getInn(), ((RussianLegalEntity) swagLegalEntity).getInn());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getAdditionalSpace(), ((RussianLegalEntity) swagLegalEntity).getAdditionalSpace());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getForeignName(), ((RussianLegalEntity) swagLegalEntity).getForeignName());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getLegalForm(), ((RussianLegalEntity) swagLegalEntity).getLegalForm());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getName(), ((RussianLegalEntity) swagLegalEntity).getName());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getOkatoCode(), ((RussianLegalEntity) swagLegalEntity).getOkatoCode());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getOkpoCode(), ((RussianLegalEntity) swagLegalEntity).getOkpoCode());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getPostalAddress(), ((RussianLegalEntity) swagLegalEntity).getPostalAddress());
-            Assert.assertEquals(legalEntity.getRussianLegalEntity().getPropertyInfo(), ((RussianLegalEntity) swagLegalEntity).getPropertyInfo());
-            residencyInfoCompare(legalEntity.getRussianLegalEntity().getResidencyInfo(), ((RussianLegalEntity) swagLegalEntity).getResidencyInfo());
-            registrationInfoCompare(legalEntity.getRussianLegalEntity().getRegistrationInfo(), ((RussianLegalEntity) swagLegalEntity).getRegistrationInfo());
-            principalActivityCompare(legalEntity.getRussianLegalEntity().getPrincipalActivity(), ((RussianLegalEntity) swagLegalEntity).getPrincipalActivity());
-            for (int i = 0; i < legalEntity.getRussianLegalEntity().getBeneficialOwners().size(); i++) {
-                com.rbkmoney.questionary.BeneficialOwner beneficialOwner = legalEntity.getRussianLegalEntity().getBeneficialOwners().get(i);
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getInn(), ((RussianLegalEntity) swagLegalEntity).getInn());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getAdditionalSpace(), ((RussianLegalEntity) swagLegalEntity).getAdditionalSpace());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getForeignName(), ((RussianLegalEntity) swagLegalEntity).getForeignName());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getLegalForm(), ((RussianLegalEntity) swagLegalEntity).getLegalForm());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getName(), ((RussianLegalEntity) swagLegalEntity).getName());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getOkatoCode(), ((RussianLegalEntity) swagLegalEntity).getOkatoCode());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getOkpoCode(), ((RussianLegalEntity) swagLegalEntity).getOkpoCode());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getPostalAddress(), ((RussianLegalEntity) swagLegalEntity).getPostalAddress());
+            residencyInfoCompare(thriftLegalEntity.getRussianLegalEntity().getResidencyInfo(), ((RussianLegalEntity) swagLegalEntity).getResidencyInfo());
+            registrationInfoCompare(thriftLegalEntity.getRussianLegalEntity().getRegistrationInfo(), ((RussianLegalEntity) swagLegalEntity).getRegistrationInfo());
+            principalActivityCompare(thriftLegalEntity.getRussianLegalEntity().getPrincipalActivity(), ((RussianLegalEntity) swagLegalEntity).getPrincipalActivity());
+            for (int i = 0; i < thriftLegalEntity.getRussianLegalEntity().getBeneficialOwners().size(); i++) {
+                com.rbkmoney.questionary.BeneficialOwner beneficialOwner = thriftLegalEntity.getRussianLegalEntity().getBeneficialOwners().get(i);
                 BeneficialOwner swagBeneficialOwner = ((RussianLegalEntity) swagLegalEntity).getBeneficialOwner().get(i);
                 beneficialOwnerCompare(beneficialOwner, swagBeneficialOwner);
             }
-            founderInfoCompare(legalEntity.getRussianLegalEntity().getFoundersInfo(), ((RussianLegalEntity) swagLegalEntity).getFoundersInfo());
+            founderInfoCompare(thriftLegalEntity.getRussianLegalEntity().getFoundersInfo(), ((RussianLegalEntity) swagLegalEntity).getFoundersInfo());
+            comparePropertyInfoDocType(thriftLegalEntity.getRussianLegalEntity().getPropertyInfoDocumentType(),
+                    ((RussianLegalEntity) swagLegalEntity).getPropertyInfoDocumentType());
+            additionalInfoCompare(thriftLegalEntity.getRussianLegalEntity().getAdditionalInfo(), ((RussianLegalEntity) swagLegalEntity).getAdditionalInfo());
+        }
+    }
+
+    private static void comparePropertyInfoDocType(com.rbkmoney.questionary.PropertyInfoDocumentType thriftPropertyInfoDocumentType,
+                                                   PropertyInfoDocumentType swagPropertyInfoDocumentType) {
+        if (swagPropertyInfoDocumentType.getDocumentType() == PropertyInfoDocumentType.DocumentTypeEnum.LEASECONTRACT) {
+            Assert.assertTrue(thriftPropertyInfoDocumentType.isSetLeaseContract());
+        } else if (swagPropertyInfoDocumentType.getDocumentType() == PropertyInfoDocumentType.DocumentTypeEnum.SUBLEASECONTRACT) {
+            Assert.assertTrue(thriftPropertyInfoDocumentType.isSetSubleaseContract());
+        } else if (swagPropertyInfoDocumentType.getDocumentType() == PropertyInfoDocumentType.DocumentTypeEnum.CERTIFICATEOFOWNERSHIP) {
+            Assert.assertTrue(thriftPropertyInfoDocumentType.isSetCertificateOfOwnership());
+        } else if (swagPropertyInfoDocumentType.getDocumentType() == PropertyInfoDocumentType.DocumentTypeEnum.OTHERPROPERTYINFODOCUMENTTYPE) {
+            Assert.assertTrue(thriftPropertyInfoDocumentType.isSetOtherPropertyInfoDocumentType());
+            Assert.assertEquals(thriftPropertyInfoDocumentType.getOtherPropertyInfoDocumentType().getName(),
+                    ((OtherPropertyInfoDocumentType) swagPropertyInfoDocumentType).getName());
+        }
+    }
+
+    private static void additionalInfoCompare(com.rbkmoney.questionary.AdditionalInfo thriftAdditionalInfo, AdditionalInfo swagAdditionalInfo) {
+        Assert.assertEquals(thriftAdditionalInfo.getStaffCount(), swagAdditionalInfo.getStaffCount().longValue());
+        Assert.assertEquals(thriftAdditionalInfo.getMainCounterparties(), swagAdditionalInfo.getMainCounterparties());
+        Assert.assertEquals(thriftAdditionalInfo.getNKORelationTarget(), swagAdditionalInfo.getNkoRelationTarget());
+        Assert.assertEquals(thriftAdditionalInfo.getRelationshipWithNKO(), swagAdditionalInfo.getRelationshipWithNko());
+        for (int i = 0; i < thriftAdditionalInfo.getFinancialPosition().size(); i++) {
+            com.rbkmoney.questionary.FinancialPosition thriftFinancialPosition = thriftAdditionalInfo.getFinancialPosition().get(i);
+            FinancialPosition swagFinancialPosition = swagAdditionalInfo.getFinancialPosition().get(i);
+            compareFinancialPosition(thriftFinancialPosition, swagFinancialPosition);
+        }
+        for (int i = 0; i < thriftAdditionalInfo.getBusinessInfo().size(); i++) {
+            com.rbkmoney.questionary.BusinessInfo thriftBusinessInfo = thriftAdditionalInfo.getBusinessInfo().get(i);
+            BusinessInfo swagBusinessInfo = swagAdditionalInfo.getBusinessInfo().get(i);
+            compareBusinessInfo(thriftBusinessInfo, swagBusinessInfo);
+        }
+        compareBusinessReputation(thriftAdditionalInfo.getBusinessReputation(), swagAdditionalInfo.getBusinessReputation());
+        compareAccountantInfo(thriftAdditionalInfo.getAccountantInfo(), swagAdditionalInfo.getAccountantInfo());
+        compareMonthOperationSum(thriftAdditionalInfo.getMonthOperationSum(), swagAdditionalInfo.getMonthOperationSum());
+    }
+
+    private static void compareBusinessReputation(com.rbkmoney.questionary.BusinessReputation thriftBusinessReputation,
+                                                  BusinessReputation swagBusinessReputation) {
+        if (swagBusinessReputation == BusinessReputation.NOREVIEWS) {
+            Assert.assertSame(thriftBusinessReputation, com.rbkmoney.questionary.BusinessReputation.no_reviews);
+        } else if (swagBusinessReputation == BusinessReputation.PROVIDEREVIEWS) {
+            Assert.assertSame(thriftBusinessReputation, com.rbkmoney.questionary.BusinessReputation.provide_reviews);
+        }
+    }
+
+    private static void compareBusinessInfo(com.rbkmoney.questionary.BusinessInfo thriftBusinessInfo, BusinessInfo swagBusinessInfo) {
+        if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.WHOLESALETRADEBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetWholesaleTradeBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.TRANSPORTBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetTransportBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.SECURITIESTRADINGBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetSecuritiesTradingBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.RETAILTRADEBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetRetailTradeBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.PRODUCTIONBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetProductionBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.MEDIATIONINPROPERTYBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetMediationInPropertyBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.BUILDINGBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetBuildingBusiness());
+        } else if (swagBusinessInfo.getBusinessInfoType() == BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS) {
+            Assert.assertTrue(thriftBusinessInfo.isSetAnotherBusiness());
+            Assert.assertEquals(thriftBusinessInfo.getAnotherBusiness().getDescription(),
+                    ((AnotherBusiness) swagBusinessInfo).getDescription());
+        }
+    }
+
+    private static void compareFinancialPosition(com.rbkmoney.questionary.FinancialPosition thriftFinancialPosition, FinancialPosition swagFinancialPosition) {
+        if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.STATEMENTOFDUTY) {
+            Assert.assertTrue(thriftFinancialPosition.isSetStatementOfDuty());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHOUTMARK) {
+            Assert.assertTrue(thriftFinancialPosition.isSetQuarterlyTaxReturnWithoutMark());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHMARK) {
+            Assert.assertTrue(thriftFinancialPosition.isSetQuarterlyTaxReturnWithMark());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.LETTEROFGUARANTEE) {
+            Assert.assertTrue(thriftFinancialPosition.isSetLetterOfGuarantee());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARKPAPER) {
+            Assert.assertTrue(thriftFinancialPosition.isSetAnnualTaxReturnWithoutMarkPaper());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK) {
+            Assert.assertTrue(thriftFinancialPosition.isSetAnnualTaxReturnWithMark());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARK) {
+            Assert.assertTrue(thriftFinancialPosition.isSetAnnualTaxReturnWithoutMark());
+        } else if (swagFinancialPosition.getFinancialPositionType() == FinancialPosition.FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS) {
+            Assert.assertTrue(thriftFinancialPosition.isSetAnnualFinancialStatements());
+        }
+    }
+
+    private static void compareMonthOperationSum(com.rbkmoney.questionary.MonthOperationSum thriftMonthOperationSum, MonthOperationSum swagMonthOperationSum) {
+        if (swagMonthOperationSum == MonthOperationSum.BTWFIVEHUNDREDTHOUSANDTOONEMILLION) {
+            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.btw_five_hundred_thousand_to_one_million);
+        } else if (swagMonthOperationSum == MonthOperationSum.GTONEMILLION) {
+            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.gt_one_million);
+        } else if (swagMonthOperationSum == MonthOperationSum.LTFIVEHUNDREDTHOUSAND) {
+            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.lt_five_hundred_thousand);
+        }
+    }
+
+    private static void compareAccountantInfo(com.rbkmoney.questionary.AccountantInfo thriftAccountantInfo, AccountantInfo swagAccountantInfo) {
+        if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHCHIEFACCOUNTANT) {
+            Assert.assertTrue(thriftAccountantInfo.isSetWithChiefAccountant());
+        } else if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT) {
+            Assert.assertTrue(thriftAccountantInfo.isSetWithoutChiefAccountant());
+            if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT) {
+                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetIndividualAccountant());
+            } else if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.HEADACCOUNTING) {
+                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetHeadAccounting());
+            } else if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION) {
+                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetAccountingOrganization());
+                AccountingOrganization swagAccountantOrganization = (AccountingOrganization) ((WithoutChiefAccountant) swagAccountantInfo);
+                Assert.assertEquals(thriftAccountantInfo.getWithoutChiefAccountant().getAccountingOrganization().getInn(),
+                        swagAccountantOrganization.getInn());
+            }
         }
     }
 
@@ -64,7 +181,8 @@ public class QuestionaryCompareUtil {
         Assert.assertEquals(thriftContactInfo.getPhoneNumber(), swagContactInfo.getPhoneNumber());
     }
 
-    public static void bankAccountCompare(com.rbkmoney.questionary.BankAccount thriftBankAccount, com.rbkmoney.swag.questionary.model.BankAccount swagBankAccount) {
+    public static void bankAccountCompare(com.rbkmoney.questionary.BankAccount thriftBankAccount,
+                                          com.rbkmoney.swag.questionary.model.BankAccount swagBankAccount) {
         if (swagBankAccount instanceof RussianBankAccount) {
             Assert.assertEquals(thriftBankAccount.getRussianBankAccount().getAccount(),
                     ((RussianBankAccount) swagBankAccount).getAccount());
@@ -150,8 +268,10 @@ public class QuestionaryCompareUtil {
 
     private static void residencyInfoCompare(com.rbkmoney.questionary.ResidencyInfo thriftResidencyInfo, ResidencyInfo swagResidencyInfo) {
         if (swagResidencyInfo instanceof IndividualResidencyInfo) {
-            Assert.assertEquals(thriftResidencyInfo.getIndividualResidencyInfo().isTaxResident(),
-                    ((IndividualResidencyInfo) swagResidencyInfo).isTaxResident());
+            Assert.assertEquals(thriftResidencyInfo.getIndividualResidencyInfo().isUsaTaxResident(),
+                    ((IndividualResidencyInfo) swagResidencyInfo).isUsaTaxResident());
+            Assert.assertEquals(thriftResidencyInfo.getIndividualResidencyInfo().isExceptUsaTaxResident(),
+                    ((IndividualResidencyInfo) swagResidencyInfo).isExceptUsaTaxResident());
         } else if (swagResidencyInfo instanceof LegalResidencyInfo) {
             Assert.assertEquals(thriftResidencyInfo.getLegalResidencyInfo().isFatca(),
                     ((LegalResidencyInfo) swagResidencyInfo).isFatca());
@@ -167,7 +287,7 @@ public class QuestionaryCompareUtil {
             Assert.assertEquals(thriftRegistrationInfo.getIndividualRegistrationInfo().getOgrnip(),
                     ((IndividualRegistrationInfo) swagRegistrationInfo).getOgrnip());
             Assert.assertEquals(thriftRegistrationInfo.getIndividualRegistrationInfo().getRegistrationDate(),
-                    ((IndividualRegistrationInfo) swagRegistrationInfo).getRegistrationData());
+                    ((IndividualRegistrationInfo) swagRegistrationInfo).getRegistrationDate());
             Assert.assertEquals(thriftRegistrationInfo.getIndividualRegistrationInfo().getRegistrationPlace(),
                     ((IndividualRegistrationInfo) swagRegistrationInfo).getRegistrationPlace());
         }

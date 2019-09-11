@@ -7,6 +7,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.ResidencyInfo;
 import com.rbkmoney.swag.questionary.model.IndividualResidencyInfo;
 import com.rbkmoney.swag.questionary.model.LegalResidencyInfo;
+import com.rbkmoney.swag.questionary.model.ResidencyInfo.ResidencyInfoTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,8 @@ public class ResidencyInfoConverter implements
     public com.rbkmoney.swag.questionary.model.ResidencyInfo toSwag(ResidencyInfo value, SwagConverterContext ctx) {
         if (value.isSetIndividualResidencyInfo()) {
             return new IndividualResidencyInfo()
-                    .taxResident(value.getIndividualResidencyInfo().isTaxResident());
+                    .usaTaxResident(value.getIndividualResidencyInfo().isUsaTaxResident())
+                    .exceptUsaTaxResident(value.getIndividualResidencyInfo().isExceptUsaTaxResident());
         } else if (value.isSetLegalResidencyInfo()) {
             return new com.rbkmoney.swag.questionary.model.LegalResidencyInfo()
                     .fatca(value.getLegalResidencyInfo().isFatca())
@@ -31,12 +33,13 @@ public class ResidencyInfoConverter implements
 
     @Override
     public ResidencyInfo toThrift(com.rbkmoney.swag.questionary.model.ResidencyInfo value, ThriftConverterContext ctx) {
-        if (value instanceof IndividualResidencyInfo) {
+        if (value.getResidencyInfoType() == ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO) {
             var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
-                    .setTaxResident(((IndividualResidencyInfo) value).isTaxResident());
+                    .setExceptUsaTaxResident(((IndividualResidencyInfo) value).isExceptUsaTaxResident())
+                    .setUsaTaxResident(((IndividualResidencyInfo) value).isUsaTaxResident());
 
             return ResidencyInfo.individual_residency_info(individualResidencyInfo);
-        } else if (value instanceof LegalResidencyInfo) {
+        } else if (value.getResidencyInfoType() == ResidencyInfoTypeEnum.LEGALRESIDENCYINFO) {
             var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
                     .setTaxResident(((LegalResidencyInfo) value).isTaxResident())
                     .setOwnerResident(((LegalResidencyInfo) value).isOwnerResident())
@@ -45,7 +48,7 @@ public class ResidencyInfoConverter implements
             return ResidencyInfo.legal_residency_info(legalResidencyInfo);
         }
 
-        throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getClass().getName());
+        throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getResidencyInfoType());
     }
 
 }

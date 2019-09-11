@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.Founder;
+import com.rbkmoney.swag.questionary.model.Founder.FounderTypeEnum;
 import com.rbkmoney.swag.questionary.model.IndividualPerson;
 import com.rbkmoney.swag.questionary.model.InternationalLegalEntityFounder;
 import com.rbkmoney.swag.questionary.model.PersonAnthroponym;
@@ -42,7 +43,7 @@ public class FounderConverter implements
 
     @Override
     public Founder toThrift(com.rbkmoney.swag.questionary.model.Founder value, ThriftConverterContext ctx) {
-        if (value instanceof IndividualPerson) {
+        if (value.getFounderType() == FounderTypeEnum.INDIVIDUALPERSON) {
             var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
             if (((IndividualPerson) value).getFio() != null) {
                 individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
@@ -50,13 +51,13 @@ public class FounderConverter implements
             individualPerson.setInn(((IndividualPerson) value).getInn());
 
             return Founder.individual_person_founder(individualPerson);
-        } else if (value instanceof InternationalLegalEntityFounder) {
+        } else if (value.getFounderType() == FounderTypeEnum.INTERNATIONALLEGALENTITYFOUNDER) {
             var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
                     .setFullName(((InternationalLegalEntityFounder) value).getFullName())
                     .setCountry(((InternationalLegalEntityFounder) value).getCountry());
 
             return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
-        } else if (value instanceof RussianLegalEntityFounder) {
+        } else if (value.getFounderType() == FounderTypeEnum.RUSSIANLEGALENTITYFOUNDER) {
             var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
                     .setFullName(((RussianLegalEntityFounder) value).getFullName())
                     .setInn(((RussianLegalEntityFounder) value).getInn())
@@ -64,7 +65,7 @@ public class FounderConverter implements
 
             return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
         } else {
-            throw new IllegalArgumentException("Unknown founder type: " + value.getClass().getName());
+            throw new IllegalArgumentException("Unknown founder type: " + value.getFounderType());
         }
 
     }

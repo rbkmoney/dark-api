@@ -4,7 +4,7 @@ import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv
 import com.rbkmoney.dark.api.service.QuestionaryAggrProxyService;
 import com.rbkmoney.dark.api.questionaryaggr.utils.DaDataCompareUtil;
 import com.rbkmoney.dark.api.questionaryaggr.utils.KonturFocusCompareUtil;
-import com.rbkmoney.dark.api.questionaryaggr.utils.TestDataUtils;
+import com.rbkmoney.dark.api.utils.QuestionaryAggrTestData;
 import com.rbkmoney.questionary_proxy_aggr.dadata_address.Address;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataRequest;
@@ -46,7 +46,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestKonturFocusReqQueryTest() throws TException, IOException {
-        var thriftKonturFocusReqResponse = TestDataUtils.createThriftKonturFocusReqResponse();
+        var thriftKonturFocusReqResponse = QuestionaryAggrTestData.createThriftKonturFocusReqResponse();
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusReqResponse);
 
@@ -66,7 +66,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestKonturFocusLicensesTest() throws IOException, TException {
-        var thriftKonturFocusLicensesResponse = TestDataUtils.createThriftKonturFocusLicensesResponse();
+        var thriftKonturFocusLicensesResponse = QuestionaryAggrTestData.createThriftKonturFocusLicensesResponse();
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusLicensesResponse);
 
@@ -88,7 +88,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestKonturFocusEgrDetailsTest() throws IOException, TException {
-        var thriftKonturFocusEgrDetailsResponse = TestDataUtils.createThriftKonturFocusEgrDetailsResponse();
+        var thriftKonturFocusEgrDetailsResponse = QuestionaryAggrTestData.createThriftKonturFocusEgrDetailsResponse();
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusEgrDetailsResponse);
 
@@ -109,7 +109,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataAddressTest() throws IOException, TException {
-        DaDataResponse thriftDaDataAddressResponse = TestDataUtils.createThriftDaDataAddressResponse();
+        DaDataResponse thriftDaDataAddressResponse = QuestionaryAggrTestData.createThriftDaDataAddressResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataAddressResponse);
 
@@ -130,7 +130,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataPartyTest() throws TException, IOException {
-        DaDataResponse thriftDaDataPartyResponse = TestDataUtils.createThriftDaDataPartyResponse();
+        DaDataResponse thriftDaDataPartyResponse = QuestionaryAggrTestData.createThriftDaDataPartyResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataPartyResponse);
 
@@ -151,7 +151,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataOkvedTest() throws TException, IOException {
-        DaDataResponse thriftDaDataOkvedResponse = TestDataUtils.createThriftDaDataOkvedResponse();
+        DaDataResponse thriftDaDataOkvedResponse = QuestionaryAggrTestData.createThriftDaDataOkvedResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataOkvedResponse);
 
@@ -173,7 +173,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataBankTest() throws TException, IOException {
-        DaDataResponse thriftDaDataBankResponse = TestDataUtils.createThriftDaDataBankResponse();
+        DaDataResponse thriftDaDataBankResponse = QuestionaryAggrTestData.createThriftDaDataBankResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataBankResponse);
 
@@ -195,7 +195,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataFioTest() throws TException, IOException {
-        DaDataResponse thriftDaDataFioResponse = TestDataUtils.createThriftDaDataFioResponse();
+        DaDataResponse thriftDaDataFioResponse = QuestionaryAggrTestData.createThriftDaDataFioResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataFioResponse);
 
@@ -217,7 +217,7 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestDaDataFmsUnitTest() throws TException, IOException {
-        DaDataResponse thriftDaDateFmsUnitResponse = TestDataUtils.createThriftDaDateFmsUnitResponse();
+        DaDataResponse thriftDaDateFmsUnitResponse = QuestionaryAggrTestData.createThriftDaDateFmsUnitResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDateFmsUnitResponse);
 

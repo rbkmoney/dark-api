@@ -7,6 +7,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.RegistrationInfo;
 import com.rbkmoney.swag.questionary.model.IndividualRegistrationInfo;
 import com.rbkmoney.swag.questionary.model.LegalRegistrationInfo;
+import com.rbkmoney.swag.questionary.model.RegistrationInfo.RegistrationInfoTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class RegistrationInfoConverter implements
         if (value.isSetIndividualRegistrationInfo()) {
             return new IndividualRegistrationInfo()
                     .ogrnip(value.getIndividualRegistrationInfo().getOgrnip())
-                    .registrationData(value.getIndividualRegistrationInfo().getRegistrationDate())
+                    .registrationDate(value.getIndividualRegistrationInfo().getRegistrationDate())
                     .registrationPlace(value.getIndividualRegistrationInfo().getRegistrationPlace());
 
         } else if (value.isSetLegalRegistrationInfo()) {
@@ -36,14 +37,14 @@ public class RegistrationInfoConverter implements
 
     @Override
     public RegistrationInfo toThrift(com.rbkmoney.swag.questionary.model.RegistrationInfo value, ThriftConverterContext ctx) {
-        if (value instanceof IndividualRegistrationInfo) {
+        if (value.getRegistrationInfoType() == RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO) {
             var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo()
                     .setOgrnip(((IndividualRegistrationInfo) value).getOgrnip())
-                    .setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationData())
+                    .setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationDate())
                     .setRegistrationPlace(((IndividualRegistrationInfo) value).getRegistrationPlace());
 
             return RegistrationInfo.individual_registration_info(individualRegistrationInfo);
-        } else if (value instanceof LegalRegistrationInfo) {
+        } else if (value.getRegistrationInfoType() == RegistrationInfoTypeEnum.LEGALREGISTRATIONINFO) {
             var legalRegistrationInfo = new com.rbkmoney.questionary.LegalRegistrationInfo()
                     .setActualAddress(((LegalRegistrationInfo) value).getActualAddress())
                     .setOgrn(((LegalRegistrationInfo) value).getOgrn())
@@ -53,7 +54,7 @@ public class RegistrationInfoConverter implements
 
             return RegistrationInfo.legal_registration_info(legalRegistrationInfo);
         } else {
-            throw new IllegalArgumentException("Unknown registrationInfo type: " + value.getClass().getName());
+            throw new IllegalArgumentException("Unknown registrationInfo type: " + value.getRegistrationInfoType());
         }
     }
 
