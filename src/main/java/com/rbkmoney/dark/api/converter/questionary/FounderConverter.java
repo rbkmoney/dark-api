@@ -43,31 +43,31 @@ public class FounderConverter implements
 
     @Override
     public Founder toThrift(com.rbkmoney.swag.questionary.model.Founder value, ThriftConverterContext ctx) {
-        if (value.getFounderType() == FounderTypeEnum.INDIVIDUALPERSON) {
-            var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
-            if (((IndividualPerson) value).getFio() != null) {
-                individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
-            }
-            individualPerson.setInn(((IndividualPerson) value).getInn());
+        switch (value.getFounderType()) {
+            case INDIVIDUALPERSON:
+                var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
+                if (((IndividualPerson) value).getFio() != null) {
+                    individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
+                }
+                individualPerson.setInn(((IndividualPerson) value).getInn());
 
-            return Founder.individual_person_founder(individualPerson);
-        } else if (value.getFounderType() == FounderTypeEnum.INTERNATIONALLEGALENTITYFOUNDER) {
-            var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
-                    .setFullName(((InternationalLegalEntityFounder) value).getFullName())
-                    .setCountry(((InternationalLegalEntityFounder) value).getCountry());
+                return Founder.individual_person_founder(individualPerson);
+            case INTERNATIONALLEGALENTITYFOUNDER:
+                var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
+                        .setFullName(((InternationalLegalEntityFounder) value).getFullName())
+                        .setCountry(((InternationalLegalEntityFounder) value).getCountry());
 
-            return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
-        } else if (value.getFounderType() == FounderTypeEnum.RUSSIANLEGALENTITYFOUNDER) {
-            var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
-                    .setFullName(((RussianLegalEntityFounder) value).getFullName())
-                    .setInn(((RussianLegalEntityFounder) value).getInn())
-                    .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
+                return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
+            case RUSSIANLEGALENTITYFOUNDER:
+                var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
+                        .setFullName(((RussianLegalEntityFounder) value).getFullName())
+                        .setInn(((RussianLegalEntityFounder) value).getInn())
+                        .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
 
-            return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
-        } else {
-            throw new IllegalArgumentException("Unknown founder type: " + value.getFounderType());
+                return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
+            default:
+                throw new IllegalArgumentException("Unknown founder type: " + value.getFounderType());
         }
-
     }
 
 }

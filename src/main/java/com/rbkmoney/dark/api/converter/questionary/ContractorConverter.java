@@ -32,17 +32,18 @@ public class ContractorConverter implements
 
     @Override
     public Contractor toThrift(com.rbkmoney.swag.questionary.model.Contractor value, ThriftConverterContext ctx) {
-        if (value.getContractorType() == ContractorTypeEnum.INDIVIDUALENTITY) {
-            var individualEntity = ctx.convert(((IndividualEntityContractor) value).getIndividualEntity(),
-                    com.rbkmoney.questionary.IndividualEntity.class);
-            return Contractor.individual_entity(individualEntity);
-        } else if (value.getContractorType() == ContractorTypeEnum.LEGALENTITY) {
-            var legalEntity = ctx.convert(((LegalEntityContractor) value).getLegalEntity(),
-                    com.rbkmoney.questionary.LegalEntity.class);
-            return Contractor.legal_entity(legalEntity);
+        switch (value.getContractorType()) {
+            case INDIVIDUALENTITY:
+                var individualEntity = ctx.convert(((IndividualEntityContractor) value).getIndividualEntity(),
+                        com.rbkmoney.questionary.IndividualEntity.class);
+                return Contractor.individual_entity(individualEntity);
+            case LEGALENTITY:
+                var legalEntity = ctx.convert(((LegalEntityContractor) value).getLegalEntity(),
+                        com.rbkmoney.questionary.LegalEntity.class);
+                return Contractor.legal_entity(legalEntity);
+            default:
+                throw new IllegalArgumentException("Unknown contractor type: " + value.getContractorType());
         }
-
-        throw new IllegalArgumentException("Unknown contractor type: " + value.getContractorType());
     }
 
 }

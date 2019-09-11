@@ -130,8 +130,7 @@ public class LegalEntityConverter implements
 
             return LegalEntity.russian_legal_entity(russianLegalEntity);
         }
-
-        throw new IllegalArgumentException("Unknown legalEntity type: " + value.getClass().getName());
+        throw new IllegalArgumentException("Unknown legalEntity type: " + value.getLegalEntityType());
     }
 
 }

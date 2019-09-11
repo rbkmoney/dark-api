@@ -33,22 +33,23 @@ public class ResidencyInfoConverter implements
 
     @Override
     public ResidencyInfo toThrift(com.rbkmoney.swag.questionary.model.ResidencyInfo value, ThriftConverterContext ctx) {
-        if (value.getResidencyInfoType() == ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO) {
-            var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
-                    .setExceptUsaTaxResident(((IndividualResidencyInfo) value).isExceptUsaTaxResident())
-                    .setUsaTaxResident(((IndividualResidencyInfo) value).isUsaTaxResident());
+        switch (value.getResidencyInfoType()) {
+            case INDIVIDUALRESIDENCYINFO:
+                var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
+                        .setExceptUsaTaxResident(((IndividualResidencyInfo) value).isExceptUsaTaxResident())
+                        .setUsaTaxResident(((IndividualResidencyInfo) value).isUsaTaxResident());
 
-            return ResidencyInfo.individual_residency_info(individualResidencyInfo);
-        } else if (value.getResidencyInfoType() == ResidencyInfoTypeEnum.LEGALRESIDENCYINFO) {
-            var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
-                    .setTaxResident(((LegalResidencyInfo) value).isTaxResident())
-                    .setOwnerResident(((LegalResidencyInfo) value).isOwnerResident())
-                    .setFatca(((LegalResidencyInfo) value).isFatca());
+                return ResidencyInfo.individual_residency_info(individualResidencyInfo);
+            case LEGALRESIDENCYINFO:
+                var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
+                        .setTaxResident(((LegalResidencyInfo) value).isTaxResident())
+                        .setOwnerResident(((LegalResidencyInfo) value).isOwnerResident())
+                        .setFatca(((LegalResidencyInfo) value).isFatca());
 
-            return ResidencyInfo.legal_residency_info(legalResidencyInfo);
+                return ResidencyInfo.legal_residency_info(legalResidencyInfo);
+            default:
+                throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getResidencyInfoType());
         }
-
-        throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getResidencyInfoType());
     }
 
 }

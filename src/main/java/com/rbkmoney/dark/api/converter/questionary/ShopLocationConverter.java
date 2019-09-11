@@ -25,10 +25,9 @@ public class ShopLocationConverter implements
         ShopLocation shopLocation = new ShopLocation();
         if (value.getLocationType() == LocationTypeEnum.URL) {
             shopLocation.setUrl(((ShopLocationUrl) value).getUrl());
-        } else {
-            throw new IllegalArgumentException("Unknown shopLocation type: " + shopLocation);
+            return shopLocation;
         }
-        return shopLocation;
+        throw new IllegalArgumentException("Unknown shopLocation type: " + shopLocation);
     }
 
 }

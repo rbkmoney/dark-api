@@ -37,24 +37,25 @@ public class RegistrationInfoConverter implements
 
     @Override
     public RegistrationInfo toThrift(com.rbkmoney.swag.questionary.model.RegistrationInfo value, ThriftConverterContext ctx) {
-        if (value.getRegistrationInfoType() == RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO) {
-            var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo()
-                    .setOgrnip(((IndividualRegistrationInfo) value).getOgrnip())
-                    .setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationDate())
-                    .setRegistrationPlace(((IndividualRegistrationInfo) value).getRegistrationPlace());
+        switch (value.getRegistrationInfoType()) {
+            case INDIVIDUALREGISTRATIONINFO:
+                var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo()
+                        .setOgrnip(((IndividualRegistrationInfo) value).getOgrnip())
+                        .setRegistrationDate(((IndividualRegistrationInfo) value).getRegistrationDate())
+                        .setRegistrationPlace(((IndividualRegistrationInfo) value).getRegistrationPlace());
 
-            return RegistrationInfo.individual_registration_info(individualRegistrationInfo);
-        } else if (value.getRegistrationInfoType() == RegistrationInfoTypeEnum.LEGALREGISTRATIONINFO) {
-            var legalRegistrationInfo = new com.rbkmoney.questionary.LegalRegistrationInfo()
-                    .setActualAddress(((LegalRegistrationInfo) value).getActualAddress())
-                    .setOgrn(((LegalRegistrationInfo) value).getOgrn())
-                    .setRegistrationAddress(((LegalRegistrationInfo) value).getRegistrationAddress())
-                    .setRegistrationPlace(((LegalRegistrationInfo) value).getRegistrationPlace())
-                    .setRegistrationDate(((LegalRegistrationInfo) value).getRegistrationDate());
+                return RegistrationInfo.individual_registration_info(individualRegistrationInfo);
+            case LEGALREGISTRATIONINFO:
+                var legalRegistrationInfo = new com.rbkmoney.questionary.LegalRegistrationInfo()
+                        .setActualAddress(((LegalRegistrationInfo) value).getActualAddress())
+                        .setOgrn(((LegalRegistrationInfo) value).getOgrn())
+                        .setRegistrationAddress(((LegalRegistrationInfo) value).getRegistrationAddress())
+                        .setRegistrationPlace(((LegalRegistrationInfo) value).getRegistrationPlace())
+                        .setRegistrationDate(((LegalRegistrationInfo) value).getRegistrationDate());
 
-            return RegistrationInfo.legal_registration_info(legalRegistrationInfo);
-        } else {
-            throw new IllegalArgumentException("Unknown registrationInfo type: " + value.getRegistrationInfoType());
+                return RegistrationInfo.legal_registration_info(legalRegistrationInfo);
+            default:
+                throw new IllegalArgumentException("Unknown registrationInfo type: " + value.getRegistrationInfoType());
         }
     }
 

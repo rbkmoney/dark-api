@@ -39,25 +39,26 @@ public class FinancialPositionConverter implements
 
     @Override
     public FinancialPosition toThrift(com.rbkmoney.swag.questionary.model.FinancialPosition value, ThriftConverterContext ctx) {
-        if (value.getFinancialPositionType() == FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS) {
-            return FinancialPosition.annual_financial_statements(new com.rbkmoney.questionary.AnnualFinancialStatements());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK) {
-            return FinancialPosition.annual_tax_return_with_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARK) {
-            return FinancialPosition.annual_tax_return_without_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARKPAPER) {
-            return FinancialPosition.annual_tax_return_without_mark_paper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.LETTEROFGUARANTEE) {
-            return FinancialPosition.letter_of_guarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHMARK) {
-            return FinancialPosition.quarterly_tax_return_with_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHOUTMARK) {
-            return FinancialPosition.quarterly_tax_return_without_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
-        } else if (value.getFinancialPositionType() == FinancialPositionTypeEnum.STATEMENTOFDUTY) {
-            return FinancialPosition.statement_of_duty(new com.rbkmoney.questionary.StatementOfDuty());
+        switch (value.getFinancialPositionType()) {
+            case ANNUALFINANCIALSTATEMENTS:
+                return FinancialPosition.annual_financial_statements(new com.rbkmoney.questionary.AnnualFinancialStatements());
+            case ANNUALTAXRETURNWITHMARK:
+                return FinancialPosition.annual_tax_return_with_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
+            case ANNUALTAXRETURNWITHOUTMARK:
+                return FinancialPosition.annual_tax_return_without_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
+            case ANNUALTAXRETURNWITHOUTMARKPAPER:
+                return FinancialPosition.annual_tax_return_without_mark_paper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
+            case LETTEROFGUARANTEE:
+                return FinancialPosition.letter_of_guarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
+            case QUARTERLYTAXRETURNWITHMARK:
+                return FinancialPosition.quarterly_tax_return_with_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
+            case QUARTERLYTAXRETURNWITHOUTMARK:
+                return FinancialPosition.quarterly_tax_return_without_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
+            case STATEMENTOFDUTY:
+                return FinancialPosition.statement_of_duty(new com.rbkmoney.questionary.StatementOfDuty());
+            default:
+                throw new IllegalArgumentException("Unknown financialPosition type: " + value.getFinancialPositionType());
         }
-
-        throw new IllegalArgumentException("Unknown financialPosition type: " + value.getFinancialPositionType());
     }
 
 }

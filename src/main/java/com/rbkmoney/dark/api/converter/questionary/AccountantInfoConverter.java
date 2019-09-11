@@ -58,28 +58,32 @@ public class AccountantInfoConverter implements
             case WITHCHIEFACCOUNTANT:
                 return AccountantInfo.with_chief_accountant(new com.rbkmoney.questionary.WithChiefAccountant());
             case WITHOUTCHIEFACCOUNTANT:
-                WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
-                var swagWithoutChiefAccountant = (com.rbkmoney.swag.questionary.model.WithoutChiefAccountant) value;
-                if (swagWithoutChiefAccountant.getWithoutChiefAccountantType() ==
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION) {
-                    var swagWithoutChiefAccOrg = (com.rbkmoney.swag.questionary.model.AccountingOrganization) swagWithoutChiefAccountant;
-                    AccountingOrganization accountingOrganization = new AccountingOrganization();
-                    accountingOrganization.setInn(swagWithoutChiefAccOrg.getInn());
-                    withoutChiefAccountant.setAccountingOrganization(accountingOrganization);
-                } else if (swagWithoutChiefAccountant.getWithoutChiefAccountantType() ==
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HEADACCOUNTING) {
-                    withoutChiefAccountant.setHeadAccounting(new HeadAccounting());
-                } else if (swagWithoutChiefAccountant.getWithoutChiefAccountantType() ==
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT) {
-                    withoutChiefAccountant.setIndividualAccountant(new IndividualAccountant());
-                } else {
-                    throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
-                            + swagWithoutChiefAccountant.getClass().getName());
-                }
-                return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
+                return convertWithoutChiefAccountant(((com.rbkmoney.swag.questionary.model.WithoutChiefAccountant) value));
             default:
                 throw new IllegalArgumentException("Unknown accountantInfo type: " + value.getAccountantInfoType());
         }
+    }
+
+    private AccountantInfo convertWithoutChiefAccountant(com.rbkmoney.swag.questionary.model.WithoutChiefAccountant swagWithoutChiefAccountant) {
+        WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
+        switch (swagWithoutChiefAccountant.getWithoutChiefAccountantType()) {
+            case ACCOUNTINGORGANIZATION:
+                var swagWithoutChiefAccOrg = (com.rbkmoney.swag.questionary.model.AccountingOrganization) swagWithoutChiefAccountant;
+                AccountingOrganization accountingOrganization = new AccountingOrganization();
+                accountingOrganization.setInn(swagWithoutChiefAccOrg.getInn());
+                withoutChiefAccountant.setAccountingOrganization(accountingOrganization);
+                break;
+            case HEADACCOUNTING:
+                withoutChiefAccountant.setHeadAccounting(new HeadAccounting());
+                break;
+            case INDIVIDUALACCOUNTANT:
+                withoutChiefAccountant.setIndividualAccountant(new IndividualAccountant());
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
+                        + swagWithoutChiefAccountant.getClass().getName());
+        }
+        return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
     }
 
 }
