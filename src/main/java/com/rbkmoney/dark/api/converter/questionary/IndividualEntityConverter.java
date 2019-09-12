@@ -6,6 +6,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.IndividualEntity;
 import com.rbkmoney.questionary.RussianIndividualEntity;
+import com.rbkmoney.swag.questionary.model.IndividualEntity.IndividualEntityTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,10 +26,10 @@ public class IndividualEntityConverter implements
     @Override
     public IndividualEntity toThrift(com.rbkmoney.swag.questionary.model.IndividualEntity value, ThriftConverterContext ctx) {
         IndividualEntity individualEntity = new IndividualEntity();
-        if (value instanceof com.rbkmoney.swag.questionary.model.RussianIndividualEntity) {
+        if (value.getIndividualEntityType() == IndividualEntityTypeEnum.RUSSIANINDIVIDUALENTITY) {
             individualEntity.setRussianIndividualEntity(ctx.convert(value, RussianIndividualEntity.class));
         } else {
-            throw new IllegalArgumentException("Unknown individualEntity type: " + value.getClass().getName());
+            throw new IllegalArgumentException("Unknown individualEntity type: " + value.getIndividualEntityType());
         }
 
         return individualEntity;

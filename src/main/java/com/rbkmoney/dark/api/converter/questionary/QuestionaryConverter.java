@@ -17,17 +17,16 @@ public class QuestionaryConverter implements
     public com.rbkmoney.swag.questionary.model.Questionary toSwag(Questionary value, SwagConverterContext ctx) {
         return new com.rbkmoney.swag.questionary.model.Questionary()
                 .id(value.getId())
-                .ownerID(value.getOwnerId())
+                .ownerId(value.getOwnerId())
                 .data(ctx.convert(value.getData(), QuestionaryData.class));
     }
 
     @Override
     public Questionary toThrift(com.rbkmoney.swag.questionary.model.Questionary value, ThriftConverterContext ctx) {
-        Questionary questionary = new Questionary()
+        return new Questionary()
                 .setId(value.getId())
-                .setOwnerId(value.getOwnerID())
+                .setOwnerId(value.getOwnerId())
                 .setData(ctx.convert(value.getData(), com.rbkmoney.questionary.manage.QuestionaryData.class));
-        return questionary;
     }
 
 }

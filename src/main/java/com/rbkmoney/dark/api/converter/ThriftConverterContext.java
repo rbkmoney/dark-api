@@ -9,13 +9,13 @@ public class ThriftConverterContext {
 
     private final Map<Class<?>, ThriftConverter> converterMap;
 
-    public <T, S> S convert(T thriftVal, Class<S> swagType) {
-        ThriftConverter thriftConverter = converterMap.get(swagType);
+    public <T, S> T convert(S swagVal, Class<T> thriftType) {
+        ThriftConverter thriftConverter = converterMap.get(thriftType);
         if (thriftConverter == null) {
-            throw new IllegalArgumentException("Unregistered converter type: " + swagType.getSimpleName());
+            throw new IllegalArgumentException("Unregistered converter type: " + thriftType.getSimpleName());
         }
 
-        return (S) thriftConverter.toThrift(thriftVal, this);
+        return (T) thriftConverter.toThrift(swagVal, this);
     }
 
 

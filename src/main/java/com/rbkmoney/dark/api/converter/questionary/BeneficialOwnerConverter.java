@@ -5,10 +5,7 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.BeneficialOwner;
-import com.rbkmoney.swag.questionary.model.IdentityDocument;
-import com.rbkmoney.swag.questionary.model.MigrationCardInfo;
-import com.rbkmoney.swag.questionary.model.ResidenceApprove;
-import com.rbkmoney.swag.questionary.model.RussianPrivateEntity;
+import com.rbkmoney.swag.questionary.model.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,6 +18,8 @@ public class BeneficialOwnerConverter implements
         var beneficialOwner = new com.rbkmoney.swag.questionary.model.BeneficialOwner()
                 .inn(value.getInn())
                 .pdlCategory(value.isPdlCategory())
+                .pdlRelationDegree(value.getPdlRelationDegree())
+                .snils(value.getSnils())
                 .ownershipPercentage((int) value.getOwnershipPercentage());
         if (value.isSetRussianPrivateEntity()) {
             beneficialOwner.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
@@ -34,6 +33,10 @@ public class BeneficialOwnerConverter implements
         if (value.isSetResidenceApprove()) {
             beneficialOwner.setResidenceApprove(ctx.convert(value.getResidenceApprove(), ResidenceApprove.class));
         }
+        if (value.isSetResidencyInfo()) {
+            beneficialOwner.setResidencyInfo(ctx.convert(value.getResidencyInfo(), ResidencyInfo.class));
+        }
+
         return beneficialOwner;
     }
 
@@ -55,6 +58,10 @@ public class BeneficialOwnerConverter implements
         if (value.getResidenceApprove() != null) {
             beneficialOwner.setResidenceApprove(ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
         }
+        if (value.getResidencyInfo() != null) {
+            beneficialOwner.setResidencyInfo(ctx.convert(value.getResidencyInfo(), com.rbkmoney.questionary.ResidencyInfo.class));
+        }
+
         return beneficialOwner;
     }
 

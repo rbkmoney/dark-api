@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.IdentityDocument;
+import com.rbkmoney.swag.questionary.model.IdentityDocument.IdentityDocumentTypeEnum;
 import com.rbkmoney.swag.questionary.model.RussianDomesticPassport;
 import org.springframework.stereotype.Component;
 
@@ -25,10 +26,10 @@ public class IdentityDocumentConverter implements
     @Override
     public IdentityDocument toThrift(com.rbkmoney.swag.questionary.model.IdentityDocument value, ThriftConverterContext ctx) {
         IdentityDocument identityDocument = new IdentityDocument();
-        if (value instanceof RussianDomesticPassport) {
+        if (value.getIdentityDocumentType() == IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT) {
             identityDocument.setRussianDomesticPassword(ctx.convert(value, com.rbkmoney.questionary.RussianDomesticPassport.class));
         } else {
-            throw new IllegalArgumentException("Unknown identityDocument type: " + value.getClass().getName());
+            throw new IllegalArgumentException("Unknown identityDocument type: " + value.getIdentityDocumentType());
         }
         return identityDocument;
     }

@@ -6,6 +6,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.BusinessInfo;
 import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.BusinessInfo.BusinessInfoTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,24 +38,37 @@ public class BusinessInfoConverter implements
 
     @Override
     public BusinessInfo toThrift(com.rbkmoney.swag.questionary.model.BusinessInfo value, ThriftConverterContext ctx) {
-        if (value instanceof AnotherBusiness) {
-            return BusinessInfo.another_business(new com.rbkmoney.questionary.AnotherBusiness());
-        } else if (value instanceof BuildingBusiness) {
-            return BusinessInfo.building_business(new com.rbkmoney.questionary.BuildingBusiness());
-        } else if (value instanceof MediationInPropertyBusiness) {
-            return BusinessInfo.mediation_in_property_business(new com.rbkmoney.questionary.MediationInPropertyBusiness());
-        } else if (value instanceof ProductionBusiness) {
-            return BusinessInfo.production_business(new com.rbkmoney.questionary.ProductionBusiness());
-        } else if (value instanceof RetailTradeBusiness) {
-            return BusinessInfo.retail_trade_business(new com.rbkmoney.questionary.RetailTradeBusiness());
-        } else if (value instanceof SecuritiesTradingBusiness) {
-            return BusinessInfo.securities_trading_business(new com.rbkmoney.questionary.SecuritiesTradingBusiness());
-        } else if (value instanceof TransportBusiness) {
-            return BusinessInfo.transport_business(new com.rbkmoney.questionary.TransportBusiness());
-        } else if (value instanceof WholesaleTradeBusiness) {
-            return BusinessInfo.wholesale_trade_business(new com.rbkmoney.questionary.WholesaleTradeBusiness());
+        BusinessInfo businessInfo = new BusinessInfo();
+        switch (value.getBusinessInfoType()) {
+            case ANOTHERBUSINESS:
+                AnotherBusiness swagAnotherBusiness = (AnotherBusiness) value;
+                businessInfo.setAnotherBusiness(new com.rbkmoney.questionary.AnotherBusiness()
+                        .setDescription(swagAnotherBusiness.getDescription()));
+                return businessInfo;
+            case BUILDINGBUSINESS:
+                businessInfo.setBuildingBusiness(new com.rbkmoney.questionary.BuildingBusiness());
+                return businessInfo;
+            case MEDIATIONINPROPERTYBUSINESS:
+                businessInfo.setMediationInPropertyBusiness(new com.rbkmoney.questionary.MediationInPropertyBusiness());
+                return businessInfo;
+            case PRODUCTIONBUSINESS:
+                businessInfo.setProductionBusiness(new com.rbkmoney.questionary.ProductionBusiness());
+                return businessInfo;
+            case RETAILTRADEBUSINESS:
+                businessInfo.setRetailTradeBusiness(new com.rbkmoney.questionary.RetailTradeBusiness());
+                return businessInfo;
+            case SECURITIESTRADINGBUSINESS:
+                businessInfo.setSecuritiesTradingBusiness(new com.rbkmoney.questionary.SecuritiesTradingBusiness());
+                return businessInfo;
+            case TRANSPORTBUSINESS:
+                businessInfo.setTransportBusiness(new com.rbkmoney.questionary.TransportBusiness());
+                return businessInfo;
+            case WHOLESALETRADEBUSINESS:
+                businessInfo.setWholesaleTradeBusiness(new com.rbkmoney.questionary.WholesaleTradeBusiness());
+                return businessInfo;
+            default:
+                throw new IllegalArgumentException("Unknown businessInfo type: " + value.getBusinessInfoType());
         }
-        throw new IllegalArgumentException("Unknown businessInfo type: " + value.getClass().getName());
     }
 
 }

@@ -1,7 +1,7 @@
 package com.rbkmoney.dark.api.service;
 
-import com.rbkmoney.dark.api.questionaryaggr.utils.TestDataUtils;
 import com.rbkmoney.dark.api.utils.QuestionaryCompareUtil;
+import com.rbkmoney.dark.api.utils.QuestionaryTestData;
 import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
 import com.rbkmoney.swag.questionary.model.QuestionaryParams;
 import com.rbkmoney.swag.questionary.model.Snapshot;
@@ -33,7 +33,7 @@ public class QuestionaryServiceTest {
     public void saveIndividualEntityQuestionaryTest() throws TException {
         ArgumentCaptor<com.rbkmoney.questionary.manage.QuestionaryParams> captor =
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
-        QuestionaryParams questionaryParams = TestDataUtils.createIndividualEntityQuestionarySwag();
+        QuestionaryParams questionaryParams = QuestionaryTestData.createIndividualEntityQuestionarySwag();
         questionaryService.saveQuestionary(questionaryParams, Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManager).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
@@ -42,7 +42,7 @@ public class QuestionaryServiceTest {
 
     @Test
     public void getIndividualEntityQuestionaryTest() throws TException, IOException {
-        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = TestDataUtils.createIndividualEntityQuestionaryThrift();
+        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = QuestionaryTestData.createIndividualEntityQuestionaryThrift();
         com.rbkmoney.questionary.manage.Snapshot snapshot = new com.rbkmoney.questionary.manage.Snapshot();
         snapshot.setVersion(0L);
         com.rbkmoney.questionary.manage.Questionary questionary = new com.rbkmoney.questionary.manage.Questionary();
@@ -55,7 +55,7 @@ public class QuestionaryServiceTest {
         Snapshot swagSnapshot = questionaryService.getQuestionary("test", "1");
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
-        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerID(), snapshot.getQuestionary().getOwnerId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
         QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
         QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
         QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
@@ -65,7 +65,7 @@ public class QuestionaryServiceTest {
     public void saveLegalEntityQuestionaryTest() throws TException {
         ArgumentCaptor<com.rbkmoney.questionary.manage.QuestionaryParams> captor =
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
-        QuestionaryParams questionaryParams = TestDataUtils.createLegalEntityQuestionarySwag();
+        QuestionaryParams questionaryParams = QuestionaryTestData.createLegalEntityQuestionarySwag();
         questionaryService.saveQuestionary(questionaryParams, Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManager).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
@@ -74,7 +74,7 @@ public class QuestionaryServiceTest {
 
     @Test
     public void getLegalEntityQuestionaryTest() throws TException, IOException {
-        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = TestDataUtils.createLegalEntityQuestionaryThrift();
+        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = QuestionaryTestData.createLegalEntityQuestionaryThrift();
         com.rbkmoney.questionary.manage.Snapshot snapshot = new com.rbkmoney.questionary.manage.Snapshot();
         snapshot.setVersion(0L);
         com.rbkmoney.questionary.manage.Questionary questionary = new com.rbkmoney.questionary.manage.Questionary();
@@ -87,7 +87,7 @@ public class QuestionaryServiceTest {
         Snapshot swagSnapshot = questionaryService.getQuestionary("test", "1");
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
-        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerID(), snapshot.getQuestionary().getOwnerId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
         QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
         QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
         QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());

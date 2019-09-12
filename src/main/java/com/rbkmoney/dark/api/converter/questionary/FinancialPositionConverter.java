@@ -6,6 +6,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.FinancialPosition;
 import com.rbkmoney.swag.questionary.model.*;
+import com.rbkmoney.swag.questionary.model.FinancialPosition.FinancialPositionTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -38,25 +39,35 @@ public class FinancialPositionConverter implements
 
     @Override
     public FinancialPosition toThrift(com.rbkmoney.swag.questionary.model.FinancialPosition value, ThriftConverterContext ctx) {
-        if (value instanceof AnnualFinancialStatements) {
-            return FinancialPosition.annual_financial_statements(new com.rbkmoney.questionary.AnnualFinancialStatements());
-        } else if (value instanceof AnnualTaxReturnWithMark) {
-            return FinancialPosition.annual_tax_return_with_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
-        } else if (value instanceof AnnualTaxReturnWithoutMark) {
-            return FinancialPosition.annual_tax_return_without_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
-        } else if (value instanceof AnnualTaxReturnWithoutMarkPaper) {
-            return FinancialPosition.annual_tax_return_without_mark_paper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
-        } else if (value instanceof LetterOfGuarantee) {
-            return FinancialPosition.letter_of_guarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
-        } else if (value instanceof QuarterlyTaxReturnWithMark) {
-            return FinancialPosition.quarterly_tax_return_with_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
-        } else if (value instanceof QuarterlyTaxReturnWithoutMark) {
-            return FinancialPosition.quarterly_tax_return_without_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
-        } else if (value instanceof StatementOfDuty) {
-            return FinancialPosition.statement_of_duty(new com.rbkmoney.questionary.StatementOfDuty());
+        FinancialPosition financialPosition = new FinancialPosition();
+        switch (value.getFinancialPositionType()) {
+            case ANNUALFINANCIALSTATEMENTS:
+                financialPosition.setAnnualFinancialStatements(new com.rbkmoney.questionary.AnnualFinancialStatements());
+                return financialPosition;
+            case ANNUALTAXRETURNWITHMARK:
+                financialPosition.setAnnualTaxReturnWithMark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
+                return financialPosition;
+            case ANNUALTAXRETURNWITHOUTMARK:
+                financialPosition.setAnnualTaxReturnWithoutMark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
+                return financialPosition;
+            case ANNUALTAXRETURNWITHOUTMARKPAPER:
+                financialPosition.setAnnualTaxReturnWithoutMarkPaper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
+                return financialPosition;
+            case LETTEROFGUARANTEE:
+                financialPosition.setLetterOfGuarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
+                return financialPosition;
+            case QUARTERLYTAXRETURNWITHMARK:
+                financialPosition.setQuarterlyTaxReturnWithMark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
+                return financialPosition;
+            case QUARTERLYTAXRETURNWITHOUTMARK:
+                financialPosition.setQuarterlyTaxReturnWithoutMark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
+                return financialPosition;
+            case STATEMENTOFDUTY:
+                financialPosition.setStatementOfDuty(new com.rbkmoney.questionary.StatementOfDuty());
+                return financialPosition;
+            default:
+                throw new IllegalArgumentException("Unknown financialPosition type: " + value.getFinancialPositionType());
         }
-
-        throw new IllegalArgumentException("Unknown financialPosition type: " + value.getClass().getName());
     }
 
 }

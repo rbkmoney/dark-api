@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.Founder;
+import com.rbkmoney.swag.questionary.model.Founder.FounderTypeEnum;
 import com.rbkmoney.swag.questionary.model.IndividualPerson;
 import com.rbkmoney.swag.questionary.model.InternationalLegalEntityFounder;
 import com.rbkmoney.swag.questionary.model.PersonAnthroponym;
@@ -42,31 +43,38 @@ public class FounderConverter implements
 
     @Override
     public Founder toThrift(com.rbkmoney.swag.questionary.model.Founder value, ThriftConverterContext ctx) {
-        if (value instanceof IndividualPerson) {
-            var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
-            if (((IndividualPerson) value).getFio() != null) {
-                individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
-            }
-            individualPerson.setInn(((IndividualPerson) value).getInn());
+        Founder founder = new Founder();
+        switch (value.getFounderType()) {
+            case INDIVIDUALPERSON:
+                var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
+                if (((IndividualPerson) value).getFio() != null) {
+                    individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
+                }
+                individualPerson.setInn(((IndividualPerson) value).getInn());
 
-            return Founder.individual_person_founder(individualPerson);
-        } else if (value instanceof InternationalLegalEntityFounder) {
-            var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
-                    .setFullName(((InternationalLegalEntityFounder) value).getFullName())
-                    .setCountry(((InternationalLegalEntityFounder) value).getCountry());
+                founder.setIndividualPersonFounder(individualPerson);
 
-            return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
-        } else if (value instanceof RussianLegalEntityFounder) {
-            var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
-                    .setFullName(((RussianLegalEntityFounder) value).getFullName())
-                    .setInn(((RussianLegalEntityFounder) value).getInn())
-                    .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
+                return founder;
+            case INTERNATIONALLEGALENTITYFOUNDER:
+                var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
+                        .setFullName(((InternationalLegalEntityFounder) value).getFullName())
+                        .setCountry(((InternationalLegalEntityFounder) value).getCountry());
 
-            return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
-        } else {
-            throw new IllegalArgumentException("Unknown founder type: " + value.getClass().getName());
+                founder.setInternationalLegalEntityFounder(internationalLegalEntityFounder);
+
+                return founder;
+            case RUSSIANLEGALENTITYFOUNDER:
+                var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
+                        .setFullName(((RussianLegalEntityFounder) value).getFullName())
+                        .setInn(((RussianLegalEntityFounder) value).getInn())
+                        .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
+
+                founder.setRussianLegalEntityFounder(russianLegalEntityFounder);
+
+                return founder;
+            default:
+                throw new IllegalArgumentException("Unknown founder type: " + value.getFounderType());
         }
-
     }
 
 }

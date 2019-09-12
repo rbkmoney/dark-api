@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.OffsetDateTime;
 
-import static com.rbkmoney.dark.api.questionaryaggr.utils.TestDataUtils.createStatResponse;
+import static com.rbkmoney.dark.api.utils.MagistaTestData.createStatResponse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
