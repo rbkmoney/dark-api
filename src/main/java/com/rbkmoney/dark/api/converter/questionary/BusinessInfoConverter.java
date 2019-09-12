@@ -38,25 +38,34 @@ public class BusinessInfoConverter implements
 
     @Override
     public BusinessInfo toThrift(com.rbkmoney.swag.questionary.model.BusinessInfo value, ThriftConverterContext ctx) {
+        BusinessInfo businessInfo = new BusinessInfo();
         switch (value.getBusinessInfoType()) {
             case ANOTHERBUSINESS:
                 AnotherBusiness swagAnotherBusiness = (AnotherBusiness) value;
-                return BusinessInfo.another_business(
-                        new com.rbkmoney.questionary.AnotherBusiness().setDescription(swagAnotherBusiness.getDescription()));
+                businessInfo.setAnotherBusiness(new com.rbkmoney.questionary.AnotherBusiness()
+                        .setDescription(swagAnotherBusiness.getDescription()));
+                return businessInfo;
             case BUILDINGBUSINESS:
-                return BusinessInfo.building_business(new com.rbkmoney.questionary.BuildingBusiness());
+                businessInfo.setBuildingBusiness(new com.rbkmoney.questionary.BuildingBusiness());
+                return businessInfo;
             case MEDIATIONINPROPERTYBUSINESS:
-                return BusinessInfo.mediation_in_property_business(new com.rbkmoney.questionary.MediationInPropertyBusiness());
+                businessInfo.setMediationInPropertyBusiness(new com.rbkmoney.questionary.MediationInPropertyBusiness());
+                return businessInfo;
             case PRODUCTIONBUSINESS:
-                return BusinessInfo.production_business(new com.rbkmoney.questionary.ProductionBusiness());
+                businessInfo.setProductionBusiness(new com.rbkmoney.questionary.ProductionBusiness());
+                return businessInfo;
             case RETAILTRADEBUSINESS:
-                return BusinessInfo.retail_trade_business(new com.rbkmoney.questionary.RetailTradeBusiness());
+                businessInfo.setRetailTradeBusiness(new com.rbkmoney.questionary.RetailTradeBusiness());
+                return businessInfo;
             case SECURITIESTRADINGBUSINESS:
-                return BusinessInfo.securities_trading_business(new com.rbkmoney.questionary.SecuritiesTradingBusiness());
+                businessInfo.setSecuritiesTradingBusiness(new com.rbkmoney.questionary.SecuritiesTradingBusiness());
+                return businessInfo;
             case TRANSPORTBUSINESS:
-                return BusinessInfo.transport_business(new com.rbkmoney.questionary.TransportBusiness());
+                businessInfo.setTransportBusiness(new com.rbkmoney.questionary.TransportBusiness());
+                return businessInfo;
             case WHOLESALETRADEBUSINESS:
-                return BusinessInfo.wholesale_trade_business(new com.rbkmoney.questionary.WholesaleTradeBusiness());
+                businessInfo.setWholesaleTradeBusiness(new com.rbkmoney.questionary.WholesaleTradeBusiness());
+                return businessInfo;
             default:
                 throw new IllegalArgumentException("Unknown businessInfo type: " + value.getBusinessInfoType());
         }

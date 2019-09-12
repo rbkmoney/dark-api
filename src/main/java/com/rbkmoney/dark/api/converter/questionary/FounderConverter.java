@@ -43,6 +43,7 @@ public class FounderConverter implements
 
     @Override
     public Founder toThrift(com.rbkmoney.swag.questionary.model.Founder value, ThriftConverterContext ctx) {
+        Founder founder = new Founder();
         switch (value.getFounderType()) {
             case INDIVIDUALPERSON:
                 var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
@@ -51,20 +52,26 @@ public class FounderConverter implements
                 }
                 individualPerson.setInn(((IndividualPerson) value).getInn());
 
-                return Founder.individual_person_founder(individualPerson);
+                founder.setIndividualPersonFounder(individualPerson);
+
+                return founder;
             case INTERNATIONALLEGALENTITYFOUNDER:
                 var internationalLegalEntityFounder = new com.rbkmoney.questionary.InternationalLegalEntityFounder()
                         .setFullName(((InternationalLegalEntityFounder) value).getFullName())
                         .setCountry(((InternationalLegalEntityFounder) value).getCountry());
 
-                return Founder.international_legal_entity_founder(internationalLegalEntityFounder);
+                founder.setInternationalLegalEntityFounder(internationalLegalEntityFounder);
+
+                return founder;
             case RUSSIANLEGALENTITYFOUNDER:
                 var russianLegalEntityFounder = new com.rbkmoney.questionary.RussianLegalEntityFounder()
                         .setFullName(((RussianLegalEntityFounder) value).getFullName())
                         .setInn(((RussianLegalEntityFounder) value).getInn())
                         .setOgrn(((RussianLegalEntityFounder) value).getOgrn());
 
-                return Founder.russian_legal_entity_founder(russianLegalEntityFounder);
+                founder.setRussianLegalEntityFounder(russianLegalEntityFounder);
+
+                return founder;
             default:
                 throw new IllegalArgumentException("Unknown founder type: " + value.getFounderType());
         }

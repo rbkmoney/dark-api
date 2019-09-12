@@ -65,6 +65,7 @@ public class AccountantInfoConverter implements
     }
 
     private AccountantInfo convertWithoutChiefAccountant(com.rbkmoney.swag.questionary.model.WithoutChiefAccountant swagWithoutChiefAccountant) {
+        AccountantInfo accountantInfo = new AccountantInfo();
         WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
         switch (swagWithoutChiefAccountant.getWithoutChiefAccountantType()) {
             case ACCOUNTINGORGANIZATION:
@@ -72,18 +73,20 @@ public class AccountantInfoConverter implements
                 AccountingOrganization accountingOrganization = new AccountingOrganization();
                 accountingOrganization.setInn(swagWithoutChiefAccOrg.getInn());
                 withoutChiefAccountant.setAccountingOrganization(accountingOrganization);
-                break;
+                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
+                return accountantInfo;
             case HEADACCOUNTING:
                 withoutChiefAccountant.setHeadAccounting(new HeadAccounting());
-                break;
+                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
+                return accountantInfo;
             case INDIVIDUALACCOUNTANT:
                 withoutChiefAccountant.setIndividualAccountant(new IndividualAccountant());
-                break;
+                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
+                return accountantInfo;
             default:
                 throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
                         + swagWithoutChiefAccountant.getClass().getName());
         }
-        return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
     }
 
 }

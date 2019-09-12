@@ -39,23 +39,32 @@ public class FinancialPositionConverter implements
 
     @Override
     public FinancialPosition toThrift(com.rbkmoney.swag.questionary.model.FinancialPosition value, ThriftConverterContext ctx) {
+        FinancialPosition financialPosition = new FinancialPosition();
         switch (value.getFinancialPositionType()) {
             case ANNUALFINANCIALSTATEMENTS:
-                return FinancialPosition.annual_financial_statements(new com.rbkmoney.questionary.AnnualFinancialStatements());
+                financialPosition.setAnnualFinancialStatements(new com.rbkmoney.questionary.AnnualFinancialStatements());
+                return financialPosition;
             case ANNUALTAXRETURNWITHMARK:
-                return FinancialPosition.annual_tax_return_with_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
+                financialPosition.setAnnualTaxReturnWithMark(new com.rbkmoney.questionary.AnnualTaxReturnWithMark());
+                return financialPosition;
             case ANNUALTAXRETURNWITHOUTMARK:
-                return FinancialPosition.annual_tax_return_without_mark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
+                financialPosition.setAnnualTaxReturnWithoutMark(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMark());
+                return financialPosition;
             case ANNUALTAXRETURNWITHOUTMARKPAPER:
-                return FinancialPosition.annual_tax_return_without_mark_paper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
+                financialPosition.setAnnualTaxReturnWithoutMarkPaper(new com.rbkmoney.questionary.AnnualTaxReturnWithoutMarkPaper());
+                return financialPosition;
             case LETTEROFGUARANTEE:
-                return FinancialPosition.letter_of_guarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
+                financialPosition.setLetterOfGuarantee(new com.rbkmoney.questionary.LetterOfGuarantee());
+                return financialPosition;
             case QUARTERLYTAXRETURNWITHMARK:
-                return FinancialPosition.quarterly_tax_return_with_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
+                financialPosition.setQuarterlyTaxReturnWithMark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithMark());
+                return financialPosition;
             case QUARTERLYTAXRETURNWITHOUTMARK:
-                return FinancialPosition.quarterly_tax_return_without_mark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
+                financialPosition.setQuarterlyTaxReturnWithoutMark(new com.rbkmoney.questionary.QuarterlyTaxReturnWithoutMark());
+                return financialPosition;
             case STATEMENTOFDUTY:
-                return FinancialPosition.statement_of_duty(new com.rbkmoney.questionary.StatementOfDuty());
+                financialPosition.setStatementOfDuty(new com.rbkmoney.questionary.StatementOfDuty());
+                return financialPosition;
             default:
                 throw new IllegalArgumentException("Unknown financialPosition type: " + value.getFinancialPositionType());
         }
