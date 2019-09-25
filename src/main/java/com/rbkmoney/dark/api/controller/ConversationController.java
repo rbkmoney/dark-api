@@ -1,13 +1,11 @@
 package com.rbkmoney.dark.api.controller;
 
-import com.rbkmoney.damsel.messages.GetConversationResponse;
 import com.rbkmoney.dark.api.service.ConversationService;
 import com.rbkmoney.swag.messages.api.ConversationApi;
 import com.rbkmoney.swag.messages.model.ConversationResponse;
 import com.rbkmoney.swag.messages.model.GetConversationParams;
 import com.rbkmoney.swag.messages.model.SaveConversationParams;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
