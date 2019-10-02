@@ -59,8 +59,12 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     private com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioQuery convertFioQuery(FioQuery fioQuery) {
         var thriftFioQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioQuery();
         thriftFioQuery.setQuery(fioQuery.getQuery());
-        thriftFioQuery.setCount(fioQuery.getCount().byteValue());
-        thriftFioQuery.setParts(fioQuery.getParts());
+        if (fioQuery.getCount() != null) {
+            thriftFioQuery.setCount(fioQuery.getCount().byteValue());
+        }
+        if (fioQuery.getParts() != null) {
+            thriftFioQuery.setParts(fioQuery.getParts());
+        }
         if (fioQuery.getGender() == Gender.FEMALE) {
             thriftFioQuery.setGender(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender.FEMALE);
         } else if (fioQuery.getGender() == Gender.MALE) {
@@ -137,32 +141,48 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     private com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankQuery convertBankQuery(BankQuery swagBankQuery) {
         var thriftBankQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankQuery();
         thriftBankQuery.setQuery(swagBankQuery.getQuery());
-        thriftBankQuery.setCount(swagBankQuery.getCount().byteValue());
-        List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagBankQuery.getStatus().stream()
-                .map(this::convertOrgStatus)
-                .collect(Collectors.toList());
-        thriftBankQuery.setStatus(thriftOrgStatusList);
-        thriftBankQuery.setType(convertOrgType(swagBankQuery.getType()));
+        if (swagBankQuery.getCount() != null) {
+            thriftBankQuery.setCount(swagBankQuery.getCount().byteValue());
+        }
+        if (swagBankQuery.getStatus() != null) {
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagBankQuery.getStatus().stream()
+                    .map(this::convertOrgStatus)
+                    .collect(Collectors.toList());
+            thriftBankQuery.setStatus(thriftOrgStatusList);
+        }
+        if (swagBankQuery.getType() != null) {
+            thriftBankQuery.setType(convertOrgType(swagBankQuery.getType()));
+        }
         return thriftBankQuery;
     }
 
     private com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyQuery convertPartyQuery(PartyQuery swagPartyQuery) {
         var thriftPartyQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyQuery();
         thriftPartyQuery.setQuery(swagPartyQuery.getQuery());
-        thriftPartyQuery.setCount(swagPartyQuery.getCount().byteValue());
-        List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagPartyQuery.getStatus().stream()
-                .map(this::convertOrgStatus)
-                .collect(Collectors.toList());
-        thriftPartyQuery.setStatus(thriftOrgStatusList);
-        thriftPartyQuery.setType(convertOrgType(swagPartyQuery.getType()));
-        List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters = swagPartyQuery.getLocationsBoost().stream()
-                .map(this::convertLocationBoostFilter)
-                .collect(Collectors.toList());
-        thriftPartyQuery.setLocationsBoost(thriftLocationBoostFilters);
-        List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter> thriftLocationFilters = swagPartyQuery.getLocations().stream()
-                .map(this::convertLocationFilter)
-                .collect(Collectors.toList());
-        thriftPartyQuery.setLocations(thriftLocationFilters);
+        if (swagPartyQuery.getCount() != null) {
+            thriftPartyQuery.setCount(swagPartyQuery.getCount().byteValue());
+        }
+        if (swagPartyQuery.getStatus() != null) {
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagPartyQuery.getStatus().stream()
+                    .map(this::convertOrgStatus)
+                    .collect(Collectors.toList());
+            thriftPartyQuery.setStatus(thriftOrgStatusList);
+        }
+        if (swagPartyQuery.getType() != null) {
+            thriftPartyQuery.setType(convertOrgType(swagPartyQuery.getType()));
+        }
+        if (swagPartyQuery.getLocationsBoost() != null) {
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters = swagPartyQuery.getLocationsBoost().stream()
+                    .map(this::convertLocationBoostFilter)
+                    .collect(Collectors.toList());
+            thriftPartyQuery.setLocationsBoost(thriftLocationBoostFilters);
+        }
+        if (swagPartyQuery.getLocations() != null) {
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter> thriftLocationFilters = swagPartyQuery.getLocations().stream()
+                    .map(this::convertLocationFilter)
+                    .collect(Collectors.toList());
+            thriftPartyQuery.setLocations(thriftLocationFilters);
+        }
         return thriftPartyQuery;
     }
 
@@ -175,7 +195,9 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery convertFmsUnitQuery(FmsUnitQuery swagFmsUnitQuery) {
         var thriftFmsUnitQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery();
         thriftFmsUnitQuery.setQuery(swagFmsUnitQuery.getQuery());
-        thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
+        if (swagFmsUnitQuery.getQueryType() != null) {
+            thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
+        }
         if (swagFmsUnitQuery.getFilters() != null && !swagFmsUnitQuery.getFilters().isEmpty()) {
             List<com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter> thriftFmsUnitQueryFilters = swagFmsUnitQuery.getFilters().stream()
                     .map(this::convertFmsUnitQuery)
