@@ -18,7 +18,7 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
     public KonturFocusRequestHolder toThrift(KonturFocusParams konturFocusParams, ThriftConverterContext ctx) {
         KonturFocusRequestHolder konturFocusRequestHolder = new KonturFocusRequestHolder();
         KonturFocusRequest konturFocusRequest = null;
-        switch (konturFocusParams.getEndpoint()) {
+        switch (konturFocusParams.getRequest().getKonturFocusRequestType()) {
             case REQ:
                 konturFocusRequestHolder.setKonturFocusEndPoint(KonturFocusEndPoint.req);
                 var swagReqQuery = (com.rbkmoney.swag.questionary_aggr_proxy.model.ReqQuery) konturFocusParams.getRequest();
@@ -47,7 +47,7 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
                 konturFocusRequest.setLicencesQuery(licencesQuery);
                 break;
             default:
-                throw new IllegalArgumentException("Unknown endpoint: " + konturFocusParams.getEndpoint());
+                throw new IllegalArgumentException("Unknown endpoint: " + konturFocusParams.getRequest().getKonturFocusRequestType());
         }
 
         konturFocusRequestHolder.setKonturFocusRequest(konturFocusRequest);

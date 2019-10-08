@@ -1,9 +1,9 @@
 package com.rbkmoney.dark.api.questionaryaggr;
 
 import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv;
-import com.rbkmoney.dark.api.service.QuestionaryAggrProxyService;
 import com.rbkmoney.dark.api.questionaryaggr.utils.DaDataCompareUtil;
 import com.rbkmoney.dark.api.questionaryaggr.utils.KonturFocusCompareUtil;
+import com.rbkmoney.dark.api.service.QuestionaryAggrProxyService;
 import com.rbkmoney.dark.api.utils.QuestionaryAggrTestData;
 import com.rbkmoney.questionary_proxy_aggr.dadata_address.Address;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint;
@@ -26,6 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
+import static com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataRequest.DaDataRequestTypeEnum;
+import static com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusRequest.KonturFocusRequestTypeEnum;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -50,9 +52,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusReqResponse);
 
+        ReqQuery reqQuery = EnhancedRandom.random(ReqQuery.class);
+        reqQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.REQ);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
-        konturFocusParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusEndPoint.REQ);
-        konturFocusParams.setRequest(EnhancedRandom.random(ReqQuery.class));
+        konturFocusParams.setRequest(reqQuery);
 
         ReqResponses reqResponses = (ReqResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
@@ -70,9 +73,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusLicensesResponse);
 
+        LicencesQuery licencesQuery = EnhancedRandom.random(LicencesQuery.class);
+        licencesQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.LICENCES);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
-        konturFocusParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusEndPoint.LICENCES);
-        konturFocusParams.setRequest(EnhancedRandom.random(LicencesQuery.class));
+        konturFocusParams.setRequest(licencesQuery);
 
         LicencesResponses licencesResponses = (LicencesResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
@@ -92,9 +96,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusEgrDetailsResponse);
 
+        EgrDetailsQuery egrDetailsQuery = EnhancedRandom.random(EgrDetailsQuery.class);
+        egrDetailsQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.EGRDETAILS);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
-        konturFocusParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.KonturFocusEndPoint.EGRDETAILS);
-        konturFocusParams.setRequest(EnhancedRandom.random(EgrDetailsQuery.class));
+        konturFocusParams.setRequest(egrDetailsQuery);
 
         EgrDetailsResponses egrDetailsResponses = (EgrDetailsResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
@@ -113,9 +118,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataAddressResponse);
 
+        AddressQuery addressQuery = EnhancedRandom.random(AddressQuery.class);
+        addressQuery.setDaDataRequestType(DaDataRequestTypeEnum.ADDRESSQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTADDRESS);
-        daDataParams.setRequest(EnhancedRandom.random(com.rbkmoney.swag.questionary_aggr_proxy.model.AddressQuery.class));
+        daDataParams.setRequest(addressQuery);
 
         AddressResponse addressResponse = (AddressResponse) questionaryAggrProxyService.requestDaData(daDataParams);
 
@@ -134,9 +140,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataPartyResponse);
 
+        PartyQuery partyQuery = EnhancedRandom.random(PartyQuery.class);
+        partyQuery.setDaDataRequestType(DaDataRequestTypeEnum.PARTYQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTPARTY);
-        daDataParams.setRequest(EnhancedRandom.random(PartyQuery.class));
+        daDataParams.setRequest(partyQuery);
 
         PartyResponse partyResponse = (PartyResponse) questionaryAggrProxyService.requestDaData(daDataParams);
         int thriftSuggestionsSize = thriftDaDataPartyResponse.getPartyResponse().getSuggestions().size();
@@ -155,9 +162,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataOkvedResponse);
 
+        OkvedQuery okvedQuery = EnhancedRandom.random(OkvedQuery.class);
+        okvedQuery.setDaDataRequestType(DaDataRequestTypeEnum.OKVEDQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.OKVED2);
-        daDataParams.setRequest(EnhancedRandom.random(OkvedQuery.class));
+        daDataParams.setRequest(okvedQuery);
 
         OkvedResponse okvedResponse = (OkvedResponse) questionaryAggrProxyService.requestDaData(daDataParams);
 
@@ -177,9 +185,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataBankResponse);
 
+        BankQuery bankQuery = EnhancedRandom.random(BankQuery.class);
+        bankQuery.setDaDataRequestType(DaDataRequestTypeEnum.BANKQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTBANK);
-        daDataParams.setRequest(EnhancedRandom.random(BankQuery.class));
+        daDataParams.setRequest(bankQuery);
 
         BankResponse bankResponse = (BankResponse) questionaryAggrProxyService.requestDaData(daDataParams);
 
@@ -199,9 +208,10 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDataFioResponse);
 
+        FioQuery fioQuery = EnhancedRandom.random(FioQuery.class);
+        fioQuery.setDaDataRequestType(DaDataRequestTypeEnum.FIOQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTFIO);
-        daDataParams.setRequest(EnhancedRandom.random(FioQuery.class));
+        daDataParams.setRequest(fioQuery);
 
         FioResponse fioResponse = (FioResponse) questionaryAggrProxyService.requestDaData(daDataParams);
 
@@ -221,8 +231,9 @@ public class QuestionaryAggrProxyServiceTest {
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))
                 .thenReturn(thriftDaDateFmsUnitResponse);
 
+        FmsUnitQuery fmsUnitQuery = EnhancedRandom.random(FmsUnitQuery.class);
+        fmsUnitQuery.setDaDataRequestType(DaDataRequestTypeEnum.FMSUNITQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setEndpoint(com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataEndpoint.SUGGESTFMSUNIT);
         daDataParams.setRequest(EnhancedRandom.random(FmsUnitQuery.class));
 
         FmsUnitResponse fmsUnitResponse = (FmsUnitResponse) questionaryAggrProxyService.requestDaData(daDataParams);

@@ -18,39 +18,39 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         DaDataRequestHolder daDataRequestHolder = new DaDataRequestHolder();
         DaDataRequest daDataRequest = new DaDataRequest();
         daDataRequestHolder.setDaDataRequest(daDataRequest);
-        switch (daDataParams.getEndpoint()) {
-            case OKVED2:
+        switch (daDataParams.getRequest().getDaDataRequestType()) {
+            case OKVEDQUERY:
                 daDataRequestHolder.setDaDataEndpoint(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint.okved2);
                 OkvedQuery swagOkvedQuery = ((OkvedQuery) daDataParams.getRequest());
                 daDataRequest.setOkvedQuery(convertOkvedQuery(swagOkvedQuery));
                 break;
-            case SUGGESTFIO:
+            case FIOQUERY:
                 daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fio);
                 FioQuery swagFioQuery = (FioQuery) daDataParams.getRequest();
                 daDataRequest.setFioQuery(convertFioQuery(swagFioQuery));
                 break;
-            case SUGGESTBANK:
+            case BANKQUERY:
                 daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_bank);
                 BankQuery swagBankQuery = (BankQuery) daDataParams.getRequest();
                 daDataRequest.setBankQuery(convertBankQuery(swagBankQuery));
                 break;
-            case SUGGESTPARTY:
+            case PARTYQUERY:
                 daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_party);
                 PartyQuery swagPartyQuery = (PartyQuery) daDataParams.getRequest();
                 daDataRequest.setPartyQuery(convertPartyQuery(swagPartyQuery));
                 break;
-            case SUGGESTFMSUNIT:
+            case FMSUNITQUERY:
                 daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_fms_unit);
                 FmsUnitQuery swagFmsUnitQuery = (FmsUnitQuery) daDataParams.getRequest();
                 daDataRequest.setFmsUnitQuery(convertFmsUnitQuery(swagFmsUnitQuery));
                 break;
-            case SUGGESTADDRESS:
+            case ADDRESSQUERY:
                 daDataRequestHolder.setDaDataEndpoint(DaDataEndpoint.suggest_address);
                 AddressQuery swagAddressQuery = (AddressQuery) daDataParams.getRequest();
                 daDataRequest.setAddressQuery(convertAddressQuery(swagAddressQuery));
                 break;
             default:
-                throw new IllegalArgumentException("Unknown endpoint: " + daDataParams.getEndpoint().name());
+                throw new IllegalArgumentException("Unknown endpoint: " + daDataParams.getRequest().getDaDataRequestType());
         }
 
         return daDataRequestHolder;
