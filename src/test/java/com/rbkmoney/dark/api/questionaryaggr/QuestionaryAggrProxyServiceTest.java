@@ -234,7 +234,7 @@ public class QuestionaryAggrProxyServiceTest {
         FmsUnitQuery fmsUnitQuery = EnhancedRandom.random(FmsUnitQuery.class);
         fmsUnitQuery.setDaDataRequestType(DaDataRequestTypeEnum.FMSUNITQUERY);
         DaDataParams daDataParams = new DaDataParams();
-        daDataParams.setRequest(EnhancedRandom.random(FmsUnitQuery.class));
+        daDataParams.setRequest(fmsUnitQuery);
 
         FmsUnitResponse fmsUnitResponse = (FmsUnitResponse) questionaryAggrProxyService.requestDaData(daDataParams);
 
