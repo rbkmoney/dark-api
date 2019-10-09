@@ -23,9 +23,12 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
                 .unrestrictedValue(value.getUnrestrictedValue())
                 .branchCount(value.getBranchCount())
                 .okved(value.getOkved())
-                .authorities(convertPartyAuthorities(value.getAuthorities()))
                 .hid(new DaDataHID().hid(value.getHid()))
                 .okvedType(value.getOkvedType());
+
+        if (value.isSetAuthorities()) {
+            partyContent.setAuthorities(convertPartyAuthorities(value.getAuthorities()));
+        }
 
         if (value.isSetOpf()) {
             partyContent.setOpf(ctx.convert(value.getOpf(), Opf.class));
