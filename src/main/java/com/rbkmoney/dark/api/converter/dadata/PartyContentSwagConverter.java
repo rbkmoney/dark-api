@@ -14,7 +14,6 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
     @Override
     public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value, SwagConverterContext ctx) {
         PartyContent partyContent = new PartyContent()
-                .documents(ctx.convert(value.getDocuments(), PartyDocuments.class))
                 .inn(value.getInn())
                 .kpp(value.getKpp())
                 .ogrn(value.getOgrn())
@@ -22,16 +21,25 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
                 .okpo(value.getOkpo())
                 .value(value.getValue())
                 .unrestrictedValue(value.getUnrestrictedValue())
-                .opf(ctx.convert(value.getOpf(), Opf.class))
                 .branchCount(value.getBranchCount())
-                .branchType(ctx.convert(value.getBranchType(), BranchType.class))
                 .okved(value.getOkved())
                 .authorities(convertPartyAuthorities(value.getAuthorities()))
                 .hid(new DaDataHID().hid(value.getHid()))
                 .okvedType(value.getOkvedType());
 
+        if (value.isSetOpf()) {
+            partyContent.setOpf(ctx.convert(value.getOpf(), Opf.class));
+        }
+
+        if (value.isSetDocuments()) {
+            partyContent.setDocuments(ctx.convert(value.getDocuments(), PartyDocuments.class));
+        }
+
+        if (value.isSetBranchType()) {
+            partyContent.setBranchType(ctx.convert(value.getBranchType(), BranchType.class));
+        }
+
         if (value.isSetAddress()) {
-            DaDataAddress convert = ctx.convert(value.getAddress(), DaDataAddress.class);
             partyContent.setAddress(ctx.convert(value.getAddress(), DaDataAddress.class));
         }
         if (value.isSetLicenses()) {

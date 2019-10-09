@@ -85,7 +85,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>questionary-proxy-aggr-proto</artifactId>
-            <version>1.7-20fbc84</version>
+            <version>1.8-31d9486</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
