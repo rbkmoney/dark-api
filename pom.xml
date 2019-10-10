@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary</artifactId>
-            <version>1.10-bf58980-server</version>
+            <version>1.11-0ac01b1-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

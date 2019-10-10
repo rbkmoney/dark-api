@@ -18,7 +18,7 @@ public class QuestionaryTestData {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
         IndividualEntityContractor individualEntityContractor = new IndividualEntityContractor();
-        individualEntityContractor.setContractorType(Contractor.ContractorTypeEnum.INDIVIDUALENTITY);
+        individualEntityContractor.setContractorType(Contractor.ContractorTypeEnum.INDIVIDUALENTITYCONTRACTOR);
 
         RussianIndividualEntity russianIndividualEntity = EnhancedRandom.random(RussianIndividualEntity.class);
         russianIndividualEntity.setIdentityDocument(
@@ -92,7 +92,7 @@ public class QuestionaryTestData {
                                 .locationType(ShopLocation.LocationTypeEnum.URL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
-        legalEntityContractor.setContractorType(Contractor.ContractorTypeEnum.LEGALENTITY);
+        legalEntityContractor.setContractorType(Contractor.ContractorTypeEnum.LEGALENTITYCONTRACTOR);
         RussianLegalEntity russianLegalEntity = EnhancedRandom.random(RussianLegalEntity.class);
         russianLegalEntity.setRegistrationInfo(EnhancedRandom.random(LegalRegistrationInfo.class)
                 .registrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.LEGALREGISTRATIONINFO));
