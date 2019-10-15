@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.Contractor;
+import com.rbkmoney.swag.questionary.model.Contractor.ContractorTypeEnum;
 import com.rbkmoney.swag.questionary.model.IndividualEntity;
 import com.rbkmoney.swag.questionary.model.IndividualEntityContractor;
 import com.rbkmoney.swag.questionary.model.LegalEntity;
@@ -20,10 +21,14 @@ public class ContractorConverter implements
     public com.rbkmoney.swag.questionary.model.Contractor toSwag(Contractor value, SwagConverterContext ctx) {
         if (value.isSetIndividualEntity()) {
             IndividualEntity individualEntity = ctx.convert(value.getIndividualEntity(), IndividualEntity.class);
-            return new IndividualEntityContractor().individualEntity(individualEntity);
+            individualEntity.setIndividualEntityType(IndividualEntity.IndividualEntityTypeEnum.RUSSIANINDIVIDUALENTITY);
+            return new IndividualEntityContractor().individualEntity(individualEntity)
+                    .contractorType(ContractorTypeEnum.INDIVIDUALENTITYCONTRACTOR);
         } else if (value.isSetLegalEntity()) {
             LegalEntity legalEntity = ctx.convert(value.getLegalEntity(), LegalEntity.class);
-            return new LegalEntityContractor().legalEntity(legalEntity);
+            legalEntity.setLegalEntityType(LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY);
+            return new LegalEntityContractor().legalEntity(legalEntity)
+                    .contractorType(ContractorTypeEnum.LEGALENTITYCONTRACTOR);
         } else {
             throw new IllegalArgumentException("Unknown contractor type: " + value.getClass().getName());
         }

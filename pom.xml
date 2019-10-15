@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>dark-api</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>dark-api</name>

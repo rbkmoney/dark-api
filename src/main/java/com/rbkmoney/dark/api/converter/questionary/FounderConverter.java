@@ -25,17 +25,20 @@ public class FounderConverter implements
                 individualPerson.setFio(ctx.convert(value.getIndividualPersonFounder().getFio(), PersonAnthroponym.class));
             }
             individualPerson.setInn(value.getIndividualPersonFounder().getInn());
+            individualPerson.setFounderType(FounderTypeEnum.INDIVIDUALPERSON);
 
             return individualPerson;
         } else if (value.isSetInternationalLegalEntityFounder()) {
             return new InternationalLegalEntityFounder()
                     .country(value.getInternationalLegalEntityFounder().getCountry())
-                    .fullName(value.getInternationalLegalEntityFounder().getFullName());
+                    .fullName(value.getInternationalLegalEntityFounder().getFullName())
+                    .founderType(FounderTypeEnum.INTERNATIONALLEGALENTITYFOUNDER);
         } else if (value.isSetRussianLegalEntityFounder()) {
             return new RussianLegalEntityFounder()
                     .fullName(value.getRussianLegalEntityFounder().getFullName())
                     .inn(value.getRussianLegalEntityFounder().getInn())
-                    .ogrn(value.getRussianLegalEntityFounder().getOgrn());
+                    .ogrn(value.getRussianLegalEntityFounder().getOgrn())
+                    .founderType(FounderTypeEnum.RUSSIANLEGALENTITYFOUNDER);
         } else {
             throw new IllegalArgumentException("Unknown founder type: " + value.getClass().getName());
         }

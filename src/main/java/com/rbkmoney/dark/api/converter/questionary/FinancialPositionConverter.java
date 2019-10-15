@@ -17,21 +17,21 @@ public class FinancialPositionConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.FinancialPosition toSwag(FinancialPosition value, SwagConverterContext ctx) {
         if (value.isSetAnnualFinancialStatements()) {
-            return new AnnualFinancialStatements();
+            return new AnnualFinancialStatements().financialPositionType(FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS);
         } else if (value.isSetAnnualTaxReturnWithMark()) {
-            return new AnnualTaxReturnWithMark();
+            return new AnnualTaxReturnWithMark().financialPositionType(FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK);
         } else if (value.isSetAnnualTaxReturnWithoutMark()) {
-            return new AnnualTaxReturnWithoutMark();
+            return new AnnualTaxReturnWithoutMark().financialPositionType(FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARK);
         } else if (value.isSetAnnualTaxReturnWithoutMarkPaper()) {
-            return new AnnualTaxReturnWithoutMarkPaper();
+            return new AnnualTaxReturnWithoutMarkPaper().financialPositionType(FinancialPositionTypeEnum.ANNUALTAXRETURNWITHOUTMARKPAPER);
         } else if (value.isSetLetterOfGuarantee()) {
-            return new LetterOfGuarantee();
+            return new LetterOfGuarantee().financialPositionType(FinancialPositionTypeEnum.LETTEROFGUARANTEE);
         } else if (value.isSetQuarterlyTaxReturnWithMark()) {
-            return new QuarterlyTaxReturnWithMark();
+            return new QuarterlyTaxReturnWithMark().financialPositionType(FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHMARK);
         } else if (value.isSetQuarterlyTaxReturnWithoutMark()) {
-            return new QuarterlyTaxReturnWithoutMark();
+            return new QuarterlyTaxReturnWithoutMark().financialPositionType(FinancialPositionTypeEnum.QUARTERLYTAXRETURNWITHOUTMARK);
         } else if (value.isSetStatementOfDuty()) {
-            return new StatementOfDuty();
+            return new StatementOfDuty().financialPositionType(FinancialPositionTypeEnum.STATEMENTOFDUTY);
         }
 
         throw new IllegalArgumentException("Unknown financialPosition type: " + value.getClass().getName());

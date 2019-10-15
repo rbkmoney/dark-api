@@ -17,7 +17,8 @@ public class IdentityDocumentConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.IdentityDocument toSwag(IdentityDocument value, SwagConverterContext ctx) {
         if (value.isSetRussianDomesticPassword()) {
-            return ctx.convert(value.getRussianDomesticPassword(), RussianDomesticPassport.class);
+            return ctx.convert(value.getRussianDomesticPassword(), RussianDomesticPassport.class)
+                    .identityDocumentType(IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT);
         } else {
             throw new IllegalArgumentException("Unknown identityDocument type: " + value.getClass().getName());
         }
