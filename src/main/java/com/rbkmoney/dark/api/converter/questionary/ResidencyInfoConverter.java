@@ -20,12 +20,14 @@ public class ResidencyInfoConverter implements
         if (value.isSetIndividualResidencyInfo()) {
             return new IndividualResidencyInfo()
                     .usaTaxResident(value.getIndividualResidencyInfo().isUsaTaxResident())
-                    .exceptUsaTaxResident(value.getIndividualResidencyInfo().isExceptUsaTaxResident());
+                    .exceptUsaTaxResident(value.getIndividualResidencyInfo().isExceptUsaTaxResident())
+                    .residencyInfoType(ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO);
         } else if (value.isSetLegalResidencyInfo()) {
             return new com.rbkmoney.swag.questionary.model.LegalResidencyInfo()
                     .fatca(value.getLegalResidencyInfo().isFatca())
                     .ownerResident(value.getLegalResidencyInfo().isOwnerResident())
-                    .taxResident(value.getLegalResidencyInfo().isTaxResident());
+                    .taxResident(value.getLegalResidencyInfo().isTaxResident())
+                    .residencyInfoType(ResidencyInfoTypeEnum.LEGALRESIDENCYINFO);
         }
 
         throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getClass().getName());

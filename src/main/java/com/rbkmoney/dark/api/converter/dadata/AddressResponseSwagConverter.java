@@ -21,6 +21,7 @@ public class AddressResponseSwagConverter implements SwagConverter<AddressRespon
                     .collect(Collectors.toList());
             addressResponse.setSuggestions(daDataAddressList);
         }
+        addressResponse.setDaDataResponseType(addressResponse.getClass().getSimpleName());
         return addressResponse;
     }
 

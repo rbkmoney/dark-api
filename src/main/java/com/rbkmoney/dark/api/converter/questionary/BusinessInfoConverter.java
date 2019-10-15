@@ -17,21 +17,23 @@ public class BusinessInfoConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.BusinessInfo toSwag(BusinessInfo value, SwagConverterContext ctx) {
         if (value.isSetAnotherBusiness()) {
-            return new AnotherBusiness().description(value.getAnotherBusiness().getDescription());
+            return new AnotherBusiness()
+                    .description(value.getAnotherBusiness().getDescription())
+                    .businessInfoType(BusinessInfoTypeEnum.ANOTHERBUSINESS);
         } else if (value.isSetBuildingBusiness()) {
-            return new BuildingBusiness();
+            return new BuildingBusiness().businessInfoType(BusinessInfoTypeEnum.BUILDINGBUSINESS);
         } else if (value.isSetMediationInPropertyBusiness()) {
-            return new MediationInPropertyBusiness();
+            return new MediationInPropertyBusiness().businessInfoType(BusinessInfoTypeEnum.MEDIATIONINPROPERTYBUSINESS);
         } else if (value.isSetProductionBusiness()) {
-            return new ProductionBusiness();
+            return new ProductionBusiness().businessInfoType(BusinessInfoTypeEnum.PRODUCTIONBUSINESS);
         } else if (value.isSetRetailTradeBusiness()) {
-            return new RetailTradeBusiness();
+            return new RetailTradeBusiness().businessInfoType(BusinessInfoTypeEnum.RETAILTRADEBUSINESS);
         } else if (value.isSetSecuritiesTradingBusiness()) {
-            return new SecuritiesTradingBusiness();
+            return new SecuritiesTradingBusiness().businessInfoType(BusinessInfoTypeEnum.SECURITIESTRADINGBUSINESS);
         } else if (value.isSetTransportBusiness()) {
-            return new TransportBusiness();
+            return new TransportBusiness().businessInfoType(BusinessInfoTypeEnum.TRANSPORTBUSINESS);
         } else if (value.isSetWholesaleTradeBusiness()) {
-            return new WholesaleTradeBusiness();
+            return new WholesaleTradeBusiness().businessInfoType(BusinessInfoTypeEnum.WHOLESALETRADEBUSINESS);
         }
         throw new IllegalArgumentException("Unknown businessInfo type: " + value.getClass().getName());
     }

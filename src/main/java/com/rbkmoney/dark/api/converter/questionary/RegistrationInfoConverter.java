@@ -21,7 +21,8 @@ public class RegistrationInfoConverter implements
             return new IndividualRegistrationInfo()
                     .ogrnip(value.getIndividualRegistrationInfo().getOgrnip())
                     .registrationDate(value.getIndividualRegistrationInfo().getRegistrationDate())
-                    .registrationPlace(value.getIndividualRegistrationInfo().getRegistrationPlace());
+                    .registrationPlace(value.getIndividualRegistrationInfo().getRegistrationPlace())
+                    .registrationInfoType(RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO);
 
         } else if (value.isSetLegalRegistrationInfo()) {
             return new LegalRegistrationInfo()
@@ -29,7 +30,8 @@ public class RegistrationInfoConverter implements
                     .ogrn(value.getLegalRegistrationInfo().getOgrn())
                     .registrationAddress(value.getLegalRegistrationInfo().getRegistrationAddress())
                     .registrationDate(value.getLegalRegistrationInfo().getRegistrationDate())
-                    .registrationPlace(value.getLegalRegistrationInfo().getRegistrationPlace());
+                    .registrationPlace(value.getLegalRegistrationInfo().getRegistrationPlace())
+                    .registrationInfoType(RegistrationInfoTypeEnum.LEGALREGISTRATIONINFO);
         } else {
             throw new IllegalArgumentException("Unknown registrationInfo type: " + value.getClass().getName());
         }

@@ -5,7 +5,9 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.*;
+import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum;
 import com.rbkmoney.swag.questionary.model.WithChiefAccountant;
+import com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,29 +19,26 @@ public class AccountantInfoConverter implements
     public com.rbkmoney.swag.questionary.model.AccountantInfo toSwag(AccountantInfo value, SwagConverterContext ctx) {
         if (value.isSetWithChiefAccountant()) {
             WithChiefAccountant withChiefAccountant = new WithChiefAccountant();
-            withChiefAccountant.setAccountantInfoType(com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum.WITHCHIEFACCOUNTANT);
+            withChiefAccountant.setAccountantInfoType(AccountantInfoTypeEnum.WITHCHIEFACCOUNTANT);
 
             return withChiefAccountant;
         } else if (value.isSetWithoutChiefAccountant()) {
             if (value.getWithoutChiefAccountant().isSetHeadAccounting()) {
                 var headAccounting = new com.rbkmoney.swag.questionary.model.HeadAccounting();
-                headAccounting.setWithoutChiefAccountantType(
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.HEADACCOUNTING);
-                headAccounting.setAccountantInfoType(com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
+                headAccounting.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.HEADACCOUNTING);
+                headAccounting.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
 
                 return headAccounting;
             } else if (value.getWithoutChiefAccountant().isSetIndividualAccountant()) {
                 var individualAccountant = new com.rbkmoney.swag.questionary.model.IndividualAccountant();
-                individualAccountant.setWithoutChiefAccountantType(
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT);
-                individualAccountant.setAccountantInfoType(com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
+                individualAccountant.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT);
+                individualAccountant.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
 
                 return individualAccountant;
             } else if (value.getWithoutChiefAccountant().isSetAccountingOrganization()) {
                 var accountingOrganization = new com.rbkmoney.swag.questionary.model.AccountingOrganization();
                 accountingOrganization.setInn(value.getWithoutChiefAccountant().getAccountingOrganization().getInn());
-                accountingOrganization.setWithoutChiefAccountantType(
-                        com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION);
+                accountingOrganization.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION);
 
                 return accountingOrganization;
             } else {

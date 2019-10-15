@@ -17,7 +17,8 @@ public class ShopLocationConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.ShopLocation toSwag(ShopLocation value, SwagConverterContext ctx) {
         return new ShopLocationUrl()
-                .url(value.getUrl());
+                .url(value.getUrl())
+                .locationType(LocationTypeEnum.URL);
     }
 
     @Override

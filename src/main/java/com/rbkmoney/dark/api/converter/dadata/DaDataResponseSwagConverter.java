@@ -26,6 +26,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(address -> ctx.convert(address, DaDataAddress.class))
                     .collect(Collectors.toList());
             swagAddressResponse.setSuggestions(daDataAddressList);
+            swagAddressResponse.setDaDataResponseType(swagAddressResponse.getClass().getSimpleName());
 
             return swagAddressResponse;
         } else if (value.isSetBankResponse()) {
@@ -35,6 +36,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(bankContent -> ctx.convert(bankContent, BankContent.class))
                     .collect(Collectors.toList());
             swagBankResponse.setSuggestions(bankContentList);
+            swagBankResponse.setDaDataResponseType(swagBankResponse.getClass().getSimpleName());
 
             return swagBankResponse;
         } else if (value.isSetFioResponse()) {
@@ -44,6 +46,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(fioContent -> ctx.convert(fioContent, FioContent.class))
                     .collect(Collectors.toList());
             swagFioResponse.setSuggestions(fioContentList);
+            swagFioResponse.setDaDataResponseType(swagFioResponse.getClass().getSimpleName());
 
             return swagFioResponse;
         } else if (value.isSetOkvedResponse()) {
@@ -53,6 +56,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(okvedContent -> ctx.convert(okvedContent, OkvedContent.class))
                     .collect(Collectors.toList());
             swagOkvedResponse.setSuggestions(okvedContentList);
+            swagOkvedResponse.setDaDataResponseType(swagOkvedResponse.getClass().getSimpleName());
 
             return swagOkvedResponse;
         } else if (value.isSetFmsUnitResponse()) {
@@ -62,6 +66,7 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(fmsUnitContent -> ctx.convert(fmsUnitContent, FmsUnitContent.class))
                     .collect(Collectors.toList());
             swagFmsUnitResponse.setSuggestions(fmsUnitContentList);
+            swagFmsUnitResponse.setDaDataResponseType(swagFmsUnitResponse.getClass().getSimpleName());
 
             return swagFmsUnitResponse;
         } else if (value.isSetPartyResponse()) {
@@ -71,11 +76,12 @@ public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse
                     .map(partyContent -> ctx.convert(partyContent, PartyContent.class))
                     .collect(Collectors.toList());
             swagPartyResponse.setSuggestions(partyContentList);
+            swagPartyResponse.setDaDataResponseType(swagPartyResponse.getClass().getSimpleName());
 
             return swagPartyResponse;
         }
 
-        throw new IllegalArgumentException("Unknown response type");
+        throw new IllegalArgumentException("Unknown response type: " + value.getClass().getName());
     }
 
 }
