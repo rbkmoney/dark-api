@@ -18,13 +18,13 @@ public class ShopLocationConverter implements
     public com.rbkmoney.swag.questionary.model.ShopLocation toSwag(ShopLocation value, SwagConverterContext ctx) {
         return new ShopLocationUrl()
                 .url(value.getUrl())
-                .locationType(LocationTypeEnum.URL);
+                .locationType(LocationTypeEnum.SHOPLOCATIONURL);
     }
 
     @Override
     public ShopLocation toThrift(com.rbkmoney.swag.questionary.model.ShopLocation value, ThriftConverterContext ctx) {
         ShopLocation shopLocation = new ShopLocation();
-        if (value.getLocationType() == LocationTypeEnum.URL) {
+        if (value.getLocationType() == LocationTypeEnum.SHOPLOCATIONURL) {
             shopLocation.setUrl(((ShopLocationUrl) value).getUrl());
             return shopLocation;
         }

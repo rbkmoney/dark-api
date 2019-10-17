@@ -63,7 +63,7 @@ public class QuestionaryTestData {
         questionaryParams.getData().setContractor(individualEntityContractor);
         questionaryParams.getData().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
         questionaryParams.getData().getShopInfo().setLocation(
-                new ShopLocationUrl().url("testUrl").locationType(ShopLocation.LocationTypeEnum.URL));
+                new ShopLocationUrl().url("testUrl").locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL));
 
         return questionaryParams;
     }
@@ -89,7 +89,7 @@ public class QuestionaryTestData {
         questionaryParams.getData().setShopInfo(
                 EnhancedRandom.random(ShopInfo.class).
                         location(EnhancedRandom.random(ShopLocationUrl.class)
-                                .locationType(ShopLocation.LocationTypeEnum.URL)));
+                                .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
         legalEntityContractor.setContractorType(Contractor.ContractorTypeEnum.LEGALENTITYCONTRACTOR);
