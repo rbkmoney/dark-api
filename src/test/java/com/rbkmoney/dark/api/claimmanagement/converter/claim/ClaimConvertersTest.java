@@ -5,7 +5,6 @@ import com.rbkmoney.dark.api.converter.claimmanagement.claim.*;
 import com.rbkmoney.geck.serializer.kit.mock.MockMode;
 import com.rbkmoney.geck.serializer.kit.mock.MockTBaseProcessor;
 import com.rbkmoney.geck.serializer.kit.tbase.TBaseHandler;
-
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.Test;
 
@@ -147,8 +146,15 @@ public class ClaimConvertersTest {
                 new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
                 new ClaimFileModificationUnitConverter()
         );
-        var swagClaimModification = prepareClaimModification(
-                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ClaimModification.class));
+
+        var swagClaimModification = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
+        swagClaimModification.setClaimModificationType(STATUSMODIFICATIONUNIT);
+        swagClaimModification.setModificationType(CLAIMMODIFICATION);
+        swagClaimModification.setReason("testReason");
+        swagClaimModification.setStatus(DENIED);
+
+        swagClaimModification.setModification(EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
+
         var resultClaimModification = converter.convertToSwag(converter.convertToThrift(swagClaimModification));
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);
 
