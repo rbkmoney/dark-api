@@ -20,14 +20,14 @@ public class ClaimManagementService {
 
     private final ClaimManagementConverter claimManagementConverter;
 
-    public Claim createClaim(String requestId, ClaimChangeset changeset) throws TException {
+    public Claim createClaim(String partyId, ClaimChangeset changeset) throws TException {
         List<Modification> modificationList = claimManagementConverter.convertChangesetToThrift(changeset);
-        com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.createClaim(requestId, modificationList);
+        com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.createClaim(partyId, modificationList);
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public Claim getClaimById(String requestId, Long claimId) throws TException {
-        com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.getClaim(requestId, claimId);
+    public Claim getClaimById(String partyId, Long claimId) throws TException {
+        com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.getClaim(partyId, claimId);
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
@@ -39,16 +39,16 @@ public class ClaimManagementService {
         return claimManagementConverter.convertClaimListToSwag(claimList);
     }
 
-    public void updateClaimById(String requestId,
+    public void updateClaimById(String partyId,
                                 Long claimId,
                                 Integer claimRevision,
                                 List<com.rbkmoney.swag.claim_management.model.Modification> changeset) throws TException {
         List<Modification> modificationList = claimManagementConverter.convertModificationUnitToThrift(changeset);
-        claimManagementClient.updateClaim(requestId, claimId, claimRevision, modificationList);
+        claimManagementClient.updateClaim(partyId, claimId, claimRevision, modificationList);
     }
 
-    public void revokeClaimById(String requestId, Long claimId, Integer claimRevision, String reason) throws TException {
-        claimManagementClient.revokeClaim(requestId, claimId, claimRevision, reason);
+    public void revokeClaimById(String partyId, Long claimId, Integer claimRevision, String reason) throws TException {
+        claimManagementClient.revokeClaim(partyId, claimId, claimRevision, reason);
     }
 
 }

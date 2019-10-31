@@ -36,7 +36,8 @@ public class ClaimManagementController implements ProcessingApi {
                                              @Size(min = 1, max = 40) String deadline) {
         try {
             log.info("Process 'createClaim' get started. requestId = {}", requestId);
-            Claim claim = claimManagementService.createClaim(requestId, changeset);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            Claim claim = claimManagementService.createClaim(partyId, changeset);
             log.info("Claim for request id {} created", requestId);
             return ResponseEntity.ok(claim);
         } catch (ChangesetConflict | PartyNotFound | InvalidChangeset ex) {
@@ -57,7 +58,8 @@ public class ClaimManagementController implements ProcessingApi {
                                               @Size(min = 1, max = 40) String deadline) {
         try {
             log.info("Process 'getClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
-            Claim claim = claimManagementService.getClaimById(requestId, claimId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            Claim claim = claimManagementService.getClaimById(partyId, claimId);
             log.info("Got a claim for request id {} and claim id {}", requestId, claimId);
             return ResponseEntity.ok(claim);
         } catch (PartyNotFound | ClaimNotFound ex) {
@@ -80,7 +82,8 @@ public class ClaimManagementController implements ProcessingApi {
                                                 @Null String reason) {
         try {
             log.info("Process 'revokeClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
-            claimManagementService.revokeClaimById(requestId, claimId, claimRevision, reason);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            claimManagementService.revokeClaimById(partyId, claimId, claimRevision, reason);
             log.info("Successful revoke clame with id {}", claimId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (PartyNotFound | ClaimNotFound | InvalidClaimStatus | InvalidClaimRevision ex) {
@@ -130,7 +133,9 @@ public class ClaimManagementController implements ProcessingApi {
                                                 List<Modification> changeset,
                                                 @Size(min = 1, max = 40) String deadline) {
         try {
-            claimManagementService.updateClaimById(requestId, claimId, claimRevision, changeset);
+            log.info("Process 'updateClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            claimManagementService.updateClaimById(partyId, claimId, claimRevision, changeset);
             log.info("Successful update clame with id {}", claimId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (PartyNotFound | InvalidClaimRevision | InvalidClaimStatus | ChangesetConflict | InvalidChangeset ex) {
