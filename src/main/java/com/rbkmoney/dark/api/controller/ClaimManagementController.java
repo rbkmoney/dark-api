@@ -35,6 +35,7 @@ public class ClaimManagementController implements ProcessingApi {
                                              @NotNull ClaimChangeset changeset,
                                              @Size(min = 1, max = 40) String deadline) {
         try {
+            log.info("Process 'createClaim' get started. requestId = {}", requestId);
             Claim claim = claimManagementService.createClaim(requestId, changeset);
             log.info("Claim for request id {} created", requestId);
             return ResponseEntity.ok(claim);
@@ -44,8 +45,10 @@ public class ClaimManagementController implements ProcessingApi {
         } catch (TException ex) {
             log.error("TException createClaim: ", ex);
             throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'createClaim'", ex);
+            throw new RuntimeException(ex);
         }
-
     }
 
     @Override
@@ -53,7 +56,7 @@ public class ClaimManagementController implements ProcessingApi {
                                               @NotNull Long claimId,
                                               @Size(min = 1, max = 40) String deadline) {
         try {
-            log.info("Process 'get'", requestId, claimId);
+            log.info("Process 'getClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
             Claim claim = claimManagementService.getClaimById(requestId, claimId);
             log.info("Got a claim for request id {} and claim id {}", requestId, claimId);
             return ResponseEntity.ok(claim);
@@ -62,6 +65,9 @@ public class ClaimManagementController implements ProcessingApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
             log.error("TException getClaimByID: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'getClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -73,6 +79,7 @@ public class ClaimManagementController implements ProcessingApi {
                                                 @Size(min = 1, max = 40) String deadline,
                                                 @Null String reason) {
         try {
+            log.info("Process 'revokeClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
             claimManagementService.revokeClaimById(requestId, claimId, claimRevision, reason);
             log.info("Successful revoke clame with id {}", claimId);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -81,6 +88,9 @@ public class ClaimManagementController implements ProcessingApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
             log.error("TException revokeClaimById: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'revokeClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -92,6 +102,7 @@ public class ClaimManagementController implements ProcessingApi {
                                                           @Null String continuationToken,
                                                           @Null List<String> claimStatuses) {
         try {
+            log.info("Process 'searchClaims' get started. requestId = {}", requestId);
             String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
             List<Claim> claims =
                     claimManagementService.searchClaims(partyId, limit, continuationToken, claimStatuses);
@@ -105,6 +116,9 @@ public class ClaimManagementController implements ProcessingApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
             log.error("TException searchClaims: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'searchClaims'", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -123,7 +137,10 @@ public class ClaimManagementController implements ProcessingApi {
             log.error("Incorrect data in the application when update claim by id: ", ex);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
-            log.error("TException revokeClaimById: ", ex);
+            log.error("TException updateClaimByID: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'updateClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
