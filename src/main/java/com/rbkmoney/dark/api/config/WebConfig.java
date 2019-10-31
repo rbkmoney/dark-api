@@ -27,8 +27,6 @@ import java.security.Principal;
 @Configuration
 public class WebConfig {
 
-    public static final String PATH = "/dark-api/v1/";
-
     @Bean
     public FilterRegistrationBean woodyFilter() {
         WFlow wFlow = new WFlow();
@@ -37,18 +35,16 @@ public class WebConfig {
             @Override
             protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain filterChain) throws ServletException, IOException {
-                if (request.getRequestURI().startsWith(PATH)) {
-                    wFlow.createServiceFork(() -> {
-                        try {
+                wFlow.createServiceFork(() -> {
+                    try {
+                        if (request.getUserPrincipal() != null) {
                             addWoodyContext(request.getUserPrincipal());
-                            filterChain.doFilter(request, response);
-                        } catch (IOException | ServletException e) {
-                            sneakyThrow(e);
                         }
-                    }).run();
-                    return;
-                }
-                filterChain.doFilter(request, response);
+                        filterChain.doFilter(request, response);
+                    } catch (IOException | ServletException e) {
+                        sneakyThrow(e);
+                    }
+                }).run();
             }
 
             private <E extends Throwable, T> T sneakyThrow(Throwable t) throws E {
@@ -60,7 +56,7 @@ public class WebConfig {
         filterRegistrationBean.setFilter(filter);
         filterRegistrationBean.setOrder(-50);
         filterRegistrationBean.setName("woodyFilter");
-        filterRegistrationBean.addUrlPatterns(PATH + "*");
+        filterRegistrationBean.addUrlPatterns("*");
         return filterRegistrationBean;
     }
 

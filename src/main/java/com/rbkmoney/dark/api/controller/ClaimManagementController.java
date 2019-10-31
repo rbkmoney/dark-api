@@ -53,6 +53,7 @@ public class ClaimManagementController implements ProcessingApi {
                                               @NotNull Long claimId,
                                               @Size(min = 1, max = 40) String deadline) {
         try {
+            log.info("Process 'get'", requestId, claimId);
             Claim claim = claimManagementService.getClaimById(requestId, claimId);
             log.info("Got a claim for request id {} and claim id {}", requestId, claimId);
             return ResponseEntity.ok(claim);
