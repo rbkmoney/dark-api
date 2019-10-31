@@ -35,7 +35,9 @@ public class ClaimManagementController implements ProcessingApi {
                                              @NotNull ClaimChangeset changeset,
                                              @Size(min = 1, max = 40) String deadline) {
         try {
-            Claim claim = claimManagementService.createClaim(requestId, changeset);
+            log.info("Process 'createClaim' get started. requestId = {}", requestId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            Claim claim = claimManagementService.createClaim(partyId, changeset);
             log.info("Claim for request id {} created", requestId);
             return ResponseEntity.ok(claim);
         } catch (ChangesetConflict | PartyNotFound | InvalidChangeset ex) {
@@ -44,8 +46,10 @@ public class ClaimManagementController implements ProcessingApi {
         } catch (TException ex) {
             log.error("TException createClaim: ", ex);
             throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'createClaim'", ex);
+            throw new RuntimeException(ex);
         }
-
     }
 
     @Override
@@ -53,7 +57,9 @@ public class ClaimManagementController implements ProcessingApi {
                                               @NotNull Long claimId,
                                               @Size(min = 1, max = 40) String deadline) {
         try {
-            Claim claim = claimManagementService.getClaimById(requestId, claimId);
+            log.info("Process 'getClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            Claim claim = claimManagementService.getClaimById(partyId, claimId);
             log.info("Got a claim for request id {} and claim id {}", requestId, claimId);
             return ResponseEntity.ok(claim);
         } catch (PartyNotFound | ClaimNotFound ex) {
@@ -61,6 +67,9 @@ public class ClaimManagementController implements ProcessingApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
             log.error("TException getClaimByID: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'getClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -72,7 +81,9 @@ public class ClaimManagementController implements ProcessingApi {
                                                 @Size(min = 1, max = 40) String deadline,
                                                 @Null String reason) {
         try {
-            claimManagementService.revokeClaimById(requestId, claimId, claimRevision, reason);
+            log.info("Process 'revokeClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            claimManagementService.revokeClaimById(partyId, claimId, claimRevision, reason);
             log.info("Successful revoke clame with id {}", claimId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (PartyNotFound | ClaimNotFound | InvalidClaimStatus | InvalidClaimRevision ex) {
@@ -80,6 +91,9 @@ public class ClaimManagementController implements ProcessingApi {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
             log.error("TException revokeClaimById: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'revokeClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
@@ -91,6 +105,7 @@ public class ClaimManagementController implements ProcessingApi {
                                                           @Null String continuationToken,
                                                           @Null List<String> claimStatuses) {
         try {
+            log.info("Process 'searchClaims' get started. requestId = {}", requestId);
             String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
             List<Claim> claims =
                     claimManagementService.searchClaims(partyId, limit, continuationToken, claimStatuses);
@@ -105,6 +120,9 @@ public class ClaimManagementController implements ProcessingApi {
         } catch (TException ex) {
             log.error("TException searchClaims: ", ex);
             throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'searchClaims'", ex);
+            throw new RuntimeException(ex);
         }
     }
 
@@ -115,14 +133,19 @@ public class ClaimManagementController implements ProcessingApi {
                                                 List<Modification> changeset,
                                                 @Size(min = 1, max = 40) String deadline) {
         try {
-            claimManagementService.updateClaimById(requestId, claimId, claimRevision, changeset);
+            log.info("Process 'updateClaimByID' get started. requestId = {}, claimId = {}", requestId, claimId);
+            String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
+            claimManagementService.updateClaimById(partyId, claimId, claimRevision, changeset);
             log.info("Successful update clame with id {}", claimId);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (PartyNotFound | InvalidClaimRevision | InvalidClaimStatus | ChangesetConflict | InvalidChangeset ex) {
             log.error("Incorrect data in the application when update claim by id: ", ex);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (TException ex) {
-            log.error("TException revokeClaimById: ", ex);
+            log.error("TException updateClaimByID: ", ex);
+            throw new RuntimeException(ex);
+        } catch (Exception ex) {
+            log.error("Received exception while process 'updateClaimByID'", ex);
             throw new RuntimeException(ex);
         }
     }
