@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.*;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
 
 @Slf4j
 @Component
@@ -99,7 +98,6 @@ public class ContractModificationUnitConverter
     ) {
         var swagContractModificationUnit = new com.rbkmoney.swag.claim_management.model.ContractModificationUnit();
         swagContractModificationUnit.setId(contractModificationUnit.getId());
-        swagContractModificationUnit.setModificationType(PARTYMODIFICATION);
         swagContractModificationUnit.setPartyModificationType(CONTRACTMODIFICATIONUNIT);
         ContractModification contractModification = contractModificationUnit.getModification();
 

@@ -4,8 +4,7 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -25,7 +24,6 @@ public final class TestShopData {
         var swagShopModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ShopModificationUnit.class);
         swagShopModificationUnit.setPartyModificationType(SHOPMODIFICATIONUNIT);
-        swagShopModificationUnit.setModificationType(PARTYMODIFICATION);
 
         switch (swagShopModificationUnit.getModification().getShopModificationType()) {
             case CREATION:

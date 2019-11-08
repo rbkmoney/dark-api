@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.*;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.*;
 import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.StatusModificationUnit.StatusEnum.DENIED;
 import static com.rbkmoney.swag.claim_management.model.StatusModificationUnit.StatusEnum.REVOKED;
@@ -22,7 +22,6 @@ public class ClaimConvertersTest {
     public void claimStatusConverterTest() throws IOException {
         ClaimStatusModificationConverter statusConverter = new ClaimStatusModificationConverter();
         var swagStatus = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModificationUnit.class);
-        swagStatus.setModificationType(CLAIMMODIFICATION);
         swagStatus.setClaimModificationType(STATUSMODIFICATIONUNIT);
         if (swagStatus.getStatus() != DENIED && swagStatus.getStatus() != REVOKED) {
             swagStatus.setReason(null);
@@ -46,7 +45,6 @@ public class ClaimConvertersTest {
                 new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter());
         var swagStatusModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModificationUnit.class);
-        swagStatusModificationUnit.setModificationType(CLAIMMODIFICATION);
         swagStatusModificationUnit.setClaimModificationType(STATUSMODIFICATIONUNIT);
         if (swagStatusModificationUnit.getStatus() != DENIED && swagStatusModificationUnit.getStatus() != REVOKED) {
             swagStatusModificationUnit.setReason(null);
@@ -71,7 +69,6 @@ public class ClaimConvertersTest {
         ClaimFileModificationUnitConverter converter = new ClaimFileModificationUnitConverter();
         var swagFileModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.FileModificationUnit.class);
-        swagFileModificationUnit.setModificationType(CLAIMMODIFICATION);
         swagFileModificationUnit.setClaimModificationType(FILEMODIFICATIONUNIT);
 
         var resultSwagFileModificationUnit = converter.convertToSwag(
@@ -95,7 +92,6 @@ public class ClaimConvertersTest {
         ClaimDocumentModificationConverter converter = new ClaimDocumentModificationConverter();
         var swagDocumentModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.DocumentModificationUnit.class);
-        swagDocumentModificationUnit.setModificationType(CLAIMMODIFICATION);
         swagDocumentModificationUnit.setClaimModificationType(DOCUMENTMODIFICATIONUNIT);
 
         var resultDocumentModificationUnit = converter.convertToSwag(
@@ -119,7 +115,6 @@ public class ClaimConvertersTest {
         ClaimCommentModificationUnitConverter converter = new ClaimCommentModificationUnitConverter();
         var swagCommentModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.CommentModificationUnit.class);
-        swagCommentModificationUnit.setModificationType(CLAIMMODIFICATION);
         swagCommentModificationUnit.setClaimModificationType(COMMENTMODIFICATIONUNIT);
 
         var resultCommentModificationUnit = converter.convertToSwag(
@@ -147,13 +142,16 @@ public class ClaimConvertersTest {
                 new ClaimFileModificationUnitConverter()
         );
 
-        var swagClaimModification = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
-        swagClaimModification.setClaimModificationType(STATUSMODIFICATIONUNIT);
-        swagClaimModification.setModificationType(CLAIMMODIFICATION);
-        swagClaimModification.setReason("testReason");
-        swagClaimModification.setStatus(DENIED);
+        var swagStatusModUnit = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
+        swagStatusModUnit.setClaimModificationType(STATUSMODIFICATIONUNIT);
+        swagStatusModUnit.setReason("testReason");
+        swagStatusModUnit.setStatus(DENIED);
 
-        swagClaimModification.setModification(EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
+        swagStatusModUnit.setStatusModification(EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
+
+        var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
+        swagClaimModification.setClaimModificationType(swagStatusModUnit);
+        swagClaimModification.setModificationType(CLAIMMODIFICATION);
 
         var resultClaimModification = converter.convertToSwag(converter.convertToThrift(swagClaimModification));
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);
@@ -168,39 +166,6 @@ public class ClaimConvertersTest {
                 converter.convertToSwag(thriftModification)
         );
         assertEquals("Thrift objects 'Modification' not equals", thriftModification, resultThriftModification);
-    }
-
-    private com.rbkmoney.swag.claim_management.model.ClaimModification prepareClaimModification(
-            com.rbkmoney.swag.claim_management.model.ClaimModification swagClaimModification
-    ) {
-        switch (swagClaimModification.getClaimModificationType()) {
-            case FILEMODIFICATIONUNIT:
-                var fileModificationUnit =
-                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.FileModificationUnit.class);
-                fileModificationUnit.setClaimModificationType(FILEMODIFICATIONUNIT);
-                fileModificationUnit.setModificationType(CLAIMMODIFICATION);
-                return fileModificationUnit;
-            case STATUSMODIFICATIONUNIT:
-                var statusModificationUnit =
-                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModificationUnit.class);
-                statusModificationUnit.setClaimModificationType(STATUSMODIFICATIONUNIT);
-                statusModificationUnit.setModificationType(CLAIMMODIFICATION);
-                return statusModificationUnit;
-            case COMMENTMODIFICATIONUNIT:
-                var commentModificationUnit =
-                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.CommentModificationUnit.class);
-                commentModificationUnit.setClaimModificationType(COMMENTMODIFICATIONUNIT);
-                commentModificationUnit.setModificationType(CLAIMMODIFICATION);
-                return commentModificationUnit;
-            case DOCUMENTMODIFICATIONUNIT:
-                var documentModificationUnit =
-                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.DocumentModificationUnit.class);
-                documentModificationUnit.setClaimModificationType(DOCUMENTMODIFICATIONUNIT  );
-                documentModificationUnit.setModificationType(CLAIMMODIFICATION);
-                return documentModificationUnit;
-            default:
-                throw new IllegalArgumentException("Unknown claim modification type!");
-        }
     }
 
 }

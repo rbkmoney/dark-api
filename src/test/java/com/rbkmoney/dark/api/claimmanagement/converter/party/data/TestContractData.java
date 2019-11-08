@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATION;
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.PAYOUTTOOLMODIFICATIONUNIT;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.PayoutToolInfo.PayoutToolTypeEnum.INTERNATIONALBANKACCOUNT;
 import static com.rbkmoney.swag.claim_management.model.PayoutToolInfo.PayoutToolTypeEnum.RUSSIANBANKACCOUNT;
 import static com.rbkmoney.swag.claim_management.model.PayoutToolModification.PayoutToolModificationTypeEnum.CREATION;
@@ -92,7 +91,6 @@ public final class TestContractData {
         var swagContractModificationUnit = new com.rbkmoney.swag.claim_management.model.ContractModificationUnit();
         swagContractModificationUnit.setId("123");
         swagContractModificationUnit.setPartyModificationType(CONTRACTMODIFICATIONUNIT);
-        swagContractModificationUnit.setModificationType(PARTYMODIFICATION);
         var swagContractTerm = new com.rbkmoney.swag.claim_management.model.ContractTermination();
         swagContractTerm.setContractModificationType(CONTRACTTERMINATION);
         swagContractTerm.setReason("some reason!");

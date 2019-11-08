@@ -6,9 +6,8 @@ import com.rbkmoney.damsel.claim_management.FileModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.FILEMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.FILEMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.FILECREATED;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 
 @Component
 public class ClaimFileModificationUnitConverter
@@ -19,9 +18,9 @@ public class ClaimFileModificationUnitConverter
             com.rbkmoney.swag.claim_management.model.FileModificationUnit swagFileModificationUnit
     ) {
         FileModificationUnit fileModificationUnit = new FileModificationUnit();
-        fileModificationUnit.setId(swagFileModificationUnit.getId());
+        fileModificationUnit.setId(swagFileModificationUnit.getFileId());
 
-        switch (swagFileModificationUnit.getModification().getFileModificationType()) {
+        switch (swagFileModificationUnit.getFileModification().getFileModificationType()) {
             case FILECREATED:
                 FileModification fileModification = new FileModification();
                 fileModification.setCreation(new FileCreated());
@@ -29,7 +28,7 @@ public class ClaimFileModificationUnitConverter
                 return fileModificationUnit;
             default:
                 throw new IllegalArgumentException("Unknown file modification type: " +
-                        swagFileModificationUnit.getModification().getFileModificationType());
+                        swagFileModificationUnit.getFileModification().getFileModificationType());
         }
     }
 
@@ -38,14 +37,13 @@ public class ClaimFileModificationUnitConverter
             FileModificationUnit fileModificationUnit
     ) {
         var swagFileModificationUnit = new com.rbkmoney.swag.claim_management.model.FileModificationUnit();
-        swagFileModificationUnit.setId(fileModificationUnit.getId());
-        swagFileModificationUnit.setModificationType(CLAIMMODIFICATION);
+        swagFileModificationUnit.setFileId(fileModificationUnit.getId());
         swagFileModificationUnit.setClaimModificationType(FILEMODIFICATIONUNIT);
         var swagFileModification = new com.rbkmoney.swag.claim_management.model.FileModification();
 
         if (fileModificationUnit.getModification().isSetCreation()) {
             swagFileModification.setFileModificationType(FILECREATED);
-            swagFileModificationUnit.setModification(swagFileModification);
+            swagFileModificationUnit.setFileModification(swagFileModification);
             return swagFileModificationUnit;
         } else {
             throw new IllegalArgumentException("Unknown file modification type!");

@@ -6,8 +6,7 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
 
 @Component
@@ -91,7 +90,6 @@ public class ShopModificationUnitConverter
     ) {
         var swagShopModificationUnit = new com.rbkmoney.swag.claim_management.model.ShopModificationUnit();
         swagShopModificationUnit.setPartyModificationType(SHOPMODIFICATIONUNIT);
-        swagShopModificationUnit.setModificationType(PARTYMODIFICATION);
         swagShopModificationUnit.setId(shopModificationUnit.getId());
 
         ShopModification shopModification = shopModificationUnit.getModification();

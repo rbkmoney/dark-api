@@ -4,8 +4,7 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.STATUSMODIFICATIONUNIT;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.STATUSMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.StatusModification.StatusModificationTypeEnum.STATUSCHANGED;
 import static com.rbkmoney.swag.claim_management.model.StatusModificationUnit.StatusEnum.*;
 
@@ -48,7 +47,6 @@ public class ClaimStatusModificationConverter
     @Override
     public com.rbkmoney.swag.claim_management.model.StatusModificationUnit convertToSwag(ClaimStatus claimStatus) {
         var swagStatus = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
-        swagStatus.setModificationType(CLAIMMODIFICATION);
         swagStatus.setClaimModificationType(STATUSMODIFICATIONUNIT);
 
         if (claimStatus.isSetAccepted()) {
@@ -71,7 +69,7 @@ public class ClaimStatusModificationConverter
 
         var swagStatusModification = new com.rbkmoney.swag.claim_management.model.StatusModification();
         swagStatusModification.setStatusModificationType(STATUSCHANGED);
-        swagStatus.setModification(swagStatusModification);
+        swagStatus.setStatusModification(swagStatusModification);
         return swagStatus;
     }
 

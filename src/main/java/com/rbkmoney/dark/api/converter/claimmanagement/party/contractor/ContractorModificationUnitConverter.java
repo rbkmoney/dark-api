@@ -9,8 +9,7 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.CONTRACTORMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTORMODIFICATIONUNIT;
 
 @Component
 @RequiredArgsConstructor
@@ -70,7 +69,6 @@ public class ContractorModificationUnitConverter
     ) {
         var swagContractorModificationUnit = new com.rbkmoney.swag.claim_management.model.ContractorModificationUnit();
         swagContractorModificationUnit.setId(contractorModificationUnit.getId());
-        swagContractorModificationUnit.setModificationType(PARTYMODIFICATION);
         swagContractorModificationUnit.setPartyModificationType(CONTRACTORMODIFICATIONUNIT);
 
         if (contractorModificationUnit.getModification().isSetCreation()) {

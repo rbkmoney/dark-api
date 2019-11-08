@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>dark-api</artifactId>
-    <version>0.0.8-SNAPSHOT</version>
+    <version>0.0.9-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>dark-api</name>
@@ -100,7 +100,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>1.7-f0e02d3-server</version>
+            <version>TEST-SNAPSHOT-1</version>
         </dependency>
 
         <!--spring-->

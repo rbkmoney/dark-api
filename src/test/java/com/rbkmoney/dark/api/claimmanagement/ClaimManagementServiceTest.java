@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.DocumentModification.DocumentModificationTypeEnum.DOCUMENTCREATED;
 import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 import static org.junit.Assert.assertEquals;
@@ -73,19 +73,18 @@ public class ClaimManagementServiceTest {
     public static ClaimChangeset getChangeset() {
         ClaimChangeset changeset = new ClaimChangeset();
         ModificationUnit modificationUnit = new ModificationUnit();
+        var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
+        swagClaimModification.setModificationType(CLAIMMODIFICATION);
         modificationUnit.setModificationID(1L);
         modificationUnit.setCreatedAt(OffsetDateTime.parse("2019-08-21T12:09:32.449571+03:00"));
         var documentModificationUnit = new com.rbkmoney.swag.claim_management.model.DocumentModificationUnit();
-        documentModificationUnit.setModificationType(CLAIMMODIFICATION);
         documentModificationUnit.setClaimModificationType(DOCUMENTMODIFICATIONUNIT);
-        documentModificationUnit.setId("id_1");
-        //TODO: посмотреть на вопрос вложенности. Возможно могуть быть проблемы с этим
-        //var documentCreated = new com.rbkmoney.swag.claim_management.model.DocumentCreated();
+        documentModificationUnit.setDocumentId("id_1");
         var documentModification = new com.rbkmoney.swag.claim_management.model.DocumentModification();
         documentModification.setDocumentModificationType(DOCUMENTCREATED);
-        //documentCreated.setDocumentModificationType(DOCUMENTCREATED);
-        documentModificationUnit.setModification(documentModification);
-        modificationUnit.setModification(documentModificationUnit);
+        documentModificationUnit.setDocumentModification(documentModification);
+        swagClaimModification.setClaimModificationType(documentModificationUnit);
+        modificationUnit.setModification(swagClaimModification);
 
         changeset.add(modificationUnit);
         return changeset;
