@@ -6,9 +6,8 @@ import com.rbkmoney.damsel.claim_management.CommentModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.COMMENTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.COMMENTMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.COMMENTCREATED;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 
 @Component
 public class ClaimCommentModificationUnitConverter
@@ -19,17 +18,18 @@ public class ClaimCommentModificationUnitConverter
             com.rbkmoney.swag.claim_management.model.CommentModificationUnit swagCommentModificationUnit
     ) {
         CommentModificationUnit commentModificationUnit = new CommentModificationUnit();
-        commentModificationUnit.setId(swagCommentModificationUnit.getId());
+        commentModificationUnit.setId(swagCommentModificationUnit.getCommentId());
+        var commentModificationType = swagCommentModificationUnit.getCommentModification().getCommentModificationType();
 
-        switch (swagCommentModificationUnit.getModification().getCommentModificationType()) {
+        switch (commentModificationType) {
             case COMMENTCREATED:
                 CommentModification commentModification = new CommentModification();
                 commentModification.setCreation(new CommentCreated());
                 commentModificationUnit.setModification(commentModification);
                 break;
             default:
-                throw new IllegalArgumentException("Type " + swagCommentModificationUnit.getModification().getCommentModificationType() +
-                        "in swagCommentModificationUnit not found!");
+                throw new IllegalArgumentException("Type " + commentModificationType +
+                        " in swagCommentModificationUnit not found!");
         }
 
         return commentModificationUnit;
@@ -40,8 +40,7 @@ public class ClaimCommentModificationUnitConverter
             CommentModificationUnit commentModification
     ) {
         var swagCommentModificationUnit = new com.rbkmoney.swag.claim_management.model.CommentModificationUnit();
-        swagCommentModificationUnit.setId(commentModification.getId());
-        swagCommentModificationUnit.setModificationType(CLAIMMODIFICATION);
+        swagCommentModificationUnit.setCommentId(commentModification.getId());
         swagCommentModificationUnit.setClaimModificationType(COMMENTMODIFICATIONUNIT);
         var swagCommentModification = new com.rbkmoney.swag.claim_management.model.CommentModification();
 
@@ -51,7 +50,7 @@ public class ClaimCommentModificationUnitConverter
             throw new IllegalArgumentException("Unknown comment modification type!");
         }
 
-        swagCommentModificationUnit.setModification(swagCommentModification);
+        swagCommentModificationUnit.setCommentModification(swagCommentModification);
         return swagCommentModificationUnit;
     }
 

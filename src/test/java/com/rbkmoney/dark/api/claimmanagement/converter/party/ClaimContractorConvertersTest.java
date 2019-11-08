@@ -12,12 +12,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.rbkmoney.swag.claim_management.model.Contractor.ContractorTypeEnum.*;
 import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.*;
-import static com.rbkmoney.swag.claim_management.model.LegalEntity.LegalEntityTypeEnum.INTERNATIONALLEGALENTITY;
-import static com.rbkmoney.swag.claim_management.model.LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.PARTYMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.PartyModification.PartyModificationTypeEnum.CONTRACTORMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ContractorType.ContractorTypeEnum.*;
+import static com.rbkmoney.swag.claim_management.model.LegalEntityType.LegalEntityTypeEnum.INTERNATIONALLEGALENTITY;
+import static com.rbkmoney.swag.claim_management.model.LegalEntityType.LegalEntityTypeEnum.RUSSIANLEGALENTITY;
+import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTORMODIFICATIONUNIT;
 import static org.junit.Assert.assertEquals;
 
 public class ClaimContractorConvertersTest {
@@ -26,8 +25,6 @@ public class ClaimContractorConvertersTest {
     public void russianLegalEntityConverterTest() throws IOException {
         RussianLegalEntityConverter converter = new RussianLegalEntityConverter();
         var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
-        swagRussianLegalEntity.setContractorModificationType(CONTRACTOR);
-        swagRussianLegalEntity.setContractorType(LEGALENTITY);
         swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
         swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
         swagRussianLegalEntity.getRussianBankAccount().setPayoutToolModificationType(null);
@@ -60,8 +57,6 @@ public class ClaimContractorConvertersTest {
         InternationalLegalEntityConverter converter = new InternationalLegalEntityConverter();
         var swagInternationalLegalEntity =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalLegalEntity.class);
-        swagInternationalLegalEntity.setContractorModificationType(CONTRACTOR);
-        swagInternationalLegalEntity.setContractorType(LEGALENTITY);
         swagInternationalLegalEntity.setLegalEntityType(INTERNATIONALLEGALENTITY);
 
         var resultSwagInternationalLegalEntityConverter = converter.convertToSwag(
@@ -96,24 +91,20 @@ public class ClaimContractorConvertersTest {
         );
         var swagLegalEntity =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.LegalEntity.class);
-
-        switch (swagLegalEntity.getLegalEntityType()) {
+        swagLegalEntity.setContractorType(LEGALENTITY);
+        switch (swagLegalEntity.getLegalEntityType().getLegalEntityType()) {
             case RUSSIANLEGALENTITY:
                 var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
-                swagRussianLegalEntity.setContractorModificationType(CONTRACTOR);
-                swagRussianLegalEntity.setContractorType(LEGALENTITY);
                 swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
                 swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
                 swagRussianLegalEntity.getRussianBankAccount().setPayoutToolModificationType(null);
-                swagLegalEntity = swagRussianLegalEntity;
+                swagLegalEntity.setLegalEntityType(swagRussianLegalEntity);
                 break;
             case INTERNATIONALLEGALENTITY:
                 var swagInternationalLegalEntity =
                         EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalLegalEntity.class);
-                swagInternationalLegalEntity.setContractorModificationType(CONTRACTOR);
-                swagInternationalLegalEntity.setContractorType(LEGALENTITY);
                 swagInternationalLegalEntity.setLegalEntityType(INTERNATIONALLEGALENTITY);
-                swagLegalEntity = swagInternationalLegalEntity;
+                swagLegalEntity.setLegalEntityType(swagInternationalLegalEntity);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown legal entity type!");
@@ -143,7 +134,6 @@ public class ClaimContractorConvertersTest {
         PrivateEntityConverter converter = new PrivateEntityConverter();
         var swagPrivateEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.PrivateEntity.class);
         swagPrivateEntity.setContractorType(PRIVATEENTITY);
-        swagPrivateEntity.setContractorModificationType(CONTRACTOR);
         var resultSwagPrivateEntity = converter.convertToSwag(converter.convertToThrift(swagPrivateEntity));
         assertEquals("Swag objects 'PrivateEntity' not equals", swagPrivateEntity, resultSwagPrivateEntity);
 
@@ -218,7 +208,6 @@ public class ClaimContractorConvertersTest {
         var swagContractorModificationUnit =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorModificationUnit.class);
         swagContractorModificationUnit.setPartyModificationType(CONTRACTORMODIFICATIONUNIT);
-        swagContractorModificationUnit.setModificationType(PARTYMODIFICATION);
         swagContractorModificationUnit.setModification(getTestContractorIdentificationLevel());
         var resultContractorModification = converter.convertToSwag(converter.convertToThrift(swagContractorModificationUnit));
         assertEquals("Swag objects 'ContractorModificationUnit' not equals",
@@ -248,10 +237,12 @@ public class ClaimContractorConvertersTest {
         ClaimContractorConverter converter = new ClaimContractorConverter(
                 new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(), new RussianLegalEntityConverter()),
                 new PrivateEntityConverter());
-        var swagContractor = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
-        swagContractor.setContractorType(REGISTEREDUSER);
+        var swagRegisteredUser = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
+        swagRegisteredUser.setContractorType(REGISTEREDUSER);
+        swagRegisteredUser.setEmail("some email");
+        var swagContractor = new com.rbkmoney.swag.claim_management.model.Contractor();
         swagContractor.setContractorModificationType(CONTRACTOR);
-        swagContractor.setEmail("some email");
+        swagContractor.setContractorType(swagRegisteredUser);
 
         var resultContractor = converter.convertToSwag(converter.convertToThrift(swagContractor));
         assertEquals("Swag objects 'ContractorIdentificationLevel' not equals",

@@ -22,7 +22,7 @@ public class ClaimStatusModificationUnitConverter
         StatusModificationUnit statusModificationUnit = new StatusModificationUnit();
         statusModificationUnit.setStatus(claimStatusModificationConverter.convertToThrift(swagStatusModificationUnit));
 
-        if (swagStatusModificationUnit.getModification().getStatusModificationType() == STATUSCHANGED) {
+        if (swagStatusModificationUnit.getStatusModification().getStatusModificationType() == STATUSCHANGED) {
             StatusModification statusModification = new StatusModification();
             statusModification.setChange(new StatusChanged());
             statusModificationUnit.setModification(statusModification);

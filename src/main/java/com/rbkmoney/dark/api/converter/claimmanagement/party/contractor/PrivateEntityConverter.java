@@ -6,8 +6,7 @@ import com.rbkmoney.damsel.domain.RussianPrivateEntity;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.Contractor.ContractorTypeEnum.PRIVATEENTITY;
-import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTOR;
+import static com.rbkmoney.swag.claim_management.model.ContractorType.ContractorTypeEnum.PRIVATEENTITY;
 
 @Component
 public class PrivateEntityConverter
@@ -32,7 +31,6 @@ public class PrivateEntityConverter
     @Override
     public com.rbkmoney.swag.claim_management.model.PrivateEntity convertToSwag(PrivateEntity privateEntity) {
         var swagRussianPrivateEntity = new com.rbkmoney.swag.claim_management.model.PrivateEntity();
-        swagRussianPrivateEntity.setContractorModificationType(CONTRACTOR);
         swagRussianPrivateEntity.setContractorType(PRIVATEENTITY);
         RussianPrivateEntity russianPrivateEntity = privateEntity.getRussianPrivateEntity();
         swagRussianPrivateEntity.setFirstName(russianPrivateEntity.getFirstName());

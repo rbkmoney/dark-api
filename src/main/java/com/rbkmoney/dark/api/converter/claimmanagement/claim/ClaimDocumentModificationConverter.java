@@ -4,9 +4,8 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ClaimModification.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.DocumentModification.DocumentModificationTypeEnum.DOCUMENTCREATED;
-import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 
 @Component
 public class ClaimDocumentModificationConverter
@@ -17,9 +16,9 @@ public class ClaimDocumentModificationConverter
             com.rbkmoney.swag.claim_management.model.DocumentModificationUnit swagDocModificationUnit
     ) {
         DocumentModificationUnit docModificationUnit = new DocumentModificationUnit();
-        docModificationUnit.setId(swagDocModificationUnit.getId());
+        docModificationUnit.setId(swagDocModificationUnit.getDocumentId());
 
-        switch (swagDocModificationUnit.getModification().getDocumentModificationType()) {
+        switch (swagDocModificationUnit.getDocumentModification().getDocumentModificationType()) {
             case DOCUMENTCREATED:
                 DocumentModification docModification = new DocumentModification();
                 docModification.setCreation(new DocumentCreated());
@@ -27,7 +26,7 @@ public class ClaimDocumentModificationConverter
                 break;
             default:
                 throw new IllegalArgumentException("DocumentModificationType not found: " +
-                        swagDocModificationUnit.getModification().getDocumentModificationType());
+                        swagDocModificationUnit.getDocumentModification().getDocumentModificationType());
         }
 
         return docModificationUnit;
@@ -38,23 +37,17 @@ public class ClaimDocumentModificationConverter
             DocumentModificationUnit documentModification
     ) {
         var swagDocumentModificationUnit = new com.rbkmoney.swag.claim_management.model.DocumentModificationUnit();
-        swagDocumentModificationUnit.setId(documentModification.getId());
-        swagDocumentModificationUnit.setModificationType(CLAIMMODIFICATION);
+        swagDocumentModificationUnit.setDocumentId(documentModification.getId());
         swagDocumentModificationUnit.setClaimModificationType(DOCUMENTMODIFICATIONUNIT);
         var swagDocumentModification = new com.rbkmoney.swag.claim_management.model.DocumentModification();
 
         if (documentModification.getModification().isSetCreation()) {
-            //TODO: проверить корректность
-            //var documentCreated = new com.rbkmoney.swag.claim_management.model.DocumentCreated();
-            //documentCreated.setDocumentModificationType(DOCUMENTCREATED);
-            //swagDocumentModificationUnit.setModification(documentCreated);
-
             swagDocumentModification.setDocumentModificationType(DOCUMENTCREATED);
         } else {
             throw new IllegalArgumentException("Unknown document modification type!");
         }
 
-        swagDocumentModificationUnit.setModification(swagDocumentModification);
+        swagDocumentModificationUnit.setDocumentModification(swagDocumentModification);
         return swagDocumentModificationUnit;
     }
 

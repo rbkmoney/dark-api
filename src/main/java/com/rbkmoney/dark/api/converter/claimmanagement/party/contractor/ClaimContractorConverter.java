@@ -5,8 +5,8 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.Contractor.ContractorTypeEnum.REGISTEREDUSER;
 import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTOR;
+import static com.rbkmoney.swag.claim_management.model.ContractorType.ContractorTypeEnum.REGISTEREDUSER;
 
 @Component
 @RequiredArgsConstructor
@@ -22,36 +22,39 @@ public class ClaimContractorConverter
     @Override
     public Contractor convertToThrift(com.rbkmoney.swag.claim_management.model.Contractor swagContractor) {
         Contractor contractor = new Contractor();
-        switch (swagContractor.getContractorType()) {
+        var swagContractorType = swagContractor.getContractorType();
+
+        switch (swagContractorType.getContractorType()) {
             case LEGALENTITY:
-                var swagLegalEntity = (com.rbkmoney.swag.claim_management.model.LegalEntity) swagContractor;
+                var swagLegalEntity = (com.rbkmoney.swag.claim_management.model.LegalEntity) swagContractorType;
                 contractor.setLegalEntity(claimLegalEntityConverter.convertToThrift(swagLegalEntity));
                 break;
             case PRIVATEENTITY:
-                var swagPrivateEntity = (com.rbkmoney.swag.claim_management.model.PrivateEntity) swagContractor;
+                var swagPrivateEntity = (com.rbkmoney.swag.claim_management.model.PrivateEntity) swagContractorType;
                 contractor.setPrivateEntity(privateEntityConverter.convertToThrift(swagPrivateEntity));
                 break;
             case REGISTEREDUSER:
-                var swagRegisteredUser = (com.rbkmoney.swag.claim_management.model.RegisteredUser) swagContractor;
+                var swagRegisteredUser = (com.rbkmoney.swag.claim_management.model.RegisteredUser) swagContractorType;
                 contractor.setRegisteredUser(
                         new RegisteredUser().setEmail(swagRegisteredUser.getEmail())
                 );
                 break;
             default:
-                throw new IllegalArgumentException("Unknown contractor type: " + swagContractor.getContractorType());
+                throw new IllegalArgumentException("Unknown contractor type: " + swagContractorType);
         }
         return contractor;
     }
 
     @Override
     public com.rbkmoney.swag.claim_management.model.Contractor convertToSwag(Contractor creation) {
+        var swagContractor = new com.rbkmoney.swag.claim_management.model.Contractor();
         if (creation.isSetLegalEntity()) {
-            return claimLegalEntityConverter.convertToSwag(creation.getLegalEntity());
+            swagContractor.setContractorType(claimLegalEntityConverter.convertToSwag(creation.getLegalEntity()));
         } else if (creation.isSetPrivateEntity()) {
             PrivateEntity privateEntity = creation.getPrivateEntity();
 
             if (privateEntity.isSetRussianPrivateEntity()) {
-                return privateEntityConverter.convertToSwag(privateEntity);
+                swagContractor.setContractorType(privateEntityConverter.convertToSwag(privateEntity));
             } else {
                 throw new IllegalArgumentException("Unknown private entity type!");
             }
@@ -59,13 +62,14 @@ public class ClaimContractorConverter
             RegisteredUser registeredUser = creation.getRegisteredUser();
             var swagRegisteredUser = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
             swagRegisteredUser.setContractorType(REGISTEREDUSER);
-            swagRegisteredUser.setContractorModificationType(CONTRACTOR);
             swagRegisteredUser.setEmail(registeredUser.getEmail());
 
-            return swagRegisteredUser;
+            swagContractor.setContractorType(swagRegisteredUser);
         } else {
             throw new IllegalArgumentException("Unknown contractor type!");
         }
+        swagContractor.setContractorModificationType(CONTRACTOR);
+        return swagContractor;
     }
 
 }

@@ -5,9 +5,7 @@ import com.rbkmoney.damsel.domain.RussianLegalEntity;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.Contractor.ContractorTypeEnum.LEGALENTITY;
-import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTOR;
-import static com.rbkmoney.swag.claim_management.model.LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY;
+import static com.rbkmoney.swag.claim_management.model.LegalEntityType.LegalEntityTypeEnum.RUSSIANLEGALENTITY;
 
 @Component
 public class RussianLegalEntityConverter
@@ -42,8 +40,6 @@ public class RussianLegalEntityConverter
             RussianLegalEntity russianLegalEntity
     ) {
         var swagRussianLegalEntity = new com.rbkmoney.swag.claim_management.model.RussianLegalEntity();
-        swagRussianLegalEntity.setContractorModificationType(CONTRACTOR);
-        swagRussianLegalEntity.setContractorType(LEGALENTITY);
         swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
         swagRussianLegalEntity.setActualAddress(russianLegalEntity.getActualAddress());
         swagRussianLegalEntity.setEpresentativePosition(russianLegalEntity.getRepresentativePosition());
