@@ -100,7 +100,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>TEST-SNAPSHOT-1</version>
+            <version>1.8-1473fbf-server</version>
         </dependency>
 
         <!--spring-->
