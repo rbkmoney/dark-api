@@ -8,7 +8,7 @@ public final class ThriftClaimStatus {
 
     public static final String PENDING = "pending";
     public static final String REVIEW = "review";
-    public static final String PENDING_ACCEPTANCE = "pending_acceptance";
+    public static final String PENDING_ACCEPTANCE = "pendingAcceptance";
     public static final String ACCEPTED = "accepted";
     public static final String DENIED = "denied";
     public static final String REVOKED = "revoked";
