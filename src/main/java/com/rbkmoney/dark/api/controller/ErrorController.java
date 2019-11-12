@@ -1,6 +1,7 @@
 package com.rbkmoney.dark.api.controller;
 
 import com.rbkmoney.dark.api.domain.ErrorResponse;
+import com.rbkmoney.dark.api.exceptions.ConversationUsersNotProvided;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +30,16 @@ import java.util.List;
 public class ErrorController {
 
     public static final String INVALID_REQUEST = "invalidRequest";
+
+    @ExceptionHandler(ConversationUsersNotProvided.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUsersNotProvided(ConversationUsersNotProvided e) {
+        log.error(e.getMessage());
+        return ErrorResponse.builder()
+                .code(INVALID_REQUEST)
+                .message(e.getMessage())
+                .build();
+    }
 
     @ExceptionHandler({IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
