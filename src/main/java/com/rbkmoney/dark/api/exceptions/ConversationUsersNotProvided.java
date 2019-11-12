@@ -15,6 +15,6 @@ public class ConversationUsersNotProvided extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return "Conversation users not provided" + String.join(", ", ids);
+        return "Conversation users not provided: " + String.join(", ", ids);
     }
 }
