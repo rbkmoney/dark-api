@@ -2,8 +2,8 @@ package com.rbkmoney.dark.api.service;
 
 import com.rbkmoney.damsel.messages.*;
 import com.rbkmoney.dark.api.converter.SwagConvertManager;
+import com.rbkmoney.dark.api.exceptions.ConversationUsersNotProvided;
 import com.rbkmoney.swag.messages.model.ConversationResponse;
-import com.rbkmoney.swag.messages.model.GetConversationParams;
 import com.rbkmoney.swag.messages.model.SaveConversationParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,21 +33,18 @@ public class ConversationService {
             messageServiceSrv.saveConversations(conversationList, userList);
         } catch (UsersNotProvided e) {
             log.error("Not all user provided", e);
-            throw new IllegalArgumentException(e);
+            throw new ConversationUsersNotProvided(e.getIds());
         } catch (TException e) {
             log.error("Save conversation failed", e);
             throw new RuntimeException(e);
         }
     }
 
-    public ConversationResponse getConversation(GetConversationParams conversationParams) {
-        ConversationFilter conversationFilter = swagConvertManager.convertToThrift(conversationParams.getFilter(),
-                ConversationFilter.class);
+    public ConversationResponse getConversation(List<String> conversationIdList,
+                                                com.rbkmoney.swag.messages.model.ConversationFilter filter) {
+        ConversationFilter conversationFilter = swagConvertManager.convertToThrift(filter, ConversationFilter.class);
         try {
-            GetConversationResponse conversations = messageServiceSrv.getConversations(
-                    conversationParams.getConversationsIds(),
-                    conversationFilter
-            );
+            GetConversationResponse conversations = messageServiceSrv.getConversations(conversationIdList, conversationFilter);
             return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
         } catch (ConversationsNotFound e) {
             log.error("Conversation not found", e);

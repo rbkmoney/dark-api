@@ -7,6 +7,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.swag.messages.model.Conversation;
 import com.rbkmoney.swag.messages.model.ConversationResponse;
+import com.rbkmoney.swag.messages.model.ConversationResponseUsers;
 import com.rbkmoney.swag.messages.model.User;
 import org.springframework.stereotype.Component;
 
@@ -26,10 +27,13 @@ public class ConversationResponseConverter implements SwagConverter<Conversation
                 .collect(Collectors.toList());
         conversationResponse.setConversations(conversationList);
 
-        Map<String, User> users = value.getUsers().entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> ctx.convert(e.getValue(), User.class)
+        Map<String, ConversationResponseUsers> users = value.getUsers().entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> {
+                        User user = ctx.convert(e.getValue(), User.class);
+                        return new ConversationResponseUsers()
+                                .user(user)
+                                .userId(user.getUserId());
+                        }
                 ));
         conversationResponse.setUsers(users);
 

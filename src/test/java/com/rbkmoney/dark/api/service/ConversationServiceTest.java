@@ -68,18 +68,19 @@ public class ConversationServiceTest {
                 ArgumentCaptor.forClass((Class) List.class);
         ArgumentCaptor<com.rbkmoney.damsel.messages.ConversationFilter> conversationFilterCaptor =
                 ArgumentCaptor.forClass((Class) List.class);
-        GetConversationParams getConversationParams = getConversationParams();
+        List<String> conversationIds = Collections.singletonList("4254364");
+        ConversationFilter swagConversationFilter = new ConversationFilter().conversationStatus(ConversationStatus.ACTUAL);
         GetConversationResponse getConversationResponse = conversationResponse();
 
         when(messageService.getConversations(anyList(), any(com.rbkmoney.damsel.messages.ConversationFilter.class)))
                 .thenReturn(getConversationResponse);
-        ConversationResponse conversationResponse = conversationService.getConversation(getConversationParams);
+        ConversationResponse conversationResponse = conversationService.getConversation(conversationIds, swagConversationFilter);
         verify(messageService).getConversations(listCaptor.capture(), conversationFilterCaptor.capture());
 
-        com.rbkmoney.damsel.messages.ConversationFilter conversationFilter = conversationFilterCaptor.getValue();
+        com.rbkmoney.damsel.messages.ConversationFilter thriftConversationFilter = conversationFilterCaptor.getValue();
 
-        Assert.assertEquals(getConversationParams.getFilter().getConversationStatus().toString().toLowerCase(),
-                conversationFilter.getConversationStatus().toString().toLowerCase());
+        Assert.assertEquals(thriftConversationFilter.getConversationStatus().toString().toLowerCase(),
+                swagConversationFilter.getConversationStatus().toString().toLowerCase());
 
         com.rbkmoney.damsel.messages.Conversation expectedConversation = getConversationResponse.getConversations().get(0);
         Conversation conversation = conversationResponse.getConversations().get(0);
@@ -96,11 +97,11 @@ public class ConversationServiceTest {
         Assert.assertEquals(expectedMessage.getUserId(), message.getUserId());
 
         com.rbkmoney.damsel.messages.User expectedUser = getConversationResponse.getUsers().get("64");
-        User user = conversationResponse.getUsers().get("64");
+        ConversationResponseUsers user = conversationResponse.getUsers().get("64");
 
         Assert.assertEquals(expectedUser.getUserId(), user.getUserId());
-        Assert.assertEquals(expectedUser.getEmail(), user.getEmail());
-        Assert.assertEquals(expectedUser.getFullname(), user.getFullName());
+        Assert.assertEquals(expectedUser.getEmail(), user.getUser().getEmail());
+        Assert.assertEquals(expectedUser.getFullname(), user.getUser().getFullName());
     }
 
     private SaveConversationParams saveConversationParams() {
@@ -124,14 +125,6 @@ public class ConversationServiceTest {
         saveConversationParams.setUsers(Collections.singletonList(user));
 
         return saveConversationParams;
-    }
-
-    private GetConversationParams getConversationParams() {
-        GetConversationParams getConversationParams = new GetConversationParams();
-        getConversationParams.setConversationsIds(Collections.singletonList("4254364"));
-        getConversationParams.setFilter(new ConversationFilter().conversationStatus(ConversationStatus.ACTUAL));
-
-        return getConversationParams;
     }
 
     private GetConversationResponse conversationResponse() {
