@@ -74,7 +74,8 @@ public class ConversationServiceTest {
 
         when(messageService.getConversations(anyList(), any(com.rbkmoney.damsel.messages.ConversationFilter.class)))
                 .thenReturn(getConversationResponse);
-        ConversationResponse conversationResponse = conversationService.getConversation(conversationIds, swagConversationFilter);
+        ConversationResponse conversationResponse = conversationService.getConversation(conversationIds,
+                swagConversationFilter.getConversationStatus());
         verify(messageService).getConversations(listCaptor.capture(), conversationFilterCaptor.capture());
 
         com.rbkmoney.damsel.messages.ConversationFilter thriftConversationFilter = conversationFilterCaptor.getValue();

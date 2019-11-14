@@ -41,8 +41,10 @@ public class ConversationService {
     }
 
     public ConversationResponse getConversation(List<String> conversationIdList,
-                                                com.rbkmoney.swag.messages.model.ConversationFilter filter) {
-        ConversationFilter conversationFilter = swagConvertManager.convertToThrift(filter, ConversationFilter.class);
+                                                com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) {
+        var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter()
+                .conversationStatus(conversationStatus);
+        ConversationFilter conversationFilter = swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
         try {
             GetConversationResponse conversations = messageServiceSrv.getConversations(conversationIdList, conversationFilter);
             return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
