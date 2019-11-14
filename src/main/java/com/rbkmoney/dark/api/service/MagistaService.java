@@ -8,7 +8,7 @@ import com.rbkmoney.dark.api.converter.StatPaymentToPaymentSearchResultConverter
 import com.rbkmoney.dark.api.converter.StatRefundToRefundSearchResultConverter;
 import com.rbkmoney.dark.api.magista.dsl.MstDsl;
 import com.rbkmoney.swag.dark_api.model.EnrichedSearchResult;
-import com.rbkmoney.swag.dark_api.model.InlineResponse200;
+import com.rbkmoney.swag.dark_api.model.InlineResponse2001;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
@@ -25,27 +25,27 @@ public class MagistaService {
 
     private final DarkMessiahStatisticsSrv.Iface magistaClient;
 
-    public InlineResponse200 getPaymentsByQuery(String shopID,
-                                                String merchantId,
-                                                OffsetDateTime fromTime,
-                                                OffsetDateTime toTime,
-                                                Integer limit,
-                                                String paymentStatus,
-                                                String paymentFlow,
-                                                String paymentMethod,
-                                                String paymentTerminalProvider,
-                                                String invoiceID,
-                                                String paymentID,
-                                                String payerEmail,
-                                                String payerIP,
-                                                String payerFingerprint,
-                                                String customerID,
-                                                String bin,
-                                                String lastDigits,
-                                                String bankCardTokenProvider,
-                                                String bankCardPaymentSystem,
-                                                Long paymentAmount,
-                                                String continuationToken) {
+    public InlineResponse2001 getPaymentsByQuery(String shopID,
+                                                 String merchantId,
+                                                 OffsetDateTime fromTime,
+                                                 OffsetDateTime toTime,
+                                                 Integer limit,
+                                                 String paymentStatus,
+                                                 String paymentFlow,
+                                                 String paymentMethod,
+                                                 String paymentTerminalProvider,
+                                                 String invoiceID,
+                                                 String paymentID,
+                                                 String payerEmail,
+                                                 String payerIP,
+                                                 String payerFingerprint,
+                                                 String customerID,
+                                                 String bin,
+                                                 String lastDigits,
+                                                 String bankCardTokenProvider,
+                                                 String bankCardPaymentSystem,
+                                                 Long paymentAmount,
+                                                 String continuationToken) {
         try {
             return fromStatResponse(magistaClient.getByQuery(new StatRequest()
                     .setDsl(MstDsl.createPaymentsRequest(shopID,
@@ -81,7 +81,7 @@ public class MagistaService {
         }
     }
 
-    public InlineResponse200 getRefundsByQuery(String shopID,
+    public InlineResponse2001 getRefundsByQuery(String shopID,
                                                String merchantId,
                                                OffsetDateTime fromTime,
                                                OffsetDateTime toTime,
@@ -116,8 +116,8 @@ public class MagistaService {
         }
     }
 
-    private InlineResponse200 fromStatResponse(StatResponse statResponse) {
-        return new InlineResponse200()
+    private InlineResponse2001 fromStatResponse(StatResponse statResponse) {
+        return new InlineResponse2001()
                 .continuationToken(statResponse.getContinuationToken())
                 .result(statResponse.getData().getEnrichedInvoices()
                         .stream()

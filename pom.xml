@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-dark-api</artifactId>
-            <version>1.31-eba8b2b</version>
+            <version>1.51-24aa905-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -81,6 +81,11 @@
             <groupId>com.rbkmoney</groupId>
             <artifactId>messages-proto</artifactId>
             <version>1.9-7d12d00</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>file-storage-proto</artifactId>
+            <version>1.26-ff9ce32</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
