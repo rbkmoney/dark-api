@@ -2,7 +2,7 @@ package com.rbkmoney.dark.api.magista;
 
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
 import com.rbkmoney.dark.api.service.MagistaService;
-import com.rbkmoney.swag.dark_api.model.InlineResponse200;
+import com.rbkmoney.swag.dark_api.model.InlineResponse2001;
 import com.rbkmoney.swag.dark_api.model.PaymentFlowHold;
 import com.rbkmoney.swag.dark_api.model.PaymentSearchResult;
 import org.apache.thrift.TException;
@@ -41,7 +41,7 @@ public class MagistaServiceTest {
         when(magistaClient.getByQuery(any()))
                 .thenReturn(createStatResponse());
 
-        InlineResponse200 paymentsByQuery = magistaService.getPaymentsByQuery(null,
+        InlineResponse2001 paymentsByQuery = magistaService.getPaymentsByQuery(null,
                 null,
                 OffsetDateTime.parse("2016-03-22T00:12:00Z"),
                 OffsetDateTime.parse("2016-03-22T01:12:00Z"),
@@ -82,7 +82,7 @@ public class MagistaServiceTest {
         when(magistaClient.getByQuery(any()))
                 .thenReturn(createStatResponse());
 
-        InlineResponse200 paymentsByQuery = magistaService.getRefundsByQuery(null,
+        InlineResponse2001 paymentsByQuery = magistaService.getRefundsByQuery(null,
                 null,
                 OffsetDateTime.parse("2016-03-22T00:12:00Z"),
                 OffsetDateTime.parse("2016-03-22T01:12:00Z"),

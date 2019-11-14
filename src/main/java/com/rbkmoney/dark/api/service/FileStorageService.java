@@ -19,9 +19,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FileStorageService {
 
-    @Value("${filestorage.expiration.time.download.hours")
+    @Value("${filestorage.expiration.time.download.hours}")
     private Integer downloadExpirationHours;
-    @Value("${filestorage.expiration.time.upload.hours")
+    @Value("${filestorage.expiration.time.upload.hours}")
     private Integer uploadExpirationHours;
 
     private final FileStorageSrv.Iface fileStorageClient;

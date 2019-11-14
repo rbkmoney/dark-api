@@ -2,7 +2,7 @@ package com.rbkmoney.dark.api.controller;
 
 import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.swag.dark_api.api.SearchApi;
-import com.rbkmoney.swag.dark_api.model.InlineResponse200;
+import com.rbkmoney.swag.dark_api.model.InlineResponse2001;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.KeycloakPrincipal;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,31 +23,31 @@ public class SearchController implements SearchApi {
     private final MagistaService magistaService;
 
     @Override
-    public ResponseEntity<InlineResponse200> searchPayments(String xRequestID,
-                                                            @Size(min = 1, max = 40) String shopID,
-                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
-                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
-                                                            @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
-                                                            String xRequestDeadline,
-                                                            @Valid String paymentStatus,
-                                                            @Valid String paymentFlow,
-                                                            @Valid String paymentMethod,
-                                                            @Valid String paymentTerminalProvider,
-                                                            @Size(min = 1, max = 40) @Valid String invoiceID,
-                                                            @Size(min = 1, max = 40) @Valid String paymentID,
-                                                            @Size(max = 100) @Valid String payerEmail,
-                                                            @Size(max = 45) @Valid String payerIP,
-                                                            @Size(max = 1000) @Valid String payerFingerprint,
-                                                            @Size(min = 1, max = 40) @Valid String customerID,
-                                                            @Pattern(regexp = "^\\d{6,8}$") @Valid String bin,
-                                                            @Pattern(regexp = "^\\d{2,4}$") @Valid String lastDigits,
-                                                            @Valid String bankCardTokenProvider,
-                                                            @Valid String bankCardPaymentSystem,
-                                                            @Min(1L) @Valid Long paymentAmount,
-                                                            @Valid String continuationToken) {
+    public ResponseEntity<InlineResponse2001> searchPayments(String xRequestID,
+                                                             @Size(min = 1, max = 40) String shopID,
+                                                             @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
+                                                             @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
+                                                             @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
+                                                             String xRequestDeadline,
+                                                             @Valid String paymentStatus,
+                                                             @Valid String paymentFlow,
+                                                             @Valid String paymentMethod,
+                                                             @Valid String paymentTerminalProvider,
+                                                             @Size(min = 1, max = 40) @Valid String invoiceID,
+                                                             @Size(min = 1, max = 40) @Valid String paymentID,
+                                                             @Size(max = 100) @Valid String payerEmail,
+                                                             @Size(max = 45) @Valid String payerIP,
+                                                             @Size(max = 1000) @Valid String payerFingerprint,
+                                                             @Size(min = 1, max = 40) @Valid String customerID,
+                                                             @Pattern(regexp = "^\\d{6,8}$") @Valid String bin,
+                                                             @Pattern(regexp = "^\\d{2,4}$") @Valid String lastDigits,
+                                                             @Valid String bankCardTokenProvider,
+                                                             @Valid String bankCardPaymentSystem,
+                                                             @Min(1L) @Valid Long paymentAmount,
+                                                             @Valid String continuationToken) {
         String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
         log.info("Handling request for /search/payments, shopID: {}, partyId: {}", shopID, partyId);
-        InlineResponse200 response = magistaService.getPaymentsByQuery(shopID,
+        InlineResponse2001 response = magistaService.getPaymentsByQuery(shopID,
                 partyId,
                 fromTime,
                 toTime,
@@ -72,7 +72,7 @@ public class SearchController implements SearchApi {
     }
 
     @Override
-    public ResponseEntity<InlineResponse200> searchRefunds(String xRequestID,
+    public ResponseEntity<InlineResponse2001> searchRefunds(String xRequestID,
                                                            @Size(min = 1, max = 40) String shopID,
                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
@@ -85,7 +85,7 @@ public class SearchController implements SearchApi {
                                                            @Valid String continuationToken) {
         String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
         log.info("Handling request for /search/refunds, shopID: {}, partyId: {}", shopID, partyId);
-        InlineResponse200 response = magistaService.getRefundsByQuery(shopID,
+        InlineResponse2001 response = magistaService.getRefundsByQuery(shopID,
                 partyId,
                 fromTime,
                 toTime,

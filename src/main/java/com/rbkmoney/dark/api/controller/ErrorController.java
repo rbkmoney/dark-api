@@ -2,6 +2,7 @@ package com.rbkmoney.dark.api.controller;
 
 import com.rbkmoney.dark.api.domain.ErrorResponse;
 import com.rbkmoney.dark.api.exceptions.ConversationUsersNotProvided;
+import com.rbkmoney.dark.api.exceptions.FileNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -150,6 +151,13 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleInternalException(Exception e) {
         log.error("InternalServerError", e);
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> handleFileNotFoundException(FileNotFoundException e) {
+        log.info("File not found, fileId: {}", e.getFileId(), e);
+        return ResponseEntity.notFound().build();
     }
 
 

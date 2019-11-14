@@ -55,7 +55,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-dark-api</artifactId>
-            <version>1.50-5f9d58a-server</version>
+            <version>1.51-24aa905-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

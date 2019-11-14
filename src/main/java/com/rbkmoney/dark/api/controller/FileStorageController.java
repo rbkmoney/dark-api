@@ -1,6 +1,8 @@
 package com.rbkmoney.dark.api.controller;
 
+import com.rbkmoney.dark.api.exceptions.FileNotFoundException;
 import com.rbkmoney.dark.api.service.FileStorageService;
+import com.rbkmoney.file.storage.FileNotFound;
 import com.rbkmoney.swag.dark_api.api.FilesApi;
 import com.rbkmoney.swag.dark_api.model.FileData;
 import com.rbkmoney.swag.dark_api.model.FileDownload;
@@ -31,10 +33,10 @@ public class FileStorageController implements FilesApi {
                                                      @Size(min = 1, max = 40) String fileID) {
         try {
             return ResponseEntity.ok(fileStorageService.downloadFile(fileID));
+        } catch (FileNotFound ex) {
+            throw new FileNotFoundException(fileID);
         } catch (TException e) {
-            // todo
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -43,10 +45,10 @@ public class FileStorageController implements FilesApi {
                                                 @Size(min = 1, max = 40) String fileID) {
         try {
             return ResponseEntity.ok(fileStorageService.getFileInfo(fileID));
+        } catch (FileNotFound ex) {
+            throw new FileNotFoundException(fileID);
         } catch (TException e) {
-            // todo
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
@@ -56,9 +58,7 @@ public class FileStorageController implements FilesApi {
         try {
             return ResponseEntity.ok(fileStorageService.uploadFile(uploadFileRequest));
         } catch (TException e) {
-            // todo
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
     }
 }
