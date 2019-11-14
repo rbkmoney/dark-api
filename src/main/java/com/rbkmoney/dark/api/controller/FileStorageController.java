@@ -22,13 +22,13 @@ import javax.validation.constraints.Size;
 
 @Slf4j
 @RestController
-@PreAuthorize("hasAuthority('invoices:read')") //todo what authority?
 @RequiredArgsConstructor
 public class FileStorageController implements FilesApi {
 
     private final FileStorageService fileStorageService;
 
     @Override
+    @PreAuthorize("hasAuthority('party:read')")
     public ResponseEntity<FileDownload> downloadFile(@RequestHeader(value = "X-Request-ID") String xRequestID,
                                                      @Size(min = 1, max = 40) String fileID) {
         try {
@@ -41,6 +41,7 @@ public class FileStorageController implements FilesApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('party:read')")
     public ResponseEntity<FileData> getFileInfo(@RequestHeader(value = "X-Request-ID") String xRequestID,
                                                 @Size(min = 1, max = 40) String fileID) {
         try {
@@ -53,6 +54,7 @@ public class FileStorageController implements FilesApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('party:write')")
     public ResponseEntity<FileUploadData> uploadFile(@RequestHeader(value = "X-Request-ID") String xRequestID,
                                                      @Valid FileUploadRequest uploadFileRequest) {
         try {
