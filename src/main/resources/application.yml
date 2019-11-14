@@ -30,6 +30,17 @@ claimmanagement:
       url: http://localhost:8022/v1/claimmanagement
       networkTimeout: 30000
 
+filestorage:
+  expiration.time:
+    download:
+      hours: 1
+    upload:
+      hours: 1
+  client:
+    adapter:
+      url: http://localhost:8022/file_storage
+      networkTimeout: 30000
+
 keycloak:
   realm: internal
   auth-server-url: http://keycloak:8080/auth
