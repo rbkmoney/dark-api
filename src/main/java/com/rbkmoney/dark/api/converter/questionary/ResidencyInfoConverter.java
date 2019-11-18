@@ -38,10 +38,6 @@ public class ResidencyInfoConverter implements
         switch (value.getResidencyInfoType()) {
             case INDIVIDUALRESIDENCYINFO:
                 var swagIndividualResidencyInfo = (IndividualResidencyInfo) value;
-                if (swagIndividualResidencyInfo == null) {
-                    return null;
-                }
-
                 var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
                         .setExceptUsaTaxResident(swagIndividualResidencyInfo.isExceptUsaTaxResident() == null ? false : swagIndividualResidencyInfo.isExceptUsaTaxResident())
                         .setUsaTaxResident(swagIndividualResidencyInfo.isUsaTaxResident() == null ? false : swagIndividualResidencyInfo.isUsaTaxResident());
@@ -49,10 +45,6 @@ public class ResidencyInfoConverter implements
                 return ResidencyInfo.individual_residency_info(individualResidencyInfo);
             case LEGALRESIDENCYINFO:
                 var swagLegalResidencyInfo = (LegalResidencyInfo) value;
-                if (swagLegalResidencyInfo == null) {
-                    return null;
-                }
-
                 var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
                         .setTaxResident(swagLegalResidencyInfo.isTaxResident() == null ? false : swagLegalResidencyInfo.isTaxResident())
                         .setOwnerResident(swagLegalResidencyInfo.isOwnerResident() == null ? false : swagLegalResidencyInfo.isOwnerResident())
