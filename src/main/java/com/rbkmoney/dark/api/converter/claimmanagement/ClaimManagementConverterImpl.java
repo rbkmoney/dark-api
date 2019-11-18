@@ -90,7 +90,7 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
 
     @Override
     public List<ClaimStatus> convertStatusesToThrift(List<String> sourceClaimStatuses) {
-        return sourceClaimStatuses.stream()
+        return sourceClaimStatuses == null ? null : sourceClaimStatuses.stream()
                 .map(claimStatusConverter::convertToThrift)
                 .collect(Collectors.toList());
     }
