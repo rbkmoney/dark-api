@@ -10,6 +10,8 @@ import com.rbkmoney.swag.questionary.model.LegalResidencyInfo;
 import com.rbkmoney.swag.questionary.model.ResidencyInfo.ResidencyInfoTypeEnum;
 import org.springframework.stereotype.Component;
 
+import static com.rbkmoney.dark.api.util.ConverterUtils.isSetValue;
+
 @Component
 public class ResidencyInfoConverter implements
         ThriftConverter<ResidencyInfo, com.rbkmoney.swag.questionary.model.ResidencyInfo>,
@@ -39,16 +41,16 @@ public class ResidencyInfoConverter implements
             case INDIVIDUALRESIDENCYINFO:
                 var swagIndividualResidencyInfo = (IndividualResidencyInfo) value;
                 var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
-                        .setExceptUsaTaxResident(swagIndividualResidencyInfo.isExceptUsaTaxResident() == null ? false : swagIndividualResidencyInfo.isExceptUsaTaxResident())
-                        .setUsaTaxResident(swagIndividualResidencyInfo.isUsaTaxResident() == null ? false : swagIndividualResidencyInfo.isUsaTaxResident());
+                        .setExceptUsaTaxResident(isSetValue(swagIndividualResidencyInfo.isExceptUsaTaxResident()))
+                        .setUsaTaxResident(isSetValue(swagIndividualResidencyInfo.isUsaTaxResident()));
 
                 return ResidencyInfo.individual_residency_info(individualResidencyInfo);
             case LEGALRESIDENCYINFO:
                 var swagLegalResidencyInfo = (LegalResidencyInfo) value;
                 var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
-                        .setTaxResident(swagLegalResidencyInfo.isTaxResident() == null ? false : swagLegalResidencyInfo.isTaxResident())
-                        .setOwnerResident(swagLegalResidencyInfo.isOwnerResident() == null ? false : swagLegalResidencyInfo.isOwnerResident())
-                        .setFatca(swagLegalResidencyInfo.isFatca() == null ? false : swagLegalResidencyInfo.isFatca());
+                        .setTaxResident(isSetValue(swagLegalResidencyInfo.isTaxResident()))
+                        .setOwnerResident(isSetValue(swagLegalResidencyInfo.isOwnerResident()))
+                        .setFatca(isSetValue(swagLegalResidencyInfo.isFatca()));
                 return ResidencyInfo.legal_residency_info(legalResidencyInfo);
             default:
                 throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getResidencyInfoType());
