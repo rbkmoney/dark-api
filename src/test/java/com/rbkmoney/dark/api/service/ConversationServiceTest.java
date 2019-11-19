@@ -36,30 +36,28 @@ public class ConversationServiceTest {
         ArgumentCaptor<List<com.rbkmoney.damsel.messages.User>> userCaptor =
                 ArgumentCaptor.forClass((Class) List.class);
         SaveConversationParams saveConversationParams = saveConversationParams();
-        conversationService.saveConversation(saveConversationParams);
+        com.rbkmoney.damsel.messages.User testUser = buildUser();
+        conversationService.saveConversation(saveConversationParams, testUser);
         verify(messageService).saveConversations(conversationCaptor.capture(), userCaptor.capture());
         List<com.rbkmoney.damsel.messages.Conversation> conversationList = conversationCaptor.getValue();
         List<com.rbkmoney.damsel.messages.User> userList = userCaptor.getValue();
 
         com.rbkmoney.damsel.messages.Conversation conversation = conversationList.get(0);
-        Conversation expectedConversation = saveConversationParams.getConversations().get(0);
+        ConversationParam expectedConversation = saveConversationParams.get(0);
 
         com.rbkmoney.damsel.messages.Message message = conversation.getMessages().get(0);
-        Message expectedMessage = expectedConversation.getMessages().get(0);
-
-        Assert.assertEquals(expectedConversation.getConversationId(), conversation.getConversationId());
-        Assert.assertEquals(expectedConversation.getStatus().toString().toLowerCase(), conversation.getStatus().toString().toLowerCase());
-        Assert.assertEquals(expectedMessage.getUserId(), message.getUserId());
-        Assert.assertEquals(expectedMessage.getMessageId(), message.getMessageId());
-        Assert.assertEquals(expectedMessage.getText(), message.getText());
-        Assert.assertEquals(expectedMessage.getTimestamp(), message.getTimestamp());
+        MessageParam expectedMessage = expectedConversation.getMessages().get(0);
 
         com.rbkmoney.damsel.messages.User user = userList.get(0);
-        User expectedUser = saveConversationParams.getUsers().get(0);
 
-        Assert.assertEquals(expectedUser.getUserId(), user.getUserId());
-        Assert.assertEquals(expectedUser.getEmail(), user.getEmail());
-        Assert.assertEquals(expectedUser.getFullName(), user.getFullname());
+        Assert.assertEquals(expectedConversation.getConversationId(), conversation.getConversationId());
+        Assert.assertEquals(testUser.getUserId(), message.getUserId());
+        Assert.assertEquals(expectedMessage.getMessageId(), message.getMessageId());
+        Assert.assertEquals(expectedMessage.getText(), message.getText());
+
+        Assert.assertEquals(testUser.getUserId(), user.getUserId());
+        Assert.assertEquals(testUser.getEmail(), user.getEmail());
+        Assert.assertEquals(testUser.getFullname(), user.getFullname());
     }
 
     @Test
@@ -108,22 +106,14 @@ public class ConversationServiceTest {
     private SaveConversationParams saveConversationParams() {
         SaveConversationParams saveConversationParams = new SaveConversationParams();
 
-        Conversation conversation = new Conversation();
-        conversation.setStatus(ConversationStatus.ACTUAL);
-        conversation.setConversationId("4254364");
-        Message message = new Message();
-        message.setMessageId("53454435");
-        message.setText("Test");
-        message.setTimestamp("54316475474");
-        message.setUserId("32");
-        conversation.setMessages(Collections.singletonList(message));
-        saveConversationParams.setConversations(Collections.singletonList(conversation));
+        ConversationParam conversationParam = new ConversationParam();
+        conversationParam.setConversationId("24134238");
+        MessageParam messageParam = new MessageParam();
+        messageParam.setMessageId("4324238");
+        messageParam.setText("some test text");
+        conversationParam.setMessages(Collections.singletonList(messageParam));
 
-        User user = new User();
-        user.setEmail("test@mail.com");
-        user.setFullName("Test FullName");
-        user.setUserId("64");
-        saveConversationParams.setUsers(Collections.singletonList(user));
+        saveConversationParams.add(conversationParam);
 
         return saveConversationParams;
     }
