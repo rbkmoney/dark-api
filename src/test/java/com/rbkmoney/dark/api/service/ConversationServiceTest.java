@@ -33,22 +33,20 @@ public class ConversationServiceTest {
     public void saveConversationConverterTest() throws TException {
         ArgumentCaptor<List<com.rbkmoney.damsel.messages.Conversation>> conversationCaptor =
                 ArgumentCaptor.forClass((Class) List.class);
-        ArgumentCaptor<List<com.rbkmoney.damsel.messages.User>> userCaptor =
+        ArgumentCaptor<com.rbkmoney.damsel.messages.User> userCaptor =
                 ArgumentCaptor.forClass((Class) List.class);
         SaveConversationParams saveConversationParams = saveConversationParams();
         com.rbkmoney.damsel.messages.User testUser = buildUser();
         conversationService.saveConversation(saveConversationParams, testUser);
         verify(messageService).saveConversations(conversationCaptor.capture(), userCaptor.capture());
         List<com.rbkmoney.damsel.messages.Conversation> conversationList = conversationCaptor.getValue();
-        List<com.rbkmoney.damsel.messages.User> userList = userCaptor.getValue();
+        com.rbkmoney.damsel.messages.User user = userCaptor.getValue();
 
         com.rbkmoney.damsel.messages.Conversation conversation = conversationList.get(0);
         ConversationParam expectedConversation = saveConversationParams.get(0);
 
         com.rbkmoney.damsel.messages.Message message = conversation.getMessages().get(0);
         MessageParam expectedMessage = expectedConversation.getMessages().get(0);
-
-        com.rbkmoney.damsel.messages.User user = userList.get(0);
 
         Assert.assertEquals(expectedConversation.getConversationId(), conversation.getConversationId());
         Assert.assertEquals(testUser.getUserId(), message.getUserId());

@@ -10,7 +10,6 @@ import org.apache.thrift.TException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,9 +41,8 @@ public class ConversationService {
                     return conversation;
                 })
                 .collect(Collectors.toList());
-        List<User> userList = Collections.singletonList(user);
         try {
-            messageServiceSrv.saveConversations(conversationList, userList);
+            messageServiceSrv.saveConversations(conversationList, user);
         } catch (TException e) {
             log.error("Save conversation failed", e);
             throw new RuntimeException(e);
