@@ -70,7 +70,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-messages</artifactId>
-            <version>1.9-ddd4ef8-server</version>
+            <version>1.10-60af8f2-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>messages-proto</artifactId>
-            <version>1.9-7d12d00</version>
+            <version>1.10-391d225</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
