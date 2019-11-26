@@ -19,7 +19,6 @@ public class LegalEntityConverter implements
 
     @Override
     public com.rbkmoney.swag.questionary.model.LegalEntity toSwag(LegalEntity value, SwagConverterContext ctx) {
-        var legalEntity = new com.rbkmoney.swag.questionary.model.LegalEntity();
         if (value.isSetRussianLegalEntity()) {
             RussianLegalEntity russianLegalEntity = new RussianLegalEntity()
                     .additionalSpace(value.getRussianLegalEntity().getAdditionalSpace())
@@ -29,7 +28,8 @@ public class LegalEntityConverter implements
                     .name(value.getRussianLegalEntity().getName())
                     .okatoCode(value.getRussianLegalEntity().getOkatoCode())
                     .okpoCode(value.getRussianLegalEntity().getOkpoCode())
-                    .postalAddress(value.getRussianLegalEntity().getPostalAddress());
+                    .postalAddress(value.getRussianLegalEntity().getPostalAddress())
+                    .hasBeneficialOwners(value.getRussianLegalEntity().isHasBeneficialOwners());
             if (value.getRussianLegalEntity().isSetFoundersInfo()) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(value.getRussianLegalEntity().getFoundersInfo(), FoundersInfo.class));
             }
@@ -87,7 +87,8 @@ public class LegalEntityConverter implements
                     .setName(((RussianLegalEntity) value).getName())
                     .setOkatoCode(((RussianLegalEntity) value).getOkatoCode())
                     .setOkpoCode(((RussianLegalEntity) value).getOkpoCode())
-                    .setPostalAddress(((RussianLegalEntity) value).getPostalAddress());
+                    .setPostalAddress(((RussianLegalEntity) value).getPostalAddress())
+                    .setHasBeneficialOwners(((RussianLegalEntity) value).isHasBeneficialOwners());
             if (((RussianLegalEntity) value).getFoundersInfo() != null) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(((RussianLegalEntity) value).getFoundersInfo(),
                         com.rbkmoney.questionary.FoundersInfo.class));

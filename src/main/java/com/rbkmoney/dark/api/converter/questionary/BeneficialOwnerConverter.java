@@ -45,7 +45,11 @@ public class BeneficialOwnerConverter implements
         BeneficialOwner beneficialOwner = new BeneficialOwner()
                 .setInn(value.getInn())
                 .setPdlCategory(value.isPdlCategory())
-                .setOwnershipPercentage(value.getOwnershipPercentage() == null ? null : value.getOwnershipPercentage().byteValue());
+                .setPdlRelationDegree(value.getPdlRelationDegree())
+                .setSnils(value.getSnils());
+        if (value.getOwnershipPercentage() != null) {
+            beneficialOwner.setOwnershipPercentage(value.getOwnershipPercentage().byteValue());
+        }
         if (value.getRussianPrivateEntity() != null) {
             beneficialOwner.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
         }

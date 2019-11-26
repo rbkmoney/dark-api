@@ -6,7 +6,6 @@ import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.RussianPrivateEntity;
 import com.rbkmoney.swag.questionary.model.ContactInfo;
-import com.rbkmoney.swag.questionary.model.PersonAnthroponym;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,9 +24,7 @@ public class RussianPrivateEntityConverter implements
         if (value.isSetContactInfo()) {
             russianPrivateEntity.setContactInfo(ctx.convert(value.getContactInfo(), ContactInfo.class));
         }
-        if (value.isSetFio()) {
-            russianPrivateEntity.setPersonAnthroponym(ctx.convert(value.getFio(), PersonAnthroponym.class));
-        }
+        russianPrivateEntity.setFio(value.getFio());
 
         return russianPrivateEntity;
     }
@@ -43,9 +40,7 @@ public class RussianPrivateEntityConverter implements
         if (value.getContactInfo() != null) {
             russianPrivateEntity.setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
         }
-        if (value.getPersonAnthroponym() != null) {
-            russianPrivateEntity.setFio(ctx.convert(value.getPersonAnthroponym(), com.rbkmoney.questionary.PersonAnthroponym.class));
-        }
+        russianPrivateEntity.setFio(value.getFio());
 
         return russianPrivateEntity;
     }

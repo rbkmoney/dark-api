@@ -2,7 +2,6 @@ package com.rbkmoney.dark.api.utils;
 
 import com.rbkmoney.swag.questionary.model.*;
 import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum;
-import com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.junit.Assert;
@@ -14,8 +13,11 @@ public class QuestionaryCompareUtil {
         if (swagContractor instanceof IndividualEntityContractor) {
             com.rbkmoney.questionary.RussianIndividualEntity thriftRussianIndividualEntity = thriftContractor.getIndividualEntity().getRussianIndividualEntity();
             IndividualEntity swagIndividualEntity = ((IndividualEntityContractor) swagContractor).getIndividualEntity();
+            Assert.assertEquals(thriftRussianIndividualEntity.getName(), ((RussianIndividualEntity) swagIndividualEntity).getName());
             Assert.assertEquals(thriftRussianIndividualEntity.getInn(), ((RussianIndividualEntity) swagIndividualEntity).getInn());
-            Assert.assertEquals(thriftRussianIndividualEntity.getInn(), ((RussianIndividualEntity) swagIndividualEntity).getInn());
+            Assert.assertEquals(thriftRussianIndividualEntity.getPdlRelationDegree(), ((RussianIndividualEntity) swagIndividualEntity).getPdlRelationDegree());
+            Assert.assertEquals(thriftRussianIndividualEntity.isPdlCategory(), ((RussianIndividualEntity) swagIndividualEntity).isPdlCategory());
+            Assert.assertEquals(thriftRussianIndividualEntity.isHasBeneficialOwners(), ((RussianIndividualEntity) swagIndividualEntity).isHasBeneficialOwners());
             identityDocumentCompare(thriftRussianIndividualEntity.getIdentityDocument(),
                     ((RussianIndividualEntity) swagIndividualEntity).getIdentityDocument());
             individualPersonCategoriesCompare(thriftRussianIndividualEntity.getIndividualPersonCategories(),
@@ -47,6 +49,7 @@ public class QuestionaryCompareUtil {
             Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getOkatoCode(), ((RussianLegalEntity) swagLegalEntity).getOkatoCode());
             Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getOkpoCode(), ((RussianLegalEntity) swagLegalEntity).getOkpoCode());
             Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().getPostalAddress(), ((RussianLegalEntity) swagLegalEntity).getPostalAddress());
+            Assert.assertEquals(thriftLegalEntity.getRussianLegalEntity().isHasBeneficialOwners(), ((RussianLegalEntity) swagLegalEntity).isHasBeneficialOwners());
             residencyInfoCompare(thriftLegalEntity.getRussianLegalEntity().getResidencyInfo(), ((RussianLegalEntity) swagLegalEntity).getResidencyInfo());
             registrationInfoCompare(thriftLegalEntity.getRussianLegalEntity().getRegistrationInfo(), ((RussianLegalEntity) swagLegalEntity).getRegistrationInfo());
             principalActivityCompare(thriftLegalEntity.getRussianLegalEntity().getPrincipalActivity(), ((RussianLegalEntity) swagLegalEntity).getPrincipalActivity());
@@ -82,6 +85,8 @@ public class QuestionaryCompareUtil {
         Assert.assertEquals(thriftAdditionalInfo.getMainCounterparties(), swagAdditionalInfo.getMainCounterparties());
         Assert.assertEquals(thriftAdditionalInfo.getNKORelationTarget(), swagAdditionalInfo.getNkoRelationTarget());
         Assert.assertEquals(thriftAdditionalInfo.getRelationshipWithNKO(), swagAdditionalInfo.getRelationshipWithNko());
+        Assert.assertEquals(thriftAdditionalInfo.isHasBeneficiary(), swagAdditionalInfo.isHasBeneficiary());
+        Assert.assertEquals(thriftAdditionalInfo.isHasLiquidationProcess(), swagAdditionalInfo.isHasLiquidationProcess());
         for (int i = 0; i < thriftAdditionalInfo.getFinancialPosition().size(); i++) {
             com.rbkmoney.questionary.FinancialPosition thriftFinancialPosition = thriftAdditionalInfo.getFinancialPosition().get(i);
             FinancialPosition swagFinancialPosition = swagAdditionalInfo.getFinancialPosition().get(i);
@@ -100,9 +105,9 @@ public class QuestionaryCompareUtil {
     private static void compareBusinessReputation(com.rbkmoney.questionary.BusinessReputation thriftBusinessReputation,
                                                   BusinessReputation swagBusinessReputation) {
         if (swagBusinessReputation == BusinessReputation.NOREVIEWS) {
-            Assert.assertSame(thriftBusinessReputation, com.rbkmoney.questionary.BusinessReputation.no_reviews);
+            Assert.assertSame(com.rbkmoney.questionary.BusinessReputation.no_reviews, thriftBusinessReputation);
         } else if (swagBusinessReputation == BusinessReputation.PROVIDEREVIEWS) {
-            Assert.assertSame(thriftBusinessReputation, com.rbkmoney.questionary.BusinessReputation.provide_reviews);
+            Assert.assertSame(com.rbkmoney.questionary.BusinessReputation.provide_reviews, thriftBusinessReputation);
         }
     }
 
@@ -150,29 +155,23 @@ public class QuestionaryCompareUtil {
 
     private static void compareMonthOperationSum(com.rbkmoney.questionary.MonthOperationSum thriftMonthOperationSum, MonthOperationSum swagMonthOperationSum) {
         if (swagMonthOperationSum == MonthOperationSum.BTWFIVEHUNDREDTHOUSANDTOONEMILLION) {
-            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.btw_five_hundred_thousand_to_one_million);
+            Assert.assertSame(com.rbkmoney.questionary.MonthOperationSum.btw_five_hundred_thousand_to_one_million, thriftMonthOperationSum);
         } else if (swagMonthOperationSum == MonthOperationSum.GTONEMILLION) {
-            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.gt_one_million);
+            Assert.assertSame(com.rbkmoney.questionary.MonthOperationSum.gt_one_million, thriftMonthOperationSum);
         } else if (swagMonthOperationSum == MonthOperationSum.LTFIVEHUNDREDTHOUSAND) {
-            Assert.assertSame(thriftMonthOperationSum, com.rbkmoney.questionary.MonthOperationSum.lt_five_hundred_thousand);
+            Assert.assertSame(com.rbkmoney.questionary.MonthOperationSum.lt_five_hundred_thousand, thriftMonthOperationSum);
         }
     }
 
     private static void compareAccountantInfo(com.rbkmoney.questionary.AccountantInfo thriftAccountantInfo, AccountantInfo swagAccountantInfo) {
         if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHCHIEFACCOUNTANT) {
             Assert.assertTrue(thriftAccountantInfo.isSetWithChiefAccountant());
-        } else if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT) {
-            Assert.assertTrue(thriftAccountantInfo.isSetWithoutChiefAccountant());
-            if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT) {
-                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetIndividualAccountant());
-            } else if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.HEADACCOUNTING) {
-                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetHeadAccounting());
-            } else if (((WithoutChiefAccountant) swagAccountantInfo).getWithoutChiefAccountantType() == WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION) {
-                Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetAccountingOrganization());
-                AccountingOrganization swagAccountantOrganization = (AccountingOrganization) ((WithoutChiefAccountant) swagAccountantInfo);
-                Assert.assertEquals(thriftAccountantInfo.getWithoutChiefAccountant().getAccountingOrganization().getInn(),
-                        swagAccountantOrganization.getInn());
-            }
+        } else if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHOUTCHIEFHEADACCOUNTING) {
+            Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetHeadAccounting());
+        } else if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHOUTCHIEFINDIVIDUALACCOUNTANT) {
+            Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetIndividualAccountant());
+        } else if (swagAccountantInfo.getAccountantInfoType() == AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION) {
+            Assert.assertTrue(thriftAccountantInfo.getWithoutChiefAccountant().isSetAccountingOrganization());
         }
     }
 
@@ -212,7 +211,7 @@ public class QuestionaryCompareUtil {
     private static void founderCompare(com.rbkmoney.questionary.Founder thriftFounder, Founder swagFounder) {
         if (swagFounder instanceof IndividualPerson) {
             Assert.assertEquals(thriftFounder.getIndividualPersonFounder().getInn(), ((IndividualPerson) swagFounder).getInn());
-            personAnthroponymCompare(thriftFounder.getIndividualPersonFounder().getFio(), ((IndividualPerson) swagFounder).getFio());
+            Assert.assertEquals(thriftFounder.getIndividualPersonFounder().getFio(), ((IndividualPerson) swagFounder).getFio());
         } else if (swagFounder instanceof RussianLegalEntityFounder) {
             Assert.assertEquals(thriftFounder.getRussianLegalEntityFounder().getFullName(), ((RussianLegalEntityFounder) swagFounder).getFullName());
             Assert.assertEquals(thriftFounder.getRussianLegalEntityFounder().getInn(), ((RussianLegalEntityFounder) swagFounder).getInn());
@@ -229,7 +228,7 @@ public class QuestionaryCompareUtil {
     }
 
     private static void individualPersonCompare(com.rbkmoney.questionary.IndividualPerson thriftIndividualPerson, IndividualPerson swagIndividualPerson) {
-        personAnthroponymCompare(thriftIndividualPerson.getFio(), swagIndividualPerson.getFio());
+        Assert.assertEquals(thriftIndividualPerson.getFio(), swagIndividualPerson.getFio());
         Assert.assertEquals(thriftIndividualPerson.getInn(), swagIndividualPerson.getInn());
     }
 
@@ -247,15 +246,9 @@ public class QuestionaryCompareUtil {
         Assert.assertEquals(thriftRussianPrivateEntity.getActualAddress(), swagRussianPrivateEntity.getActualAddress());
         Assert.assertEquals(thriftRussianPrivateEntity.getCitizenship(), swagRussianPrivateEntity.getCitizenship());
         contactInfoCompare(thriftRussianPrivateEntity.getContactInfo(), swagRussianPrivateEntity.getContactInfo());
-        personAnthroponymCompare(thriftRussianPrivateEntity.getFio(), swagRussianPrivateEntity.getPersonAnthroponym());
         Assert.assertEquals(thriftRussianPrivateEntity.getBirthPlace(), swagRussianPrivateEntity.getBirthPlace());
         Assert.assertEquals(thriftRussianPrivateEntity.getResidenceAddress(), swagRussianPrivateEntity.getResidenceAddress());
-    }
-
-    private static void personAnthroponymCompare(com.rbkmoney.questionary.PersonAnthroponym thriftPersonAnthroponym, PersonAnthroponym swagPersonAnthroponym) {
-        Assert.assertEquals(thriftPersonAnthroponym.getFirstName(), swagPersonAnthroponym.getFirstName());
-        Assert.assertEquals(thriftPersonAnthroponym.getMiddleName(), swagPersonAnthroponym.getMiddleName());
-        Assert.assertEquals(thriftPersonAnthroponym.getSecondName(), swagPersonAnthroponym.getSecondName());
+        Assert.assertEquals(thriftRussianPrivateEntity.getFio(), swagRussianPrivateEntity.getFio());
     }
 
     private static void residencyApproveCompare(com.rbkmoney.questionary.ResidenceApprove thriftResidenceApprove, ResidenceApprove swagResidenceApprove) {
@@ -329,12 +322,10 @@ public class QuestionaryCompareUtil {
                     ((RussianDomesticPassport) swagIdentityDocument).getIssuedAt());
             Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getIssuer(),
                     ((RussianDomesticPassport) swagIdentityDocument).getIssuer());
-            Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getNumber(),
-                    ((RussianDomesticPassport) swagIdentityDocument).getNumber());
             Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getIssuerCode(),
                     ((RussianDomesticPassport) swagIdentityDocument).getIssuerCode());
-            Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getSeries(),
-                    ((RussianDomesticPassport) swagIdentityDocument).getSeries());
+            Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getSeriesNumber(),
+                    ((RussianDomesticPassport) swagIdentityDocument).getSeriesNumber());
         }
     }
 

@@ -6,8 +6,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ConverterUtils {
 
-    public static boolean isSetValue(Boolean value) {
+    public static boolean safeSetValue(Boolean value) {
         return value == null ? false : value;
+    }
+
+    public static int safeSetValue(Integer value) {
+        return value == null ? 0 : value;
     }
 
 }

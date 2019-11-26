@@ -19,8 +19,12 @@ public class RussianIndividualEntityConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.RussianIndividualEntity toSwag(RussianIndividualEntity value, SwagConverterContext ctx) {
         var russianIndividualEntity = new com.rbkmoney.swag.questionary.model.RussianIndividualEntity()
+                .name(value.getName())
                 .inn(value.getInn())
-                .snils(value.getSnils());
+                .snils(value.getSnils())
+                .hasBeneficialOwners(value.isHasBeneficialOwners())
+                .pdlCategory(value.isPdlCategory())
+                .pdlRelationDegree(value.getPdlRelationDegree());
         if (value.isSetRegistrationInfo()) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), RegistrationInfo.class));
         }
@@ -68,7 +72,12 @@ public class RussianIndividualEntityConverter implements
     @Override
     public RussianIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RussianIndividualEntity value, ThriftConverterContext ctx) {
         RussianIndividualEntity russianIndividualEntity = new RussianIndividualEntity()
-                .setInn(value.getInn());
+                .setName(value.getName())
+                .setInn(value.getInn())
+                .setSnils(value.getSnils())
+                .setPdlCategory(value.isPdlCategory())
+                .setPdlRelationDegree(value.getPdlRelationDegree())
+                .setHasBeneficialOwners(value.isHasBeneficialOwners());
         if (value.getRegistrationInfo() != null) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
         }

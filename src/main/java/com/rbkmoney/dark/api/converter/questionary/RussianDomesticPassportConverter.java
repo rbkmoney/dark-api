@@ -18,8 +18,7 @@ public class RussianDomesticPassportConverter implements
                 .issuedAt(value.getIssuedAt())
                 .issuer(value.getIssuer())
                 .issuerCode(value.getIssuerCode())
-                .number(value.getNumber())
-                .series(value.getSeries());
+                .seriesNumber(value.getSeriesNumber());
     }
 
     @Override
@@ -28,8 +27,7 @@ public class RussianDomesticPassportConverter implements
                 .setIssuerCode(value.getIssuerCode())
                 .setIssuer(value.getIssuer())
                 .setIssuedAt(value.getIssuedAt())
-                .setNumber(value.getNumber())
-                .setSeries(value.getSeries());
+                .setSeriesNumber(value.getSeriesNumber());
     }
 
 }

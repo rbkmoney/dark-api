@@ -10,7 +10,7 @@ import com.rbkmoney.swag.questionary.model.LegalResidencyInfo;
 import com.rbkmoney.swag.questionary.model.ResidencyInfo.ResidencyInfoTypeEnum;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.dark.api.util.ConverterUtils.isSetValue;
+import static com.rbkmoney.dark.api.util.ConverterUtils.safeSetValue;
 
 @Component
 public class ResidencyInfoConverter implements
@@ -41,16 +41,16 @@ public class ResidencyInfoConverter implements
             case INDIVIDUALRESIDENCYINFO:
                 var swagIndividualResidencyInfo = (IndividualResidencyInfo) value;
                 var individualResidencyInfo = new com.rbkmoney.questionary.IndividualResidencyInfo()
-                        .setExceptUsaTaxResident(isSetValue(swagIndividualResidencyInfo.isExceptUsaTaxResident()))
-                        .setUsaTaxResident(isSetValue(swagIndividualResidencyInfo.isUsaTaxResident()));
+                        .setExceptUsaTaxResident(safeSetValue(swagIndividualResidencyInfo.isExceptUsaTaxResident()))
+                        .setUsaTaxResident(safeSetValue(swagIndividualResidencyInfo.isUsaTaxResident()));
 
                 return ResidencyInfo.individual_residency_info(individualResidencyInfo);
             case LEGALRESIDENCYINFO:
                 var swagLegalResidencyInfo = (LegalResidencyInfo) value;
                 var legalResidencyInfo = new com.rbkmoney.questionary.LegalResidencyInfo()
-                        .setTaxResident(isSetValue(swagLegalResidencyInfo.isTaxResident()))
-                        .setOwnerResident(isSetValue(swagLegalResidencyInfo.isOwnerResident()))
-                        .setFatca(isSetValue(swagLegalResidencyInfo.isFatca()));
+                        .setTaxResident(safeSetValue(swagLegalResidencyInfo.isTaxResident()))
+                        .setOwnerResident(safeSetValue(swagLegalResidencyInfo.isOwnerResident()))
+                        .setFatca(safeSetValue(swagLegalResidencyInfo.isFatca()));
                 return ResidencyInfo.legal_residency_info(legalResidencyInfo);
             default:
                 throw new IllegalArgumentException("Unknown residencyInfo type: " + value.getResidencyInfoType());

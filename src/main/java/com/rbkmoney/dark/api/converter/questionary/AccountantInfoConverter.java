@@ -7,7 +7,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.questionary.*;
 import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum;
 import com.rbkmoney.swag.questionary.model.WithChiefAccountant;
-import com.rbkmoney.swag.questionary.model.WithoutChiefAccountant.WithoutChiefAccountantTypeEnum;
+import com.rbkmoney.swag.questionary.model.WithoutChiefAccountingOrganization;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,21 +24,19 @@ public class AccountantInfoConverter implements
             return withChiefAccountant;
         } else if (value.isSetWithoutChiefAccountant()) {
             if (value.getWithoutChiefAccountant().isSetHeadAccounting()) {
-                var headAccounting = new com.rbkmoney.swag.questionary.model.HeadAccounting();
-                headAccounting.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.HEADACCOUNTING);
-                headAccounting.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
+                var headAccounting = new com.rbkmoney.swag.questionary.model.WithoutChiefHeadAccounting();
+                headAccounting.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFHEADACCOUNTING);
 
                 return headAccounting;
             } else if (value.getWithoutChiefAccountant().isSetIndividualAccountant()) {
-                var individualAccountant = new com.rbkmoney.swag.questionary.model.IndividualAccountant();
-                individualAccountant.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.INDIVIDUALACCOUNTANT);
-                individualAccountant.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT);
+                var individualAccountant = new com.rbkmoney.swag.questionary.model.WithoutChiefIndividualAccountant();
+                individualAccountant.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFINDIVIDUALACCOUNTANT);
 
                 return individualAccountant;
             } else if (value.getWithoutChiefAccountant().isSetAccountingOrganization()) {
-                var accountingOrganization = new com.rbkmoney.swag.questionary.model.AccountingOrganization();
+                var accountingOrganization = new com.rbkmoney.swag.questionary.model.WithoutChiefAccountingOrganization();
                 accountingOrganization.setInn(value.getWithoutChiefAccountant().getAccountingOrganization().getInn());
-                accountingOrganization.setWithoutChiefAccountantType(WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION);
+                accountingOrganization.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
 
                 return accountingOrganization;
             } else {
@@ -46,45 +44,34 @@ public class AccountantInfoConverter implements
                         + value.getWithoutChiefAccountant().getClass().getName());
             }
         } else {
-            throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
+            throw new IllegalArgumentException("Unknown withChiefAccountant type: "
                     + value.getWithChiefAccountant().getClass().getName());
         }
     }
 
     @Override
     public AccountantInfo toThrift(com.rbkmoney.swag.questionary.model.AccountantInfo value, ThriftConverterContext ctx) {
+        WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
         switch (value.getAccountantInfoType()) {
             case WITHCHIEFACCOUNTANT:
                 return AccountantInfo.with_chief_accountant(new com.rbkmoney.questionary.WithChiefAccountant());
-            case WITHOUTCHIEFACCOUNTANT:
-                return convertWithoutChiefAccountant(((com.rbkmoney.swag.questionary.model.WithoutChiefAccountant) value));
+            case WITHOUTCHIEFHEADACCOUNTING:
+                withoutChiefAccountant.setHeadAccounting(new HeadAccounting());
+
+                return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
+            case WITHOUTCHIEFACCOUNTINGORGANIZATION:
+                WithoutChiefAccountingOrganization swagWithoutChiefAccountantOrg = (WithoutChiefAccountingOrganization) value;
+                AccountingOrganization accountingOrganization = new AccountingOrganization();
+                accountingOrganization.setInn(swagWithoutChiefAccountantOrg.getInn());
+                withoutChiefAccountant.setAccountingOrganization(accountingOrganization);
+
+                return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
+            case WITHOUTCHIEFINDIVIDUALACCOUNTANT:
+                withoutChiefAccountant.setIndividualAccountant(new IndividualAccountant());
+
+                return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
             default:
                 throw new IllegalArgumentException("Unknown accountantInfo type: " + value.getAccountantInfoType());
-        }
-    }
-
-    private AccountantInfo convertWithoutChiefAccountant(com.rbkmoney.swag.questionary.model.WithoutChiefAccountant swagWithoutChiefAccountant) {
-        AccountantInfo accountantInfo = new AccountantInfo();
-        WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
-        switch (swagWithoutChiefAccountant.getWithoutChiefAccountantType()) {
-            case ACCOUNTINGORGANIZATION:
-                var swagWithoutChiefAccOrg = (com.rbkmoney.swag.questionary.model.AccountingOrganization) swagWithoutChiefAccountant;
-                AccountingOrganization accountingOrganization = new AccountingOrganization();
-                accountingOrganization.setInn(swagWithoutChiefAccOrg.getInn());
-                withoutChiefAccountant.setAccountingOrganization(accountingOrganization);
-                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
-                return accountantInfo;
-            case HEADACCOUNTING:
-                withoutChiefAccountant.setHeadAccounting(new HeadAccounting());
-                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
-                return accountantInfo;
-            case INDIVIDUALACCOUNTANT:
-                withoutChiefAccountant.setIndividualAccountant(new IndividualAccountant());
-                accountantInfo.setWithoutChiefAccountant(withoutChiefAccountant);
-                return accountantInfo;
-            default:
-                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
-                        + swagWithoutChiefAccountant.getClass().getName());
         }
     }
 
