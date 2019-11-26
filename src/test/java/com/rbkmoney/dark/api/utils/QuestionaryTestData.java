@@ -43,9 +43,10 @@ public class QuestionaryTestData {
                 Collections.singletonList(
                         new AnotherBusiness().description("test").businessInfoType(BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS)));
 
-        russianIndividualEntity.getAdditionalInfo().setAccountantInfo(EnhancedRandom.random(AccountingOrganization.class)
-                .withoutChiefAccountantType(WithoutChiefAccountant.WithoutChiefAccountantTypeEnum.ACCOUNTINGORGANIZATION)
-                .accountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTANT));
+        WithoutChiefAccountingOrganization withoutChiefAccountingOrganization = new WithoutChiefAccountingOrganization();
+        withoutChiefAccountingOrganization.setAccountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
+        withoutChiefAccountingOrganization.setInn("test inn");
+        russianIndividualEntity.getAdditionalInfo().setAccountantInfo(withoutChiefAccountingOrganization);
 
         BeneficialOwner beneficialOwner = EnhancedRandom.random(BeneficialOwner.class);
         beneficialOwner.setResidencyInfo(EnhancedRandom.random(IndividualResidencyInfo.class)

@@ -20,7 +20,8 @@ public class LegalOwnerInfoConverter implements
                 .pdlCategory(value.isPdlCategory())
                 .pdlRelationDegree(value.getPdlRelationDegree())
                 .snils(value.getSnils())
-                .termOfOffice(value.getTermOfOffice());
+                .termOfOffice(value.getTermOfOffice())
+                .headPosition(value.getHeadPosition());
         if (value.isSetIdentityDocument()) {
             legalOwnerInfo.setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
         }
@@ -48,7 +49,8 @@ public class LegalOwnerInfoConverter implements
                 .setPdlCategory(value.isPdlCategory())
                 .setPdlRelationDegree(value.getPdlRelationDegree())
                 .setSnils(value.getSnils())
-                .setTermOfOffice(value.getTermOfOffice());
+                .setTermOfOffice(value.getTermOfOffice())
+                .setHeadPosition(value.getHeadPosition());
         if (value.getIdentityDocument() != null) {
             legalOwnerInfo.setIdentityDocument(
                     ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));

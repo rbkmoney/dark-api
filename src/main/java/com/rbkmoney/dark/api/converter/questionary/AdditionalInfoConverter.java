@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary.AdditionalInfo;
 import com.rbkmoney.swag.questionary.model.*;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,9 @@ public class AdditionalInfoConverter implements
                 .nkoRelationTarget(value.getNKORelationTarget())
                 .relationshipWithNko(value.getRelationshipWithNKO())
                 .mainCounterparties(value.getMainCounterparties())
-                .benefitThirdParties(value.isBenefitThirdParties());
+                .benefitThirdParties(value.isBenefitThirdParties())
+                .hasBeneficiary(value.isHasBeneficiary())
+                .hasLiquidationProcess(value.isHasLiquidationProcess());
         if (value.isSetMonthOperationCount()) {
             additionalInfo.setMonthOperationCount(ctx.convert(value.getMonthOperationCount(), MonthOperationCount.class));
         }
@@ -52,18 +55,19 @@ public class AdditionalInfoConverter implements
             additionalInfo.setAccountantInfo(ctx.convert(value.getAccountantInfo(), AccountantInfo.class));
         }
 
-
         return additionalInfo;
     }
 
     @Override
     public AdditionalInfo toThrift(com.rbkmoney.swag.questionary.model.AdditionalInfo value, ThriftConverterContext ctx) {
         AdditionalInfo additionalInfo = new AdditionalInfo()
-                .setStaffCount(value.getStaffCount())
+                .setStaffCount(ConverterUtils.safeSetValue(value.getStaffCount()))
                 .setNKORelationTarget(value.getNkoRelationTarget())
                 .setRelationshipWithNKO(value.getRelationshipWithNko())
                 .setMainCounterparties(value.getMainCounterparties())
-                .setBenefitThirdParties(value.isBenefitThirdParties());
+                .setBenefitThirdParties(ConverterUtils.safeSetValue(value.isBenefitThirdParties()))
+                .setHasBeneficiary(ConverterUtils.safeSetValue(value.isHasBeneficiary()))
+                .setHasLiquidationProcess(ConverterUtils.safeSetValue(value.isHasLiquidationProcess()));
         if (value.getMonthOperationCount() != null) {
             additionalInfo.setMonthOperationCount(ctx.convert(value.getMonthOperationCount(),
                     com.rbkmoney.questionary.MonthOperationCount.class));

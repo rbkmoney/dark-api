@@ -8,7 +8,6 @@ import com.rbkmoney.questionary.Founder;
 import com.rbkmoney.swag.questionary.model.Founder.FounderTypeEnum;
 import com.rbkmoney.swag.questionary.model.IndividualPerson;
 import com.rbkmoney.swag.questionary.model.InternationalLegalEntityFounder;
-import com.rbkmoney.swag.questionary.model.PersonAnthroponym;
 import com.rbkmoney.swag.questionary.model.RussianLegalEntityFounder;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +20,7 @@ public class FounderConverter implements
     public com.rbkmoney.swag.questionary.model.Founder toSwag(Founder value, SwagConverterContext ctx) {
         if (value.isSetIndividualPersonFounder()) {
             IndividualPerson individualPerson = new IndividualPerson();
-            if (value.getIndividualPersonFounder().isSetFio()) {
-                individualPerson.setFio(ctx.convert(value.getIndividualPersonFounder().getFio(), PersonAnthroponym.class));
-            }
+            individualPerson.setFio(value.getIndividualPersonFounder().getFio());
             individualPerson.setInn(value.getIndividualPersonFounder().getInn());
             individualPerson.setFounderType(FounderTypeEnum.INDIVIDUALPERSON);
 
@@ -50,9 +47,7 @@ public class FounderConverter implements
         switch (value.getFounderType()) {
             case INDIVIDUALPERSON:
                 var individualPerson = new com.rbkmoney.questionary.IndividualPerson();
-                if (((IndividualPerson) value).getFio() != null) {
-                    individualPerson.setFio(ctx.convert(((IndividualPerson) value).getFio(), com.rbkmoney.questionary.PersonAnthroponym.class));
-                }
+                individualPerson.setFio(((IndividualPerson) value).getFio());
                 individualPerson.setInn(((IndividualPerson) value).getInn());
 
                 founder.setIndividualPersonFounder(individualPerson);

@@ -2,16 +2,12 @@ package com.rbkmoney.dark.api.service;
 
 import com.rbkmoney.dark.api.converter.SwagConvertManager;
 import com.rbkmoney.questionary.manage.*;
-import com.rbkmoney.swag.questionary.api.QuestionaryApi;
 import com.rbkmoney.swag.questionary.model.QuestionaryParams;
 import com.rbkmoney.swag.questionary.model.Snapshot;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
 
 @Slf4j
 @Service
