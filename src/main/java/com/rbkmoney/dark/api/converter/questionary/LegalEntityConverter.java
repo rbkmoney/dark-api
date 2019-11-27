@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary.LegalEntity;
 import com.rbkmoney.swag.questionary.model.*;
 import com.rbkmoney.swag.questionary.model.LegalEntity.LegalEntityTypeEnum;
@@ -88,7 +89,7 @@ public class LegalEntityConverter implements
                     .setOkatoCode(((RussianLegalEntity) value).getOkatoCode())
                     .setOkpoCode(((RussianLegalEntity) value).getOkpoCode())
                     .setPostalAddress(((RussianLegalEntity) value).getPostalAddress())
-                    .setHasBeneficialOwners(((RussianLegalEntity) value).isHasBeneficialOwners());
+                    .setHasBeneficialOwners(ConverterUtils.safeSetValue(((RussianLegalEntity) value).isHasBeneficialOwners()));
             if (((RussianLegalEntity) value).getFoundersInfo() != null) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(((RussianLegalEntity) value).getFoundersInfo(),
                         com.rbkmoney.questionary.FoundersInfo.class));

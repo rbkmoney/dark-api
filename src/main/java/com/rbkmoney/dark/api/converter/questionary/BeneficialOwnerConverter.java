@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary.BeneficialOwner;
 import com.rbkmoney.swag.questionary.model.*;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,7 @@ public class BeneficialOwnerConverter implements
     public BeneficialOwner toThrift(com.rbkmoney.swag.questionary.model.BeneficialOwner value, ThriftConverterContext ctx) {
         BeneficialOwner beneficialOwner = new BeneficialOwner()
                 .setInn(value.getInn())
-                .setPdlCategory(value.isPdlCategory())
+                .setPdlCategory(ConverterUtils.safeSetValue(value.isPdlCategory()))
                 .setPdlRelationDegree(value.getPdlRelationDegree())
                 .setSnils(value.getSnils());
         if (value.getOwnershipPercentage() != null) {

@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary.IndividualPersonCategories;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +27,12 @@ public class IndividualPersonCategoriesConverter implements
     @Override
     public IndividualPersonCategories toThrift(com.rbkmoney.swag.questionary.model.IndividualPersonCategories value, ThriftConverterContext ctx) {
         return new IndividualPersonCategories()
-                .setBehalfOfForeign(value.isBehalfOfForeign())
-                .setBeneficialOwner(value.isBeneficialOwner())
-                .setForeignPublicPerson(value.isForeignPublicPerson())
-                .setForeignRelativePerson(value.isForeignRelativePerson())
-                .setHasRepresentative(value.isHasRepresentative())
-                .setWorldwideOrgPublicPerson(value.isWorldwideOrgPublicPerson());
+                .setBehalfOfForeign(ConverterUtils.safeSetValue(value.isBehalfOfForeign()))
+                .setBeneficialOwner(ConverterUtils.safeSetValue(value.isBeneficialOwner()))
+                .setForeignPublicPerson(ConverterUtils.safeSetValue(value.isForeignPublicPerson()))
+                .setForeignRelativePerson(ConverterUtils.safeSetValue(value.isForeignRelativePerson()))
+                .setHasRepresentative(ConverterUtils.safeSetValue(value.isHasRepresentative()))
+                .setWorldwideOrgPublicPerson(ConverterUtils.safeSetValue(value.isWorldwideOrgPublicPerson()));
     }
 
 }

@@ -4,6 +4,7 @@ import com.rbkmoney.dark.api.converter.SwagConverter;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary.RussianIndividualEntity;
 import com.rbkmoney.swag.questionary.model.*;
 import org.springframework.stereotype.Component;
@@ -75,9 +76,9 @@ public class RussianIndividualEntityConverter implements
                 .setName(value.getName())
                 .setInn(value.getInn())
                 .setSnils(value.getSnils())
-                .setPdlCategory(value.isPdlCategory())
+                .setPdlCategory(ConverterUtils.safeSetValue(value.isPdlCategory()))
                 .setPdlRelationDegree(value.getPdlRelationDegree())
-                .setHasBeneficialOwners(value.isHasBeneficialOwners());
+                .setHasBeneficialOwners(ConverterUtils.safeSetValue(value.isHasBeneficialOwners()));
         if (value.getRegistrationInfo() != null) {
             russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
         }
