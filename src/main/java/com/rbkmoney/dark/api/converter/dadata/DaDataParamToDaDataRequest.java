@@ -2,6 +2,7 @@ package com.rbkmoney.dark.api.converter.dadata;
 
 import com.rbkmoney.dark.api.converter.ThriftConverter;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
+import com.rbkmoney.dark.api.util.ConverterUtils;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint;
 import com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataRequest;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
@@ -195,9 +196,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery convertFmsUnitQuery(FmsUnitQuery swagFmsUnitQuery) {
         var thriftFmsUnitQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery();
         thriftFmsUnitQuery.setQuery(swagFmsUnitQuery.getQuery());
-        if (swagFmsUnitQuery.getQueryType() != null) {
-            thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
-        }
+        thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
         if (swagFmsUnitQuery.getFilters() != null && !swagFmsUnitQuery.getFilters().isEmpty()) {
             List<com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter> thriftFmsUnitQueryFilters = swagFmsUnitQuery.getFilters().stream()
                     .map(this::convertFmsUnitQuery)
@@ -217,10 +216,16 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
     private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressQuery convertAddressQuery(AddressQuery swagAddressQuery) {
         var thriftAddressQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressQuery();
         thriftAddressQuery.setQuery(swagAddressQuery.getQuery());
-        thriftAddressQuery.setRestrictValue(swagAddressQuery.isRestrictValue());
-        thriftAddressQuery.setToBound(convertBoundType(swagAddressQuery.getToBound()));
-        thriftAddressQuery.setFromBound(convertBoundType(swagAddressQuery.getFromBound()));
-        thriftAddressQuery.setCount(swagAddressQuery.getCount().byteValue());
+        thriftAddressQuery.setRestrictValue(ConverterUtils.safeSetValue(swagAddressQuery.isRestrictValue()));
+        if (swagAddressQuery.getToBound() != null) {
+            thriftAddressQuery.setToBound(convertBoundType(swagAddressQuery.getToBound()));
+        }
+        if (swagAddressQuery.getFromBound() != null) {
+            thriftAddressQuery.setFromBound(convertBoundType(swagAddressQuery.getFromBound()));
+        }
+        if (swagAddressQuery.getCount() != null) {
+            thriftAddressQuery.setCount(swagAddressQuery.getCount().byteValue());
+        }
         if (swagAddressQuery.getLocations() != null && !swagAddressQuery.getLocations().isEmpty()) {
             List<com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter> thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
                     .map(this::convertAddressLocationFilter)
