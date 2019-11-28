@@ -220,7 +220,7 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         if (swagAddressQuery.getToBound() != null) {
             thriftAddressQuery.setToBound(convertBoundType(swagAddressQuery.getToBound()));
         }
-        if (swagAddressQuery.getToBound() != null) {
+        if (swagAddressQuery.getFromBound() != null) {
             thriftAddressQuery.setFromBound(convertBoundType(swagAddressQuery.getFromBound()));
         }
         if (swagAddressQuery.getCount() != null) {
