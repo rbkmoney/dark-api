@@ -4,8 +4,8 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.msgpack.Value;
 import com.rbkmoney.dark.api.service.ClaimManagementService;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
+import com.rbkmoney.swag.claim_management.model.DocumentModificationUnit;
 import com.rbkmoney.swag.claim_management.model.InlineResponse200;
-import com.rbkmoney.swag.claim_management.model.ModificationUnit;
 import org.apache.thrift.TException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +43,7 @@ public class ClaimManagementServiceTest {
         when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
         when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(new ClaimSearchResponse(getTestSearchClaim()));
 
-        var requestClaim = claimManagementService.createClaim("test_request_1", getChangeset());
+        var requestClaim = claimManagementService.createClaim("test_request_1", getModifications());
         assertEquals("Swag objects 'Claim' (create) not equals",
                 getTestAnswerCreateClaim().toString(), requestClaim.toString());
 
@@ -58,7 +58,7 @@ public class ClaimManagementServiceTest {
     }
 
     public static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
-        com.rbkmoney.swag.claim_management.model.Claim testClaim = new com.rbkmoney.swag.claim_management.model.Claim();
+        var testClaim = new com.rbkmoney.swag.claim_management.model.Claim();
         testClaim.setId(1L);
         testClaim.setStatus("accepted");
         testClaim.setCreatedAt(OffsetDateTime.parse("2019-08-21T12:09:32.449571+03:00"));
@@ -73,7 +73,7 @@ public class ClaimManagementServiceTest {
 
     public static ClaimChangeset getChangeset() {
         ClaimChangeset changeset = new ClaimChangeset();
-        ModificationUnit modificationUnit = new ModificationUnit();
+        var modificationUnit = new com.rbkmoney.swag.claim_management.model.ModificationUnit();
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
         swagClaimModification.setModificationType(CLAIMMODIFICATION);
         modificationUnit.setModificationID(1L);
@@ -91,6 +91,21 @@ public class ClaimManagementServiceTest {
         return changeset;
     }
 
+    public static List<com.rbkmoney.swag.claim_management.model.Modification> getModifications() {
+        var documentModification = new com.rbkmoney.swag.claim_management.model.DocumentModification();
+        documentModification.setDocumentModificationType(DOCUMENTCREATED);
+
+        return List.of(
+                new com.rbkmoney.swag.claim_management.model.ClaimModification()
+                        .claimModificationType(
+                                new DocumentModificationUnit()
+                                        .documentId("document_id")
+                                        .documentModification(documentModification)
+                        )
+
+        );
+    }
+
     private static Claim getTestCreateClaim() {
         Claim claim = new Claim();
         claim.setCreatedAt("2019-08-21T12:09:32.449571+03:00");
@@ -106,9 +121,11 @@ public class ClaimManagementServiceTest {
         documentModification.setCreation(new DocumentCreated());
 
         ClaimModification claimModification = new ClaimModification();
-        claimModification.setDocumentModification(new DocumentModificationUnit()
-                .setId("id_1")
-                .setModification(documentModification));
+        claimModification.setDocumentModification(
+                new com.rbkmoney.damsel.claim_management.DocumentModificationUnit()
+                        .setId("id_1")
+                        .setModification(documentModification)
+        );
         com.rbkmoney.damsel.claim_management.Modification modification = new com.rbkmoney.damsel.claim_management.Modification();
         modification.setClaimModification(claimModification);
         var thriftModificationUnit = new com.rbkmoney.damsel.claim_management.ModificationUnit();

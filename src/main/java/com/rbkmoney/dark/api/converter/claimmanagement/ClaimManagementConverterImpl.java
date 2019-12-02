@@ -60,13 +60,6 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
     }
 
     @Override
-    public List<Modification> convertChangesetToThrift(ClaimChangeset changeset) {
-        return changeset.stream()
-                .map(unit -> modificationConverter.convertToThrift(unit.getModification()))
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Modification> convertModificationUnitToThrift(
             List<com.rbkmoney.swag.claim_management.model.Modification> unitModifications
     ) {

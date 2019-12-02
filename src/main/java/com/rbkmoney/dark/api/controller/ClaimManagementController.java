@@ -33,7 +33,7 @@ public class ClaimManagementController implements ProcessingApi {
     @Override
     @PreAuthorize("hasAuthority('party:read')")
     public ResponseEntity<Claim> createClaim(@NotNull @Size(min = 1, max = 40) String requestId,
-                                             @NotNull ClaimChangeset changeset,
+                                             @NotNull @Valid List<Modification> changeset,
                                              @Size(min = 1, max = 40) String deadline) {
         try {
             log.info("Process 'createClaim' get started. requestId = {}", requestId);

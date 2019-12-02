@@ -21,8 +21,8 @@ public class ClaimManagementService {
 
     private final ClaimManagementConverter claimManagementConverter;
 
-    public Claim createClaim(String partyId, ClaimChangeset changeset) throws TException {
-        List<Modification> modificationList = claimManagementConverter.convertChangesetToThrift(changeset);
+    public Claim createClaim(String partyId, List<com.rbkmoney.swag.claim_management.model.Modification> changeset) throws TException {
+        List<Modification> modificationList = claimManagementConverter.convertModificationUnitToThrift(changeset);
         com.rbkmoney.damsel.claim_management.Claim claim = claimManagementClient.createClaim(partyId, modificationList);
         return claimManagementConverter.convertClaimToSwag(claim);
     }
