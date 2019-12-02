@@ -230,27 +230,27 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
-                <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
-                    <append>true</append>
-                    <excludes>
-                        <exclude>com/rbkmoney/okkotemplator/constant/**/*</exclude>
-                        <exclude>com/rbkmoney/okkotemplator/domain/**/*</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.2</version>-->
+<!--                <configuration>-->
+<!--                    <destFile>${sonar.jacoco.reportPath}</destFile>-->
+<!--                    <append>true</append>-->
+<!--                    <excludes>-->
+<!--                        <exclude>com/rbkmoney/okkotemplator/constant/**/*</exclude>-->
+<!--                        <exclude>com/rbkmoney/okkotemplator/domain/**/*</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>agent</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 </project>

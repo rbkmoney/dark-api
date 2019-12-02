@@ -4,6 +4,7 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.msgpack.Value;
 import com.rbkmoney.dark.api.service.ClaimManagementService;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
+import com.rbkmoney.swag.claim_management.model.ClaimModificationType;
 import com.rbkmoney.swag.claim_management.model.DocumentModificationUnit;
 import com.rbkmoney.swag.claim_management.model.InlineResponse200;
 import org.apache.thrift.TException;
@@ -101,7 +102,9 @@ public class ClaimManagementServiceTest {
                                 new DocumentModificationUnit()
                                         .documentId("document_id")
                                         .documentModification(documentModification)
+                                        .claimModificationType(DOCUMENTMODIFICATIONUNIT)
                         )
+                        .modificationType(CLAIMMODIFICATION)
 
         );
     }
