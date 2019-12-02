@@ -1,6 +1,5 @@
 package com.rbkmoney.dark.api.claimmanagement.converter.party;
 
-import com.rbkmoney.damsel.claim_management.ContractorIdentityDocumentsModification;
 import com.rbkmoney.damsel.claim_management.ContractorModificationUnit;
 import com.rbkmoney.damsel.domain.*;
 import com.rbkmoney.dark.api.converter.claimmanagement.party.contractor.*;
@@ -152,32 +151,6 @@ public class ClaimContractorConvertersTest {
     }
 
     @Test
-    public void contractorIdentityDocumentsModificationConvertorTest() throws IOException {
-        ContractorIdentityDocumentsModificationConvertor converter = new ContractorIdentityDocumentsModificationConvertor();
-        var swagDocumentsModification =
-                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorIdentityDocumentsModification.class);
-        swagDocumentsModification.setContractorModificationType(CONTRACTORIDENTITYDOCUMENTSMODIFICATION);
-        var resultSwagDocumentsModification = converter.convertToSwag(converter.convertToThrift(swagDocumentsModification));
-        assertEquals("Swag objects 'ContractorIdentityDocumentsModification' not equals",
-                swagDocumentsModification, resultSwagDocumentsModification);
-
-        ContractorIdentityDocumentsModification thriftDocumentsModification = new ContractorIdentityDocumentsModification();
-        thriftDocumentsModification = new MockTBaseProcessor(MockMode.ALL)
-                .process(thriftDocumentsModification, new TBaseHandler<>(ContractorIdentityDocumentsModification.class));
-        ContractorIdentityDocumentsModification resultDocumentsModification = converter.convertToThrift(
-                converter.convertToSwag(thriftDocumentsModification)
-        );
-        assertEquals("Thrift objects 'ContractorIdentityDocumentsModification' (MockMode.ALL) not equals",
-                thriftDocumentsModification, resultDocumentsModification);
-
-        thriftDocumentsModification = new MockTBaseProcessor(MockMode.REQUIRED_ONLY)
-                .process(thriftDocumentsModification, new TBaseHandler<>(ContractorIdentityDocumentsModification.class));
-        resultDocumentsModification = converter.convertToThrift(converter.convertToSwag(thriftDocumentsModification));
-        assertEquals("Thrift objects 'ContractorIdentityDocumentsModification' (MockMode.REQUIRED_ONLY) not equals",
-                thriftDocumentsModification, resultDocumentsModification);
-    }
-
-    @Test
     public void contractorIdentificationLevelConverterTest() {
         ContractorIdentificationLevelConverter converter = new ContractorIdentificationLevelConverter();
         var swagIdentificationLevel = getTestContractorIdentificationLevel();
@@ -202,7 +175,6 @@ public class ClaimContractorConvertersTest {
                         ),
                         new PrivateEntityConverter()
                 ),
-                new ContractorIdentityDocumentsModificationConvertor(),
                 new ContractorIdentificationLevelConverter()
         );
         var swagContractorModificationUnit =

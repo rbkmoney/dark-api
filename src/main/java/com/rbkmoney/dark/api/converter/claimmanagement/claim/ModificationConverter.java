@@ -33,7 +33,7 @@ public class ModificationConverter
 
     @Override
     public com.rbkmoney.swag.claim_management.model.Modification convertToSwag(Modification modification) {
-        if (modification.isSetClaimModfication()) {
+        if (modification.isSetClaimModification()) {
             return claimModificationConverter.convertToSwag(modification);
         } else if (modification.isSetPartyModification()) {
             return partyModificationConverter.convertToSwag(modification);

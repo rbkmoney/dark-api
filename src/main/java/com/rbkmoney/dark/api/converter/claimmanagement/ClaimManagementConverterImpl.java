@@ -83,7 +83,7 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
         ClaimSearchQuery claimSearchQuery = new ClaimSearchQuery();
         claimSearchQuery.setPartyId(partyId);
         claimSearchQuery.setLimit(limit);
-        claimSearchQuery.setToken(continuationToken);
+        claimSearchQuery.setContinuationToken(continuationToken);
         claimSearchQuery.setStatuses(convertStatusesToThrift(claimStatuses));
         return claimSearchQuery;
     }

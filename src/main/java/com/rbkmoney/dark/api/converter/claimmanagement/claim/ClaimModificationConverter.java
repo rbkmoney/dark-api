@@ -51,25 +51,25 @@ public class ClaimModificationConverter
                 throw new IllegalArgumentException("Unknown claim modification type: " +
                         swagClaimModificationType);
         }
-        modification.setClaimModfication(claimModification);
+        modification.setClaimModification(claimModification);
         return modification;
     }
 
     @Override
     public com.rbkmoney.swag.claim_management.model.ClaimModification convertToSwag(Modification unit) {
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
-        ClaimModification claimModfication = unit.getClaimModfication();
-        if (claimModfication.isSetDocumentModification()) {
-            DocumentModificationUnit documentModification = claimModfication.getDocumentModification();
+        ClaimModification claimModification = unit.getClaimModification();
+        if (claimModification.isSetDocumentModification()) {
+            DocumentModificationUnit documentModification = claimModification.getDocumentModification();
             swagClaimModification.setClaimModificationType(documentModificationConverter.convertToSwag(documentModification));
-        } else if (claimModfication.isSetCommentModification()) {
-            CommentModificationUnit commentModification = claimModfication.getCommentModification();
+        } else if (claimModification.isSetCommentModification()) {
+            CommentModificationUnit commentModification = claimModification.getCommentModification();
             swagClaimModification.setClaimModificationType(commentModificationUnitConverter.convertToSwag(commentModification));
-        } else if (claimModfication.isSetStatusModification()) {
-            StatusModificationUnit statusModification = claimModfication.getStatusModification();
+        } else if (claimModification.isSetStatusModification()) {
+            StatusModificationUnit statusModification = claimModification.getStatusModification();
             swagClaimModification.setClaimModificationType(statusModificationUnitConverter.convertToSwag(statusModification));
-        } else if (claimModfication.isSetFileModification()) {
-            FileModificationUnit fileModificationUnit = claimModfication.getFileModification();
+        } else if (claimModification.isSetFileModification()) {
+            FileModificationUnit fileModificationUnit = claimModification.getFileModification();
             swagClaimModification.setClaimModificationType(fileModificationUnitConverter.convertToSwag(fileModificationUnit));
         } else {
             throw new IllegalArgumentException("Unknown claim modification type!");
