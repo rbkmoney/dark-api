@@ -4,6 +4,7 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.claimmanagement.ClaimManagementConverter;
 import com.rbkmoney.swag.claim_management.model.Claim;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
+import com.rbkmoney.swag.claim_management.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
@@ -31,12 +32,14 @@ public class ClaimManagementService {
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public List<Claim> searchClaims(String partyId, Integer limit, String continuationToken, List<String> claimStatuses)
+    public InlineResponse200 searchClaims(String partyId, Integer limit, String continuationToken, List<String> claimStatuses)
             throws TException {
         ClaimSearchQuery claimSearchQuery =
                 claimManagementConverter.convertSearchClaimsToThrift(partyId, limit, continuationToken, claimStatuses);
-        List<com.rbkmoney.damsel.claim_management.Claim> claimList = claimManagementClient.searchClaims(claimSearchQuery);
-        return claimManagementConverter.convertClaimListToSwag(claimList);
+        ClaimSearchResponse claimSearchResponse = claimManagementClient.searchClaims(claimSearchQuery);
+        return new InlineResponse200()
+                .result(claimManagementConverter.convertClaimListToSwag(claimSearchResponse.getResult()))
+                .continuationToken(claimSearchQuery.getContinuationToken());
     }
 
     public void updateClaimById(String partyId,
@@ -49,6 +52,10 @@ public class ClaimManagementService {
 
     public void revokeClaimById(String partyId, Long claimId, Integer claimRevision, String reason) throws TException {
         claimManagementClient.revokeClaim(partyId, claimId, claimRevision, reason);
+    }
+
+    public void requestClaimReviewById(String partyId, Long claimId, Integer claimRevision) throws TException {
+        claimManagementClient.requestClaimReview(partyId, claimId, claimRevision);
     }
 
 }

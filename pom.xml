@@ -17,7 +17,7 @@
     <description></description>
 
     <properties>
-        <damsel.version>1.321-8e7d98d</damsel.version>
+        <damsel.version>1.365-f7d518b</damsel.version>
         <sonar.jacoco.reportPath>target/sites/jacoco/jacoco.exec</sonar.jacoco.reportPath>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -99,13 +99,8 @@
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
-            <artifactId>claim-management-proto</artifactId>
-            <version>1.5-ff7aba6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>1.8-1473fbf-server</version>
+            <version>1.10-14e9e77-server</version>
         </dependency>
 
         <!--spring-->

@@ -161,7 +161,7 @@ public class ClaimConvertersTest {
         claimModification = new MockTBaseProcessor(MockMode.ALL)
                     .process(claimModification, new TBaseHandler<>(ClaimModification.class));
 
-        thriftModification.setClaimModfication(claimModification);
+        thriftModification.setClaimModification(claimModification);
         Modification resultThriftModification = converter.convertToThrift(
                 converter.convertToSwag(thriftModification)
         );

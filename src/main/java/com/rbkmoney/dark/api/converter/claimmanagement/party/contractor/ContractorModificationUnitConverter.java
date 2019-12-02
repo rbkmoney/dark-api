@@ -1,6 +1,5 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contractor;
 
-import com.rbkmoney.damsel.claim_management.ContractorIdentityDocumentsModification;
 import com.rbkmoney.damsel.claim_management.ContractorModification;
 import com.rbkmoney.damsel.claim_management.ContractorModificationUnit;
 import com.rbkmoney.damsel.domain.Contractor;
@@ -18,9 +17,6 @@ public class ContractorModificationUnitConverter
 
     private final DarkApiConverter<Contractor,
             com.rbkmoney.swag.claim_management.model.Contractor> claimContractorConverter;
-
-    private final DarkApiConverter<ContractorIdentityDocumentsModification,
-            com.rbkmoney.swag.claim_management.model.ContractorIdentityDocumentsModification> documentsModificationConvertor;
 
     private final DarkApiConverter<ContractorIdentificationLevel,
             com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel> identificationLevelConverter;
@@ -45,13 +41,6 @@ public class ContractorModificationUnitConverter
                         (com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel) swagModification;
                 contractorModification.setIdentificationLevelModification(
                         identificationLevelConverter.convertToThrift(swagContractorIdentificationLevel)
-                );
-                break;
-            case CONTRACTORIDENTITYDOCUMENTSMODIFICATION:
-                var swagContractorIdentityDocumentsModification =
-                        (com.rbkmoney.swag.claim_management.model.ContractorIdentityDocumentsModification) swagModification;
-                contractorModification.setIdentityDocumentsModification(
-                        documentsModificationConvertor.convertToThrift(swagContractorIdentityDocumentsModification)
                 );
                 break;
             default:
@@ -79,12 +68,6 @@ public class ContractorModificationUnitConverter
                     contractorModificationUnit.getModification().getIdentificationLevelModification();
             swagContractorModificationUnit.setModification(
                     identificationLevelConverter.convertToSwag(identificationLevelModification)
-            );
-        } else if (contractorModificationUnit.getModification().isSetIdentityDocumentsModification()) {
-            ContractorIdentityDocumentsModification identityDocumentsModification =
-                    contractorModificationUnit.getModification().getIdentityDocumentsModification();
-            swagContractorModificationUnit.setModification(
-                    documentsModificationConvertor.convertToSwag(identityDocumentsModification)
             );
         } else {
             throw new IllegalArgumentException("Unknown contractor modification type!");
