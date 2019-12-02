@@ -100,7 +100,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>claim-management</artifactId>
-            <version>1.10-14e9e77-server</version>
+            <version>1.11-363d565-server</version>
         </dependency>
 
         <!--spring-->
@@ -237,10 +237,6 @@
                 <configuration>
                     <destFile>${sonar.jacoco.reportPath}</destFile>
                     <append>true</append>
-                    <excludes>
-                        <exclude>com/rbkmoney/okkotemplator/constant/**/*</exclude>
-                        <exclude>com/rbkmoney/okkotemplator/domain/**/*</exclude>
-                    </excludes>
                 </configuration>
                 <executions>
                     <execution>

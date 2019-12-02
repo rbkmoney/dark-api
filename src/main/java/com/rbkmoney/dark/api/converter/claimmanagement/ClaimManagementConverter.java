@@ -16,8 +16,6 @@ public interface ClaimManagementConverter {
 
     ClaimChangeset convertClaimChangesetToSwag(List<com.rbkmoney.damsel.claim_management.ModificationUnit> changeset);
 
-    List<Modification> convertChangesetToThrift(ClaimChangeset changeset);
-
     List<Modification> convertModificationUnitToThrift(List<com.rbkmoney.swag.claim_management.model.Modification> unitModifications);
 
     ClaimSearchQuery convertSearchClaimsToThrift(String requestId, Integer limit, String continuationToken, List<String> claimStatuses);

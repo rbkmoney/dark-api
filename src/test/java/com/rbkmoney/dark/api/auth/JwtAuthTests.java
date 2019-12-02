@@ -36,13 +36,24 @@ public class JwtAuthTests {
                 .header("Access-Control-Request-Method", "GET")
                 .header("Access-Control-Request-Headers", "authorization, content-type"))
                 .andExpect(status().isOk())
-                .andExpect(header().string("Access-Control-Allow-Methods", "GET,HEAD,POST"))
+                .andExpect(header().string("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,DELETE"))
+                .andExpect(header().string("Access-Control-Allow-Headers", "authorization, content-type"));
+
+        mockMvc.perform(options("/ping")
+                .header("Origin", "*")
+                .header("Access-Control-Request-Method", "PUT")
+                .header("Access-Control-Request-Headers", "authorization, content-type")
+        ).andExpect(status().isOk())
+                .andExpect(header().string("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,DELETE"))
                 .andExpect(header().string("Access-Control-Allow-Headers", "authorization, content-type"));
 
         mockMvc.perform(options("/ping")
                 .header("Origin", "*")
                 .header("Access-Control-Request-Method", "DELETE")
-        ).andExpect(status().isForbidden());
+                .header("Access-Control-Request-Headers", "authorization, content-type")
+        ).andExpect(status().isOk())
+                .andExpect(header().string("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,DELETE"))
+                .andExpect(header().string("Access-Control-Allow-Headers", "authorization, content-type"));
     }
 
     @Test
