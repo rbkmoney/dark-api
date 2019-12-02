@@ -4,6 +4,7 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.msgpack.Value;
 import com.rbkmoney.dark.api.service.ClaimManagementService;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
+import com.rbkmoney.swag.claim_management.model.InlineResponse200;
 import com.rbkmoney.swag.claim_management.model.ModificationUnit;
 import org.apache.thrift.TException;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class ClaimManagementServiceTest {
     public void test() throws TException {
         when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class))).thenReturn(getTestCreateClaim());
         when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
-        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(getTestSearchClaim());
+        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(new ClaimSearchResponse(getTestSearchClaim()));
 
         var requestClaim = claimManagementService.createClaim("test_request_1", getChangeset());
         assertEquals("Swag objects 'Claim' (create) not equals",
@@ -50,10 +51,10 @@ public class ClaimManagementServiceTest {
         assertEquals("Swag objects 'Claim' (by id) not equals",
                 getTestAnswerCreateClaim().toString(), claimById.toString());
 
-        List<com.rbkmoney.swag.claim_management.model.Claim> claimList =
+        InlineResponse200 response =
                 claimManagementService.searchClaims("id", 1, "token", new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
-                getTestAnswerCreateClaim().toString(), claimList.get(0).toString());
+                getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
     }
 
     public static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
@@ -109,7 +110,7 @@ public class ClaimManagementServiceTest {
                 .setId("id_1")
                 .setModification(documentModification));
         com.rbkmoney.damsel.claim_management.Modification modification = new com.rbkmoney.damsel.claim_management.Modification();
-        modification.setClaimModfication(claimModification);
+        modification.setClaimModification(claimModification);
         var thriftModificationUnit = new com.rbkmoney.damsel.claim_management.ModificationUnit();
         thriftModificationUnit.setCreatedAt("2019-08-21T12:09:32.449571+03:00");
         thriftModificationUnit.setModificationId(1L);
