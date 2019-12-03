@@ -1,5 +1,5 @@
 server:
-  port: @server.port@
+  port: '@server.port@'
 management:
   security:
     flag: false
@@ -9,7 +9,7 @@ management:
         flavor: etsy
 spring:
   application:
-    name: @project.name@
+    name: '@project.name@'
   output:
     ansi:
       enabled: always
@@ -52,7 +52,7 @@ keycloak:
 auth.enabled: true
 
 info:
-  version: @project.version@
+  version: '@project.version@'
   stage: dev
 
 http.timeout:
