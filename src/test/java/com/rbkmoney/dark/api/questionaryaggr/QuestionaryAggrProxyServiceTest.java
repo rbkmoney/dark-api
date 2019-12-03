@@ -53,7 +53,7 @@ public class QuestionaryAggrProxyServiceTest {
                 .thenReturn(thriftKonturFocusReqResponse);
 
         ReqQuery reqQuery = EnhancedRandom.random(ReqQuery.class);
-        reqQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.REQ);
+        reqQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.REQQUERY);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(reqQuery);
 
@@ -74,7 +74,7 @@ public class QuestionaryAggrProxyServiceTest {
                 .thenReturn(thriftKonturFocusLicensesResponse);
 
         LicencesQuery licencesQuery = EnhancedRandom.random(LicencesQuery.class);
-        licencesQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.LICENCES);
+        licencesQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.LICENCESQUERY);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(licencesQuery);
 
@@ -97,7 +97,7 @@ public class QuestionaryAggrProxyServiceTest {
                 .thenReturn(thriftKonturFocusEgrDetailsResponse);
 
         EgrDetailsQuery egrDetailsQuery = EnhancedRandom.random(EgrDetailsQuery.class);
-        egrDetailsQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.EGRDETAILS);
+        egrDetailsQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.EGRDETAILSQUERY);
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(egrDetailsQuery);
 

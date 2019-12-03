@@ -19,7 +19,7 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
         KonturFocusRequestHolder konturFocusRequestHolder = new KonturFocusRequestHolder();
         KonturFocusRequest konturFocusRequest = null;
         switch (konturFocusParams.getRequest().getKonturFocusRequestType()) {
-            case REQ:
+            case REQQUERY:
                 konturFocusRequestHolder.setKonturFocusEndPoint(KonturFocusEndPoint.req);
                 var swagReqQuery = (com.rbkmoney.swag.questionary_aggr_proxy.model.ReqQuery) konturFocusParams.getRequest();
                 ReqQuery reqQuery = new ReqQuery();
@@ -28,7 +28,7 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
                 konturFocusRequest = new KonturFocusRequest();
                 konturFocusRequest.setReqQuery(reqQuery);
                 break;
-            case EGRDETAILS:
+            case EGRDETAILSQUERY:
                 konturFocusRequestHolder.setKonturFocusEndPoint(KonturFocusEndPoint.egrDetails);
                 var swagEgrDetails = (com.rbkmoney.swag.questionary_aggr_proxy.model.EgrDetailsQuery) konturFocusParams.getRequest();
                 EgrDetailsQuery egrDetailsQuery = new EgrDetailsQuery();
@@ -37,7 +37,7 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
                 konturFocusRequest = new KonturFocusRequest();
                 konturFocusRequest.setEgrDetailsQuery(egrDetailsQuery);
                 break;
-            case LICENCES:
+            case LICENCESQUERY:
                 konturFocusRequestHolder.setKonturFocusEndPoint(KonturFocusEndPoint.licences);
                 var swagLicenseQuery = ((com.rbkmoney.swag.questionary_aggr_proxy.model.LicencesQuery) konturFocusParams.getRequest());
                 LicencesQuery licencesQuery = new LicencesQuery();
