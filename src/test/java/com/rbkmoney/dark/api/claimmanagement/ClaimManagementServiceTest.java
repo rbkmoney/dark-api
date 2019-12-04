@@ -87,6 +87,13 @@ public class ClaimManagementServiceTest {
         documentModificationUnit.setDocumentModification(documentModification);
         swagClaimModification.setClaimModificationType(documentModificationUnit);
         modificationUnit.setModification(swagClaimModification);
+        modificationUnit.setUserInfo(
+                new com.rbkmoney.swag.claim_management.model.UserInfo()
+                        .userId("ID")
+                        .username("username")
+                        .email("email")
+                        .userType(com.rbkmoney.swag.claim_management.model.UserInfo.UserTypeEnum.INTERNAL_USER)
+        );
 
         changeset.add(modificationUnit);
         return changeset;
@@ -134,6 +141,13 @@ public class ClaimManagementServiceTest {
         var thriftModificationUnit = new com.rbkmoney.damsel.claim_management.ModificationUnit();
         thriftModificationUnit.setCreatedAt("2019-08-21T12:09:32.449571+03:00");
         thriftModificationUnit.setModificationId(1L);
+        thriftModificationUnit.setUserInfo(
+                new UserInfo()
+                        .setId("ID")
+                        .setUsername("username")
+                        .setEmail("email")
+                        .setType(UserType.internal_user(new InternalUser()))
+        );
         thriftModificationUnit.setModification(modification);
         changeset.add(thriftModificationUnit);
         claim.setChangeset(changeset);
