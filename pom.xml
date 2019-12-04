@@ -18,7 +18,7 @@
 
     <properties>
         <damsel.version>1.365-f7d518b</damsel.version>
-        <sonar.jacoco.reportPath>target/sites/jacoco/jacoco.exec</sonar.jacoco.reportPath>
+        <sonar.jacoco.reportPaths>target/sites/jacoco/jacoco.exec</sonar.jacoco.reportPaths>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
@@ -233,9 +233,9 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.2</version>
+                <version>0.8.5</version>
                 <configuration>
-                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                    <destFile>${sonar.jacoco.reportPaths}</destFile>
                     <append>true</append>
                 </configuration>
                 <executions>

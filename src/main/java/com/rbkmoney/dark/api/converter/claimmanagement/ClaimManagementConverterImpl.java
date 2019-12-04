@@ -2,7 +2,8 @@ package com.rbkmoney.dark.api.converter.claimmanagement;
 
 import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
+import com.rbkmoney.swag.claim_management.model.UserInfo;
+import com.rbkmoney.swag.claim_management.model.UserInfo.UserTypeEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -55,6 +56,16 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
         var swagModificationUnit = new com.rbkmoney.swag.claim_management.model.ModificationUnit();
         swagModificationUnit.setModificationID(unit.getModificationId());
         swagModificationUnit.setCreatedAt(OffsetDateTime.parse(unit.getCreatedAt()));
+
+        var userInfo = unit.getUserInfo();
+        swagModificationUnit.setUserInfo(
+                new UserInfo()
+                .userId(userInfo.getId())
+                .email(userInfo.getEmail())
+                .username(userInfo.getUsername())
+                .userType(UserTypeEnum.fromValue(userInfo.getType().getSetField().getFieldName()))
+        );
+
         swagModificationUnit.setModification(modificationConverter.convertToSwag(unit.getModification()));
         return swagModificationUnit;
     }
