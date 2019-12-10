@@ -36,7 +36,7 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         if (value.isSetRegInfo()) {
             egrDetailsLegalEntity.setRegInfo(ctx.convert(value.getRegInfo(), RegInfo.class));
         }
-        if (value.isSetFoundersUl()) {
+        if (value.isSetFoundersFl()) {
             List<FounderFl> founderFlList = value.getFoundersFl().stream()
                     .map(founderFL -> ctx.convert(founderFL, FounderFl.class))
                     .collect(Collectors.toList());
