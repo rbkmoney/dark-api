@@ -521,8 +521,8 @@ public class KonturFocusCompareUtil {
 
     private static void shareholdersCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders thriftShareholders, ShareHolders swagShareholders) {
         Assert.assertEquals(thriftShareholders.getDate(), swagShareholders.getDate());
-        int thriftShareholdersFl = thriftShareholders.getShareholdersFl().size();
-        for (int i = 0; i < thriftShareholdersFl; i++) {
+        int thriftShareholdersFlSize = thriftShareholders.getShareholdersFl().size();
+        for (int i = 0; i < thriftShareholdersFlSize; i++) {
             com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl thriftShareHolderFl = thriftShareholders.getShareholdersFl().get(i);
             ShareHolderFl swagShareHolderFl = swagShareholders.getShareHoldersFl().get(i);
             Assert.assertEquals(thriftShareHolderFl.getAddress(), swagShareHolderFl.getAddress());
