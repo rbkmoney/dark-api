@@ -90,7 +90,7 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
                     .collect(Collectors.toList());
             swagShareHolders.setShareHoldersFl(shareHolderFlList);
         }
-        if (shareHolders.isSetShareholdersFl()) {
+        if (shareHolders.isSetShareholdersUl()) {
             List<ShareHolderUl> shareHolderUlList = shareHolders.getShareholdersUl().stream()
                     .map(shareHolderUL -> ctx.convert(shareHolderUL, ShareHolderUl.class))
                     .collect(Collectors.toList());
