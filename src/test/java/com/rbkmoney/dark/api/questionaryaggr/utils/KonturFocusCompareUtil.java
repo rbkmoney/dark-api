@@ -531,8 +531,8 @@ public class KonturFocusCompareUtil {
             Assert.assertEquals(0, Double.compare(thriftShareHolderFl.getCapitalSharesPercent(), swagShareHolderFl.getCapitalSharesPercent().doubleValue()));
             Assert.assertEquals(0, Double.compare(thriftShareHolderFl.getVotingSharesPercent(), swagShareHolderFl.getVotingSharesPercent().doubleValue()));
         }
-        int thriftShareholdersUl = thriftShareholders.getShareholdersUl().size();
-        for (int i = 0; i < thriftShareholdersUl; i++) {
+        int thriftShareholdersUlSize = thriftShareholders.getShareholdersUl().size();
+        for (int i = 0; i < thriftShareholdersUlSize; i++) {
             ShareHolderUL thriftShareHolderUL = thriftShareholders.getShareholdersUl().get(i);
             ShareHolderUl swagShareHolderUl = swagShareholders.getShareHoldersUl().get(i);
             Assert.assertEquals(thriftShareHolderUL.getAddress(), swagShareHolderUl.getAddress());
