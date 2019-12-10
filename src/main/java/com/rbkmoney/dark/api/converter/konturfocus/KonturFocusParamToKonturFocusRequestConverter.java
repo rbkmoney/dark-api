@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.dark.api.model.KonturFocusRequestHolder;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusEndPoint;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusRequest;
+import com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerQuery;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsQuery;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesQuery;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqQuery;
@@ -45,6 +46,15 @@ public class KonturFocusParamToKonturFocusRequestConverter implements ThriftConv
                 licencesQuery.setOgrn(swagLicenseQuery.getOgrn());
                 konturFocusRequest = new KonturFocusRequest();
                 konturFocusRequest.setLicencesQuery(licencesQuery);
+                break;
+            case BENEFICIALOWNERQUERY:
+                konturFocusRequestHolder.setKonturFocusEndPoint(KonturFocusEndPoint.beneficial_owners);
+                var swagBeneficialOwnerQuery = (com.rbkmoney.swag.questionary_aggr_proxy.model.BeneficialOwnerQuery) konturFocusParams.getRequest();
+                BeneficialOwnerQuery beneficialOwnerQuery = new BeneficialOwnerQuery();
+                beneficialOwnerQuery.setInn(swagBeneficialOwnerQuery.getInn());
+                beneficialOwnerQuery.setOgrn(swagBeneficialOwnerQuery.getOgrn());
+                konturFocusRequest = new KonturFocusRequest();
+                konturFocusRequest.setBeneficialOwnerQuery(beneficialOwnerQuery);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown endpoint: " + konturFocusParams.getRequest().getKonturFocusRequestType());

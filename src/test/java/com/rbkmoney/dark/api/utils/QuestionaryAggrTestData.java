@@ -11,6 +11,7 @@ import com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedResponse;
 import com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyResponse;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse;
+import com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponses;
 import com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponses;
@@ -49,6 +50,14 @@ public class QuestionaryAggrTestData {
         EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
         egrDetailsResponses = new MockTBaseProcessor(MockMode.ALL).process(egrDetailsResponses, new TBaseHandler<>(EgrDetailsResponses.class));
         konturFocusResponse.setEgrDetailsResponses(egrDetailsResponses);
+        return konturFocusResponse;
+    }
+
+    public static KonturFocusResponse createThriftKonturFocusBeneficialOwnerResponse() throws IOException {
+        KonturFocusResponse konturFocusResponse = new KonturFocusResponse();
+        BeneficialOwnerResponses beneficialOwnerResponses = new BeneficialOwnerResponses();
+        beneficialOwnerResponses = new MockTBaseProcessor(MockMode.ALL).process(beneficialOwnerResponses, new TBaseHandler<>(BeneficialOwnerResponses.class));
+        konturFocusResponse.setBeneficialOwnerResponses(beneficialOwnerResponses);
         return konturFocusResponse;
     }
 

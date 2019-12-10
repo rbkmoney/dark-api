@@ -113,6 +113,29 @@ public class QuestionaryAggrProxyServiceTest {
     }
 
     @Test
+    public void requestKonturFocusBeneficialOwnersTest() throws IOException, TException {
+        var thriftKonturFocusBeneficialOwnerResponse = QuestionaryAggrTestData.createThriftKonturFocusBeneficialOwnerResponse();
+        when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
+                .thenReturn(thriftKonturFocusBeneficialOwnerResponse);
+
+        BeneficialOwnerQuery beneficialOwnerQuery = EnhancedRandom.random(BeneficialOwnerQuery.class);
+        beneficialOwnerQuery.setKonturFocusRequestType(KonturFocusRequestTypeEnum.BENEFICIALOWNERQUERY);
+        KonturFocusParams konturFocusParams = new KonturFocusParams();
+        konturFocusParams.setRequest(beneficialOwnerQuery);
+
+        BeneficialOwnerResponses beneficialOwnerResponses = ((BeneficialOwnerResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams));
+
+        int thriftBeneficialOwnersSize = thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses().size();
+        Assert.assertEquals(thriftBeneficialOwnersSize, beneficialOwnerResponses.getResponses().size());
+        for (int i = 0; i < thriftBeneficialOwnersSize; i++) {
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerResponse beneficialOwnerResponse =
+                    thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses().get(i);
+            BeneficialOwnerResponse swagBeneficialOwnerResponse = beneficialOwnerResponses.getResponses().get(i);
+            KonturFocusCompareUtil.beneficialOwnerResponseCompare(beneficialOwnerResponse, swagBeneficialOwnerResponse);
+        }
+    }
+
+    @Test
     public void requestDaDataAddressTest() throws IOException, TException {
         DaDataResponse thriftDaDataAddressResponse = QuestionaryAggrTestData.createThriftDaDataAddressResponse();
         when(questionaryAggrProxyHandler.requestDaData(any(DaDataRequest.class), any(DaDataEndpoint.class)))

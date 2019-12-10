@@ -5,6 +5,8 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.Share;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share> {
 
@@ -13,7 +15,7 @@ public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.que
         return new Share()
                 .percentageDenominator(value.getPercentageDenominator())
                 .percentageNominator(value.getPercentageNominator())
-                .percentagePlain((int) value.getPercentagePlain())
+                .percentagePlain(BigDecimal.valueOf(value.getPercentagePlain()))
                 .sum(value.getSum());
     }
 
