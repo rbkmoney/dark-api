@@ -60,7 +60,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary-aggr</artifactId>
-            <version>1.17-762d9a1-server</version>
+            <version>1.19-d7587db-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>questionary-proxy-aggr-proto</artifactId>
-            <version>1.8-31d9486</version>
+            <version>1.10-805b775</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

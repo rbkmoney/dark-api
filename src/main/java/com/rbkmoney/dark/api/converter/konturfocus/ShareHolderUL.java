@@ -5,6 +5,8 @@ import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.ShareHolderUl;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class ShareHolderUL implements SwagConverter<ShareHolderUl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderUL> {
 
@@ -12,12 +14,12 @@ public class ShareHolderUL implements SwagConverter<ShareHolderUl, com.rbkmoney.
     public ShareHolderUl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderUL value, SwagConverterContext ctx) {
         return new ShareHolderUl()
                 .address(value.getAddress())
-                .capitalSharesPercent((int) value.getCapitalSharesPercent())
+                .capitalSharesPercent(BigDecimal.valueOf(value.getCapitalSharesPercent()))
                 .date(value.getDate())
                 .fullName(value.getFullName())
                 .inn(value.getInn())
                 .ogrn(value.getOgrn())
-                .votingSharesPercent((int) value.getVotingSharesPercent());
+                .votingSharesPercent(BigDecimal.valueOf(value.getVotingSharesPercent()));
     }
 
 }
