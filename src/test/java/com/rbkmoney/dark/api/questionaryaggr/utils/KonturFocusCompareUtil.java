@@ -65,6 +65,7 @@ public class KonturFocusCompareUtil {
             var thriftLegalEntity = thriftEgrDetailsResponse.getContractor().getLegalEntity();
             EgrDetailsLegalEntity swagLegalEntity = (EgrDetailsLegalEntity) swagEgrDetailsResponse.getContractor();
             activitiesCompare(thriftLegalEntity.getActivities(), swagLegalEntity.getActivities());
+            shareholdersCompare(thriftLegalEntity.getShareholders(), swagLegalEntity.getShareHolders());
             for (int i = 0; i < thriftLegalEntity.getEgrRecords().size(); i++) {
                 com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord egrRecord = thriftLegalEntity.getEgrRecords().get(i);
                 EgrRecord swagEgrRecord = swagLegalEntity.getEgrRecords().get(i);
@@ -516,6 +517,42 @@ public class KonturFocusCompareUtil {
         Assert.assertEquals(thriftBeneficialOwnerForeign.getFullName(), swagBeneficialOwnerForeign.getFullName());
         Assert.assertEquals(0, Double.compare(thriftBeneficialOwnerForeign.getShare(), swagBeneficialOwnerForeign.getShare().doubleValue()));
         Assert.assertEquals(thriftBeneficialOwnerForeign.isIsAccurate(), swagBeneficialOwnerForeign.isIsAccurate());
+    }
+
+    private static void shareholdersCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders thriftShareholders, ShareHolders swagShareholders) {
+        Assert.assertEquals(thriftShareholders.getDate(), swagShareholders.getDate());
+        int thriftShareholdersFl = thriftShareholders.getShareholdersFl().size();
+        for (int i = 0; i < thriftShareholdersFl; i++) {
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl thriftShareHolderFl = thriftShareholders.getShareholdersFl().get(i);
+            ShareHolderFl swagShareHolderFl = swagShareholders.getShareHoldersFl().get(i);
+            Assert.assertEquals(thriftShareHolderFl.getAddress(), swagShareHolderFl.getAddress());
+            Assert.assertEquals(thriftShareHolderFl.getDate(), swagShareHolderFl.getDate());
+            Assert.assertEquals(thriftShareHolderFl.getFio(), swagShareHolderFl.getFio());
+            Assert.assertEquals(0, Double.compare(thriftShareHolderFl.getCapitalSharesPercent(), swagShareHolderFl.getCapitalSharesPercent().doubleValue()));
+            Assert.assertEquals(0, Double.compare(thriftShareHolderFl.getVotingSharesPercent(), swagShareHolderFl.getVotingSharesPercent().doubleValue()));
+        }
+        int thriftShareholdersUl = thriftShareholders.getShareholdersUl().size();
+        for (int i = 0; i < thriftShareholdersUl; i++) {
+            ShareHolderUL thriftShareHolderUL = thriftShareholders.getShareholdersUl().get(i);
+            ShareHolderUl swagShareHolderUl = swagShareholders.getShareHoldersUl().get(i);
+            Assert.assertEquals(thriftShareHolderUL.getAddress(), swagShareHolderUl.getAddress());
+            Assert.assertEquals(thriftShareHolderUL.getDate(), swagShareHolderUl.getDate());
+            Assert.assertEquals(thriftShareHolderUL.getFullName(), swagShareHolderUl.getFullName());
+            Assert.assertEquals(thriftShareHolderUL.getInn(), swagShareHolderUl.getInn());
+            Assert.assertEquals(thriftShareHolderUL.getOgrn(), swagShareHolderUl.getOgrn());
+            Assert.assertEquals(0, Double.compare(thriftShareHolderUL.getCapitalSharesPercent(), swagShareHolderUl.getCapitalSharesPercent().doubleValue()));
+            Assert.assertEquals(0, Double.compare(thriftShareHolderUL.getVotingSharesPercent(), swagShareHolderUl.getVotingSharesPercent().doubleValue()));
+        }
+        int thriftShareholdersOtherSize = thriftShareholders.getShareholdersOther().size();
+        for (int i = 0; i < thriftShareholdersOtherSize; i++) {
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther thriftShareHolderOther = thriftShareholders.getShareholdersOther().get(i);
+            ShareHolderOther swagShareHolderOther = swagShareholders.getShareHoldersOther().get(i);
+            Assert.assertEquals(thriftShareHolderOther.getAddress(), swagShareHolderOther.getAddress());
+            Assert.assertEquals(thriftShareHolderOther.getDate(), swagShareHolderOther.getDate());
+            Assert.assertEquals(thriftShareHolderOther.getFullName(), swagShareHolderOther.getFullName());
+            Assert.assertEquals(0, Double.compare(thriftShareHolderOther.getCapitalSharesPercent(), swagShareHolderOther.getCapitalSharesPercent().doubleValue()));
+            Assert.assertEquals(0, Double.compare(thriftShareHolderOther.getVotingSharesPercent(), swagShareHolderOther.getVotingSharesPercent().doubleValue()));
+        }
     }
 
 }
