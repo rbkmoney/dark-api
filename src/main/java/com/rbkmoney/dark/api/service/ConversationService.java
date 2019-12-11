@@ -38,6 +38,7 @@ public class ConversationService {
                             })
                             .collect(Collectors.toList());
                     conversation.setMessages(messageList);
+                    conversation.setStatus(ConversationStatus.ACTUAL);
                     return conversation;
                 })
                 .collect(Collectors.toList());
