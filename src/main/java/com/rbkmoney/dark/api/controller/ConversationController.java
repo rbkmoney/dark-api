@@ -34,6 +34,7 @@ public class ConversationController implements ConversationApi {
 
     @Override
     public ResponseEntity<Void> saveConversations(@Valid List<ConversationParam> conversationParams) {
+        log.info("Get user accessToken for conversation save");
         AccessToken accessToken = getAccessToken();
 
         User user = new User().setUserId(accessToken.getSubject())
@@ -47,7 +48,6 @@ public class ConversationController implements ConversationApi {
     }
 
     private AccessToken getAccessToken() {
-        log.info("Get user accessToken");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         KeycloakSecurityContext keycloakSecurityContext = ((KeycloakPrincipal) authentication.getPrincipal()).getKeycloakSecurityContext();
 
