@@ -2,17 +2,14 @@ package com.rbkmoney.dark.api.controller;
 
 import com.rbkmoney.damsel.messages.User;
 import com.rbkmoney.dark.api.service.ConversationService;
+import com.rbkmoney.dark.api.util.JwtTokenUtils;
 import com.rbkmoney.swag.messages.api.ConversationApi;
 import com.rbkmoney.swag.messages.model.ConversationParam;
 import com.rbkmoney.swag.messages.model.ConversationResponse;
 import com.rbkmoney.swag.messages.model.ConversationStatus;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.AccessToken;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -35,7 +32,7 @@ public class ConversationController implements ConversationApi {
     @Override
     public ResponseEntity<Void> saveConversations(@Valid List<ConversationParam> conversationParams) {
         log.info("Get user accessToken for conversation save");
-        AccessToken accessToken = getAccessToken();
+        AccessToken accessToken = JwtTokenUtils.getAccessToken();
 
         User user = new User().setUserId(accessToken.getSubject())
                 .setFullname(accessToken.getPreferredUsername())
@@ -45,13 +42,6 @@ public class ConversationController implements ConversationApi {
         conversationService.saveConversation(conversationParams, user);
 
         return ResponseEntity.ok().build();
-    }
-
-    private AccessToken getAccessToken() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        KeycloakSecurityContext keycloakSecurityContext = ((KeycloakPrincipal) authentication.getPrincipal()).getKeycloakSecurityContext();
-
-        return keycloakSecurityContext.getToken();
     }
 
 }

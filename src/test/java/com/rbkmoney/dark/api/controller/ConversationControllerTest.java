@@ -1,6 +1,8 @@
 package com.rbkmoney.dark.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rbkmoney.dark.api.auth.JwtTokenTestConfiguration;
+import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
 import com.rbkmoney.dark.api.service.ConversationService;
 import com.rbkmoney.swag.messages.model.ConversationParam;
 import com.rbkmoney.swag.messages.model.MessageParam;
@@ -29,11 +31,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = ConversationController.class, secure = false)
+@WebMvcTest(controllers = { ConversationController.class, JwtTokenTestConfiguration.class })
 public class ConversationControllerTest {
 
     @MockBean
     private ConversationService conversationService;
+
+    @Autowired
+    private JwtTokenBuilder jwtTokenBuilder;
 
     @Autowired
     private MockMvc mvc;
@@ -67,7 +72,7 @@ public class ConversationControllerTest {
         String conversationParamJson = objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(conversationParams);
 
         mvc.perform(post("/conversation")
-                .header("APIKey", "Bearer testToken")
+                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(conversationParamJson))
                 .andDo(print())
