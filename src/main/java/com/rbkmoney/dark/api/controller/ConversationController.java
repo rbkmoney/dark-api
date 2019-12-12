@@ -11,6 +11,7 @@ import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.AccessToken;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,18 +34,24 @@ public class ConversationController implements ConversationApi {
 
     @Override
     public ResponseEntity<Void> saveConversations(@Valid List<ConversationParam> conversationParams) {
-        KeycloakSecurityContext keycloakSecurityContext = ((KeycloakPrincipal) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal())
-                .getKeycloakSecurityContext();
-        AccessToken accessToken = keycloakSecurityContext.getToken();
+        AccessToken accessToken = getAccessToken();
 
         User user = new User().setUserId(accessToken.getSubject())
                 .setFullname(accessToken.getPreferredUsername())
                 .setEmail(accessToken.getEmail());
 
+        log.info("Save conversation by user: {}", user);
         conversationService.saveConversation(conversationParams, user);
 
         return ResponseEntity.ok().build();
+    }
+
+    private AccessToken getAccessToken() {
+        log.info("Get user accessToken");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        KeycloakSecurityContext keycloakSecurityContext = ((KeycloakPrincipal) authentication.getPrincipal()).getKeycloakSecurityContext();
+
+        return keycloakSecurityContext.getToken();
     }
 
 }

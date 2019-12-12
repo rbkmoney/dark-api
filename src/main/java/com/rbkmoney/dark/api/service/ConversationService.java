@@ -43,6 +43,7 @@ public class ConversationService {
                 })
                 .collect(Collectors.toList());
         try {
+            log.info("Saving conversation for user: {}", user);
             messageServiceSrv.saveConversations(conversationList, user);
         } catch (TException e) {
             log.error("Save conversation failed", e);

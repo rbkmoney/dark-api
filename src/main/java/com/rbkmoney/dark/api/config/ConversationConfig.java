@@ -21,7 +21,6 @@ public class ConversationConfig {
                 .withAddress(conversationProperties.getUrl().getURI())
                 .withNetworkTimeout(conversationProperties.getNetworkTimeout())
                 .build(MessageServiceSrv.Iface.class);
-
     }
 
 }

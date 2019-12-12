@@ -1,9 +1,11 @@
 package com.rbkmoney.dark.api.service;
 
-import com.rbkmoney.damsel.claim_management.*;
+import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
+import com.rbkmoney.damsel.claim_management.ClaimSearchQuery;
+import com.rbkmoney.damsel.claim_management.ClaimSearchResponse;
+import com.rbkmoney.damsel.claim_management.Modification;
 import com.rbkmoney.dark.api.converter.claimmanagement.ClaimManagementConverter;
 import com.rbkmoney.swag.claim_management.model.Claim;
-import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
 import com.rbkmoney.swag.claim_management.model.InlineResponse200;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
