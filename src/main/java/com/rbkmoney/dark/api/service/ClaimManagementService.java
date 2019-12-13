@@ -41,7 +41,7 @@ public class ClaimManagementService {
         ClaimSearchResponse claimSearchResponse = claimManagementClient.searchClaims(claimSearchQuery);
         return new InlineResponse200()
                 .result(claimManagementConverter.convertClaimListToSwag(claimSearchResponse.getResult()))
-                .continuationToken(claimSearchQuery.getContinuationToken());
+                .continuationToken(claimSearchResponse.getContinuationToken());
     }
 
     public void updateClaimById(String partyId,

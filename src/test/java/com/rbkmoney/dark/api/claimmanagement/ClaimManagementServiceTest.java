@@ -42,7 +42,10 @@ public class ClaimManagementServiceTest {
     public void test() throws TException {
         when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class))).thenReturn(getTestCreateClaim());
         when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
-        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(new ClaimSearchResponse(getTestSearchClaim()));
+        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(
+                new ClaimSearchResponse(getTestSearchClaim())
+                        .setContinuationToken("continuation_token")
+        );
 
         var requestClaim = claimManagementService.createClaim("test_request_1", getModifications());
         assertEquals("Swag objects 'Claim' (create) not equals",
@@ -56,6 +59,7 @@ public class ClaimManagementServiceTest {
                 claimManagementService.searchClaims("id", 1, "token", new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
                 getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
+        assertEquals("continuation_token", response.getContinuationToken());
     }
 
     public static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
