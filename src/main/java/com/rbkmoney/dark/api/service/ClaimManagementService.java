@@ -34,10 +34,10 @@ public class ClaimManagementService {
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public InlineResponse200 searchClaims(String partyId, Integer limit, String continuationToken, List<String> claimStatuses)
+    public InlineResponse200 searchClaims(String partyId, Long claimId, Integer limit, String continuationToken, List<String> claimStatuses)
             throws TException {
         ClaimSearchQuery claimSearchQuery =
-                claimManagementConverter.convertSearchClaimsToThrift(partyId, limit, continuationToken, claimStatuses);
+                claimManagementConverter.convertSearchClaimsToThrift(partyId, claimId, limit, continuationToken, claimStatuses);
         ClaimSearchResponse claimSearchResponse = claimManagementClient.searchClaims(claimSearchQuery);
         return new InlineResponse200()
                 .result(claimManagementConverter.convertClaimListToSwag(claimSearchResponse.getResult()))

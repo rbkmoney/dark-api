@@ -7,6 +7,7 @@ import com.rbkmoney.swag.claim_management.model.Claim;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
 import com.rbkmoney.swag.claim_management.model.InlineResponse200;
 import com.rbkmoney.swag.claim_management.model.Modification;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
@@ -128,11 +129,12 @@ public class ClaimManagementController implements ProcessingApi {
                                                           @NotNull Integer limit,
                                                           @Size(min = 1, max = 40) String deadline,
                                                           @Null String continuationToken,
+                                                          @Null Long claimID,
                                                           @Null List<String> claimStatuses) {
         try {
             log.info("Process 'searchClaims' get started. requestId = {}", requestId);
             String partyId = ((KeycloakPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getName();
-            InlineResponse200 response = claimManagementService.searchClaims(partyId, limit, continuationToken, claimStatuses);
+            InlineResponse200 response = claimManagementService.searchClaims(partyId, claimID, limit, continuationToken, claimStatuses);
             log.info("For status list {} found {} claims", claimStatuses, response.getResult().size());
             return ResponseEntity.ok(response);
         } catch (PartyNotFound | LimitExceeded | BadContinuationToken ex) {

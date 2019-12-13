@@ -81,11 +81,13 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
 
     @Override
     public ClaimSearchQuery convertSearchClaimsToThrift(String partyId,
+                                                        Long claimId,
                                                         Integer limit,
                                                         String continuationToken,
                                                         List<String> claimStatuses) {
         ClaimSearchQuery claimSearchQuery = new ClaimSearchQuery();
         claimSearchQuery.setPartyId(partyId);
+        claimSearchQuery.setClaimId(claimId);
         claimSearchQuery.setLimit(limit);
         claimSearchQuery.setContinuationToken(continuationToken);
         claimSearchQuery.setStatuses(convertStatusesToThrift(claimStatuses));
