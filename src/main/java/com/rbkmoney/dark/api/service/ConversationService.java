@@ -53,6 +53,9 @@ public class ConversationService {
 
     public ConversationResponse getConversation(List<String> conversationIdList,
                                                 com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) {
+        if (conversationStatus == null) {
+            conversationStatus = com.rbkmoney.swag.messages.model.ConversationStatus.ACTUAL;
+        }
         var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter()
                 .conversationStatus(conversationStatus);
         ConversationFilter conversationFilter = swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
