@@ -1,12 +1,8 @@
 package com.rbkmoney.dark.api.service;
 
-import com.rbkmoney.damsel.questionary_proxy_aggr.DaDataRequestException;
-import com.rbkmoney.damsel.questionary_proxy_aggr.KonturFocusRequestException;
-import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv;
+import com.rbkmoney.damsel.questionary_proxy_aggr.*;
 import com.rbkmoney.dark.api.converter.SwagConvertManager;
-import com.rbkmoney.dark.api.converter.dadata.DaDataParamToDaDataRequest;
 import com.rbkmoney.dark.api.converter.dadata.DaDataRequestHolder;
-import com.rbkmoney.dark.api.converter.konturfocus.KonturFocusParamToKonturFocusRequestConverter;
 import com.rbkmoney.dark.api.model.KonturFocusRequestHolder;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataParams;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataResponse;
@@ -26,38 +22,24 @@ public class QuestionaryAggrProxyService {
 
     private final SwagConvertManager swagConvertManager;
 
-    public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams) {
-        try {
-            KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse thriftKonturFocusResponse =
-                    questionaryAggrProxyClient.requestKonturFocus(
-                        konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
-                    );
-            return swagConvertManager.convertFromThrift(thriftKonturFocusResponse, KonturFocusResponse.class);
-        } catch (KonturFocusRequestException e) {
-            log.error("Exception while sending request to KonturFocus", e);
-            throw new IllegalArgumentException(e);
-        } catch (TException e) {
-            log.error("TException KonturFocus", e);
-            throw new RuntimeException(e);
-        }
+    public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams) throws KonturFocusInvalidRequest, KonturFocusNotFound, TException {
+        KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
+
+        var thriftKonturFocusResponse = questionaryAggrProxyClient.requestKonturFocus(
+                konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
+        );
+
+        return swagConvertManager.convertFromThrift(thriftKonturFocusResponse, KonturFocusResponse.class);
     }
 
-    public DaDataResponse requestDaData(DaDataParams daDataParams) {
-        try {
-            DaDataRequestHolder daDataRequestHolder = swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
-            com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse thriftDaDataResponse =
-                    questionaryAggrProxyClient.requestDaData(
-                            daDataRequestHolder.getDaDataRequest(),
-                            daDataRequestHolder.getDaDataEndpoint()
-                    );
-            return swagConvertManager.convertFromThrift(thriftDaDataResponse, DaDataResponse.class);
-        } catch (DaDataRequestException e) {
-            log.error("Exception while sending request to DaData", e);
-            throw new IllegalArgumentException(e);
-        } catch (TException e) {
-            log.error("TException DaData", e);
-            throw new RuntimeException(e);
-        }
+    public DaDataResponse requestDaData(DaDataParams daDataParams) throws DaDataInvalidRequest, DaDataNotFound, TException {
+        DaDataRequestHolder daDataRequestHolder = swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
+
+        var thriftDaDataResponse = questionaryAggrProxyClient.requestDaData(
+                daDataRequestHolder.getDaDataRequest(),
+                daDataRequestHolder.getDaDataEndpoint()
+        );
+
+        return swagConvertManager.convertFromThrift(thriftDaDataResponse, DaDataResponse.class);
     }
 }
