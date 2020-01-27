@@ -33,8 +33,7 @@ public class QuestionaryController implements QuestionaryApi {
     @Override
     public ResponseEntity<Snapshot> getQuestionary(String questionaryId, @Valid String version) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             Snapshot snapshot = questionaryService.getQuestionary(questionaryId, version);
 
@@ -51,8 +50,7 @@ public class QuestionaryController implements QuestionaryApi {
     @Override
     public ResponseEntity<String> saveQuestionary(@Valid QuestionaryParams questionaryParams) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             Long ver = questionaryParams.getVersion() != null ? Long.parseLong(questionaryParams.getVersion()) : null;
 

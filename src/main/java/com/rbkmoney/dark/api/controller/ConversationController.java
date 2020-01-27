@@ -35,8 +35,7 @@ public class ConversationController implements ConversationApi {
     public ResponseEntity<ConversationResponse> getConversations(@NotNull @Valid List<String> conversationIds,
                                                                  @Valid ConversationStatus conversationStatus) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             ConversationResponse conversation = conversationService.getConversation(conversationIds, conversationStatus);
             return ResponseEntity.ok(conversation);
@@ -50,8 +49,7 @@ public class ConversationController implements ConversationApi {
     @Override
     public ResponseEntity<Void> saveConversations(@Valid List<ConversationParam> conversationParams) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             AccessToken accessToken = keycloakService.getAccessToken();
 

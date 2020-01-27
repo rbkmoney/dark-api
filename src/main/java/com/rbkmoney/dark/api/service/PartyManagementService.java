@@ -24,6 +24,10 @@ public class PartyManagementService {
 
     private final UserInfo userInfo = new UserInfo("dark-api", UserType.internal_user(new InternalUser()));
 
+    public void checkStatus() {
+        checkStatus(null, keycloakService.getPartyId());
+    }
+
     public void checkStatus(String xRequestId) {
         checkStatus(xRequestId, keycloakService.getPartyId());
     }

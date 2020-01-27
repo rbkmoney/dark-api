@@ -31,8 +31,7 @@ public class QuestionaryAggrProxyController implements ProxyApi {
     @Override
     public ResponseEntity<DaDataResponse> requestDaData(@Valid DaDataParams daDataParams) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             DaDataResponse daDataResponse = questionaryAggrProxyService.requestDaData(daDataParams);
 
@@ -53,8 +52,7 @@ public class QuestionaryAggrProxyController implements ProxyApi {
     @Override
     public ResponseEntity<KonturFocusResponse> requestKonturFocus(@Valid KonturFocusParams konturFocusParams) {
         try {
-
-            partyManagementService.checkStatus(null);
+            partyManagementService.checkStatus();
 
             KonturFocusResponse konturFocusResponse = questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
