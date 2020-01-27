@@ -48,6 +48,8 @@ public class ConversationServiceTest {
         com.rbkmoney.damsel.messages.Message message = conversation.getMessages().get(0);
         MessageParam expectedMessage = expectedConversation.getMessages().get(0);
 
+        Assert.assertSame(com.rbkmoney.damsel.messages.ConversationStatus.ACTUAL, conversation.getStatus());
+
         Assert.assertEquals(expectedConversation.getConversationId(), conversation.getConversationId());
         Assert.assertEquals(testUser.getUserId(), message.getUserId());
         Assert.assertEquals(expectedMessage.getMessageId(), message.getMessageId());

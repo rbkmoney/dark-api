@@ -44,6 +44,16 @@ public class KonturFocusResponseSwagConverter
             return licencesResponses;
         }
 
+        if (value.isSetBeneficialOwnerResponses()) {
+            List<BeneficialOwnerResponse> swagBeneficialOwnerResponseList = value.getBeneficialOwnerResponses().getBeneficialOwnerResponses().stream()
+                    .map(beneficialOwnerResponse -> ctx.convert(beneficialOwnerResponse, BeneficialOwnerResponse.class))
+                    .collect(Collectors.toList());
+            BeneficialOwnerResponses beneficialOwnerResponses = new BeneficialOwnerResponses();
+            beneficialOwnerResponses.setResponses(swagBeneficialOwnerResponseList);
+
+            return beneficialOwnerResponses;
+        }
+
         throw new IllegalArgumentException("Need to specify response value");
     }
 

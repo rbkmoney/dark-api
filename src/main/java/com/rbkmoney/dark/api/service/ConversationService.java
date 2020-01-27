@@ -27,16 +27,24 @@ public class ConversationService {
         String createdTime = Instant.now().toString();
 
         List<Conversation> conversationList = conversationParams.stream()
-                .map(
-                        conversationParam -> {
-                            List<Message> messages = getMessages(user, createdTime, conversationParam);
-
-                            Conversation conversation = new Conversation();
-                            conversation.setConversationId(conversationParam.getConversationId());
-                            conversation.setMessages(messages);
-                            return conversation;
-                        }
-                )
+                .map(conversationParam -> {
+                    Conversation conversation = new Conversation();
+                    conversation.setConversationId(conversationParam.getConversationId());
+                    List<Message> messageList = conversationParam.getMessages().stream()
+                            .map(
+                                    message -> {
+                                        return new Message()
+                                                .setMessageId(message.getMessageId())
+                                                .setText(message.getText())
+                                                .setUserId(user.getUserId())
+                                                .setTimestamp(createdTime);
+                                    }
+                            )
+                            .collect(Collectors.toList());
+                    conversation.setMessages(messageList);
+                    conversation.setStatus(ConversationStatus.ACTUAL);
+                    return conversation;
+                })
                 .collect(Collectors.toList());
 
         messageServiceClient.saveConversations(conversationList, user);

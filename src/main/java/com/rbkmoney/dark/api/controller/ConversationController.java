@@ -49,6 +49,8 @@ public class ConversationController implements ConversationApi {
     @Override
     public ResponseEntity<Void> saveConversations(@Valid List<ConversationParam> conversationParams) {
         try {
+            log.info("Get user accessToken for conversation save");
+
             partyManagementService.checkStatus();
 
             AccessToken accessToken = keycloakService.getAccessToken();
@@ -57,6 +59,8 @@ public class ConversationController implements ConversationApi {
                     .setUserId(accessToken.getSubject())
                     .setFullname(accessToken.getPreferredUsername())
                     .setEmail(accessToken.getEmail());
+
+            log.info("Save conversation by user: {}", user);
 
             conversationService.saveConversation(conversationParams, user);
 

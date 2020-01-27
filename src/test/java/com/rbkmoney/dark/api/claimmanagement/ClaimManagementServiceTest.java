@@ -53,7 +53,10 @@ public class ClaimManagementServiceTest {
     public void test() throws Exception {
         when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class))).thenReturn(getTestCreateClaim());
         when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
-        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(new ClaimSearchResponse(getTestSearchClaim()));
+        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(
+                new ClaimSearchResponse(getTestSearchClaim())
+                        .setContinuationToken("continuation_token")
+        );
 
         var requestClaim = claimManagementService.createClaim("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", getModifications());
         assertEquals("Swag objects 'Claim' (create) not equals",
@@ -67,6 +70,7 @@ public class ClaimManagementServiceTest {
                 claimManagementService.searchClaims("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", 1, "token", new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
                 getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
+        assertEquals("continuation_token", response.getContinuationToken());
     }
 
     private static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
