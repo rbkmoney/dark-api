@@ -4,7 +4,6 @@ import com.rbkmoney.damsel.messages.*;
 import com.rbkmoney.dark.api.converter.SwagConvertManager;
 import com.rbkmoney.swag.messages.model.ConversationParam;
 import com.rbkmoney.swag.messages.model.ConversationResponse;
-import com.rbkmoney.swag.messages.model.ConversationStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TException;
@@ -27,30 +26,13 @@ public class ConversationService {
         String createdTime = Instant.now().toString();
 
         List<Conversation> conversationList = conversationParams.stream()
-                .map(conversationParam -> {
-                    Conversation conversation = new Conversation();
-                    conversation.setConversationId(conversationParam.getConversationId());
-                    List<Message> messageList = conversationParam.getMessages().stream()
-                            .map(
-                                    message -> {
-                                        return new Message()
-                                                .setMessageId(message.getMessageId())
-                                                .setText(message.getText())
-                                                .setUserId(user.getUserId())
-                                                .setTimestamp(createdTime);
-                                    }
-                            )
-                            .collect(Collectors.toList());
-                    conversation.setMessages(messageList);
-                    conversation.setStatus(ConversationStatus.ACTUAL);
-                    return conversation;
-                })
+                .map(conversationParam -> getConversation(user, createdTime, conversationParam))
                 .collect(Collectors.toList());
 
         messageServiceClient.saveConversations(conversationList, user);
     }
 
-    public ConversationResponse getConversation(List<String> conversationIds, ConversationStatus conversationStatus) throws ConversationsNotFound, TException {
+    public ConversationResponse getConversation(List<String> conversationIds, com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) throws ConversationsNotFound, TException {
         var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter().conversationStatus(conversationStatus);
 
         ConversationFilter conversationFilter = swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
@@ -60,8 +42,10 @@ public class ConversationService {
         return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
     }
 
-    private List<Message> getMessages(User user, String createdTime, ConversationParam conversationParam) {
-        return conversationParam.getMessages().stream()
+    private Conversation getConversation(User user, String createdTime, ConversationParam conversationParam) {
+        Conversation conversation = new Conversation();
+        conversation.setConversationId(conversationParam.getConversationId());
+        List<Message> messageList = conversationParam.getMessages().stream()
                 .map(
                         message -> new Message()
                                 .setMessageId(message.getMessageId())
@@ -70,5 +54,8 @@ public class ConversationService {
                                 .setTimestamp(createdTime)
                 )
                 .collect(Collectors.toList());
+        conversation.setMessages(messageList);
+        conversation.setStatus(ConversationStatus.ACTUAL);
+        return conversation;
     }
 }

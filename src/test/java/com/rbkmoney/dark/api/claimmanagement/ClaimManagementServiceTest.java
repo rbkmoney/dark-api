@@ -67,7 +67,7 @@ public class ClaimManagementServiceTest {
                 getTestAnswerCreateClaim().toString(), claimById.toString());
 
         InlineResponse200 response =
-                claimManagementService.searchClaims("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", 1, "token", new ArrayList<>());
+                claimManagementService.searchClaims("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", 1, "token", 123L, new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
                 getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
         assertEquals("continuation_token", response.getContinuationToken());
