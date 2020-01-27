@@ -243,6 +243,7 @@ public class ClaimManagementController implements ProcessingApi {
                     keycloakService.getPartyId(),
                     limit,
                     continuationToken,
+                    claimId,
                     claimStatuses
             );
 

@@ -100,8 +100,9 @@ public class ClaimManagementService {
                                           String partyId,
                                           Integer limit,
                                           String continuationToken,
+                                          Long claimId,
                                           List<String> claimStatuses) throws LimitExceeded, BadContinuationToken, TException {
-        ClaimSearchQuery claimSearchQuery = claimManagementConverter.convertSearchClaimsToThrift(partyId, limit, continuationToken, claimStatuses);
+        ClaimSearchQuery claimSearchQuery = claimManagementConverter.convertSearchClaimsToThrift(partyId, claimId, limit, continuationToken, claimStatuses);
         ClaimSearchResponse claimSearchResponse = ThriftClientUtils.callServiceFork(
                 apiName,
                 methodName,
@@ -111,7 +112,7 @@ public class ClaimManagementService {
         );
         return new InlineResponse200()
                 .result(claimManagementConverter.convertClaimListToSwag(claimSearchResponse.getResult()))
-                .continuationToken(claimSearchQuery.getContinuationToken());
+                .continuationToken(claimSearchResponse.getContinuationToken());
     }
 
     public void updateClaimById(String apiName,
