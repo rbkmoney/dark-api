@@ -13,6 +13,12 @@ import java.time.Instant;
 public class DeadlineService {
 
     public void checkDeadline(String xRequestDeadline, String xRequestId) {
+        if (xRequestDeadline != null) {
+            check(xRequestDeadline, xRequestId);
+        }
+    }
+
+    private void check(String xRequestDeadline, String xRequestId) {
         try {
             Instant instant = Instant.parse(xRequestDeadline);
 
