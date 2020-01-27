@@ -38,6 +38,7 @@ public class ConversationController implements ConversationApi {
             partyManagementService.checkStatus();
 
             ConversationResponse conversation = conversationService.getConversation(conversationIds, conversationStatus);
+
             return ResponseEntity.ok(conversation);
         } catch (ConversationsNotFound ex) {
             throw notFoundException(conversationIds, ex);
