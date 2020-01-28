@@ -21,5 +21,4 @@ public class ShareHolderUL implements SwagConverter<ShareHolderUl, com.rbkmoney.
                 .ogrn(value.getOgrn())
                 .votingSharesPercent(BigDecimal.valueOf(value.getVotingSharesPercent()));
     }
-
 }

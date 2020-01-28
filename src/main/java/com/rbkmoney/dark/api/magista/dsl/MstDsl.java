@@ -44,28 +44,30 @@ public class MstDsl {
                                                String bankCardTokenProvider,
                                                String bankCardPaymentSystem,
                                                Long paymentAmount) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(new PaymentsRequest(
-                shopID,
-                merchantId,
-                fromTime,
-                toTime,
-                limit,
-                paymentStatus,
-                paymentFlow,
-                paymentMethod,
-                paymentTerminalProvider,
-                invoiceID,
-                paymentID,
-                payerEmail,
-                payerIP,
-                payerFingerprint,
-                customerID,
-                bin,
-                lastDigits,
-                bankCardTokenProvider,
-                bankCardPaymentSystem,
-                paymentAmount
-        ));
+        return objectMapper.writeValueAsString(
+                new PaymentsRequest(
+                        shopID,
+                        merchantId,
+                        fromTime,
+                        toTime,
+                        limit,
+                        paymentStatus,
+                        paymentFlow,
+                        paymentMethod,
+                        paymentTerminalProvider,
+                        invoiceID,
+                        paymentID,
+                        payerEmail,
+                        payerIP,
+                        payerFingerprint,
+                        customerID,
+                        bin,
+                        lastDigits,
+                        bankCardTokenProvider,
+                        bankCardPaymentSystem,
+                        paymentAmount
+                )
+        );
     }
 
     public static String createRefundsRequest(String shopID,
@@ -77,16 +79,18 @@ public class MstDsl {
                                               String paymentID,
                                               String refundID,
                                               String refundStatus) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(new RefundsRequest(
-                shopID,
-                merchantId,
-                fromTime,
-                toTime,
-                limit,
-                invoiceID,
-                paymentID,
-                refundID,
-                refundStatus
-        ));
+        return objectMapper.writeValueAsString(
+                new RefundsRequest(
+                        shopID,
+                        merchantId,
+                        fromTime,
+                        toTime,
+                        limit,
+                        invoiceID,
+                        paymentID,
+                        refundID,
+                        refundStatus
+                )
+        );
     }
 }

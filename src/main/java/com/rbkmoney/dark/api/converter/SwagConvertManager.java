@@ -60,13 +60,11 @@ public class SwagConvertManager {
     }
 
     private Class<?> getSwagTypeArgument(Class<?> clazz) {
-        Type[] genericInterfaces = clazz.getGenericInterfaces();
         ParameterizedType swagParameterizedType = findConverterParamType(clazz, SwagConverter.class);
         return (Class<?>) swagParameterizedType.getActualTypeArguments()[0];
     }
 
     private Class<?> getThriftTypeArgument(Class<?> clazz) {
-        Type[] genericInterfaces = clazz.getGenericInterfaces();
         ParameterizedType thriftParameterizedType = findConverterParamType(clazz, ThriftConverter.class);
         return (Class<?>) thriftParameterizedType.getActualTypeArguments()[0];
     }
@@ -77,8 +75,10 @@ public class SwagConvertManager {
                 .filter(type -> ((ParameterizedType) type).getRawType() == converterType)
                 .map(type -> ((ParameterizedType) type))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException(String.format("Not found converterType interface for: %s",
-                        converterImpl.getName())));
+                .orElseThrow(
+                        () -> new RuntimeException(
+                                String.format("Not found converterType interface for: %s", converterImpl.getName())
+                        )
+                );
     }
-
 }

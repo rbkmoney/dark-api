@@ -19,5 +19,4 @@ public class ShareHolderFL implements SwagConverter<ShareHolderFl, com.rbkmoney.
                 .fio(value.getFio())
                 .votingSharesPercent(BigDecimal.valueOf(value.getVotingSharesPercent()));
     }
-
 }

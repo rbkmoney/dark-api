@@ -19,5 +19,4 @@ public class ShareHolderOtherSwagConverter implements SwagConverter<ShareHolderO
                 .fullName(value.getFullName())
                 .votingSharesPercent(BigDecimal.valueOf(value.getVotingSharesPercent()));
     }
-
 }

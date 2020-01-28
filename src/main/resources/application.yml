@@ -41,6 +41,10 @@ filestorage:
       url: http://localhost:8022/file_storage
       networkTimeout: 30000
 
+partyManagement:
+  url: http://hellgate:8022/v1/processing/partymgmt
+  timeout: 5000
+
 keycloak:
   realm: internal
   auth-server-url: http://keycloak:8080/auth

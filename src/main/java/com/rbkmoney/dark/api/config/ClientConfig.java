@@ -2,7 +2,18 @@ package com.rbkmoney.dark.api.config;
 
 import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
-import com.rbkmoney.dark.api.meta.*;
+import com.rbkmoney.damsel.messages.MessageServiceSrv;
+import com.rbkmoney.damsel.payment_processing.PartyManagementSrv;
+import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv;
+import com.rbkmoney.dark.api.config.property.ConversationProperties;
+import com.rbkmoney.dark.api.config.property.QuestionaryAggrProxyProperties;
+import com.rbkmoney.dark.api.config.property.QuestionaryProperties;
+import com.rbkmoney.dark.api.meta.UserIdentityEmailExtensionKit;
+import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
+import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
+import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
+import com.rbkmoney.file.storage.FileStorageSrv;
+import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
 import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -63,4 +74,47 @@ public class ClientConfig {
                 .build(ClaimManagementSrv.Iface.class);
     }
 
+    @Bean
+    public FileStorageSrv.Iface fileStorageClient(@Value("${filestorage.client.adapter.url}") Resource resource,
+                                                  @Value("${filestorage.client.adapter.networkTimeout}") int timeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(resource.getURI())
+                .withNetworkTimeout(timeout)
+                .build(FileStorageSrv.Iface.class);
+    }
+
+    @Bean
+    public MessageServiceSrv.Iface messageServiceClient(ConversationProperties conversationProperties) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(conversationProperties.getUrl().getURI())
+                .withNetworkTimeout(conversationProperties.getNetworkTimeout())
+                .build(MessageServiceSrv.Iface.class);
+
+    }
+
+    @Bean
+    public PartyManagementSrv.Iface partyManagementClient(@Value("${partyManagement.url}") Resource resource,
+                                                          @Value("${partyManagement.timeout}") int timeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(resource.getURI())
+                .withNetworkTimeout(timeout)
+                .build(PartyManagementSrv.Iface.class);
+    }
+
+    @Bean
+    public QuestionaryAggrProxyHandlerSrv.Iface questionaryAggrProxyClient(QuestionaryAggrProxyProperties questionaryAggrProxyProperties) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(questionaryAggrProxyProperties.getUrl().getURI())
+                .withNetworkTimeout(questionaryAggrProxyProperties.getNetworkTimeout())
+                .build(QuestionaryAggrProxyHandlerSrv.Iface.class);
+
+    }
+
+    @Bean
+    public QuestionaryManagerSrv.Iface questionaryManagerClient(QuestionaryProperties questionaryProperties) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(questionaryProperties.getUrl().getURI())
+                .withNetworkTimeout(questionaryProperties.getNetworkTimeout())
+                .build(QuestionaryManagerSrv.Iface.class);
+    }
 }
