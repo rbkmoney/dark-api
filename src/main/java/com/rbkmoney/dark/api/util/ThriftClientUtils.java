@@ -15,7 +15,9 @@ public class ThriftClientUtils {
         WCallable<T> wCallable = new WFlow()
                 .createServiceFork(
                         () -> {
-                            ContextUtils.setDeadline(Instant.parse(xRequestDeadline));
+                            if (xRequestDeadline != null) {
+                                ContextUtils.setDeadline(Instant.parse(xRequestDeadline));
+                            }
                             return callable.call();
                         }
                 );
