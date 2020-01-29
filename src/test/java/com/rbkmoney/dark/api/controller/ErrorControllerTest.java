@@ -84,7 +84,7 @@ public class ErrorControllerTest {
 
     @Test
     public void testThenClaimManagementClientThrowingExceptions() throws Exception {
-        doThrow(ClaimNotFound.class).when(claimManagementService).getClaimById(any(), any(), any(), any(), any(), any());
+        doThrow(ClaimNotFound.class).when(claimManagementService).getClaimById(any(), any());
 
         mockMvc.perform(
                 get("/processing/claims/{claimID}", anyLong())
@@ -95,7 +95,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isNotFound());
 
         reset(claimManagementService);
-        doThrow(ClaimNotFound.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(ClaimNotFound.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -108,7 +108,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isNotFound());
 
         reset(claimManagementService);
-        doThrow(InvalidClaimStatus.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(InvalidClaimStatus.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -121,7 +121,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isBadRequest());
 
         reset(claimManagementService);
-        doThrow(InvalidClaimRevision.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(InvalidClaimRevision.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -134,7 +134,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isBadRequest());
 
         reset(claimManagementService);
-        doThrow(ChangesetConflict.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(ChangesetConflict.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -147,7 +147,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isBadRequest());
 
         reset(claimManagementService);
-        doThrow(InvalidChangeset.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(InvalidChangeset.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -160,7 +160,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isBadRequest());
 
         reset(claimManagementService);
-        doThrow(TException.class).when(claimManagementService).updateClaimById(any(), any(), any(), any(), any(), any(), any(), anyList());
+        doThrow(TException.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())

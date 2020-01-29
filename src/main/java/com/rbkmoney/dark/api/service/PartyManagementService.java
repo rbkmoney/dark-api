@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import static com.rbkmoney.dark.api.util.ThriftClientUtils.darkApi5xxException;
+import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @Service
 @Slf4j
