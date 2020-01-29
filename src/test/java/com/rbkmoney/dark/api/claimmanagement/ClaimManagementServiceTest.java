@@ -15,9 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,16 +56,16 @@ public class ClaimManagementServiceTest {
                         .setContinuationToken("continuation_token")
         );
 
-        var requestClaim = claimManagementService.createClaim("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", getModifications());
+        var requestClaim = claimManagementService.createClaim("test_request_1", getModifications());
         assertEquals("Swag objects 'Claim' (create) not equals",
                 getTestAnswerCreateClaim().toString(), requestClaim.toString());
 
-        var claimById = claimManagementService.getClaimById("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", 1L);
+        var claimById = claimManagementService.getClaimById("test_request_1", 1L);
         assertEquals("Swag objects 'Claim' (by id) not equals",
                 getTestAnswerCreateClaim().toString(), claimById.toString());
 
         InlineResponse200 response =
-                claimManagementService.searchClaims("test_request_1", "test_request_1", "test_request_1", Instant.now().plus(1, ChronoUnit.DAYS).toString(), "test_request_1", 1, "token", 123L, new ArrayList<>());
+                claimManagementService.searchClaims("test_request_1", 1, "token", 123L, new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
                 getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
         assertEquals("continuation_token", response.getContinuationToken());

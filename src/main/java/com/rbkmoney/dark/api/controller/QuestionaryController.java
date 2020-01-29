@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.rbkmoney.dark.api.util.ThriftClientUtils.darkApi5xxException;
+import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @Slf4j
 @RestController

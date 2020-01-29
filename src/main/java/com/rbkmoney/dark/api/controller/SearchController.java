@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
-import static com.rbkmoney.dark.api.util.ThriftClientUtils.darkApi5xxException;
+import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @RestController
 @PreAuthorize("hasAuthority('invoices:read')")
