@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
-import java.time.Instant;
 
 @Configuration
 public class WebConfig {
@@ -42,10 +41,10 @@ public class WebConfig {
                                     addWoodyContext(request.getUserPrincipal());
                                 }
 
-                                String deadline = request.getHeader("X-Request-Deadline");
-                                if (deadline != null) {
-                                    ContextUtils.setDeadline(Instant.parse(deadline));
-                                }
+//                                String deadline = request.getHeader("X-Request-Deadline");
+//                                if (deadline != null) {
+//                                    ContextUtils.setDeadline(Instant.parse(deadline));
+//                                }
 
                                 filterChain.doFilter(request, response);
                             } catch (IOException | ServletException e) {
