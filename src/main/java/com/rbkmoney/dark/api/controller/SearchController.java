@@ -5,7 +5,6 @@ import com.rbkmoney.damsel.base.InvalidRequest;
 import com.rbkmoney.damsel.merch_stat.BadToken;
 import com.rbkmoney.dark.api.exceptions.DeadlineException;
 import com.rbkmoney.dark.api.exceptions.client.badrequest.BadRequestException;
-import com.rbkmoney.dark.api.service.DeadlineService;
 import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.MagistaService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
@@ -23,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.OffsetDateTime;
 
+import static com.rbkmoney.dark.api.util.DeadlineUtils.checkDeadline;
 import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @RestController
@@ -32,7 +32,6 @@ public class SearchController implements SearchApi {
 
     private final MagistaService magistaService;
     private final PartyManagementService partyManagementService;
-    private final DeadlineService deadlineService;
     private final KeycloakService keycloakService;
 
     @Override
@@ -65,7 +64,7 @@ public class SearchController implements SearchApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             InlineResponse200 response = magistaService.getPaymentsByQuery(
                     shopID,
@@ -134,7 +133,7 @@ public class SearchController implements SearchApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             InlineResponse200 response = magistaService.getRefundsByQuery(
                     shopID,
