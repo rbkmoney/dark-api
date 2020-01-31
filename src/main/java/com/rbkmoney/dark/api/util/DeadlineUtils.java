@@ -35,25 +35,43 @@ public class DeadlineUtils {
     }
 
     public static Long extractMinutes(String xRequestDeadline, String xRequestId) {
-        Double minutes = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?(?!ms)[m])", xRequestId, "minutes");
+        String format = "minutes";
+
+        checkNegativeValues(xRequestDeadline, xRequestId, "([-][0-9]+([.][0-9]+)?(?!ms)[m])", format);
+
+        Double minutes = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?(?!ms)[m])", xRequestId, format);
 
         return Optional.ofNullable(minutes).map(min -> min * 60000.0).map(Double::longValue).orElse(0L);
     }
 
     public static Long extractSeconds(String xRequestDeadline, String xRequestId) {
-        Double seconds = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?[s])", xRequestId, "seconds");
+        String format = "seconds";
+
+        checkNegativeValues(xRequestDeadline, xRequestId, "([-][0-9]+([.][0-9]+)?[s])", format);
+
+        Double seconds = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?[s])", xRequestId, format);
 
         return Optional.ofNullable(seconds).map(s -> s * 1000.0).map(Double::longValue).orElse(0L);
     }
 
     public static Long extractMilliseconds(String xRequestDeadline, String xRequestId) {
-        Double milliseconds = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?[m][s])", xRequestId, "milliseconds");
+        String format = "milliseconds";
 
-        if (milliseconds != null && Math.round((milliseconds % 1) * 100) > 0) {
+        checkNegativeValues(xRequestDeadline, xRequestId, "([-][0-9]+([.][0-9]+)?[m][s])", format);
+
+        Double milliseconds = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?[m][s])", xRequestId, format);
+
+        if (milliseconds != null && Math.ceil(milliseconds % 1) > 0) {
             throw new DeadlineException(String.format("Deadline 'milliseconds' parameter can have only integer value, xRequestId=%s ", xRequestId));
         }
 
         return Optional.ofNullable(milliseconds).map(Double::longValue).orElse(0L);
+    }
+
+    private static void checkNegativeValues(String xRequestDeadline, String xRequestId, String regex, String format) {
+        if (!match(regex, xRequestDeadline).isEmpty()) {
+            throw new DeadlineException(String.format("Deadline '%s' parameter has negative value, xRequestId=%s ", format, xRequestId));
+        }
     }
 
     private static Double extractValue(String xRequestDeadline, String formatRegex, String xRequestId, String format) {
