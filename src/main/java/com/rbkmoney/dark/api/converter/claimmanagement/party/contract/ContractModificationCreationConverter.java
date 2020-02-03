@@ -37,13 +37,20 @@ public class ContractModificationCreationConverter
         swagContractParams.setContractModificationType(CONTRACTPARAMS);
         swagContractParams.setContractorID(creation.getContractorId());
 
-        var paymentInstitutionRef = new com.rbkmoney.swag.claim_management.model.PaymentInstitutionRef();
-        paymentInstitutionRef.setId(creation.getPaymentInstitution().getId());
-        swagContractParams.setPaymentInstitution(paymentInstitutionRef);
+        PaymentInstitutionRef paymentInstitution = creation.getPaymentInstitution();
+        if (paymentInstitution != null) {
+            var paymentInstitutionRef = new com.rbkmoney.swag.claim_management.model.PaymentInstitutionRef();
+            paymentInstitutionRef.setId(paymentInstitution.getId());
+            swagContractParams.setPaymentInstitution(paymentInstitutionRef);
+        }
 
-        var contractTemplateRef = new com.rbkmoney.swag.claim_management.model.ContractTemplateRef();
-        contractTemplateRef.setId(creation.getTemplate().getId());
-        swagContractParams.setTemplate(contractTemplateRef);
+        ContractTemplateRef template = creation.getTemplate();
+        if (template != null) {
+            var contractTemplateRef = new com.rbkmoney.swag.claim_management.model.ContractTemplateRef();
+            contractTemplateRef.setId(template.getId());
+            swagContractParams.setTemplate(contractTemplateRef);
+        }
+
         return swagContractParams;
     }
 
