@@ -6,7 +6,6 @@ import com.rbkmoney.dark.api.exceptions.DeadlineException;
 import com.rbkmoney.dark.api.exceptions.client.NotFoundException;
 import com.rbkmoney.dark.api.exceptions.client.badrequest.BadRequestException;
 import com.rbkmoney.dark.api.service.ClaimManagementService;
-import com.rbkmoney.dark.api.service.DeadlineService;
 import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
 import com.rbkmoney.swag.claim_management.api.ProcessingApi;
@@ -28,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+import static com.rbkmoney.dark.api.util.DeadlineUtils.checkDeadline;
 import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @Slf4j
@@ -37,7 +37,6 @@ public class ClaimManagementController implements ProcessingApi {
 
     private final ClaimManagementService claimManagementService;
     private final PartyManagementService partyManagementService;
-    private final DeadlineService deadlineService;
     private final KeycloakService keycloakService;
 
     @Override
@@ -50,7 +49,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             Claim claim = claimManagementService.createClaim(keycloakService.getPartyId(), changeset);
 
@@ -84,7 +83,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             Claim claim = claimManagementService.getClaimById(keycloakService.getPartyId(), claimId);
 
@@ -114,7 +113,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             claimManagementService.revokeClaimById(keycloakService.getPartyId(), claimId, claimRevision, reason);
 
@@ -157,7 +156,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             claimManagementService.requestClaimReviewById(keycloakService.getPartyId(), claimId, claimRevision);
 
@@ -202,7 +201,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             InlineResponse200 response = claimManagementService.searchClaims(keycloakService.getPartyId(), limit, continuationToken, claimId, claimStatuses);
 
@@ -244,7 +243,7 @@ public class ClaimManagementController implements ProcessingApi {
 
             partyManagementService.checkStatus(xRequestId);
 
-            deadlineService.checkDeadline(xRequestDeadline, xRequestId);
+            checkDeadline(xRequestDeadline, xRequestId);
 
             claimManagementService.updateClaimById(keycloakService.getPartyId(), claimId, claimRevision, changeset);
 
