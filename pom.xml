@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>dark-api</artifactId>
-    <version>0.1.4-SNAPSHOT</version>
+    <version>0.1.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>dark-api</name>
@@ -85,12 +85,12 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.13-97d415e-server</version>
+            <version>1.14-44b138c-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-dark-api</artifactId>
-            <version>1.54-808cd85-server</version>
+            <version>1.55-52667d6-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
