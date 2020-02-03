@@ -18,5 +18,4 @@ public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.que
                 .percentagePlain(BigDecimal.valueOf(value.getPercentagePlain()))
                 .sum(value.getSum());
     }
-
 }

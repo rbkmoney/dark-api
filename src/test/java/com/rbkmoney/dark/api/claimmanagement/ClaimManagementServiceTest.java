@@ -3,11 +3,11 @@ package com.rbkmoney.dark.api.claimmanagement;
 import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.msgpack.Value;
 import com.rbkmoney.dark.api.service.ClaimManagementService;
+import com.rbkmoney.dark.api.service.PartyManagementService;
 import com.rbkmoney.swag.claim_management.model.ClaimChangeset;
-import com.rbkmoney.swag.claim_management.model.ClaimModificationType;
 import com.rbkmoney.swag.claim_management.model.DocumentModificationUnit;
 import com.rbkmoney.swag.claim_management.model.InlineResponse200;
-import org.apache.thrift.TException;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ import static com.rbkmoney.swag.claim_management.model.DocumentModification.Docu
 import static com.rbkmoney.swag.claim_management.model.Modification.ModificationTypeEnum.CLAIMMODIFICATION;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -38,8 +39,16 @@ public class ClaimManagementServiceTest {
     @Autowired
     private ClaimManagementService claimManagementService;
 
+    @MockBean
+    private PartyManagementService partyManagementService;
+
+    @Before
+    public void setUp() {
+        doNothing().when(partyManagementService).checkStatus(any());
+    }
+
     @Test
-    public void test() throws TException {
+    public void test() throws Exception {
         when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class))).thenReturn(getTestCreateClaim());
         when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
         when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(
@@ -51,18 +60,18 @@ public class ClaimManagementServiceTest {
         assertEquals("Swag objects 'Claim' (create) not equals",
                 getTestAnswerCreateClaim().toString(), requestClaim.toString());
 
-        var claimById = claimManagementService.getClaimById("test_request_2", 1L);
+        var claimById = claimManagementService.getClaimById("test_request_1", 1L);
         assertEquals("Swag objects 'Claim' (by id) not equals",
                 getTestAnswerCreateClaim().toString(), claimById.toString());
 
         InlineResponse200 response =
-                claimManagementService.searchClaims("id", null, 1, "token", new ArrayList<>());
+                claimManagementService.searchClaims("test_request_1", 1, "token", 123L, new ArrayList<>());
         assertEquals("Swag objects 'Claim' (search) not equals",
                 getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
         assertEquals("continuation_token", response.getContinuationToken());
     }
 
-    public static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
+    private static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
         var testClaim = new com.rbkmoney.swag.claim_management.model.Claim();
         testClaim.setId(1L);
         testClaim.setStatus("accepted");
@@ -76,7 +85,7 @@ public class ClaimManagementServiceTest {
         return testClaim;
     }
 
-    public static ClaimChangeset getChangeset() {
+    private static ClaimChangeset getChangeset() {
         ClaimChangeset changeset = new ClaimChangeset();
         var modificationUnit = new com.rbkmoney.swag.claim_management.model.ModificationUnit();
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();

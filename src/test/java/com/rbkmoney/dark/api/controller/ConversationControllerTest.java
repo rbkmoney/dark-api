@@ -1,9 +1,10 @@
 package com.rbkmoney.dark.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.dark.api.auth.JwtTokenTestConfiguration;
+import com.rbkmoney.dark.api.DarkApiApplication;
 import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
 import com.rbkmoney.dark.api.service.ConversationService;
+import com.rbkmoney.dark.api.service.PartyManagementService;
 import com.rbkmoney.swag.messages.model.ConversationParam;
 import com.rbkmoney.swag.messages.model.MessageParam;
 import org.junit.Before;
@@ -15,7 +16,8 @@ import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.IDToken;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -26,16 +28,22 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(controllers = { ConversationController.class, JwtTokenTestConfiguration.class })
+@SpringBootTest(classes = {DarkApiApplication.class})
+@AutoConfigureMockMvc
 public class ConversationControllerTest {
 
     @MockBean
     private ConversationService conversationService;
+
+    @MockBean
+    private PartyManagementService partyManagementService;
 
     @Autowired
     private JwtTokenBuilder jwtTokenBuilder;
@@ -55,6 +63,8 @@ public class ConversationControllerTest {
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+        doNothing().when(partyManagementService).checkStatus(anyString());
+        doNothing().when(partyManagementService).checkStatus();
     }
 
     @Test
@@ -78,5 +88,4 @@ public class ConversationControllerTest {
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
     }
-
 }

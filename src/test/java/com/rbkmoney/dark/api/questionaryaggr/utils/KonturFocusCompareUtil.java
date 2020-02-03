@@ -16,7 +16,7 @@ import org.junit.Assert;
 public class KonturFocusCompareUtil {
 
     public static void licencesCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_licences.LicencesResponse thriftLicencesResponse,
-                                 LicencesResponse swagLicencesResponse) {
+                                       LicencesResponse swagLicencesResponse) {
         Assert.assertEquals(thriftLicencesResponse.getInn(), swagLicencesResponse.getInn());
         Assert.assertEquals(thriftLicencesResponse.getFocusHref(), swagLicencesResponse.getFocusHref());
         Assert.assertEquals(thriftLicencesResponse.getOgrn(), swagLicencesResponse.getOgrn());
@@ -82,8 +82,7 @@ public class KonturFocusCompareUtil {
                 successorCompare(successor, swagSuccessor);
             }
             for (int i = 0; i < thriftLegalEntity.getShareholders().getShareholdersOther().size(); i++) {
-                com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther shareHolderOther =
-                        thriftLegalEntity.getShareholders().getShareholdersOther().get(i);
+                com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther shareHolderOther = thriftLegalEntity.getShareholders().getShareholdersOther().get(i);
                 ShareHolderOther swagShareHolderOther = swagLegalEntity.getShareHolders().getShareHoldersOther().get(i);
                 shareHolderOtherCompare(shareHolderOther, swagShareHolderOther);
             }
@@ -93,8 +92,7 @@ public class KonturFocusCompareUtil {
                 shareHolderULCompare(shareHolderUL, swagShareHolderUl);
             }
             for (int i = 0; i < thriftLegalEntity.getShareholders().getShareholdersFl().size(); i++) {
-                com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl shareHolderFL =
-                        thriftLegalEntity.getShareholders().getShareholdersFl().get(i);
+                com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl shareHolderFL = thriftLegalEntity.getShareholders().getShareholdersFl().get(i);
                 ShareHolderFl swagShareHolderUl = swagLegalEntity.getShareHolders().getShareHoldersFl().get(i);
                 shareHolderFlCompare(shareHolderFL, swagShareHolderUl);
             }
@@ -126,18 +124,19 @@ public class KonturFocusCompareUtil {
     }
 
     private static void egrDetailsHistoryCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsHistory thriftEgrDetailsHistory, EgrDetailsHistory swagEgrDetailsHistory) {
-        for (int i = 0; i < thriftEgrDetailsHistory.getShareholders().getShareholdersOther().size(); i++) {
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther shareHolderOther = thriftEgrDetailsHistory.getShareholders().getShareholdersOther().get(i);
+        com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders shareholders = thriftEgrDetailsHistory.getShareholders();
+        for (int i = 0; i < shareholders.getShareholdersOther().size(); i++) {
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther shareHolderOther = shareholders.getShareholdersOther().get(i);
             ShareHolderOther swagShareHolderOther = swagEgrDetailsHistory.getShareholdersOther().get(i);
             shareHolderOtherCompare(shareHolderOther, swagShareHolderOther);
         }
-        for (int i = 0; i < thriftEgrDetailsHistory.getShareholders().getShareholdersUl().size(); i++) {
-            ShareHolderUL shareHolderUL = thriftEgrDetailsHistory.getShareholders().getShareholdersUl().get(i);
+        for (int i = 0; i < shareholders.getShareholdersUl().size(); i++) {
+            ShareHolderUL shareHolderUL = shareholders.getShareholdersUl().get(i);
             ShareHolderUl swagShareHolderUl = swagEgrDetailsHistory.getShareHoldersUl().get(i);
             shareHolderULCompare(shareHolderUL, swagShareHolderUl);
         }
-        for (int i = 0; i < thriftEgrDetailsHistory.getShareholders().getShareholdersFl().size(); i++) {
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl shareHolderFl = thriftEgrDetailsHistory.getShareholders().getShareholdersFl().get(i);
+        for (int i = 0; i < shareholders.getShareholdersFl().size(); i++) {
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl shareHolderFl = shareholders.getShareholdersFl().get(i);
             ShareHolderFl swagShareHolderFl = swagEgrDetailsHistory.getShareHoldersFl().get(i);
             shareHolderFlCompare(shareHolderFl, swagShareHolderFl);
         }
@@ -186,29 +185,29 @@ public class KonturFocusCompareUtil {
     private static void shareCompare(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share thriftShare, Share swagShare) {
         Assert.assertEquals(thriftShare.getPercentageDenominator(), ((int) swagShare.getPercentageDenominator()));
         Assert.assertEquals(thriftShare.getPercentageNominator(), ((int) swagShare.getPercentageNominator()));
-        Assert.assertEquals(0, Double.compare(thriftShare.getPercentagePlain(), swagShare.getPercentagePlain().doubleValue()));
-        Assert.assertEquals(thriftShare.getSum(), swagShare.getSum().longValue());
+        Assert.assertEquals(thriftShare.getPercentagePlain(), (swagShare.getPercentagePlain().doubleValue()), 0);
+        Assert.assertEquals(thriftShare.getSum(), swagShare.getSum().doubleValue(), 0);
     }
 
     private static void shareHolderFlCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl thriftShareHolderFL, ShareHolderFl swagShareFolderFl) {
         Assert.assertEquals(thriftShareHolderFL.getAddress(), swagShareFolderFl.getAddress());
-        Assert.assertEquals(0, Double.compare(thriftShareHolderFL.getCapitalSharesPercent(), swagShareFolderFl.getCapitalSharesPercent().doubleValue()));
-        Assert.assertEquals(0, Double.compare(thriftShareHolderFL.getVotingSharesPercent(), swagShareFolderFl.getVotingSharesPercent().doubleValue()));
+        Assert.assertEquals(thriftShareHolderFL.getCapitalSharesPercent(), (swagShareFolderFl.getCapitalSharesPercent().doubleValue()), 0);
+        Assert.assertEquals(thriftShareHolderFL.getVotingSharesPercent(), (swagShareFolderFl.getVotingSharesPercent().doubleValue()), 0);
         Assert.assertEquals(thriftShareHolderFL.getDate(), swagShareFolderFl.getDate());
     }
 
     private static void shareHolderULCompare(ShareHolderUL thriftShareHolderUL, ShareHolderUl swagShareHolderUl) {
         Assert.assertEquals(thriftShareHolderUL.getAddress(), swagShareHolderUl.getAddress());
-        Assert.assertEquals(0, Double.compare(thriftShareHolderUL.getCapitalSharesPercent(), swagShareHolderUl.getCapitalSharesPercent().doubleValue()));
-        Assert.assertEquals(0, Double.compare(thriftShareHolderUL.getVotingSharesPercent(), swagShareHolderUl.getVotingSharesPercent().doubleValue()));
+        Assert.assertEquals(thriftShareHolderUL.getCapitalSharesPercent(), (swagShareHolderUl.getCapitalSharesPercent().doubleValue()), 0);
+        Assert.assertEquals(thriftShareHolderUL.getVotingSharesPercent(), (swagShareHolderUl.getVotingSharesPercent().doubleValue()), 0);
         Assert.assertEquals(thriftShareHolderUL.getDate(), swagShareHolderUl.getDate());
         Assert.assertEquals(thriftShareHolderUL.getFullName(), swagShareHolderUl.getFullName());
     }
 
     private static void shareHolderOtherCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderOther thriftShareHolderOther, ShareHolderOther swagShareHolderOther) {
         Assert.assertEquals(thriftShareHolderOther.getAddress(), swagShareHolderOther.getAddress());
-        Assert.assertEquals(0, Double.compare(thriftShareHolderOther.getCapitalSharesPercent(), swagShareHolderOther.getCapitalSharesPercent().doubleValue()));
-        Assert.assertEquals(0, Double.compare(thriftShareHolderOther.getVotingSharesPercent(), swagShareHolderOther.getVotingSharesPercent().doubleValue()));
+        Assert.assertEquals(thriftShareHolderOther.getCapitalSharesPercent(), (swagShareHolderOther.getCapitalSharesPercent().doubleValue()), 0);
+        Assert.assertEquals(thriftShareHolderOther.getVotingSharesPercent(), (swagShareHolderOther.getVotingSharesPercent().doubleValue()), 0);
         Assert.assertEquals(thriftShareHolderOther.getDate(), swagShareHolderOther.getDate());
         Assert.assertEquals(thriftShareHolderOther.getFullName(), swagShareHolderOther.getFullName());
     }
@@ -437,7 +436,7 @@ public class KonturFocusCompareUtil {
     }
 
     private static void addressRFCompare(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF thriftParsedAddressRF,
-                                  ParsedAddressRF swagParsedAddressRF) {
+                                         ParsedAddressRF swagParsedAddressRF) {
         toponimCompare(thriftParsedAddressRF.getBulk(), swagParsedAddressRF.getBulk());
         toponimCompare(thriftParsedAddressRF.getCity(), swagParsedAddressRF.getCity());
         toponimCompare(thriftParsedAddressRF.getDistrict(), swagParsedAddressRF.getDistrict());
@@ -462,7 +461,7 @@ public class KonturFocusCompareUtil {
     }
 
     private static void managementCompanyCompare(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ManagementCompany thriftManagementCompany,
-                                          ManagementCompany swagManagementCompany) {
+                                                 ManagementCompany swagManagementCompany) {
         Assert.assertEquals(thriftManagementCompany.getDate(), swagManagementCompany.getDate());
         Assert.assertEquals(thriftManagementCompany.getFirstDate(), swagManagementCompany.getFirstDate());
         Assert.assertEquals(thriftManagementCompany.getInn(), swagManagementCompany.getInn());
@@ -477,7 +476,7 @@ public class KonturFocusCompareUtil {
     }
 
     private static void legalAddressCompare(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.LegalAddress thriftLegalAddress,
-                                     LegalAddress swagLegalAddress) {
+                                            LegalAddress swagLegalAddress) {
         Assert.assertEquals(thriftLegalAddress.getFirstDate(), swagLegalAddress.getFirstDate());
         Assert.assertEquals(thriftLegalAddress.getDate(), swagLegalAddress.getDate());
         addressRFCompare(thriftLegalAddress.getAddressRf(), swagLegalAddress.getAddressRf());

@@ -1,22 +1,28 @@
 server:
   port: '@server.port@'
 management:
-  security:
-    flag: false
+  endpoint:
+    health:
+      show-details: ALWAYS
   metrics:
     export:
       statsd:
         flavor: etsy
+        enabled: false
+  security:
+    flag: false
+
 spring:
   application:
-    name: '@project.name@'
+    name: @project.name@
+    description: @project.description@
   output:
     ansi:
-      enabled: always
+      enabled: ALWAYS
   jackson:
     serialization:
       write-dates-as-timestamps: false
-    default-property-inclusion: non_null
+    default-property-inclusion: NON_NULL
 
 magista:
   client:
@@ -40,6 +46,10 @@ filestorage:
     adapter:
       url: http://localhost:8022/file_storage
       networkTimeout: 30000
+
+partyManagement:
+  url: http://hellgate:8022/v1/processing/partymgmt
+  timeout: 5000
 
 keycloak:
   realm: internal

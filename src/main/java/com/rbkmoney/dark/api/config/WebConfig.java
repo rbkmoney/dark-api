@@ -5,7 +5,6 @@ import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
 import com.rbkmoney.woody.api.flow.WFlow;
-import com.rbkmoney.woody.api.trace.ContextUtils;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
@@ -21,6 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.Principal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
+import static com.rbkmoney.dark.api.util.DeadlineUtils.*;
+import static com.rbkmoney.woody.api.trace.ContextUtils.setCustomMetadataValue;
+import static com.rbkmoney.woody.api.trace.ContextUtils.setDeadline;
 
 @Configuration
 public class WebConfig {
@@ -31,18 +36,25 @@ public class WebConfig {
         Filter filter = new OncePerRequestFilter() {
 
             @Override
-            protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+            protected void doFilterInternal(HttpServletRequest request,
+                                            HttpServletResponse response,
                                             FilterChain filterChain) throws ServletException, IOException {
-                wFlow.createServiceFork(() -> {
-                    try {
-                        if (request.getUserPrincipal() != null) {
-                            addWoodyContext(request.getUserPrincipal());
+                wFlow.createServiceFork(
+                        () -> {
+                            try {
+                                if (request.getUserPrincipal() != null) {
+                                    addWoodyContext(request.getUserPrincipal());
+                                }
+
+                                setWoodyDeadline(request);
+
+                                filterChain.doFilter(request, response);
+                            } catch (IOException | ServletException e) {
+                                sneakyThrow(e);
+                            }
                         }
-                        filterChain.doFilter(request, response);
-                    } catch (IOException | ServletException e) {
-                        sneakyThrow(e);
-                    }
-                }).run();
+                )
+                        .run();
             }
 
             private <E extends Throwable, T> T sneakyThrow(Throwable t) throws E {
@@ -62,10 +74,30 @@ public class WebConfig {
         KeycloakSecurityContext keycloakSecurityContext = ((KeycloakAuthenticationToken) principal).getAccount().getKeycloakSecurityContext();
         AccessToken accessToken = keycloakSecurityContext.getToken();
 
-        ContextUtils.setCustomMetadataValue(UserIdentityIdExtensionKit.KEY, accessToken.getSubject());
-        ContextUtils.setCustomMetadataValue(UserIdentityUsernameExtensionKit.KEY, accessToken.getPreferredUsername());
-        ContextUtils.setCustomMetadataValue(UserIdentityEmailExtensionKit.KEY, accessToken.getEmail());
-        ContextUtils.setCustomMetadataValue(UserIdentityRealmExtensionKit.KEY, keycloakSecurityContext.getRealm());
+        setCustomMetadataValue(UserIdentityIdExtensionKit.KEY, accessToken.getSubject());
+        setCustomMetadataValue(UserIdentityUsernameExtensionKit.KEY, accessToken.getPreferredUsername());
+        setCustomMetadataValue(UserIdentityEmailExtensionKit.KEY, accessToken.getEmail());
+        setCustomMetadataValue(UserIdentityRealmExtensionKit.KEY, keycloakSecurityContext.getRealm());
     }
 
+    private void setWoodyDeadline(HttpServletRequest request) {
+        String xRequestDeadline = request.getHeader("X-Request-Deadline");
+        String xRequestId = request.getHeader("X-Request-ID");
+        if (xRequestDeadline != null) {
+            setDeadline(getInstant(xRequestDeadline, xRequestId));
+        }
+    }
+
+    private Instant getInstant(String xRequestDeadline, String xRequestId) {
+        Instant instant;
+        if (containsRelativeValues(xRequestDeadline, xRequestId)) {
+            instant = Instant.now()
+                    .plus(extractMilliseconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
+                    .plus(extractSeconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
+                    .plus(extractMinutes(xRequestDeadline, xRequestId), ChronoUnit.MILLIS);
+        } else {
+            instant = Instant.parse(xRequestDeadline);
+        }
+        return instant;
+    }
 }

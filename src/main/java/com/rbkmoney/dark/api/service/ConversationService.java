@@ -18,57 +18,48 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ConversationService {
 
-    private final MessageServiceSrv.Iface messageServiceSrv;
+    private final MessageServiceSrv.Iface messageServiceClient;
 
     private final SwagConvertManager swagConvertManager;
 
-    public void saveConversation(List<ConversationParam> conversationParams, User user) {
+    public void saveConversation(List<ConversationParam> conversationParams, User user) throws TException {
         String createdTime = Instant.now().toString();
+
         List<Conversation> conversationList = conversationParams.stream()
-                .map(conversationParam -> {
-                    Conversation conversation = new Conversation();
-                    conversation.setConversationId(conversationParam.getConversationId());
-                    List<Message> messageList = conversationParam.getMessages().stream()
-                            .map(message -> {
-                                return new Message()
-                                        .setMessageId(message.getMessageId())
-                                        .setText(message.getText())
-                                        .setUserId(user.getUserId())
-                                        .setTimestamp(createdTime);
-                            })
-                            .collect(Collectors.toList());
-                    conversation.setMessages(messageList);
-                    conversation.setStatus(ConversationStatus.ACTUAL);
-                    return conversation;
-                })
+                .map(conversationParam -> getConversation(user, createdTime, conversationParam))
                 .collect(Collectors.toList());
-        try {
-            log.info("Saving conversation for user: {}", user);
-            messageServiceSrv.saveConversations(conversationList, user);
-        } catch (TException e) {
-            log.error("Save conversation failed", e);
-            throw new RuntimeException(e);
-        }
+
+        messageServiceClient.saveConversations(conversationList, user);
     }
 
     public ConversationResponse getConversation(List<String> conversationIdList,
-                                                com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) {
+                                                com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) throws ConversationsNotFound, TException {
         if (conversationStatus == null) {
             conversationStatus = com.rbkmoney.swag.messages.model.ConversationStatus.ACTUAL;
         }
-        var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter()
-                .conversationStatus(conversationStatus);
+        var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter().conversationStatus(conversationStatus);
+
         ConversationFilter conversationFilter = swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
-        try {
-            GetConversationResponse conversations = messageServiceSrv.getConversations(conversationIdList, conversationFilter);
-            return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
-        } catch (ConversationsNotFound e) {
-            log.error("Conversation not found: {}", e.getIds(), e);
-            throw new IllegalArgumentException(e);
-        } catch (TException e) {
-            log.error("Get conversation failed", e);
-            throw new RuntimeException(e);
-        }
+
+        GetConversationResponse conversations = messageServiceClient.getConversations(conversationIdList, conversationFilter);
+
+        return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
     }
 
+    private Conversation getConversation(User user, String createdTime, ConversationParam conversationParam) {
+        Conversation conversation = new Conversation();
+        conversation.setConversationId(conversationParam.getConversationId());
+        List<Message> messageList = conversationParam.getMessages().stream()
+                .map(
+                        message -> new Message()
+                                .setMessageId(message.getMessageId())
+                                .setText(message.getText())
+                                .setUserId(user.getUserId())
+                                .setTimestamp(createdTime)
+                )
+                .collect(Collectors.toList());
+        conversation.setMessages(messageList);
+        conversation.setStatus(ConversationStatus.ACTUAL);
+        return conversation;
+    }
 }

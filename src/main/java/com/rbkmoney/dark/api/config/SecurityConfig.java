@@ -42,16 +42,16 @@ import java.util.stream.Collectors;
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${keycloak.realm}")
-    String keycloakRealmName;
+    private String keycloakRealmName;
 
     @Value("${keycloak.resource}")
-    String keycloakResourceName;
+    private String keycloakResourceName;
 
     @Value("${keycloak.realm-public-key}")
-    String keycloakRealmPublicKey;
+    private String keycloakRealmPublicKey;
 
     @Value("${keycloak.realm-public-key.file-path:}")
-    String keycloakRealmPublicKeyFile;
+    private String keycloakRealmPublicKeyFile;
 
     @Value("${keycloak.auth-server-url}")
     private String keycloakAuthServerUrl;
@@ -61,11 +61,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${keycloak.not-before}")
     private int keycloakTokenNotBefore;
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(keycloakAuthenticationProvider());
-    }
 
     @Override
     protected HttpSessionManager httpSessionManager() {
@@ -78,8 +73,25 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         return new NullAuthenticatedSessionStrategy();
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        super.configure(http);
+        http
+                .cors().and()
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/**/health").permitAll()
+                .anyRequest().authenticated();
+    }
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(keycloakAuthenticationProvider());
+    }
+
     @Bean
-    KeycloakConfigResolver keycloakConfigResolver() {
+    public KeycloakConfigResolver keycloakConfigResolver() {
         return facade -> {
             KeycloakDeployment deployment = KeycloakDeploymentBuilder.build(adapterConfig());
             deployment.setNotBefore(keycloakTokenNotBefore);
@@ -87,7 +99,18 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
         };
     }
 
-    public AdapterConfig adapterConfig() {
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.applyPermitDefaultValues();
+        configuration.addAllowedMethod(HttpMethod.PUT);
+        configuration.addAllowedMethod(HttpMethod.DELETE);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+    private AdapterConfig adapterConfig() {
         if (!Strings.isNullOrEmpty(keycloakRealmPublicKeyFile)) {
             keycloakRealmPublicKey = readKeyFromFile(keycloakRealmPublicKeyFile);
         }
@@ -113,28 +136,4 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
             throw new RuntimeException(ex);
         }
     }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.applyPermitDefaultValues();
-        configuration.addAllowedMethod(HttpMethod.PUT);
-        configuration.addAllowedMethod(HttpMethod.DELETE);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
-        http
-                .cors().and()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/**/health").permitAll()
-                .anyRequest().authenticated();
-    }
-
 }
