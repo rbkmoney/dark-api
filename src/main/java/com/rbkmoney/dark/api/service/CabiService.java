@@ -4,7 +4,7 @@ import com.rbkmoney.cabi.CheckCurrencyExchangeParams;
 import com.rbkmoney.cabi.CryptoApiSrv;
 import com.rbkmoney.cabi.CurrencyExchange;
 import com.rbkmoney.dark.api.converter.SwagConvertManager;
-import com.rbkmoney.dark.api.model.CabiCheckCurrencyRequestHolder;
+import com.rbkmoney.dark.api.model.CabiCheckCurrencyRequestDto;
 import com.rbkmoney.swag.cabi.model.ExchangeAction;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ public class CabiService {
                                                                                String to,
                                                                                ExchangeAction action,
                                                                                Long amount) throws TException {
-        CabiCheckCurrencyRequestHolder checkCurrencyRequestHolder
-                = new CabiCheckCurrencyRequestHolder(from, to, action, amount);
+        CabiCheckCurrencyRequestDto checkCurrencyRequestHolder
+                = new CabiCheckCurrencyRequestDto(from, to, action, amount);
         CheckCurrencyExchangeParams checkCurrencyExchangeParams
                 = swagConvertManager.convertFromThrift(checkCurrencyRequestHolder, CheckCurrencyExchangeParams.class);
         CurrencyExchange currencyExchange = cryptoApiService.checkCurrencyExchange(checkCurrencyExchangeParams);

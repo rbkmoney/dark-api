@@ -9,6 +9,7 @@ import com.rbkmoney.dark.api.DarkApiApplication;
 import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
 import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
+import org.apache.thrift.TException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.UUID;
 
@@ -58,66 +60,32 @@ public class CabiControllerTest {
 
     @Test
     public void checkCurrencyExchangeSellTest() throws Exception {
-        com.rbkmoney.cabi.CurrencyExchange currencyExchange = new com.rbkmoney.cabi.CurrencyExchange();
-        currencyExchange.setAmountExchanged(new Rational(235158, 1000000));
-        currencyExchange.setRate(new Rational(99672377, 10000));
-        currencyExchange.setCryptoAmountExchangedWithFee(new Rational(235458, 1000000));
-        currencyExchange.setAmount(10000L);
-        currencyExchange.setExchangeFrom("USD");
-        currencyExchange.setExchangeTo("BTC");
-        currencyExchange.setAction(com.rbkmoney.cabi.ExchangeAction.sell);
+        whenCurrencyExchangeResponse(new Rational(235158, 1000000),
+                new Rational(99672377, 10000),
+                new Rational(235458, 1000000),
+                10000L,
+                "USD",
+                "BTC",
+                ExchangeAction.sell);
 
-        when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
-                .thenReturn(currencyExchange);
-
-        mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
-                .param("from", "BTC")
-                .param("to", "RUR")
-                .param("action", "SELL")
-                .param("amount", "10000"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.amountExchange").value("0.235158"))
-                .andExpect(jsonPath("$.amount").value(10000L))
-                .andExpect(jsonPath("$.rate").value("9967.2377"))
-                .andExpect(jsonPath("$.from").value("USD"))
-                .andExpect(jsonPath("$.to").value("BTC"))
-                .andExpect(jsonPath("$.action").value("SELL"));
+        thenPerformCurrencyRequest("0.235158", "0.235458", 10000L, "9967.2377", "USD", "BTC", "SELL");
     }
 
     @Test
     public void checkCurrencyExchangeBuyTest() throws Exception {
-        com.rbkmoney.cabi.CurrencyExchange currencyExchange = new com.rbkmoney.cabi.CurrencyExchange();
-        currencyExchange.setAmountExchanged(new Rational(996528, 100));
-        currencyExchange.setRate(new Rational(99642836, 100));
-        currencyExchange.setCryptoAmountExchangedWithFee(new Rational(10001, 1000));
-        currencyExchange.setAmount(100L);
-        currencyExchange.setExchangeFrom("USD");
-        currencyExchange.setExchangeTo("BTC");
-        currencyExchange.setAction(ExchangeAction.buy);
+        whenCurrencyExchangeResponse(new Rational(1018093, 1000000),
+                new Rational(98222894, 10000),
+                null,
+                100L,
+                "BTC",
+                "USD",
+                ExchangeAction.buy);
 
-        when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
-                .thenReturn(currencyExchange);
-
-        mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
-                .param("from", "BTC")
-                .param("to", "RUR")
-                .param("action", "BUY")
-                .param("amount", "100"))
-                .andExpect(status().is2xxSuccessful())
-                .andExpect(jsonPath("$.amountExchange").value("9965.28"))
-                .andExpect(jsonPath("$.cryptoCurrencyAmountWithFee").value("1.0001"))
-                .andExpect(jsonPath("$.amount").value(100L))
-                .andExpect(jsonPath("$.rate").value("9964.2836"))
-                .andExpect(jsonPath("$.from").value("USD"))
-                .andExpect(jsonPath("$.to").value("BTC"))
-                .andExpect(jsonPath("$.action").value("BUY"));
-
+        thenPerformCurrencyRequest("1.018093", null, 100L, "9822.2894", "BTC", "USD", "BUY");
     }
 
     @Test
-    public void checkCurrencyExchangeFailTest() throws Exception {
+    public void checkCurrencyExchangeFail400Test() throws Exception {
         when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
                 .thenThrow(CurrencyRequestFail.class);
         mockMvc.perform(get("/currency")
@@ -127,7 +95,64 @@ public class CabiControllerTest {
                 .param("action", "BUY")
                 .param("amount", "100"))
                 .andExpect(status().is4xxClientError())
-                .andExpect(jsonPath("$.code").value("400"))
                 .andExpect(jsonPath("$.message").value("CABI 'checkCurrencyExchange' invalid request"));
+    }
+
+    @Test
+    public void checkCurrencyExchangeFail500Test() throws Exception {
+        when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
+                .thenThrow(TException.class);
+        mockMvc.perform(get("/currency")
+                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
+                .param("from", "BTC")
+                .param("to", "RUR")
+                .param("action", "BUY")
+                .param("amount", "100"))
+                .andExpect(status().is5xxServerError());
+    }
+
+    private void whenCurrencyExchangeResponse(Rational amountExchange,
+                                              Rational rate,
+                                              Rational cryptoAmountExchangedWithFee,
+                                              Long amount,
+                                              String from,
+                                              String to,
+                                              ExchangeAction action) throws TException {
+        com.rbkmoney.cabi.CurrencyExchange currencyExchange = new com.rbkmoney.cabi.CurrencyExchange();
+        currencyExchange.setAmountExchanged(amountExchange);
+        currencyExchange.setRate(rate);
+        currencyExchange.setCryptoAmountExchangedWithFee(cryptoAmountExchangedWithFee);
+        currencyExchange.setAmount(amount);
+        currencyExchange.setExchangeFrom(from);
+        currencyExchange.setExchangeTo(to);
+        currencyExchange.setAction(action);
+
+        when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
+                .thenReturn(currencyExchange);
+    }
+
+    private void thenPerformCurrencyRequest(String amountExchange,
+                                            String cryptoCurrencyAmountWithFee,
+                                            Long amount,
+                                            String rate,
+                                            String from,
+                                            String to,
+                                            String action) throws Exception {
+        ResultActions resultActions = mockMvc.perform(get("/currency")
+                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
+                .param("from", from)
+                .param("to", to)
+                .param("action", action)
+                .param("amount", amount.toString()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(jsonPath("$.amountExchange").value(amountExchange));
+        if (cryptoCurrencyAmountWithFee == null) {
+            resultActions.andExpect(jsonPath("$.cryptoCurrencyAmountWithFee").doesNotExist());
+        }
+        resultActions.andExpect(jsonPath("$.amount").value(amount))
+                .andExpect(jsonPath("$.rate").value(rate))
+                .andExpect(jsonPath("$.from").value(from))
+                .andExpect(jsonPath("$.to").value(to))
+                .andExpect(jsonPath("$.action").value(action));
     }
 }
