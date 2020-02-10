@@ -80,3 +80,7 @@ questionary:
 conversations:
   url: http://localhost:8022/v1/conversations
   networkTimeout: 30000
+
+cabi:
+  url: http://localhost:8022/v1/cabi
+  networkTimeout: 30000
