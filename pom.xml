@@ -107,6 +107,16 @@
             <artifactId>swag-messages</artifactId>
             <version>1.10-60af8f2-server</version>
         </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>cabi-proto</artifactId>
+            <version>1.2-2b3a425</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>swag-cabi</artifactId>
+            <version>1.2-a8a9aac-server</version>
+        </dependency>
 
         <!--spring-->
         <dependency>

@@ -1,10 +1,12 @@
 package com.rbkmoney.dark.api.config;
 
+import com.rbkmoney.cabi.CryptoApiSrv;
 import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
 import com.rbkmoney.damsel.messages.MessageServiceSrv;
 import com.rbkmoney.damsel.payment_processing.PartyManagementSrv;
 import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv;
+import com.rbkmoney.dark.api.config.property.CabiProperties;
 import com.rbkmoney.dark.api.config.property.ConversationProperties;
 import com.rbkmoney.dark.api.config.property.QuestionaryAggrProxyProperties;
 import com.rbkmoney.dark.api.config.property.QuestionaryProperties;
@@ -116,5 +118,13 @@ public class ClientConfig {
                 .withAddress(questionaryProperties.getUrl().getURI())
                 .withNetworkTimeout(questionaryProperties.getNetworkTimeout())
                 .build(QuestionaryManagerSrv.Iface.class);
+    }
+
+    @Bean
+    public CryptoApiSrv.Iface cabiClient(CabiProperties cabiProperties) throws IOException {
+        return new THSpawnClientBuilder()
+                .withAddress(cabiProperties.getUrl().getURI())
+                .withNetworkTimeout(cabiProperties.getNetworkTimeout())
+                .build(CryptoApiSrv.Iface.class);
     }
 }
