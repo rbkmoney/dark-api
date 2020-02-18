@@ -84,3 +84,7 @@ conversations:
 cabi:
   url: http://localhost:8022/v1/cabi
   networkTimeout: 30000
+
+dominant:
+  url: http://localhost:8022/v1/domain/repository_client
+  networkTimeout: 30000

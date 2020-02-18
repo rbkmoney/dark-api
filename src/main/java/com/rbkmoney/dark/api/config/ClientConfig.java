@@ -2,6 +2,7 @@ package com.rbkmoney.dark.api.config;
 
 import com.rbkmoney.cabi.CryptoApiSrv;
 import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
+import com.rbkmoney.damsel.domain_config.RepositoryClientSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
 import com.rbkmoney.damsel.messages.MessageServiceSrv;
 import com.rbkmoney.damsel.payment_processing.PartyManagementSrv;
@@ -127,4 +128,13 @@ public class ClientConfig {
                 .withNetworkTimeout(cabiProperties.getNetworkTimeout())
                 .build(CryptoApiSrv.Iface.class);
     }
+
+    @Bean
+    public RepositoryClientSrv.Iface dominantClient(@Value("${dominant.url}") Resource resource,
+                                                    @Value("${dominant.networkTimeout}") int networkTimeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withNetworkTimeout(networkTimeout)
+                .withAddress(resource.getURI()).build(RepositoryClientSrv.Iface.class);
+    }
+
 }
