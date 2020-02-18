@@ -3,11 +3,11 @@ package com.rbkmoney.dark.api.model;
 import com.rbkmoney.cabi.ExchangeAction;
 import com.rbkmoney.cabi.base.Rational;
 import com.rbkmoney.damsel.domain.Currency;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@Builder
 public class CabiCheckCurrencyResponseDto {
     private ExchangeAction action;
     private Currency from;

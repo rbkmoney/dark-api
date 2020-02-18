@@ -43,16 +43,17 @@ public class CabiService {
 
         CurrencyExchange currencyExchange = cryptoApiService.checkCurrencyExchange(checkCurrencyExchangeParams);
 
-        CabiCheckCurrencyResponseDto cabiCheckCurrencyResponseDto = new CabiCheckCurrencyResponseDto();
-        cabiCheckCurrencyResponseDto.setAction(currencyExchange.getAction());
-        cabiCheckCurrencyResponseDto.setTo(toCurrency);
-        cabiCheckCurrencyResponseDto.setFrom(fromCurrency);
-        cabiCheckCurrencyResponseDto.setAmount(currencyExchange.getAmount());
-        cabiCheckCurrencyResponseDto.setAmountExchanged(currencyExchange.getAmountExchanged());
-        cabiCheckCurrencyResponseDto.setAmountExchangedWithFee(currencyExchange.getAmountExchangedWithFee());
-        cabiCheckCurrencyResponseDto.setRate(currencyExchange.getRate());
+        CabiCheckCurrencyResponseDto cabiCheckCurrencyResponseDto = CabiCheckCurrencyResponseDto.builder()
+                .action(currencyExchange.getAction())
+                .to(toCurrency)
+                .from(fromCurrency)
+                .amount(currencyExchange.getAmount())
+                .amountExchanged(currencyExchange.getAmountExchanged())
+                .amountExchangedWithFee(currencyExchange.getAmountExchangedWithFee())
+                .rate(currencyExchange.getRate())
+                .build();
 
-        return swagConvertManager.convertToThrift(
+        return swagConvertManager.convertFromThrift(
                 cabiCheckCurrencyResponseDto, com.rbkmoney.swag.cabi.model.CurrencyExchange.class);
     }
 

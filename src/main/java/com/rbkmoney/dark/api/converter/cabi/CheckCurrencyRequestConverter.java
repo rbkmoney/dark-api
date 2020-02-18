@@ -15,8 +15,8 @@ public class CheckCurrencyRequestConverter implements ThriftConverter<CheckCurre
     @Override
     public CheckCurrencyExchangeParams toThrift(CabiCheckCurrencyRequestDto value, ThriftConverterContext ctx) {
         return new CheckCurrencyExchangeParams(
-                new Currency(value.getTo().getSymbolicCode(), value.getTo().getExponent()),
                 new Currency(value.getFrom().getSymbolicCode(), value.getFrom().getExponent()),
+                new Currency(value.getTo().getSymbolicCode(), value.getTo().getExponent()),
                 extractExchangeAction(value.getAction()),
                 MathUtils.covertToRational(value.getAmount()));
     }
