@@ -39,7 +39,7 @@ public class CabiService {
         CabiCheckCurrencyRequestDto checkCurrencyRequestHolder
                 = new CabiCheckCurrencyRequestDto(fromCurrency, toCurrency, action, amount);
         CheckCurrencyExchangeParams checkCurrencyExchangeParams
-                = swagConvertManager.convertFromThrift(checkCurrencyRequestHolder, CheckCurrencyExchangeParams.class);
+                = swagConvertManager.convertToThrift(checkCurrencyRequestHolder, CheckCurrencyExchangeParams.class);
 
         CurrencyExchange currencyExchange = cryptoApiService.checkCurrencyExchange(checkCurrencyExchangeParams);
 
@@ -52,7 +52,7 @@ public class CabiService {
         cabiCheckCurrencyResponseDto.setAmountExchangedWithFee(currencyExchange.getAmountExchangedWithFee());
         cabiCheckCurrencyResponseDto.setRate(currencyExchange.getRate());
 
-        return swagConvertManager.convertFromThrift(
+        return swagConvertManager.convertToThrift(
                 cabiCheckCurrencyResponseDto, com.rbkmoney.swag.cabi.model.CurrencyExchange.class);
     }
 

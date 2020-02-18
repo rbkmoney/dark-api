@@ -4,17 +4,17 @@ import com.rbkmoney.cabi.CheckCurrencyExchangeParams;
 import com.rbkmoney.cabi.Currency;
 import com.rbkmoney.cabi.ExchangeAction;
 import com.rbkmoney.cabi.base.Rational;
-import com.rbkmoney.dark.api.converter.SwagConverter;
-import com.rbkmoney.dark.api.converter.SwagConverterContext;
+import com.rbkmoney.dark.api.converter.ThriftConverter;
+import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.dark.api.model.CabiCheckCurrencyRequestDto;
 import com.rbkmoney.dark.api.util.MathUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CheckCurrencyRequestConverter implements SwagConverter<CheckCurrencyExchangeParams, CabiCheckCurrencyRequestDto> {
+public class CheckCurrencyRequestConverter implements ThriftConverter<CheckCurrencyExchangeParams, CabiCheckCurrencyRequestDto> {
 
     @Override
-    public CheckCurrencyExchangeParams toSwag(CabiCheckCurrencyRequestDto value, SwagConverterContext ctx) {
+    public CheckCurrencyExchangeParams toThrift(CabiCheckCurrencyRequestDto value, ThriftConverterContext ctx) {
         CheckCurrencyExchangeParams checkCurrencyExchangeParams = new CheckCurrencyExchangeParams();
 
         Currency to = new Currency();

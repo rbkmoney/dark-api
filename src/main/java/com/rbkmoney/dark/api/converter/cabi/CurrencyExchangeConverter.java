@@ -1,7 +1,7 @@
 package com.rbkmoney.dark.api.converter.cabi;
 
-import com.rbkmoney.dark.api.converter.SwagConverter;
-import com.rbkmoney.dark.api.converter.SwagConverterContext;
+import com.rbkmoney.dark.api.converter.ThriftConverter;
+import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.dark.api.model.CabiCheckCurrencyResponseDto;
 import com.rbkmoney.dark.api.util.MathUtils;
 import com.rbkmoney.swag.cabi.model.CurrencyExchange;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class CurrencyExchangeConverter implements SwagConverter<CurrencyExchange, CabiCheckCurrencyResponseDto> {
+public class CurrencyExchangeConverter implements ThriftConverter<CurrencyExchange, CabiCheckCurrencyResponseDto> {
 
     @Override
-    public CurrencyExchange toSwag(CabiCheckCurrencyResponseDto value, SwagConverterContext ctx) {
+    public CurrencyExchange toThrift(CabiCheckCurrencyResponseDto value, ThriftConverterContext ctx) {
         CurrencyExchange currencyExchange = new CurrencyExchange();
         int exponent;
         switch (value.getAction()) {

@@ -2,7 +2,7 @@ package com.rbkmoney.dark.api.cabi.converter;
 
 import com.rbkmoney.cabi.CheckCurrencyExchangeParams;
 import com.rbkmoney.damsel.domain.Currency;
-import com.rbkmoney.dark.api.converter.SwagConverterContext;
+import com.rbkmoney.dark.api.converter.ThriftConverterContext;
 import com.rbkmoney.dark.api.converter.cabi.CheckCurrencyRequestConverter;
 import com.rbkmoney.dark.api.converter.cabi.CurrencyExchangeConverter;
 import com.rbkmoney.dark.api.model.CabiCheckCurrencyRequestDto;
@@ -34,9 +34,9 @@ public class CheckCurrencyConverterTest {
                 BigDecimal.valueOf(1.14)
 
         );
-        SwagConverterContext swagConverterContext = Mockito.mock(SwagConverterContext.class);
+        ThriftConverterContext thriftConverterContext = Mockito.mock(ThriftConverterContext.class);
         CheckCurrencyExchangeParams checkCurrencyExchangeParams =
-                new CheckCurrencyRequestConverter().toSwag(cabiCheckCurrencyRequestDto, swagConverterContext);
+                new CheckCurrencyRequestConverter().toThrift(cabiCheckCurrencyRequestDto, thriftConverterContext);
         Assert.assertEquals(cabiCheckCurrencyRequestDto.getAction().name().toLowerCase(),
                 checkCurrencyExchangeParams.getAction().name().toLowerCase());
         compareCurrency(cabiCheckCurrencyRequestDto.getFrom(), checkCurrencyExchangeParams.getExchangeFrom());
@@ -58,8 +58,8 @@ public class CheckCurrencyConverterTest {
         BigDecimal amountExchanged = BigDecimal.valueOf(0.31);
         cabiCheckCurrencyResponseDto.setAmountExchanged(MathUtils.covertToRational(amountExchanged));
 
-        SwagConverterContext swagConverterContext = Mockito.mock(SwagConverterContext.class);
-        CurrencyExchange currencyExchange = new CurrencyExchangeConverter().toSwag(cabiCheckCurrencyResponseDto, swagConverterContext);
+        ThriftConverterContext thriftConverterContext = Mockito.mock(ThriftConverterContext.class);
+        CurrencyExchange currencyExchange = new CurrencyExchangeConverter().toThrift(cabiCheckCurrencyResponseDto, thriftConverterContext);
 
         Assert.assertEquals(cabiCheckCurrencyResponseDto.getFrom().getSymbolicCode(), currencyExchange.getFrom());
         Assert.assertEquals(cabiCheckCurrencyResponseDto.getTo().getSymbolicCode(), currencyExchange.getTo());
