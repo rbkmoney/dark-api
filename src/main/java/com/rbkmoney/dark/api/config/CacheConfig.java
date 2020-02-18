@@ -6,12 +6,10 @@ import com.rbkmoney.damsel.domain.Currency;
 import com.rbkmoney.dark.api.config.property.DominantProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@Import(DominantProperties.class)
 public class CacheConfig {
 
     @Bean
