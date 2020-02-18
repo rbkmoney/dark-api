@@ -15,7 +15,6 @@ public class CurrencyExchangeConverter implements ThriftConverter<CurrencyExchan
 
     @Override
     public CurrencyExchange toThrift(CabiCheckCurrencyResponseDto value, ThriftConverterContext ctx) {
-        CurrencyExchange currencyExchange = new CurrencyExchange();
         ExchangeAction exchangeAction = extractExchangeAction(value.getAction());
         int exponent;
         if (exchangeAction == ExchangeAction.SELL) {
@@ -24,18 +23,22 @@ public class CurrencyExchangeConverter implements ThriftConverter<CurrencyExchan
             exponent = (int) value.getFrom().getExponent();
         }
         BigDecimal amount = MathUtils.convertFromRational(value.getAmount(), (int) value.getFrom().getExponent());
-        currencyExchange.setAmount(amount);
         BigDecimal amountExchanged =
                 MathUtils.convertFromRational(value.getAmountExchanged(), exponent);
-        currencyExchange.setAmountExchange(amountExchanged);
+
+        CurrencyExchange currencyExchange = new CurrencyExchange()
+                .action(exchangeAction)
+                .amount(amount)
+                .amountExchange(amountExchanged)
+                .from(value.getFrom().getSymbolicCode())
+                .to(value.getTo().getSymbolicCode())
+                .rate(MathUtils.convertFromRational(value.getRate()));
+
         if (value.getAmountExchangedWithFee() != null) {
             BigDecimal amountExchangedWithFee = MathUtils.convertFromRational(
                     value.getAmountExchangedWithFee(), exponent);
             currencyExchange.setCryptoCurrencyAmountWithFee(amountExchangedWithFee);
         }
-        currencyExchange.setFrom(value.getFrom().getSymbolicCode());
-        currencyExchange.setTo(value.getTo().getSymbolicCode());
-        currencyExchange.setRate(MathUtils.convertFromRational(value.getRate()));
 
         return currencyExchange;
     }
