@@ -22,8 +22,6 @@ public class DominantProperties {
     @NotNull
     private Integer networkTimeout;
 
-    private Integer cacheExpire = 30;
-
-    private Integer cacheMaxSize = -1;
+    private Integer cacheExpireMinutes = 30;
 
 }

@@ -17,29 +17,24 @@ public class CheckCurrencyRequestConverter implements ThriftConverter<CheckCurre
     public CheckCurrencyExchangeParams toThrift(CabiCheckCurrencyRequestDto value, ThriftConverterContext ctx) {
         CheckCurrencyExchangeParams checkCurrencyExchangeParams = new CheckCurrencyExchangeParams();
 
-        Currency to = new Currency();
-        to.setSymbolicCode(value.getTo().getSymbolicCode());
-        to.setExponent(value.getTo().getExponent());
+        Currency to = new Currency(value.getTo().getSymbolicCode(), value.getTo().getExponent());
+        Currency from = new Currency(value.getFrom().getSymbolicCode(), value.getFrom().getExponent());
         checkCurrencyExchangeParams.setExchangeTo(to);
-
-        final Currency from = new Currency();
-        from.setSymbolicCode(value.getFrom().getSymbolicCode());
-        from.setExponent(value.getFrom().getExponent());
         checkCurrencyExchangeParams.setExchangeFrom(from);
 
-        final Rational amount = MathUtils.covertToRational(value.getAmount());
+        Rational amount = MathUtils.covertToRational(value.getAmount());
         checkCurrencyExchangeParams.setAmount(amount);
-        switch (value.getAction()) {
-            case SELL:
-                checkCurrencyExchangeParams.setAction(ExchangeAction.sell);
-                break;
-            case BUY:
-                checkCurrencyExchangeParams.setAction(ExchangeAction.buy);
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown action type" + value.getAction());
-        }
+        ExchangeAction exchangeAction = extractExchangeAction(value.getAction());
+        checkCurrencyExchangeParams.setAction(exchangeAction);
 
         return checkCurrencyExchangeParams;
+    }
+
+    private ExchangeAction extractExchangeAction(com.rbkmoney.swag.cabi.model.ExchangeAction exchangeAction) {
+        switch (exchangeAction) {
+            case BUY: return ExchangeAction.buy;
+            case SELL: return ExchangeAction.sell;
+            default: throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
+        }
     }
 }

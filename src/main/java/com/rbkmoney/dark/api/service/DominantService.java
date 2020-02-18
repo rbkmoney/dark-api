@@ -1,39 +1,26 @@
 package com.rbkmoney.dark.api.service;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
 import com.rbkmoney.damsel.domain.Currency;
 import com.rbkmoney.damsel.domain.CurrencyRef;
 import com.rbkmoney.damsel.domain.Reference;
 import com.rbkmoney.damsel.domain_config.Head;
 import com.rbkmoney.damsel.domain_config.RepositoryClientSrv;
 import com.rbkmoney.damsel.domain_config.VersionedObject;
-import com.rbkmoney.dark.api.config.property.DominantProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.thrift.TException;
 import org.springframework.stereotype.Service;
 
-import java.util.concurrent.TimeUnit;
-
 @Service
+@RequiredArgsConstructor
 public class DominantService {
 
-    private final Cache<String, Currency> currencyCache;
+    private final Cache<String, Currency> dominantCache;
 
     private final RepositoryClientSrv.Iface dominantClient;
 
-    public DominantService(RepositoryClientSrv.Iface dominantClient,
-                           DominantProperties dominantProperties) {
-        this.dominantClient = dominantClient;
-        Caffeine<Object, Object> cacheBuilder = Caffeine.newBuilder();
-        cacheBuilder.expireAfterWrite(dominantProperties.getCacheExpire(), TimeUnit.MINUTES);
-        if (dominantProperties.getCacheMaxSize() > 0) {
-            cacheBuilder.maximumSize(dominantProperties.getCacheMaxSize());
-        }
-        this.currencyCache = cacheBuilder.build();
-    }
-
     public Currency getCurrency(String symbolicCode) {
-        return currencyCache.get(symbolicCode, this::getCurrencyFromDominant);
+        return dominantCache.get(symbolicCode, this::getCurrencyFromDominant);
     }
 
     private Currency getCurrencyFromDominant(String symbolicCode) {

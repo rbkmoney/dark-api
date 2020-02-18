@@ -16,26 +16,20 @@ public class CurrencyExchangeConverter implements ThriftConverter<CurrencyExchan
     @Override
     public CurrencyExchange toThrift(CabiCheckCurrencyResponseDto value, ThriftConverterContext ctx) {
         CurrencyExchange currencyExchange = new CurrencyExchange();
+        ExchangeAction exchangeAction = extractExchangeAction(value.getAction());
         int exponent;
-        switch (value.getAction()) {
-            case sell:
-                currencyExchange.setAction(ExchangeAction.SELL);
-                exponent = (int) value.getTo().getExponent();
-                break;
-            case buy:
-                currencyExchange.setAction(ExchangeAction.BUY);
-                exponent = (int) value.getFrom().getExponent();
-                break;
-            default:
-                throw new IllegalArgumentException("Unknown action type: " + value.getAction());
+        if (exchangeAction == ExchangeAction.SELL) {
+            exponent = (int) value.getTo().getExponent();
+        } else {
+            exponent = (int) value.getFrom().getExponent();
         }
-        final BigDecimal amount = MathUtils.convertFromRational(value.getAmount(), (int) value.getFrom().getExponent());
+        BigDecimal amount = MathUtils.convertFromRational(value.getAmount(), (int) value.getFrom().getExponent());
         currencyExchange.setAmount(amount);
-        final BigDecimal amountExchanged =
+        BigDecimal amountExchanged =
                 MathUtils.convertFromRational(value.getAmountExchanged(), exponent);
         currencyExchange.setAmountExchange(amountExchanged);
         if (value.getAmountExchangedWithFee() != null) {
-            final BigDecimal amountExchangedWithFee = MathUtils.convertFromRational(
+            BigDecimal amountExchangedWithFee = MathUtils.convertFromRational(
                     value.getAmountExchangedWithFee(), exponent);
             currencyExchange.setCryptoCurrencyAmountWithFee(amountExchangedWithFee);
         }
@@ -45,4 +39,13 @@ public class CurrencyExchangeConverter implements ThriftConverter<CurrencyExchan
 
         return currencyExchange;
     }
+
+    private ExchangeAction extractExchangeAction(com.rbkmoney.cabi.ExchangeAction exchangeAction) {
+        switch (exchangeAction) {
+            case buy: return ExchangeAction.BUY;
+            case sell: return ExchangeAction.SELL;
+            default: throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
+        }
+    }
+
 }
