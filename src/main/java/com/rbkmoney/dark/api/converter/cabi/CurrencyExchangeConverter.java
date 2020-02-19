@@ -18,31 +18,30 @@ public class CurrencyExchangeConverter implements SwagConverter<CurrencyExchange
         ExchangeAction exchangeAction = extractExchangeAction(value.getAction());
         int exponent = getExponent(value, exchangeAction);
 
-        CurrencyExchange currencyExchange = new CurrencyExchange()
+        return new CurrencyExchange()
                 .action(exchangeAction)
                 .amount(MathUtils.convertFromRational(value.getAmount(), (int) value.getFrom().getExponent()))
                 .amountExchange(MathUtils.convertFromRational(value.getAmountExchanged(), exponent))
+                .cryptoCurrencyAmountWithFee(getAmountWithFee(value, exponent))
                 .from(value.getFrom().getSymbolicCode())
                 .to(value.getTo().getSymbolicCode())
                 .rate(MathUtils.convertFromRational(value.getRate()));
+    }
 
+    private BigDecimal getAmountWithFee(CabiCheckCurrencyResponseDto value, int exponent) {
         if (value.getAmountExchangedWithFee() != null) {
-            BigDecimal amountExchangedWithFee = MathUtils.convertFromRational(
+            return MathUtils.convertFromRational(
                     value.getAmountExchangedWithFee(), exponent);
-            currencyExchange.setCryptoCurrencyAmountWithFee(amountExchangedWithFee);
         }
-
-        return currencyExchange;
+        return null;
     }
 
     private int getExponent(CabiCheckCurrencyResponseDto value, ExchangeAction exchangeAction) {
-        int exponent;
-        if (exchangeAction == ExchangeAction.SELL) {
-            exponent = (int) value.getTo().getExponent();
-        } else {
-            exponent = (int) value.getFrom().getExponent();
+        switch (exchangeAction) {
+            case SELL: return (int) value.getTo().getExponent();
+            case BUY: return (int) value.getFrom().getExponent();
+            default: throw new IllegalArgumentException("Unknown exchange action: " + exchangeAction);
         }
-        return exponent;
     }
 
     private ExchangeAction extractExchangeAction(com.rbkmoney.cabi.ExchangeAction exchangeAction) {
