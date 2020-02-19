@@ -30,8 +30,7 @@ public class CurrencyExchangeConverter implements SwagConverter<CurrencyExchange
 
     private BigDecimal getAmountWithFee(CabiCheckCurrencyResponseDto value, int exponent) {
         if (value.getAmountExchangedWithFee() != null) {
-            return MathUtils.convertFromRational(
-                    value.getAmountExchangedWithFee(), exponent);
+            return MathUtils.convertFromRational(value.getAmountExchangedWithFee(), exponent);
         }
         return null;
     }
