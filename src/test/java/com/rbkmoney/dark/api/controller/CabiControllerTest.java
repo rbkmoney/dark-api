@@ -5,8 +5,10 @@ import com.rbkmoney.cabi.CryptoApiSrv;
 import com.rbkmoney.cabi.CurrencyRequestFail;
 import com.rbkmoney.cabi.ExchangeAction;
 import com.rbkmoney.cabi.base.Rational;
+import com.rbkmoney.damsel.domain.Currency;
 import com.rbkmoney.dark.api.DarkApiApplication;
 import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
+import com.rbkmoney.dark.api.service.DominantService;
 import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
 import org.apache.thrift.TException;
@@ -51,11 +53,17 @@ public class CabiControllerTest {
     @MockBean
     private CryptoApiSrv.Iface cryptoApiService;
 
+    @MockBean
+    private DominantService dominantService;
+
     @Before
     public void setUp() throws Exception {
         doNothing().when(partyManagementService).checkStatus(anyString());
         doNothing().when(partyManagementService).checkStatus();
         when(keycloakService.getPartyId()).thenReturn(UUID.randomUUID().toString());
+        when(dominantService.getCurrency("BTC")).thenReturn(new Currency("Bitcoin", "BTC", (short) 999, (short) 6));
+        when(dominantService.getCurrency("USD")).thenReturn(new Currency("Доллары США", "USD", (short) 840, (short) 2));
+        when(dominantService.getCurrency("RUR")).thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
     }
 
     @Test
@@ -63,12 +71,12 @@ public class CabiControllerTest {
         whenCurrencyExchangeResponse(new Rational(235158, 1000000),
                 new Rational(99672377, 10000),
                 new Rational(235458, 1000000),
-                10000L,
+                new Rational(10000, 100),
                 "USD",
                 "BTC",
                 ExchangeAction.sell);
 
-        thenPerformCurrencyRequest("0.235158", "0.235458", 10000L, "9967.2377", "USD", "BTC", "SELL");
+        thenPerformCurrencyRequest("0.235158", "0.235458", 100.00, "9967.2377", "USD", "BTC", "SELL");
     }
 
     @Test
@@ -76,12 +84,12 @@ public class CabiControllerTest {
         whenCurrencyExchangeResponse(new Rational(1018093, 1000000),
                 new Rational(98222894, 10000),
                 null,
-                100L,
+                new Rational(100, 100),
                 "BTC",
                 "USD",
                 ExchangeAction.buy);
 
-        thenPerformCurrencyRequest("1.018093", null, 100L, "9822.2894", "BTC", "USD", "BUY");
+        thenPerformCurrencyRequest("1.018093", null, 1.00, "9822.2894", "BTC", "USD", "BUY");
     }
 
     @Test
@@ -114,14 +122,14 @@ public class CabiControllerTest {
     private void whenCurrencyExchangeResponse(Rational amountExchange,
                                               Rational rate,
                                               Rational cryptoAmountExchangedWithFee,
-                                              Long amount,
+                                              Rational amount,
                                               String from,
                                               String to,
                                               ExchangeAction action) throws TException {
         com.rbkmoney.cabi.CurrencyExchange currencyExchange = new com.rbkmoney.cabi.CurrencyExchange();
         currencyExchange.setAmountExchanged(amountExchange);
         currencyExchange.setRate(rate);
-        currencyExchange.setCryptoAmountExchangedWithFee(cryptoAmountExchangedWithFee);
+        currencyExchange.setAmountExchangedWithFee(cryptoAmountExchangedWithFee);
         currencyExchange.setAmount(amount);
         currencyExchange.setExchangeFrom(from);
         currencyExchange.setExchangeTo(to);
@@ -133,7 +141,7 @@ public class CabiControllerTest {
 
     private void thenPerformCurrencyRequest(String amountExchange,
                                             String cryptoCurrencyAmountWithFee,
-                                            Long amount,
+                                            Double amount,
                                             String rate,
                                             String from,
                                             String to,

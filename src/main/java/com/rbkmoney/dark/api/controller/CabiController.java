@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
@@ -30,7 +31,7 @@ public class CabiController implements CurrencyApi {
             @NotNull @Valid String from,
             @NotNull @Valid String to,
             @NotNull @Valid ExchangeAction action,
-            @NotNull @Valid Long amount) {
+            @NotNull @Valid BigDecimal amount) {
         CurrencyExchange currencyExchange = null;
         try {
             currencyExchange = cabiService.checkCurrencyExchange(from, to, action, amount);
