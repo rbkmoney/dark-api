@@ -21,6 +21,7 @@ import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
 import org.apache.thrift.TException;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,15 +67,8 @@ public class CabiControllerTest {
     @MockBean
     private DominantService dominantService;
 
-    @Before
-    public void setUp() throws Exception {
-        doNothing().when(partyManagementService).checkStatus(anyString());
-        doNothing().when(partyManagementService).checkStatus();
-        when(keycloakService.getPartyId()).thenReturn(UUID.randomUUID().toString());
-        when(dominantService.getCurrency("BTC")).thenReturn(new Currency("Bitcoin", "BTC", (short) 999, (short) 6));
-        when(dominantService.getCurrency("USD")).thenReturn(new Currency("Доллары США", "USD", (short) 840, (short) 2));
-        when(dominantService.getCurrency("RUR")).thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
-
+    @BeforeClass
+    public static void beforeClass() throws Exception {
         // work with double value as BigDecimal
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(DeserializationFeature.USE_LONG_FOR_INTS);
@@ -100,6 +94,16 @@ public class CabiControllerTest {
                 return EnumSet.noneOf(Option.class);
             }
         });
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        doNothing().when(partyManagementService).checkStatus(anyString());
+        doNothing().when(partyManagementService).checkStatus();
+        when(keycloakService.getPartyId()).thenReturn(UUID.randomUUID().toString());
+        when(dominantService.getCurrency("BTC")).thenReturn(new Currency("Bitcoin", "BTC", (short) 999, (short) 6));
+        when(dominantService.getCurrency("USD")).thenReturn(new Currency("Доллары США", "USD", (short) 840, (short) 2));
+        when(dominantService.getCurrency("RUR")).thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
     }
 
     @Test
