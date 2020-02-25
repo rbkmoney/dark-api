@@ -17,12 +17,13 @@ public class CurrencyExchangeConverter implements SwagConverter<CurrencyExchange
     public CurrencyExchange toSwag(CabiCheckCurrencyResponseDto value, SwagConverterContext ctx) {
         ExchangeAction exchangeAction = extractExchangeAction(value.getAction());
         int exponent = getExponent(value, exchangeAction);
+        int cryptoExponent = value.getTo().getExponent();
 
         return new CurrencyExchange()
                 .action(exchangeAction)
                 .amount(MathUtils.convertFromRational(value.getAmount(), (int) value.getFrom().getExponent()))
                 .amountExchange(MathUtils.convertFromRational(value.getAmountExchanged(), exponent))
-                .cryptoCurrencyAmountWithFee(getAmountWithFee(value, exponent))
+                .cryptoCurrencyAmountWithFee(getAmountWithFee(value, cryptoExponent))
                 .from(value.getFrom().getSymbolicCode())
                 .to(value.getTo().getSymbolicCode())
                 .rate(MathUtils.convertFromRational(value.getRate()));
