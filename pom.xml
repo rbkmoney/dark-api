@@ -120,7 +120,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-analytics</artifactId>
-            <version>1.25-bbf8769-server</version>
+            <version>1.26-95dbdc2-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

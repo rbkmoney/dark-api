@@ -25,11 +25,11 @@ public class AnalyticsService {
     public InlineResponse200 getAveragePayment(OffsetDateTime fromTime,
                                                OffsetDateTime toTime,
                                                String partyId,
-                                               String shopId) throws TException {
+                                               List<String> shopIds) throws TException {
         AmountResponse averagePayment = iface.getAveragePayment(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
@@ -38,15 +38,15 @@ public class AnalyticsService {
     }
 
 
-    public InlineResponse200 getCurrentBalances(String partyId, String shopID) throws TException {
+    public InlineResponse200 getCurrentBalances(String partyId, List<String> shopIds) throws TException {
         return null;
     }
 
-    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, String shopId) throws TException {
+    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, List<String> shopIds) throws TException {
         AmountResponse paymentsAmount = iface.getPaymentsAmount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
@@ -55,11 +55,11 @@ public class AnalyticsService {
     }
 
     public InlineResponse2002 getPaymentsCount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                               String partyId, String shopId) throws TException {
+                                               String partyId, List<String> shopIds) throws TException {
         CountResponse countResponse = iface.getPaymentsCount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
@@ -68,11 +68,11 @@ public class AnalyticsService {
     }
 
     public InlineResponse2003 getPaymentsErrorDistribution(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                           String partyId, String shopId) throws TException {
+                                                           String partyId, List<String> shopIds) throws TException {
         ErrorDistributionsResponse countResponse = iface.getPaymentsErrorDistribution(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
@@ -81,13 +81,13 @@ public class AnalyticsService {
     }
 
     public InlineResponse2004 getPaymentsSplitAmount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                     String splitUnit, String partyId, String shopId) throws TException {
+                                                     String splitUnit, String partyId, List<String> shopIds) throws TException {
         SplitAmountResponse response = iface.getPaymentsSplitAmount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()
                         .setMerchantFilter(new MerchantFilter()
                                 .setPartyId(partyId)
-                                .setShopIds(List.of(shopId)))
+                                .setShopIds(shopIds))
                         .setTimeFilter(new TimeFilter()
                                 .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                                 .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE))))
@@ -96,13 +96,13 @@ public class AnalyticsService {
     }
 
     public InlineResponse2005 getPaymentsSplitCount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                    String splitUnit, String partyId, String shopId) throws TException {
+                                                    String splitUnit, String partyId, List<String> shopIds) throws TException {
         SplitCountResponse response = iface.getPaymentsSplitCount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()
                         .setMerchantFilter(new MerchantFilter()
                                 .setPartyId(partyId)
-                                .setShopIds(List.of(shopId)))
+                                .setShopIds(shopIds))
                         .setTimeFilter(new TimeFilter()
                                 .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                                 .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE))))
@@ -110,11 +110,12 @@ public class AnalyticsService {
         return analyticsConverter.convertSplitCountResponse(response);
     }
 
-    public InlineResponse2001 getPaymentsToolDistribution(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, String shopId) throws TException {
+    public InlineResponse2001 getPaymentsToolDistribution(OffsetDateTime fromTime, OffsetDateTime toTime,
+                                                          String partyId, List<String> shopIds) throws TException {
         PaymentToolDistributionResponse response = iface.getPaymentsToolDistribution(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
@@ -122,11 +123,12 @@ public class AnalyticsService {
         return analyticsConverter.convertPaymentToolDistributionResponse(response);
     }
 
-    public InlineResponse200 getRefundsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, String shopId) throws TException {
+    public InlineResponse200 getRefundsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId,
+                                              List<String> shopIds) throws TException {
         AmountResponse response = iface.getRefundsAmount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
-                        .setShopIds(List.of(shopId)))
+                        .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
                         .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
                         .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))

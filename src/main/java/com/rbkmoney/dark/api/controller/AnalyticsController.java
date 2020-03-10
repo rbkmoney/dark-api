@@ -16,6 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
@@ -32,14 +33,15 @@ public class AnalyticsController implements AnalyticsApi {
                                                                @NotNull @Valid OffsetDateTime fromTime,
                                                                @NotNull @Valid OffsetDateTime toTime,
                                                                String xRequestDeadline,
-                                                               @Size(min = 1, max = 40) @Valid String shopID) {
+                                                               @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getAveragePayment' get started, xRequestId={}", xRequestID);
 
-            InlineResponse200 result = analyticsService.getAveragePayment(fromTime, toTime, keycloakService.getPartyId(), shopID);
+            InlineResponse200 averagePayment = analyticsService.getAveragePayment(fromTime, toTime,
+                    keycloakService.getPartyId(), shopIDs);
 
-            log.info("AveragePayment result, xRequestId={}, result={}", xRequestID, result);
-            return ResponseEntity.ok(result);
+            log.info("AveragePayment result, xRequestId={}, averagePayment={}", xRequestID, averagePayment);
+            return ResponseEntity.ok(averagePayment);
         } catch (DeadlineException ex) {
             String msg = ex.getMessage();
             InlineResponse4001 response = new InlineResponse4001()
@@ -55,7 +57,7 @@ public class AnalyticsController implements AnalyticsApi {
     public ResponseEntity<InlineResponse200> getCurrentBalances(String xRequestID,
                                                                 String xRequestDeadline,
                                                                 @Size(min = 1, max = 40)
-                                                                @Valid String shopID) {
+                                                                @Valid List<String> shopIDs) {
         return null;
     }
 
@@ -64,11 +66,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                @NotNull @Valid OffsetDateTime fromTime,
                                                                @NotNull @Valid OffsetDateTime toTime,
                                                                String xRequestDeadline,
-                                                               @Size(min = 1, max = 40) @Valid String shopID) {
+                                                               @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsAmount' get started, xRequestId={}", xRequestID);
 
-            InlineResponse200 result = analyticsService.getPaymentsAmount(fromTime, toTime, keycloakService.getPartyId(), shopID);
+            InlineResponse200 result = analyticsService.getPaymentsAmount(fromTime, toTime,
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentAmount result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -88,11 +91,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                @NotNull @Valid OffsetDateTime fromTime,
                                                                @NotNull @Valid OffsetDateTime toTime,
                                                                String xRequestDeadline,
-                                                               @Size(min = 1, max = 40) @Valid String shopID) {
+                                                               @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsCount' get started, xRequestId={}", xRequestID);
 
-            InlineResponse2002 result = analyticsService.getPaymentsCount(fromTime, toTime, keycloakService.getPartyId(), shopID);
+            InlineResponse2002 result = analyticsService.getPaymentsCount(fromTime, toTime,
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentsCount result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -112,11 +116,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                            @NotNull @Valid OffsetDateTime fromTime,
                                                                            @NotNull @Valid OffsetDateTime toTime,
                                                                            String xRequestDeadline,
-                                                                           @Size(min = 1, max = 40) @Valid String shopID) {
+                                                                           @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsErrorDistribution' get started, xRequestId={}", xRequestID);
 
-            InlineResponse2003 result = analyticsService.getPaymentsErrorDistribution(fromTime, toTime, keycloakService.getPartyId(), shopID);
+            InlineResponse2003 result = analyticsService.getPaymentsErrorDistribution(fromTime, toTime,
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentsErrorDistribution result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -137,12 +142,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                      @NotNull @Valid OffsetDateTime toTime,
                                                                      @NotNull @Valid String splitUnit,
                                                                      String xRequestDeadline,
-                                                                     @Size(min = 1, max = 40) @Valid String shopID) {
+                                                                     @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsSplitAmount' get started, xRequestId={}", xRequestID);
 
             InlineResponse2004 result = analyticsService.getPaymentsSplitAmount(fromTime, toTime, splitUnit,
-                    keycloakService.getPartyId(), shopID);
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentsSplitAmount result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -163,12 +168,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                     @NotNull @Valid OffsetDateTime toTime,
                                                                     @NotNull @Valid String splitUnit,
                                                                     String xRequestDeadline,
-                                                                    @Size(min = 1, max = 40) @Valid String shopID) {
+                                                                    @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsSplitCount' get started, xRequestId={}", xRequestID);
 
             InlineResponse2005 result = analyticsService.getPaymentsSplitCount(fromTime, toTime, splitUnit,
-                    keycloakService.getPartyId(), shopID);
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentsSplitCount result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -188,12 +193,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                                           @NotNull @Valid OffsetDateTime fromTime,
                                                                           @NotNull @Valid OffsetDateTime toTime,
                                                                           String xRequestDeadline,
-                                                                          @Size(min = 1, max = 40) @Valid String shopID) {
+                                                                          @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getPaymentsToolDistribution' get started, xRequestId={}", xRequestID);
 
             InlineResponse2001 result = analyticsService.getPaymentsToolDistribution(fromTime, toTime,
-                    keycloakService.getPartyId(), shopID);
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("PaymentsToolDistribution result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);
@@ -213,12 +218,12 @@ public class AnalyticsController implements AnalyticsApi {
                                                               @NotNull @Valid OffsetDateTime fromTime,
                                                               @NotNull @Valid OffsetDateTime toTime,
                                                               String xRequestDeadline,
-                                                              @Size(min = 1, max = 40) @Valid String shopID) {
+                                                              @Valid List<String> shopIDs) {
         try {
             log.info("Process 'getRefundsAmount' get started, xRequestId={}", xRequestID);
 
             InlineResponse200 result = analyticsService.getRefundsAmount(fromTime, toTime,
-                    keycloakService.getPartyId(), shopID);
+                    keycloakService.getPartyId(), shopIDs);
 
             log.info("RefundsAmount result, xRequestId={}, result={}", xRequestID, result);
             return ResponseEntity.ok(result);

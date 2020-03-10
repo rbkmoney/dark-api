@@ -83,7 +83,7 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
 
     private CountResult createCountResult(CurrecyGroupCount currecyGroupCount) {
         CountResult countResult = new CountResult();
-        countResult.setCount((int) currecyGroupCount.getCount());
+        countResult.setCount(currecyGroupCount.getCount());
         countResult.setCurrency(currecyGroupCount.getCurrency());
         return countResult;
     }
@@ -98,7 +98,7 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
     private PaymentsErrorsDistributionResult createPaymentErrorResult(NamingDistribution namingDistribution) {
         PaymentsErrorsDistributionResult paymentsErrorsDistributionResult = new PaymentsErrorsDistributionResult();
         paymentsErrorsDistributionResult.setError(namingDistribution.getName());
-        paymentsErrorsDistributionResult.setPercents((int) namingDistribution.getPercents());
+        paymentsErrorsDistributionResult.setPercents(namingDistribution.getPercents());
         return paymentsErrorsDistributionResult;
     }
 
@@ -134,15 +134,15 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
 
     private OffsetCount createOffsetCount(com.rbkmoney.damsel.analytics.OffsetCount offsetCount) {
         OffsetCount offsetCountResult = new OffsetCount();
-        offsetCountResult.setCount((int) offsetCount.getCount());
-        offsetCountResult.setOffset((int) offsetCount.getOffset());
+        offsetCountResult.setCount(offsetCount.getCount());
+        offsetCountResult.setOffset(offsetCount.getOffset());
         return offsetCountResult;
     }
 
     private OffsetAmount createOffsetAmount(com.rbkmoney.damsel.analytics.OffsetAmount offsetAmount) {
         OffsetAmount result = new OffsetAmount();
         result.setAmount(offsetAmount.getAmount());
-        result.setOffset((int) offsetAmount.getOffset());
+        result.setOffset(offsetAmount.getOffset());
         return result;
     }
 
