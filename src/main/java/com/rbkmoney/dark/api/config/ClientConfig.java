@@ -1,6 +1,7 @@
 package com.rbkmoney.dark.api.config;
 
 import com.rbkmoney.cabi.CryptoApiSrv;
+import com.rbkmoney.damsel.analytics.AnalyticsServiceSrv;
 import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.domain_config.RepositoryClientSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
@@ -15,6 +16,7 @@ import com.rbkmoney.dark.api.meta.UserIdentityEmailExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
+import com.rbkmoney.dark.api.service.AnalyticsService;
 import com.rbkmoney.file.storage.FileStorageSrv;
 import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
 import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
@@ -135,6 +137,14 @@ public class ClientConfig {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(RepositoryClientSrv.Iface.class);
+    }
+
+    @Bean
+    public AnalyticsServiceSrv.Iface analyticsClient(@Value("${analytics.url}") Resource resource,
+                                                    @Value("${analytics.networkTimeout}") int networkTimeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withNetworkTimeout(networkTimeout)
+                .withAddress(resource.getURI()).build(AnalyticsServiceSrv.Iface.class);
     }
 
 }

@@ -77,7 +77,7 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
     private PaymentsToolDistributionResult createPaymentsToolDistributionResult(NamingDistribution namingDistribution) {
         PaymentsToolDistributionResult paymentsToolDistributionResult = new PaymentsToolDistributionResult();
         paymentsToolDistributionResult.setName(namingDistribution.getName());
-        paymentsToolDistributionResult.setPercents(paymentsToolDistributionResult.getPercents());
+        paymentsToolDistributionResult.setPercents((int) namingDistribution.getPercents());
         return paymentsToolDistributionResult;
     }
 
