@@ -88,3 +88,7 @@ cabi:
 dominant:
   url: http://localhost:8022/v1/domain/repository_client
   networkTimeout: 30000
+
+analytics:
+  url: http://localhost:8022/v1/analytics
+  networkTimeout: 30000

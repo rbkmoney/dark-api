@@ -117,6 +117,17 @@
             <artifactId>swag-cabi</artifactId>
             <version>1.4-f6e59d6-server</version>
         </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>swag-analytics</artifactId>
+            <version>1.26-95dbdc2-server</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>analytics-proto</artifactId>
+            <version>1.12-3b71837</version>
+        </dependency>
+
 
         <!--spring-->
         <dependency>
