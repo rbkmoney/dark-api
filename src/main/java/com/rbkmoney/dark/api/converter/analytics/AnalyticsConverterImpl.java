@@ -104,7 +104,7 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
 
     private SplitAmountResult createSplitAmountResult(GroupedCurrencyOffsetAmount groupedCurrencyOffsetAmount, SplitUnit unit) {
         SplitAmountResult splitAmountResult = new SplitAmountResult();
-        splitAmountResult.setSplitUnit(com.rbkmoney.swag.analytics.model.SplitAmountResult.SplitUnitEnum.valueOf(unit.name()));
+        splitAmountResult.setSplitUnit(SplitAmountResult.SplitUnitEnum.valueOf(unit.name()));
         splitAmountResult.setCurrency(groupedCurrencyOffsetAmount.getCurrency());
         splitAmountResult.setOffsetAmounts(groupedCurrencyOffsetAmount.getOffsetAmounts().stream()
                 .map(this::createOffsetAmount)
@@ -114,7 +114,7 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
 
     private SplitCountResult createSplitCountResult(GroupedCurrencyOffsetCount groupedCurrencyOffsetCount, SplitUnit unit) {
         SplitCountResult splitCountResult = new SplitCountResult();
-        splitCountResult.setSplitUnit(com.rbkmoney.swag.analytics.model.SplitCountResult.SplitUnitEnum.valueOf(unit.name()));
+        splitCountResult.setSplitUnit(SplitCountResult.SplitUnitEnum.valueOf(unit.name()));
         splitCountResult.setCurrency(groupedCurrencyOffsetCount.getCurrency());
         splitCountResult.setStatusOffsetCounts(groupedCurrencyOffsetCount.getOffsetAmounts().stream()
                 .map(this::createStatusOffsetCount)

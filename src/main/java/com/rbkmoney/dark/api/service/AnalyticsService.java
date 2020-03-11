@@ -31,8 +31,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertAmountResponse(averagePayment);
     }
@@ -48,8 +48,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertAmountResponse(paymentsAmount);
     }
@@ -61,8 +61,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertCountResponse(countResponse);
     }
@@ -74,8 +74,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertErrorDistributionsResponse(countResponse);
     }
@@ -89,8 +89,8 @@ public class AnalyticsService {
                                 .setPartyId(partyId)
                                 .setShopIds(shopIds))
                         .setTimeFilter(new TimeFilter()
-                                .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                                .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE))))
+                                .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                                .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT))))
         );
         return analyticsConverter.convertSplitAmountResponse(response);
     }
@@ -104,8 +104,8 @@ public class AnalyticsService {
                                 .setPartyId(partyId)
                                 .setShopIds(shopIds))
                         .setTimeFilter(new TimeFilter()
-                                .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                                .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE))))
+                                .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                                .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT))))
         );
         return analyticsConverter.convertSplitCountResponse(response);
     }
@@ -117,8 +117,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertPaymentToolDistributionResponse(response);
     }
@@ -130,8 +130,8 @@ public class AnalyticsService {
                         .setPartyId(partyId)
                         .setShopIds(shopIds))
                 .setTimeFilter(new TimeFilter()
-                        .setFromTime(fromTime.format(DateTimeFormatter.BASIC_ISO_DATE))
-                        .setToTime(toTime.format(DateTimeFormatter.BASIC_ISO_DATE)))
+                        .setFromTime(fromTime.format(DateTimeFormatter.ISO_INSTANT))
+                        .setToTime(toTime.format(DateTimeFormatter.ISO_INSTANT)))
         );
         return analyticsConverter.convertAmountResponse(response);
     }
