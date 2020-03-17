@@ -18,10 +18,10 @@ public class QuestionaryService {
 
     private final SwagConvertManager swagConvertManager;
 
-    public Snapshot getQuestionary(String questionaryId, String version) throws QuestionaryNotFound, TException {
+    public Snapshot getQuestionary(String questionaryId, String partyId, String version) throws QuestionaryNotFound, TException {
         Reference reference = getReference(version);
 
-        var snapshot = questionaryManagerSrv.get(questionaryId, reference);
+        var snapshot = questionaryManagerSrv.get(questionaryId, partyId, reference);
         return swagConvertManager.convertFromThrift(snapshot, Snapshot.class);
     }
 

@@ -50,12 +50,13 @@ public class QuestionaryServiceTest {
         questionary.setOwnerId(questionaryParams.getOwnerId());
         questionary.setData(questionaryParams.getData());
         snapshot.setQuestionary(questionary);
-        when(questionaryManager.get(anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+        when(questionaryManager.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
                 .then(invocation -> snapshot);
-        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "1");
+        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
         QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
         QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
         QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
@@ -80,14 +81,16 @@ public class QuestionaryServiceTest {
         com.rbkmoney.questionary.manage.Questionary questionary = new com.rbkmoney.questionary.manage.Questionary();
         questionary.setId(questionaryParams.getId());
         questionary.setOwnerId(questionaryParams.getOwnerId());
+        questionary.setPartyId(questionaryParams.getPartyId());
         questionary.setData(questionaryParams.getData());
         snapshot.setQuestionary(questionary);
-        when(questionaryManager.get(anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+        when(questionaryManager.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
                 .then(invocation -> snapshot);
-        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "1");
+        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
         QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
         QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
         QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());

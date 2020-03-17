@@ -2,6 +2,7 @@ package com.rbkmoney.dark.api.controller;
 
 import com.rbkmoney.dark.api.exceptions.client.NotFoundException;
 import com.rbkmoney.dark.api.exceptions.client.badrequest.BadRequestException;
+import com.rbkmoney.dark.api.service.KeycloakService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
 import com.rbkmoney.dark.api.service.QuestionaryService;
 import com.rbkmoney.questionary.manage.QuestionaryNotFound;
@@ -29,13 +30,16 @@ public class QuestionaryController implements QuestionaryApi {
 
     private final QuestionaryService questionaryService;
     private final PartyManagementService partyManagementService;
+    private final KeycloakService keycloakService;
 
     @Override
     public ResponseEntity<Snapshot> getQuestionary(String questionaryId, @Valid String version) {
         try {
             partyManagementService.checkStatus();
 
-            Snapshot snapshot = questionaryService.getQuestionary(questionaryId, version);
+            String partyId = keycloakService.getPartyId();
+
+            Snapshot snapshot = questionaryService.getQuestionary(questionaryId, partyId, version);
 
             return ResponseEntity.ok(snapshot);
         } catch (QuestionaryNotFound ex) {
