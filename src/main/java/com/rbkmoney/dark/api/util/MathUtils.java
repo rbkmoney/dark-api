@@ -17,10 +17,6 @@ public class MathUtils {
                 .movePointRight(value.scale()).toBigInteger()
                 .add(value.toBigInteger().multiply(denominator));
 
-        BigInteger gcd = denominator.gcd(numerator);
-        denominator = denominator.divide(gcd);
-        numerator = numerator.divide(gcd);
-
         if (numerator.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0) {
             throw new ArithmeticException("Too big numerator value: " + numerator);
         }
