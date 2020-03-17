@@ -34,7 +34,7 @@ public class QuestionaryServiceTest {
         ArgumentCaptor<com.rbkmoney.questionary.manage.QuestionaryParams> captor =
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
         QuestionaryParams questionaryParams = QuestionaryTestData.createIndividualEntityQuestionarySwag();
-        questionaryService.saveQuestionary(questionaryParams, Long.parseLong(questionaryParams.getVersion()));
+        questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManager).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
@@ -67,7 +67,7 @@ public class QuestionaryServiceTest {
         ArgumentCaptor<com.rbkmoney.questionary.manage.QuestionaryParams> captor =
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
         QuestionaryParams questionaryParams = QuestionaryTestData.createLegalEntityQuestionarySwag();
-        questionaryService.saveQuestionary(questionaryParams, Long.parseLong(questionaryParams.getVersion()));
+        questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManager).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());

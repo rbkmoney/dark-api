@@ -57,8 +57,9 @@ public class QuestionaryController implements QuestionaryApi {
             partyManagementService.checkStatus();
 
             Long ver = questionaryParams.getVersion() != null ? Long.parseLong(questionaryParams.getVersion()) : null;
+            String partyId = keycloakService.getPartyId();
 
-            Long version = questionaryService.saveQuestionary(questionaryParams, ver);
+            Long version = questionaryService.saveQuestionary(questionaryParams, partyId, ver);
             return ResponseEntity.ok(version.toString());
         } catch (QuestionaryNotValid ex) {
             String msg = "Questionary not valid";

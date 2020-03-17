@@ -19,14 +19,19 @@ public class QuestionaryService {
     private final SwagConvertManager swagConvertManager;
 
     public Snapshot getQuestionary(String questionaryId, String partyId, String version) throws QuestionaryNotFound, TException {
+        log.info("Get questionary by id={}, partyId={}, version={}", questionaryId, partyId, version);
         Reference reference = getReference(version);
 
         var snapshot = questionaryManagerSrv.get(questionaryId, partyId, reference);
         return swagConvertManager.convertFromThrift(snapshot, Snapshot.class);
     }
 
-    public Long saveQuestionary(QuestionaryParams questionaryParams, Long version) throws QuestionaryNotValid, QuestionaryVersionConflict, TException {
-        var thriftQuestionaryParams = swagConvertManager.convertToThrift(questionaryParams, com.rbkmoney.questionary.manage.QuestionaryParams.class);
+    public Long saveQuestionary(QuestionaryParams questionaryParams, String partyId, Long version)
+            throws QuestionaryNotValid, QuestionaryVersionConflict, TException {
+        var thriftQuestionaryParams = swagConvertManager.convertToThrift(questionaryParams,
+                com.rbkmoney.questionary.manage.QuestionaryParams.class);
+        thriftQuestionaryParams.setPartyId(partyId);
+        log.info("Save questionary with params: {}. partyId={}, version={}", questionaryParams, partyId, version);
 
         if (version == null) {
             version = 0L;
