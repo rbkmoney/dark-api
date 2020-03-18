@@ -18,6 +18,7 @@ public class QuestionaryConverter implements
         return new com.rbkmoney.swag.questionary.model.Questionary()
                 .id(value.getId())
                 .ownerId(value.getOwnerId())
+                .partyId(value.getPartyId())
                 .data(ctx.convert(value.getData(), QuestionaryData.class));
     }
 
@@ -26,6 +27,7 @@ public class QuestionaryConverter implements
         return new Questionary()
                 .setId(value.getId())
                 .setOwnerId(value.getOwnerId())
+                .setPartyId(value.getPartyId())
                 .setData(ctx.convert(value.getData(), com.rbkmoney.questionary.manage.QuestionaryData.class));
     }
 

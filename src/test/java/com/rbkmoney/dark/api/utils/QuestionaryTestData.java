@@ -73,6 +73,7 @@ public class QuestionaryTestData {
         var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
         questionaryParams.setId("123456");
         questionaryParams.setOwnerId("12413");
+        questionaryParams.setPartyId("12345");
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
         questionaryData = new MockTBaseProcessor(MockMode.ALL)
                 .process(questionaryData, new TBaseHandler<>(com.rbkmoney.questionary.manage.QuestionaryData.class));
@@ -143,6 +144,7 @@ public class QuestionaryTestData {
         var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
         questionaryParams.setId("123456");
         questionaryParams.setOwnerId("12413");
+        questionaryParams.setPartyId("12345");
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
         questionaryData = new MockTBaseProcessor(MockMode.ALL)
                 .process(questionaryData, new TBaseHandler<>(com.rbkmoney.questionary.manage.QuestionaryData.class));

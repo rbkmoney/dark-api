@@ -1,6 +1,7 @@
 package com.rbkmoney.dark.api.cabi.converter;
 
 import com.rbkmoney.cabi.CheckCurrencyExchangeParams;
+import com.rbkmoney.cabi.base.Rational;
 import com.rbkmoney.damsel.domain.Currency;
 import com.rbkmoney.dark.api.converter.SwagConverterContext;
 import com.rbkmoney.dark.api.converter.ThriftConverterContext;
@@ -56,6 +57,12 @@ public class CheckCurrencyConverterTest {
         BigDecimal amount = BigDecimal.valueOf(0.000032);
         cabiCheckCurrencyResponseDto.setAmount(MathUtils.covertToRational(amount));
         BigDecimal rate = BigDecimal.valueOf(425.25);
+
+
+        Rational rational = MathUtils.covertToRational(BigDecimal.valueOf(4532426453756.7868465));
+        BigDecimal convertFromRational = MathUtils.convertFromRational(rational, 6);
+
+
         cabiCheckCurrencyResponseDto.setRate(MathUtils.covertToRational(rate));
         BigDecimal amountExchanged = BigDecimal.valueOf(0.31);
         cabiCheckCurrencyResponseDto.setAmountExchanged(MathUtils.covertToRational(amountExchanged));
@@ -68,6 +75,12 @@ public class CheckCurrencyConverterTest {
         Assert.assertEquals(0, amount.compareTo(currencyExchange.getAmount()));
         Assert.assertEquals(0, rate.compareTo(currencyExchange.getRate()));
         Assert.assertEquals(0, amountExchanged.compareTo(currencyExchange.getAmountExchange()));
+    }
+
+    public static long gcd(long a, long b) {
+        if (b == 0)
+            return Math.abs(a);
+        return gcd(b, a % b);
     }
 
     public void compareCurrency(Currency damselCurrency, com.rbkmoney.cabi.Currency cabiCurrency) {

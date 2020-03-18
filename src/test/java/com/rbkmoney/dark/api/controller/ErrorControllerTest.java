@@ -254,7 +254,7 @@ public class ErrorControllerTest {
 
     @Test
     public void testThenQuestionaryClientThrowingExceptions() throws Exception {
-        doThrow(QuestionaryNotFound.class).when(questionaryService).getQuestionary(anyString(), anyString());
+        doThrow(QuestionaryNotFound.class).when(questionaryService).getQuestionary(anyString(), anyString(), anyString());
 
         mockMvc.perform(
                 get("/questionary/{questionaryId}", string())
@@ -265,7 +265,7 @@ public class ErrorControllerTest {
         ).andExpect(status().isNotFound());
 
         reset(questionaryService);
-        doThrow(TException.class).when(questionaryService).getQuestionary(anyString(), anyString());
+        doThrow(TException.class).when(questionaryService).getQuestionary(anyString(), anyString(), anyString());
 
         mockMvc.perform(
                 get("/questionary/{questionaryId}", string())
