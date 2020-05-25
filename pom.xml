@@ -10,14 +10,14 @@
     </parent>
 
     <artifactId>dark-api</artifactId>
-    <version>0.1.6-SNAPSHOT</version>
+    <version>0.1.7-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>dark-api</name>
     <description></description>
 
     <properties>
-        <damsel.version>1.382-718ab96</damsel.version>
+        <damsel.version>1.410-234ab2f</damsel.version>
         <sonar.jacoco.reportPaths>target/sites/jacoco/jacoco.exec</sonar.jacoco.reportPaths>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -85,7 +85,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.14-44b138c-server</version>
+            <version>1.15-9297a4d-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

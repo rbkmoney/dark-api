@@ -1,6 +1,7 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
 import com.rbkmoney.damsel.claim_management.CommentCreated;
+import com.rbkmoney.damsel.claim_management.CommentDeleted;
 import com.rbkmoney.damsel.claim_management.CommentModification;
 import com.rbkmoney.damsel.claim_management.CommentModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.COMMENTMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.COMMENTCREATED;
+import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.COMMENTDELETED;
 
 @Component
 public class ClaimCommentModificationUnitConverter
@@ -23,9 +25,10 @@ public class ClaimCommentModificationUnitConverter
 
         switch (commentModificationType) {
             case COMMENTCREATED:
-                CommentModification commentModification = new CommentModification();
-                commentModification.setCreation(new CommentCreated());
-                commentModificationUnit.setModification(commentModification);
+                commentModificationUnit.setModification(CommentModification.creation(new CommentCreated()));
+                break;
+            case COMMENTDELETED:
+                commentModificationUnit.setModification(CommentModification.deletion(new CommentDeleted()));
                 break;
             default:
                 throw new IllegalArgumentException("Type " + commentModificationType +
@@ -46,7 +49,9 @@ public class ClaimCommentModificationUnitConverter
 
         if (commentModification.getModification().isSetCreation()) {
             swagCommentModification.setCommentModificationType(COMMENTCREATED);
-        } else {
+        } else if (commentModification.getModification().isSetDeletion()) {
+            swagCommentModification.setCommentModificationType(COMMENTDELETED);
+        } else  {
             throw new IllegalArgumentException("Unknown comment modification type!");
         }
 

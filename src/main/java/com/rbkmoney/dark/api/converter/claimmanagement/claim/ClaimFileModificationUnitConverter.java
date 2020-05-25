@@ -1,6 +1,7 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
 import com.rbkmoney.damsel.claim_management.FileCreated;
+import com.rbkmoney.damsel.claim_management.FileDeleted;
 import com.rbkmoney.damsel.claim_management.FileModification;
 import com.rbkmoney.damsel.claim_management.FileModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.FILEMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.FILECREATED;
+import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.FILEDELETED;
 
 @Component
 public class ClaimFileModificationUnitConverter
@@ -22,9 +24,10 @@ public class ClaimFileModificationUnitConverter
 
         switch (swagFileModificationUnit.getFileModification().getFileModificationType()) {
             case FILECREATED:
-                FileModification fileModification = new FileModification();
-                fileModification.setCreation(new FileCreated());
-                fileModificationUnit.setModification(fileModification);
+                fileModificationUnit.setModification(FileModification.creation(new FileCreated()));
+                return fileModificationUnit;
+            case FILEDELETED:
+                fileModificationUnit.setModification(FileModification.deletion(new FileDeleted()));
                 return fileModificationUnit;
             default:
                 throw new IllegalArgumentException("Unknown file modification type: " +
@@ -43,11 +46,14 @@ public class ClaimFileModificationUnitConverter
 
         if (fileModificationUnit.getModification().isSetCreation()) {
             swagFileModification.setFileModificationType(FILECREATED);
-            swagFileModificationUnit.setFileModification(swagFileModification);
-            return swagFileModificationUnit;
+        } else if (fileModificationUnit.getModification().isSetDeletion()) {
+            swagFileModification.setFileModificationType(FILEDELETED);
         } else {
             throw new IllegalArgumentException("Unknown file modification type!");
         }
+
+        swagFileModificationUnit.setFileModification(swagFileModification);
+        return swagFileModificationUnit;
     }
 
 }
