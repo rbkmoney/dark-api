@@ -5,7 +5,7 @@ build('dark-api', 'java-maven') {
 
     def javaServicePipeline
     runStage('load JavaService pipeline') {
-        javaServicePipeline = load("build_utils/jenkins_lib/pipeJavaService.groovy")
+        javaServicePipeline = load("build_utils/jenkins_lib/pipeDefault.groovy")
     }
 
     def serviceName = env.REPO_NAME
@@ -14,5 +14,7 @@ build('dark-api', 'java-maven') {
     def registry = 'dr2.rbkmoney.com'
     def registryCredsId = 'jenkins_harbor'
 
-    javaServicePipeline(serviceName, useJava11, mvnArgs, registry, registryCredsId)
+    javaServicePipeline() {
+        sh 'mvn org.cyclonedx:cyclonedx-maven-plugin:makeBom -Dcyclonedx.skipAttach=true'
+    }
 }
