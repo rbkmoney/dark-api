@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.utils;
 
+import com.rbkmoney.file.storage.base.Residence;
 import com.rbkmoney.geck.serializer.kit.mock.MockMode;
 import com.rbkmoney.geck.serializer.kit.mock.MockTBaseProcessor;
 import com.rbkmoney.geck.serializer.kit.tbase.TBaseHandler;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.io.IOException;
 import java.util.Collections;
+
+import static com.rbkmoney.swag.questionary.model.LegalEntity.LegalEntityTypeEnum.INTERNATIONALLEGALENTITY;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionaryTestData {
@@ -146,16 +149,104 @@ public class QuestionaryTestData {
         questionaryParams.setOwnerId("12413");
         questionaryParams.setPartyId("12345");
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
-        questionaryData = new MockTBaseProcessor(MockMode.ALL)
-                .process(questionaryData, new TBaseHandler<>(com.rbkmoney.questionary.manage.QuestionaryData.class));
+        var bankAccount = new com.rbkmoney.questionary.BankAccount();
+        var russianBankAccount = new com.rbkmoney.questionary.RussianBankAccount();
+        russianBankAccount = new MockTBaseProcessor(MockMode.ALL)
+                .process(russianBankAccount, new TBaseHandler<>(com.rbkmoney.questionary.RussianBankAccount.class));
+        bankAccount.setRussianBankAccount(russianBankAccount);
+        questionaryData.setBankAccount(bankAccount);
+
+        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
+        shopInfo = new MockTBaseProcessor(MockMode.ALL)
+                .process(shopInfo, new TBaseHandler<>(com.rbkmoney.questionary.ShopInfo.class));
+        questionaryData.setShopInfo(shopInfo);
+
+        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
+        contactInfo = new MockTBaseProcessor(MockMode.ALL)
+                .process(contactInfo, new TBaseHandler<>(com.rbkmoney.questionary.ContactInfo.class));
+        questionaryData.setContactInfo(contactInfo);
+
         var legalEntity = new com.rbkmoney.questionary.LegalEntity();
-        legalEntity = new MockTBaseProcessor(MockMode.ALL)
-                .process(legalEntity, new TBaseHandler<>(com.rbkmoney.questionary.LegalEntity.class));
+        var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity();
+        russianLegalEntity = new MockTBaseProcessor(MockMode.ALL)
+                .process(russianLegalEntity, new TBaseHandler<>(com.rbkmoney.questionary.RussianLegalEntity.class));
+        legalEntity.setRussianLegalEntity(russianLegalEntity);
         questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
         questionaryParams.setData(questionaryData);
         return questionaryParams;
     }
 
+    public static QuestionaryParams createInternationalLegalEntityQuestionarySwag() {
+        QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
+        questionaryParams.setVersion("0");
+        questionaryParams.getData().setShopInfo(
+                EnhancedRandom.random(ShopInfo.class).
+                        location(EnhancedRandom.random(ShopLocationUrl.class)
+                                .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
+        LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
+        legalEntityContractor.setContractorType(Contractor.ContractorTypeEnum.LEGALENTITYCONTRACTOR);
+        InternationalLegalEntity internationalLegalEntity = new InternationalLegalEntity()
+                .tradingName("TrName")
+                .registeredNumber("RegName")
+                .registeredAddress("RedAddr")
+                .actualAddress("ActAddr")
+                .legalName("LgName");
+        internationalLegalEntity.setLegalEntityType(INTERNATIONALLEGALENTITY);
+        legalEntityContractor.setLegalEntity(internationalLegalEntity);
+
+        questionaryParams.getData().setContractor(legalEntityContractor);
+        questionaryParams.getData().setBankAccount(EnhancedRandom.random(InternationalBankAccount.class));
+
+        return questionaryParams;
+    }
+
+    public static com.rbkmoney.questionary.manage.QuestionaryParams createInternationalLegalEntityQuestionaryThrift()
+            throws IOException {
+        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
+        questionaryParams.setId("123456");
+        questionaryParams.setOwnerId("12413");
+        questionaryParams.setPartyId("12345");
+        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
+        var bankAccount = new com.rbkmoney.questionary.BankAccount();
+        bankAccount.setInternationalBankAccount(createTestIntBankAccount());
+        questionaryData.setBankAccount(bankAccount);
+
+        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
+        shopInfo = new MockTBaseProcessor(MockMode.ALL)
+                .process(shopInfo, new TBaseHandler<>(com.rbkmoney.questionary.ShopInfo.class));
+        questionaryData.setShopInfo(shopInfo);
+
+        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
+        contactInfo = new MockTBaseProcessor(MockMode.ALL)
+                .process(contactInfo, new TBaseHandler<>(com.rbkmoney.questionary.ContactInfo.class));
+        questionaryData.setContactInfo(contactInfo);
+
+        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
+        var internationalLegalEntity = new com.rbkmoney.questionary.InternationalLegalEntity();
+        internationalLegalEntity = new MockTBaseProcessor(MockMode.ALL)
+                .process(
+                        internationalLegalEntity,
+                        new TBaseHandler<>(com.rbkmoney.questionary.InternationalLegalEntity.class)
+                );
+        legalEntity.setInternationalLegalEntity(internationalLegalEntity);
+        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
+        questionaryParams.setData(questionaryData);
+        return questionaryParams;
+    }
+
+    private static com.rbkmoney.questionary.InternationalBankAccount createTestIntBankAccount() {
+        return new com.rbkmoney.questionary.InternationalBankAccount()
+                .setNumber("101")
+                .setIban("ibbb")
+                .setAccountHolder("holder-1")
+                .setBank(new com.rbkmoney.questionary.InternationalBankDetails()
+                        .setName("test")
+                        .setAddress("addr")
+                        .setAbaRtn("abba")
+                        .setBic("001122")
+                        .setCountry(Residence.RUS)
+                );
+    }
 
 }

@@ -5,6 +5,7 @@ import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.junit.Assert;
+import org.junit.Test;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionaryCompareUtil {
@@ -326,6 +327,48 @@ public class QuestionaryCompareUtil {
                     ((RussianDomesticPassport) swagIdentityDocument).getIssuerCode());
             Assert.assertEquals(thriftIdentityDocument.getRussianDomesticPassword().getSeriesNumber(),
                     ((RussianDomesticPassport) swagIdentityDocument).getSeriesNumber());
+        }
+    }
+
+    @Test
+    public static void internationalLegalEntityCompare(com.rbkmoney.questionary.Contractor thriftContractor,
+                                                       Contractor swagContractor) {
+        LegalEntityContractor legal = (LegalEntityContractor) swagContractor;
+        InternationalLegalEntity international = (InternationalLegalEntity) legal.getLegalEntity();
+        Assert.assertTrue(thriftContractor.isSetLegalEntity());
+        Assert.assertTrue(thriftContractor.getLegalEntity().isSetInternationalLegalEntity());
+        com.rbkmoney.questionary.InternationalLegalEntity internationalLegalEntity =
+                thriftContractor.getLegalEntity().getInternationalLegalEntity();
+        Assert.assertEquals(international.getLegalName(), internationalLegalEntity.getLegalName());
+        Assert.assertEquals(international.getTradingName(), internationalLegalEntity.getTradingName());
+        Assert.assertEquals(international.getActualAddress(), internationalLegalEntity.getActualAddress());
+        Assert.assertEquals(international.getRegisteredAddress(), internationalLegalEntity.getRegisteredAddress());
+        Assert.assertEquals(international.getRegisteredNumber(), internationalLegalEntity.getRegisteredNumber());
+    }
+
+    public static void internationalBankAccountCompare(com.rbkmoney.questionary.BankAccount thriftBankAccount,
+                                                       com.rbkmoney.swag.questionary.model.BankAccount swagBankAccount) {
+        if (swagBankAccount instanceof InternationalBankAccount) {
+            InternationalBankAccount internationalBankAccount = (InternationalBankAccount) swagBankAccount;
+            com.rbkmoney.questionary.InternationalBankAccount thriftInternationalBankAccount;
+            if (thriftBankAccount.isSetInternationalBankAccount()) {
+                thriftInternationalBankAccount = thriftBankAccount.getInternationalBankAccount();
+            } else {
+                throw new RuntimeException("Incorrect data! International bank account must be set!");
+            }
+            Assert.assertEquals(thriftInternationalBankAccount.getAccountHolder(), internationalBankAccount.getAccountHolder());
+            Assert.assertEquals(thriftInternationalBankAccount.getIban(), internationalBankAccount.getIban());
+            Assert.assertEquals(thriftInternationalBankAccount.getNumber(), internationalBankAccount.getNumber());
+            Assert.assertEquals(thriftInternationalBankAccount.isSetBank(), internationalBankAccount.getBank() != null);
+            if (thriftInternationalBankAccount.isSetBank()) {
+                var thriftBank = thriftInternationalBankAccount.getBank();
+                var swagBank = internationalBankAccount.getBank();
+                Assert.assertEquals(thriftBank.getName(), swagBank.getName());
+                Assert.assertEquals(thriftBank.getBic(), swagBank.getBic());
+                Assert.assertEquals(thriftBank.getAbaRtn(), swagBank.getAbaRtn());
+                Assert.assertEquals(thriftBank.getAddress(), swagBank.getAddress());
+                Assert.assertEquals(new Integer(thriftBank.getCountry().getValue()), swagBank.getCountry());
+            }
         }
     }
 
