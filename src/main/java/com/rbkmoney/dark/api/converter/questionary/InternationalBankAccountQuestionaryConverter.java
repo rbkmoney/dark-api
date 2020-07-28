@@ -97,33 +97,41 @@ public class InternationalBankAccountQuestionaryConverter implements
     private InternationalBankDetails getBankDetails(
             com.rbkmoney.swag.questionary.model.CorrespondentBankDetails thriftBank
     ) {
-        if (thriftBank != null) {
-            return new InternationalBankDetails()
-                    .setName(thriftBank.getName())
-                    .setCountry(thriftBank.getCountry() == null ?
-                            null : Residence.findByValue(thriftBank.getCountry()))
-                    .setAbaRtn(thriftBank.getAbaRtn())
-                    .setAddress(thriftBank.getAddress())
-                    .setBic(thriftBank.getBic());
-        } else {
-            return null;
-        }
+        return thriftBank == null ? null : getInternationalBankDetails(
+                thriftBank.getName(),
+                thriftBank.getCountry(),
+                thriftBank.getAbaRtn(),
+                thriftBank.getAddress(),
+                thriftBank.getBic());
     }
 
     private InternationalBankDetails getBankDetails(
             com.rbkmoney.swag.questionary.model.InternationalBankDetails thriftBank
     ) {
-        if (thriftBank != null) {
-            return new InternationalBankDetails()
-                    .setName(thriftBank.getName())
-                    .setCountry(thriftBank.getCountry() == null ?
-                            null : Residence.findByValue(thriftBank.getCountry()))
-                    .setAbaRtn(thriftBank.getAbaRtn())
-                    .setAddress(thriftBank.getAddress())
-                    .setBic(thriftBank.getBic());
-        } else {
-            return null;
-        }
+        return thriftBank == null ? null : getInternationalBankDetails(
+                thriftBank.getName(),
+                thriftBank.getCountry(),
+                thriftBank.getAbaRtn(),
+                thriftBank.getAddress(),
+                thriftBank.getBic());
+    }
+
+    private InternationalBankDetails getInternationalBankDetails(String name,
+                                                                 Integer country,
+                                                                 String abaRtn,
+                                                                 String address,
+                                                                 String bic) {
+            InternationalBankDetails bankDetails = new InternationalBankDetails()
+                    .setName(name)
+                    .setCountry(country == null ?
+                            null : Residence.findByValue(country))
+                    .setAbaRtn(abaRtn)
+                    .setAddress(address)
+                    .setBic(bic);
+            if (country != null) {
+                bankDetails.setCountry(Residence.findByValue(country));
+            }
+            return bankDetails;
     }
 
 }
