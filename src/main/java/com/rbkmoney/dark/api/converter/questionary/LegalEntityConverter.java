@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.rbkmoney.swag.questionary.model.LegalEntity.LegalEntityTypeEnum.INTERNATIONALLEGALENTITY;
+import static com.rbkmoney.swag.questionary.model.LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY;
+
 @Component
 public class LegalEntityConverter implements
         ThriftConverter<LegalEntity, com.rbkmoney.swag.questionary.model.LegalEntity>,
@@ -70,8 +73,17 @@ public class LegalEntityConverter implements
                 russianLegalEntity.setPropertyInfoDocumentType(
                         ctx.convert(value.getRussianLegalEntity().getPropertyInfoDocumentType(), PropertyInfoDocumentType.class));
             }
-
+            russianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
             return russianLegalEntity;
+        } else if (value.isSetInternationalLegalEntity()) {
+            var thriftInternationalLegalEntity = value.getInternationalLegalEntity();
+            return new InternationalLegalEntity()
+                    .legalName(thriftInternationalLegalEntity.getLegalName())
+                    .actualAddress(thriftInternationalLegalEntity.getActualAddress())
+                    .registeredAddress(thriftInternationalLegalEntity.getRegisteredAddress())
+                    .registeredNumber(thriftInternationalLegalEntity.getRegisteredNumber())
+                    .tradingName(thriftInternationalLegalEntity.getTradingName())
+                    .legalEntityType(INTERNATIONALLEGALENTITY);
         }
 
         throw new IllegalArgumentException("Unknown legalEntity type: " + value.getClass().getName());
@@ -131,6 +143,15 @@ public class LegalEntityConverter implements
             }
 
             return LegalEntity.russian_legal_entity(russianLegalEntity);
+        } else if (value.getLegalEntityType() == INTERNATIONALLEGALENTITY) {
+            InternationalLegalEntity internationalLegalEntity = (InternationalLegalEntity) value;
+            var thriftInternationalLegalEntity = new com.rbkmoney.questionary.InternationalLegalEntity()
+                    .setLegalName(internationalLegalEntity.getLegalName())
+                    .setActualAddress(internationalLegalEntity.getActualAddress())
+                    .setRegisteredAddress(internationalLegalEntity.getRegisteredAddress())
+                    .setRegisteredNumber(internationalLegalEntity.getRegisteredNumber())
+                    .setTradingName(internationalLegalEntity.getTradingName());
+            return LegalEntity.international_legal_entity(thriftInternationalLegalEntity);
         }
         throw new IllegalArgumentException("Unknown legalEntity type: " + value.getLegalEntityType());
     }
