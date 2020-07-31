@@ -26,7 +26,6 @@ public class ContractorConverter implements
                     .contractorType(ContractorTypeEnum.INDIVIDUALENTITYCONTRACTOR);
         } else if (value.isSetLegalEntity()) {
             LegalEntity legalEntity = ctx.convert(value.getLegalEntity(), LegalEntity.class);
-            legalEntity.setLegalEntityType(LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY);
             return new LegalEntityContractor().legalEntity(legalEntity)
                     .contractorType(ContractorTypeEnum.LEGALENTITYCONTRACTOR);
         } else {
