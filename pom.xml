@@ -100,7 +100,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary</artifactId>
-            <version>1.19-7148c54-server</version>
+            <version>1.20-b72644c-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
