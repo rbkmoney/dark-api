@@ -25,25 +25,6 @@
         <dockerfile.base.service.tag>57e26d8ee999d7b0b50248c22afc63e6f926d276</dockerfile.base.service.tag>
         <dockerfile.registry>${env.REGISTRY}</dockerfile.registry>
         <mapstruct.processor.version>1.3.0.Final</mapstruct.processor.version>
-        <custom-actuator-endpoints.version>0.0.4</custom-actuator-endpoints.version>
-        <spring-boot-starter-metrics-statsd.version>1.1.2</spring-boot-starter-metrics-statsd.version>
-        <woody-thrift.version>1.1.22</woody-thrift.version>
-        <shared.resources.version>0.3.8</shared.resources.version>
-        <serializer.version>0.6.9</serializer.version>
-        <damsell.version>1.430-a1072d0</damsell.version>
-        <messages-proto.version>1.10-391d225</messages-proto.version>
-        <file-storage-proto.version>1.28-281e1ca</file-storage-proto.version>
-        <questionary-proxy-aggr-proto.version>1.11-f1611dc</questionary-proxy-aggr-proto.version>
-        <ank-proto.version>1.22-d638e44</ank-proto.version>
-        <swag-claim-management.version>1.16-acf0795-server</swag-claim-management.version>
-        <swag-dark-api.version>1.55-52667d6-server</swag-dark-api.version>
-        <swag-questionary-aggr.version>1.20-6545299-server</swag-questionary-aggr.version>
-        <swag-questionary.version>1.20-b72644c-server</swag-questionary.version>
-        <swag-messages.version>1.10-60af8f2-server</swag-messages.version>
-        <cabi-proto.version>1.4-61769ca</cabi-proto.version>
-        <swag-cabi.version>1.4-f6e59d6-server</swag-cabi.version>
-        <swag-analytics.version>1.26-95dbdc2-server</swag-analytics.version>
-        <analytics-proto.version>1.12-3b71837</analytics-proto.version>
     </properties>
 
     <dependencies>
@@ -51,97 +32,102 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>custom-actuator-endpoints</artifactId>
-            <version>${custom-actuator-endpoints.version}</version>
+            <version>0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>spring-boot-starter-metrics-statsd</artifactId>
-            <version>${spring-boot-starter-metrics-statsd.version}</version>
+            <version>1.1.2</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.woody</groupId>
             <artifactId>woody-thrift</artifactId>
-            <version>${woody-thrift.version}</version>
+            <version>1.1.22</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>shared-resources</artifactId>
-            <version>${shared.resources.version}</version>
+            <version>0.3.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney.geck</groupId>
+            <artifactId>filter</artifactId>
+            <version>0.6.11</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>
             <artifactId>serializer</artifactId>
-            <version>${serializer.version}</version>
+            <version>0.6.11</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
-            <version>${damsell.version}</version>
+            <version>1.430-a1072d0</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>messages-proto</artifactId>
-            <version>${messages-proto.version}</version>
+            <version>1.10-391d225</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>file-storage-proto</artifactId>
-            <version>${file-storage-proto.version}</version>
+            <version>1.28-281e1ca</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>questionary-proxy-aggr-proto</artifactId>
-            <version>${questionary-proxy-aggr-proto.version}</version>
+            <version>1.11-f1611dc</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>ank-proto</artifactId>
-            <version>${ank-proto.version}</version>
+            <version>1.22-d638e44</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>${swag-claim-management.version}</version>
+            <version>1.16-acf0795-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-dark-api</artifactId>
-            <version>${swag-dark-api.version}</version>
+            <version>1.55-52667d6-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary-aggr</artifactId>
-            <version>${swag-questionary-aggr.version}</version>
+            <version>1.20-6545299-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-questionary</artifactId>
-            <version>${swag-questionary.version}</version>
+            <version>1.20-b72644c-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-messages</artifactId>
-            <version>${swag-messages.version}</version>
+            <version>1.10-60af8f2-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>cabi-proto</artifactId>
-            <version>${cabi-proto.version}</version>
+            <version>1.4-61769ca</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-cabi</artifactId>
-            <version>${swag-cabi.version}</version>
+            <version>1.4-f6e59d6-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-analytics</artifactId>
-            <version>${swag-analytics.version}</version>
+            <version>1.26-95dbdc2-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>analytics-proto</artifactId>
-            <version>${analytics-proto.version}</version>
+            <version>1.12-3b71837</version>
         </dependency>
 
 
