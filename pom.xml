@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>shared-resources</artifactId>
-            <version>${shared-resources.version}</version>
+            <version>${shared.resources.version}</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>
