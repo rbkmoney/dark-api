@@ -74,15 +74,54 @@ public class QuestionaryTestData {
     }
 
     public com.rbkmoney.questionary.manage.QuestionaryParams createIndividualEntityQuestionaryThrift() {
-        com.rbkmoney.questionary.RussianIndividualEntity russianIndividualEntity = new com.rbkmoney.questionary.RussianIndividualEntity();
-        russianIndividualEntity = fillTBaseObject(russianIndividualEntity, com.rbkmoney.questionary.RussianIndividualEntity.class);
+        var bankAccount = new com.rbkmoney.questionary.BankAccount();
+        bankAccount.setInternationalBankAccount(createTestIntBankAccount());
+
+        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
+        shopInfo = fillTBaseObject(shopInfo, com.rbkmoney.questionary.ShopInfo.class);
+
+        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
+        contactInfo = fillTBaseObject(contactInfo, com.rbkmoney.questionary.ContactInfo.class);
 
         var individualEntity = new com.rbkmoney.questionary.IndividualEntity();
+        var russianIndividualEntity = new com.rbkmoney.questionary.RussianIndividualEntity();
+        russianIndividualEntity = fillTBaseObject(russianIndividualEntity, com.rbkmoney.questionary.RussianIndividualEntity.class);
         individualEntity.setRussianIndividualEntity(russianIndividualEntity);
 
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
-        questionaryData = fillTBaseObject(questionaryData, com.rbkmoney.questionary.manage.QuestionaryData.class);
+        questionaryData.setBankAccount(bankAccount);
+        questionaryData.setContactInfo(contactInfo);
+        questionaryData.setShopInfo(shopInfo);
         questionaryData.setContractor(com.rbkmoney.questionary.Contractor.individual_entity(individualEntity));
+
+        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
+        questionaryParams.setId("123456");
+        questionaryParams.setOwnerId("12413");
+        questionaryParams.setPartyId("12345");
+        questionaryParams.setData(questionaryData);
+        return questionaryParams;
+    }
+
+    public com.rbkmoney.questionary.manage.QuestionaryParams createInternationalLegalEntityQuestionaryThrift() {
+        var bankAccount = new com.rbkmoney.questionary.BankAccount();
+        bankAccount.setInternationalBankAccount(createTestIntBankAccount());
+
+        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
+        shopInfo = fillTBaseObject(shopInfo, com.rbkmoney.questionary.ShopInfo.class);
+
+        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
+        contactInfo = fillTBaseObject(contactInfo, com.rbkmoney.questionary.ContactInfo.class);
+
+        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
+        var internationalLegalEntity = new com.rbkmoney.questionary.InternationalLegalEntity();
+        internationalLegalEntity = fillTBaseObject(internationalLegalEntity, com.rbkmoney.questionary.InternationalLegalEntity.class);
+        legalEntity.setInternationalLegalEntity(internationalLegalEntity);
+
+        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
+        questionaryData.setBankAccount(bankAccount);
+        questionaryData.setContactInfo(contactInfo);
+        questionaryData.setShopInfo(shopInfo);
+        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
 
         var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
         questionaryParams.setId("123456");
@@ -202,35 +241,6 @@ public class QuestionaryTestData {
         questionaryParams.getData().setContractor(legalEntityContractor);
         questionaryParams.getData().setBankAccount(EnhancedRandom.random(InternationalBankAccount.class));
 
-        return questionaryParams;
-    }
-
-    public com.rbkmoney.questionary.manage.QuestionaryParams createInternationalLegalEntityQuestionaryThrift() {
-        var bankAccount = new com.rbkmoney.questionary.BankAccount();
-        bankAccount.setInternationalBankAccount(createTestIntBankAccount());
-
-        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
-        shopInfo = fillTBaseObject(shopInfo, com.rbkmoney.questionary.ShopInfo.class);
-
-        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
-        contactInfo = fillTBaseObject(contactInfo, com.rbkmoney.questionary.ContactInfo.class);
-
-        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
-        var internationalLegalEntity = new com.rbkmoney.questionary.InternationalLegalEntity();
-        internationalLegalEntity = fillTBaseObject(internationalLegalEntity, com.rbkmoney.questionary.InternationalLegalEntity.class);
-        legalEntity.setInternationalLegalEntity(internationalLegalEntity);
-
-        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
-        questionaryData.setBankAccount(bankAccount);
-        questionaryData.setContactInfo(contactInfo);
-        questionaryData.setShopInfo(shopInfo);
-        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
-
-        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
-        questionaryParams.setId("123456");
-        questionaryParams.setOwnerId("12413");
-        questionaryParams.setPartyId("12345");
-        questionaryParams.setData(questionaryData);
         return questionaryParams;
     }
 
