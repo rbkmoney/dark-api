@@ -37,6 +37,16 @@ public class QuestionaryServiceTest {
     @Before
     public void setUp() throws Exception {
         MockTBaseProcessor mockTBaseProcessor = new MockTBaseProcessor(MockMode.ALL, 10, 1);
+        mockTBaseProcessor.addFieldHandler(structHandler -> {
+            structHandler.beginStruct(3);
+            structHandler.name("number");
+            structHandler.value("test");
+            structHandler.name("iban");
+            structHandler.value("test");
+            structHandler.name("account_holder");
+            structHandler.value("test");
+            structHandler.endStruct();
+        }, "correspondent_account");
         questionaryTestData = new QuestionaryTestData(mockTBaseProcessor);
     }
 

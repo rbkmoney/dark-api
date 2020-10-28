@@ -37,7 +37,9 @@ public class QuestionaryTestData {
         individualResidencyInfo.setResidencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO);
         russianIndividualEntity.setResidencyInfo(individualResidencyInfo);
 
-        russianIndividualEntity.getAdditionalInfo().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        var russianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class);
+        russianBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.RUSSIANBANKACCOUNT);
+        russianIndividualEntity.getAdditionalInfo().setBankAccount(russianBankAccount);
 
         russianIndividualEntity.getAdditionalInfo().setFinancialPosition(
                 Collections.singletonList(
@@ -66,7 +68,7 @@ public class QuestionaryTestData {
         individualEntityContractor.setIndividualEntity(russianIndividualEntity);
 
         questionaryParams.getData().setContractor(individualEntityContractor);
-        questionaryParams.getData().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        questionaryParams.getData().setBankAccount(russianBankAccount);
         questionaryParams.getData().getShopInfo().setLocation(
                 new ShopLocationUrl().url("testUrl").locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL));
 
@@ -103,13 +105,16 @@ public class QuestionaryTestData {
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
         legalEntityContractor.setContractorType(Contractor.ContractorTypeEnum.LEGALENTITYCONTRACTOR);
         RussianLegalEntity russianLegalEntity = EnhancedRandom.random(RussianLegalEntity.class);
+        russianLegalEntity.setLegalEntityType(LegalEntity.LegalEntityTypeEnum.RUSSIANLEGALENTITY);
         russianLegalEntity.setRegistrationInfo(EnhancedRandom.random(LegalRegistrationInfo.class)
                 .registrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.LEGALREGISTRATIONINFO));
         russianLegalEntity.setResidencyInfo(EnhancedRandom.random(LegalResidencyInfo.class)
                 .residencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.LEGALRESIDENCYINFO));
         russianLegalEntity.getLegalOwnerInfo().setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class)
                 .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
-        russianLegalEntity.getAdditionalInfo().setBankAccount(EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class));
+        var russianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class);
+        russianBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.RUSSIANBANKACCOUNT);
+        russianLegalEntity.getAdditionalInfo().setBankAccount(russianBankAccount);
         russianLegalEntity.getAdditionalInfo().setFinancialPosition(Collections.singletonList(new AnnualTaxReturnWithMark()
                 .financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK)));
         russianLegalEntity.getAdditionalInfo().setBusinessInfo(Collections.singletonList(new RetailTradeBusiness()
@@ -142,7 +147,7 @@ public class QuestionaryTestData {
         legalEntityContractor.setLegalEntity(russianLegalEntity);
 
         questionaryParams.getData().setContractor(legalEntityContractor);
-        questionaryParams.getData().setBankAccount(EnhancedRandom.random(RussianBankAccount.class));
+        questionaryParams.getData().setBankAccount(russianBankAccount);
 
         return questionaryParams;
     }
@@ -200,7 +205,9 @@ public class QuestionaryTestData {
         legalEntityContractor.setLegalEntity(internationalLegalEntity);
 
         questionaryParams.getData().setContractor(legalEntityContractor);
-        questionaryParams.getData().setBankAccount(EnhancedRandom.random(InternationalBankAccount.class));
+        var internationalBankAccount = EnhancedRandom.random(InternationalBankAccount.class);
+        internationalBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.INTERNATIONALBANKACCOUNT);
+        questionaryParams.getData().setBankAccount(internationalBankAccount);
 
         return questionaryParams;
     }
