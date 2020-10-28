@@ -18,63 +18,6 @@ public class QuestionaryTestData {
 
     private final MockTBaseProcessor mockTBaseProcessor;
 
-    public QuestionaryParams createIndividualEntityQuestionarySwag() {
-        QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
-        questionaryParams.setVersion("0");
-        IndividualEntityContractor individualEntityContractor = new IndividualEntityContractor();
-        individualEntityContractor.setContractorType(Contractor.ContractorTypeEnum.INDIVIDUALENTITYCONTRACTOR);
-
-        RussianIndividualEntity russianIndividualEntity = EnhancedRandom.random(RussianIndividualEntity.class);
-        russianIndividualEntity.setIdentityDocument(
-                EnhancedRandom.random(RussianDomesticPassport.class)
-                        .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
-
-        IndividualRegistrationInfo individualRegistrationInfo = EnhancedRandom.random(IndividualRegistrationInfo.class);
-        individualRegistrationInfo.setRegistrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO);
-        russianIndividualEntity.setRegistrationInfo(individualRegistrationInfo);
-
-        IndividualResidencyInfo individualResidencyInfo = EnhancedRandom.random(IndividualResidencyInfo.class);
-        individualResidencyInfo.setResidencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO);
-        russianIndividualEntity.setResidencyInfo(individualResidencyInfo);
-
-        var russianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class);
-        russianBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.RUSSIANBANKACCOUNT);
-        russianIndividualEntity.getAdditionalInfo().setBankAccount(russianBankAccount);
-
-        russianIndividualEntity.getAdditionalInfo().setFinancialPosition(
-                Collections.singletonList(
-                        new AnnualFinancialStatements().financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS)));
-
-        russianIndividualEntity.getAdditionalInfo().setBusinessInfo(
-                Collections.singletonList(
-                        new AnotherBusiness().description("test").businessInfoType(BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS)));
-
-        WithoutChiefAccountingOrganization withoutChiefAccountingOrganization = new WithoutChiefAccountingOrganization();
-        withoutChiefAccountingOrganization.setAccountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
-        withoutChiefAccountingOrganization.setInn("test inn");
-        russianIndividualEntity.getAdditionalInfo().setAccountantInfo(withoutChiefAccountingOrganization);
-
-        BeneficialOwner beneficialOwner = EnhancedRandom.random(BeneficialOwner.class);
-        beneficialOwner.setResidencyInfo(EnhancedRandom.random(IndividualResidencyInfo.class)
-                .residencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO));
-        beneficialOwner.setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class)
-                .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
-        beneficialOwner.setRussianPrivateEntity(EnhancedRandom.random(RussianPrivateEntity.class));
-        russianIndividualEntity.setBeneficialOwners(Collections.singletonList(beneficialOwner));
-
-        russianIndividualEntity.setPropertyInfoDocumentType(EnhancedRandom.random(OtherPropertyInfoDocumentType.class)
-                .documentType(PropertyInfoDocumentType.DocumentTypeEnum.OTHERPROPERTYINFODOCUMENTTYPE));
-
-        individualEntityContractor.setIndividualEntity(russianIndividualEntity);
-
-        questionaryParams.getData().setContractor(individualEntityContractor);
-        questionaryParams.getData().setBankAccount(russianBankAccount);
-        questionaryParams.getData().getShopInfo().setLocation(
-                new ShopLocationUrl().url("testUrl").locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL));
-
-        return questionaryParams;
-    }
-
     public com.rbkmoney.questionary.manage.QuestionaryParams createIndividualEntityQuestionaryThrift() {
         var bankAccount = new com.rbkmoney.questionary.BankAccount();
         bankAccount.setInternationalBankAccount(createTestIntBankAccount());
@@ -133,6 +76,96 @@ public class QuestionaryTestData {
         return questionaryParams;
     }
 
+    public com.rbkmoney.questionary.manage.QuestionaryParams createLegalEntityQuestionaryThrift() {
+        var russianBankAccount = new com.rbkmoney.questionary.RussianBankAccount();
+        russianBankAccount = fillTBaseObject(russianBankAccount, com.rbkmoney.questionary.RussianBankAccount.class);
+
+        var bankAccount = new com.rbkmoney.questionary.BankAccount();
+        bankAccount.setRussianBankAccount(russianBankAccount);
+
+        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
+        shopInfo = fillTBaseObject(shopInfo, com.rbkmoney.questionary.ShopInfo.class);
+
+        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
+        contactInfo = fillTBaseObject(contactInfo, com.rbkmoney.questionary.ContactInfo.class);
+
+        var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity();
+        russianLegalEntity = fillTBaseObject(russianLegalEntity, com.rbkmoney.questionary.RussianLegalEntity.class);
+
+        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
+        legalEntity.setRussianLegalEntity(russianLegalEntity);
+
+        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
+        questionaryData.setBankAccount(bankAccount);
+        questionaryData.setShopInfo(shopInfo);
+        questionaryData.setContactInfo(contactInfo);
+        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
+
+        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
+        questionaryParams.setId("123456");
+        questionaryParams.setOwnerId("12413");
+        questionaryParams.setPartyId("12345");
+        questionaryParams.setData(questionaryData);
+        return questionaryParams;
+    }
+
+    public QuestionaryParams createIndividualEntityQuestionarySwag() {
+        QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
+        questionaryParams.setVersion("0");
+        IndividualEntityContractor individualEntityContractor = new IndividualEntityContractor();
+        individualEntityContractor.setContractorType(Contractor.ContractorTypeEnum.INDIVIDUALENTITYCONTRACTOR);
+
+        RussianIndividualEntity russianIndividualEntity = EnhancedRandom.random(RussianIndividualEntity.class);
+        russianIndividualEntity.setIdentityDocument(
+                EnhancedRandom.random(RussianDomesticPassport.class)
+                        .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
+
+        IndividualRegistrationInfo individualRegistrationInfo = EnhancedRandom.random(IndividualRegistrationInfo.class);
+        individualRegistrationInfo.setRegistrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO);
+        russianIndividualEntity.setRegistrationInfo(individualRegistrationInfo);
+
+        IndividualResidencyInfo individualResidencyInfo = EnhancedRandom.random(IndividualResidencyInfo.class);
+        individualResidencyInfo.setResidencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO);
+        russianIndividualEntity.setResidencyInfo(individualResidencyInfo);
+
+        var russianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class);
+        russianBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.RUSSIANBANKACCOUNT);
+        russianIndividualEntity.getAdditionalInfo().setBankAccount(russianBankAccount);
+
+        russianIndividualEntity.getAdditionalInfo().setFinancialPosition(
+                Collections.singletonList(
+                        new AnnualFinancialStatements().financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS)));
+
+        russianIndividualEntity.getAdditionalInfo().setBusinessInfo(
+                Collections.singletonList(
+                        new AnotherBusiness().description("test").businessInfoType(BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS)));
+
+        WithoutChiefAccountingOrganization withoutChiefAccountingOrganization = new WithoutChiefAccountingOrganization();
+        withoutChiefAccountingOrganization.setAccountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
+        withoutChiefAccountingOrganization.setInn("test inn");
+        russianIndividualEntity.getAdditionalInfo().setAccountantInfo(withoutChiefAccountingOrganization);
+
+        BeneficialOwner beneficialOwner = EnhancedRandom.random(BeneficialOwner.class);
+        beneficialOwner.setResidencyInfo(EnhancedRandom.random(IndividualResidencyInfo.class)
+                .residencyInfoType(ResidencyInfo.ResidencyInfoTypeEnum.INDIVIDUALRESIDENCYINFO));
+        beneficialOwner.setIdentityDocument(EnhancedRandom.random(RussianDomesticPassport.class)
+                .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
+        beneficialOwner.setRussianPrivateEntity(EnhancedRandom.random(RussianPrivateEntity.class));
+        russianIndividualEntity.setBeneficialOwners(Collections.singletonList(beneficialOwner));
+
+        russianIndividualEntity.setPropertyInfoDocumentType(EnhancedRandom.random(OtherPropertyInfoDocumentType.class)
+                .documentType(PropertyInfoDocumentType.DocumentTypeEnum.OTHERPROPERTYINFODOCUMENTTYPE));
+
+        individualEntityContractor.setIndividualEntity(russianIndividualEntity);
+
+        questionaryParams.getData().setContractor(individualEntityContractor);
+        questionaryParams.getData().setBankAccount(russianBankAccount);
+        questionaryParams.getData().getShopInfo().setLocation(
+                new ShopLocationUrl().url("testUrl").locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL));
+
+        return questionaryParams;
+    }
+
     public QuestionaryParams createLegalEntityQuestionarySwag() {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
@@ -188,39 +221,6 @@ public class QuestionaryTestData {
         questionaryParams.getData().setContractor(legalEntityContractor);
         questionaryParams.getData().setBankAccount(russianBankAccount);
 
-        return questionaryParams;
-    }
-
-    public com.rbkmoney.questionary.manage.QuestionaryParams createLegalEntityQuestionaryThrift() {
-        var russianBankAccount = new com.rbkmoney.questionary.RussianBankAccount();
-        russianBankAccount = fillTBaseObject(russianBankAccount, com.rbkmoney.questionary.RussianBankAccount.class);
-
-        var bankAccount = new com.rbkmoney.questionary.BankAccount();
-        bankAccount.setRussianBankAccount(russianBankAccount);
-
-        var shopInfo = new com.rbkmoney.questionary.ShopInfo();
-        shopInfo = fillTBaseObject(shopInfo, com.rbkmoney.questionary.ShopInfo.class);
-
-        var contactInfo = new com.rbkmoney.questionary.ContactInfo();
-        contactInfo = fillTBaseObject(contactInfo, com.rbkmoney.questionary.ContactInfo.class);
-
-        var russianLegalEntity = new com.rbkmoney.questionary.RussianLegalEntity();
-        russianLegalEntity = fillTBaseObject(russianLegalEntity, com.rbkmoney.questionary.RussianLegalEntity.class);
-
-        var legalEntity = new com.rbkmoney.questionary.LegalEntity();
-        legalEntity.setRussianLegalEntity(russianLegalEntity);
-
-        var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
-        questionaryData.setBankAccount(bankAccount);
-        questionaryData.setShopInfo(shopInfo);
-        questionaryData.setContactInfo(contactInfo);
-        questionaryData.setContractor(com.rbkmoney.questionary.Contractor.legal_entity(legalEntity));
-
-        var questionaryParams = new com.rbkmoney.questionary.manage.QuestionaryParams();
-        questionaryParams.setId("123456");
-        questionaryParams.setOwnerId("12413");
-        questionaryParams.setPartyId("12345");
-        questionaryParams.setData(questionaryData);
         return questionaryParams;
     }
 

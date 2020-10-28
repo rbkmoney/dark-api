@@ -111,6 +111,34 @@ public class QuestionaryServiceTest {
     }
 
     @Test
+    public void getLegalEntityQuestionaryTest() throws TException, IOException {
+        var questionary = new com.rbkmoney.questionary.manage.Questionary();
+        var questionaryParams = questionaryTestData.createLegalEntityQuestionaryThrift();
+        questionary.setId(questionaryParams.getId());
+        questionary.setOwnerId(questionaryParams.getOwnerId());
+        questionary.setPartyId(questionaryParams.getPartyId());
+        questionary.setData(questionaryParams.getData());
+
+        var snapshot = new com.rbkmoney.questionary.manage.Snapshot();
+        snapshot.setVersion(0L);
+        snapshot.setQuestionary(questionary);
+
+        when(questionaryManagerSrv.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+                .then(invocation -> snapshot);
+
+        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
+
+        Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
+        Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
+
+        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
+        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
+        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
+    }
+
+    @Test
     public void saveIndividualEntityQuestionaryTest() throws TException {
         ArgumentCaptor<com.rbkmoney.questionary.manage.QuestionaryParams> captor =
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
@@ -130,30 +158,6 @@ public class QuestionaryServiceTest {
         verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
-    }
-
-    @Test
-    public void getLegalEntityQuestionaryTest() throws TException, IOException {
-        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = questionaryTestData.createLegalEntityQuestionaryThrift();
-        com.rbkmoney.questionary.manage.Snapshot snapshot = new com.rbkmoney.questionary.manage.Snapshot();
-        snapshot.setVersion(0L);
-        com.rbkmoney.questionary.manage.Questionary questionary = new com.rbkmoney.questionary.manage.Questionary();
-        questionary.setId(questionaryParams.getId());
-        questionary.setOwnerId(questionaryParams.getOwnerId());
-        questionary.setPartyId(questionaryParams.getPartyId());
-        questionary.setData(questionaryParams.getData());
-        snapshot.setQuestionary(questionary);
-        when(questionaryManagerSrv.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
-                .then(invocation -> snapshot);
-        Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
-        Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
-        Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
-        Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
-        Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
-
-        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
-        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
-        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
     }
 
     @Test
