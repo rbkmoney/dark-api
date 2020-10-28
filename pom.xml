@@ -25,7 +25,7 @@
         <dockerfile.base.service.tag>57e26d8ee999d7b0b50248c22afc63e6f926d276</dockerfile.base.service.tag>
         <dockerfile.registry>${env.REGISTRY}</dockerfile.registry>
         <mapstruct.processor.version>1.3.0.Final</mapstruct.processor.version>
-        <shared-resources.version>0.3.8</shared-resources.version>
+        <shared.resources.version>0.3.8</shared.resources.version>
     </properties>
 
     <dependencies>
