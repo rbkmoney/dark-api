@@ -10,7 +10,7 @@ import com.rbkmoney.swag.dark_api.model.PaymentResourcePayer;
 import com.rbkmoney.swag.dark_api.model.RecurrentPayer;
 import com.rbkmoney.swag.dark_api.model.*;
 import lombok.extern.slf4j.Slf4j;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import net.logstash.logback.encoder.org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;

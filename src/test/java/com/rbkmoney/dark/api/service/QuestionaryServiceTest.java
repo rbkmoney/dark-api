@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 public class QuestionaryServiceTest {
 
     @MockBean
-    private QuestionaryManagerSrv.Iface questionaryManager;
+    private QuestionaryManagerSrv.Iface questionaryManagerSrv;
 
     @Autowired
     private QuestionaryService questionaryService;
@@ -35,24 +35,28 @@ public class QuestionaryServiceTest {
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
         QuestionaryParams questionaryParams = QuestionaryTestData.createIndividualEntityQuestionarySwag();
         questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
-        verify(questionaryManager).save(captor.capture(), anyLong());
+        verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
     }
 
     @Test
     public void getIndividualEntityQuestionaryTest() throws TException, IOException {
-        com.rbkmoney.questionary.manage.QuestionaryParams questionaryParams = QuestionaryTestData.createIndividualEntityQuestionaryThrift();
-        com.rbkmoney.questionary.manage.Snapshot snapshot = new com.rbkmoney.questionary.manage.Snapshot();
-        snapshot.setVersion(0L);
-        com.rbkmoney.questionary.manage.Questionary questionary = new com.rbkmoney.questionary.manage.Questionary();
+        var questionaryParams = QuestionaryTestData.createIndividualEntityQuestionaryThrift();
+        var questionary = new com.rbkmoney.questionary.manage.Questionary();
         questionary.setId(questionaryParams.getId());
         questionary.setOwnerId(questionaryParams.getOwnerId());
         questionary.setData(questionaryParams.getData());
+
+        var snapshot = new com.rbkmoney.questionary.manage.Snapshot();
+        snapshot.setVersion(0L);
         snapshot.setQuestionary(questionary);
-        when(questionaryManager.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+
+        when(questionaryManagerSrv.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
                 .then(invocation -> snapshot);
+
         Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
+
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
@@ -68,7 +72,7 @@ public class QuestionaryServiceTest {
                 ArgumentCaptor.forClass(com.rbkmoney.questionary.manage.QuestionaryParams.class);
         QuestionaryParams questionaryParams = QuestionaryTestData.createLegalEntityQuestionarySwag();
         questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
-        verify(questionaryManager).save(captor.capture(), anyLong());
+        verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
     }
@@ -84,7 +88,7 @@ public class QuestionaryServiceTest {
         questionary.setPartyId(questionaryParams.getPartyId());
         questionary.setData(questionaryParams.getData());
         snapshot.setQuestionary(questionary);
-        when(questionaryManager.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+        when(questionaryManagerSrv.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
                 .then(invocation -> snapshot);
         Snapshot swagSnapshot = questionaryService.getQuestionary("test", "testPartyId", "1");
         Assert.assertEquals(Long.parseLong(swagSnapshot.getVersion()), snapshot.getVersion());
@@ -106,7 +110,7 @@ public class QuestionaryServiceTest {
                 "12345",
                 Long.parseLong(questionaryParams.getVersion())
         );
-        verify(questionaryManager).save(captor.capture(), anyLong());
+        verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
         QuestionaryCompareUtil.internationalLegalEntityCompare(
                 thriftQuestionaryParams.getData().getContractor(),
@@ -125,7 +129,7 @@ public class QuestionaryServiceTest {
         questionary.setPartyId(questionaryParams.getPartyId());
         questionary.setData(questionaryParams.getData());
         snapshot.setQuestionary(questionary);
-        when(questionaryManager.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
+        when(questionaryManagerSrv.get(anyString(), anyString(), any(com.rbkmoney.questionary.manage.Reference.class)))
                 .then(invocation -> snapshot);
         Snapshot swagSnapshot =
                 questionaryService.getQuestionary("test", "testPartyId", "1");
