@@ -1,6 +1,6 @@
 package com.rbkmoney.dark.api.config;
 
-import com.google.common.base.Strings;
+import org.apache.commons.lang3.StringUtils;
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.KeycloakDeployment;
 import org.keycloak.adapters.KeycloakDeploymentBuilder;
@@ -111,7 +111,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     private AdapterConfig adapterConfig() {
-        if (!Strings.isNullOrEmpty(keycloakRealmPublicKeyFile)) {
+        if (!StringUtils.isBlank(keycloakRealmPublicKeyFile)) {
             keycloakRealmPublicKey = readKeyFromFile(keycloakRealmPublicKeyFile);
         }
 

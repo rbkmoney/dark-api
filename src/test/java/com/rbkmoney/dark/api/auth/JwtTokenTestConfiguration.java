@@ -29,7 +29,7 @@ public class JwtTokenTestConfiguration {
     }
 
     @Bean
-    public PropertySourcesPlaceholderConfigurer properties(KeyPair keyPair) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
+    public static PropertySourcesPlaceholderConfigurer properties(KeyPair keyPair) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
         KeyFactory fact = KeyFactory.getInstance("RSA");
         X509EncodedKeySpec spec = fact.getKeySpec(keyPair.getPublic(), X509EncodedKeySpec.class);
         String publicKey = Base64.getEncoder().encodeToString(spec.getEncoded());
@@ -41,6 +41,4 @@ public class JwtTokenTestConfiguration {
         pspc.setLocalOverride(true);
         return pspc;
     }
-
-
 }

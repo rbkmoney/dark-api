@@ -76,7 +76,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(ClaimNotFound.class).when(claimManagementService).getClaimById(any(), any());
 
         mockMvc.perform(
-                get("/processing/claims/{claimID}", anyLong())
+                get("/claim-management/v0/processing/claims/{claimID}", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateReadJwt())
                         .header("X-Request-ID", string())
@@ -87,7 +87,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(ClaimNotFound.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -100,7 +100,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(InvalidClaimStatus.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -113,7 +113,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(InvalidClaimRevision.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -126,7 +126,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(ChangesetConflict.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -139,7 +139,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(InvalidChangeset.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -152,7 +152,7 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doThrow(TException.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
