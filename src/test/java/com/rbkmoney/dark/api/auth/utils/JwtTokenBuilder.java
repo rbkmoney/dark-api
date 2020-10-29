@@ -50,13 +50,13 @@ public class JwtTokenBuilder {
         return email;
     }
 
-    public String generateJwtWithRoles(String... roles) {
+    public String generateJwtWithRoles(String issuer, String... roles) {
         long iat = Instant.now().getEpochSecond();
         long exp = iat + 60 * 10;
-        return generateJwtWithRoles(iat, exp, roles);
+        return generateJwtWithRoles(iat, exp, issuer, roles);
     }
 
-    public String generateJwtWithRoles(long iat, long exp, String... roles) {
+    public String generateJwtWithRoles(long iat, long exp, String issuer, String... roles) {
         String payload;
         try {
             payload = new JSONObject()
@@ -64,7 +64,7 @@ public class JwtTokenBuilder {
                     .put("exp", exp)
                     .put("nbf", "0")
                     .put("iat", iat)
-                    .put("iss", "http://keycloak:8080/auth/realms/internal")
+                    .put("iss", issuer)
                     .put("aud", "private-api")
                     .put("sub", userId)
                     .put("typ", "Bearer")

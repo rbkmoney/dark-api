@@ -1,33 +1,19 @@
 package com.rbkmoney.dark.api.auth;
 
-import com.rbkmoney.dark.api.DarkApiApplication;
-import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
-import com.rbkmoney.dark.api.config.SecurityConfig;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.rbkmoney.dark.api.config.AbstractKeycloakOpenIdAsWiremockConfig;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.options;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {DarkApiApplication.class, TestRestController.class})
-@WebAppConfiguration
-@AutoConfigureMockMvc
-public class JwtAuthTests {
+public class JwtAuthTests extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private JwtTokenBuilder jwtTokenBuilder;
 
     @Test
     public void testCors() throws Exception {
@@ -61,13 +47,13 @@ public class JwtAuthTests {
         mockMvc.perform(
                 get("/ping")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .header("Authorization", "Bearer " + generateJwt())
+                        .header("Authorization", "Bearer " + generateRBKadminJwt())
         ).andExpect(status().isOk()).andExpect(content().string("pong"));
 
         mockMvc.perform(
                 get("/testAdmin")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .header("Authorization", "Bearer " + generateJwt())
+                        .header("Authorization", "Bearer " + generateRBKadminJwt())
         ).andExpect(status().isOk()).andExpect(content().string("testAdmin!"));
     }
 
@@ -86,7 +72,7 @@ public class JwtAuthTests {
 
         mockMvc.perform(
                 get("/testManager")
-                        .header("Authorization", "Bearer " + generateJwt())
+                        .header("Authorization", "Bearer " + generateRBKadminJwt())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         ).andExpect(status().isForbidden());
     }
@@ -98,13 +84,8 @@ public class JwtAuthTests {
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .header(
                                 "Authorization",
-                                "Bearer " + jwtTokenBuilder.generateJwtWithRoles(1, 1, "RBKadmin")
+                                "Bearer " + generateJwt(1, 1, "RBKadmin")
                         )
         ).andExpect(status().isUnauthorized());
     }
-
-    private String generateJwt() {
-        return jwtTokenBuilder.generateJwtWithRoles("RBKadmin");
-    }
-
 }

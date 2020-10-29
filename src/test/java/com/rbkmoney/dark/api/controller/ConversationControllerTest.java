@@ -1,29 +1,24 @@
 package com.rbkmoney.dark.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.dark.api.DarkApiApplication;
-import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
+import com.rbkmoney.dark.api.config.AbstractKeycloakOpenIdAsWiremockConfig;
 import com.rbkmoney.dark.api.service.ConversationService;
 import com.rbkmoney.dark.api.service.PartyManagementService;
 import com.rbkmoney.swag.messages.model.ConversationParam;
 import com.rbkmoney.swag.messages.model.MessageParam;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.IDToken;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -34,10 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {DarkApiApplication.class})
-@AutoConfigureMockMvc
-public class ConversationControllerTest {
+public class ConversationControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @MockBean
     private ConversationService conversationService;
@@ -46,15 +38,12 @@ public class ConversationControllerTest {
     private PartyManagementService partyManagementService;
 
     @Autowired
-    private JwtTokenBuilder jwtTokenBuilder;
-
-    @Autowired
     private MockMvc mvc;
 
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         Authentication authentication = Mockito.mock(Authentication.class);
         KeycloakSecurityContext keycloakSecurityContext = new KeycloakSecurityContext("tokenTest", new AccessToken(), "testToken", new IDToken());
@@ -82,7 +71,7 @@ public class ConversationControllerTest {
         String conversationParamJson = objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(conversationParams);
 
         mvc.perform(post("/conversation")
-                .header("Authorization", "Bearer " + jwtTokenBuilder.generateJwtWithRoles("RBKadmin"))
+                .header("Authorization", "Bearer " + generateRBKadminJwt())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(conversationParamJson))
                 .andDo(print())
