@@ -2,12 +2,8 @@ package com.rbkmoney.dark.api.utils;
 
 import com.rbkmoney.swag.questionary.model.*;
 import com.rbkmoney.swag.questionary.model.AccountantInfo.AccountantInfoTypeEnum;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.junit.Assert;
-import org.junit.Test;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class QuestionaryCompareUtil {
 
     public static void contractorCompare(com.rbkmoney.questionary.Contractor thriftContractor, Contractor swagContractor) {
@@ -330,7 +326,6 @@ public class QuestionaryCompareUtil {
         }
     }
 
-    @Test
     public static void internationalLegalEntityCompare(com.rbkmoney.questionary.Contractor thriftContractor,
                                                        Contractor swagContractor) {
         LegalEntityContractor legal = (LegalEntityContractor) swagContractor;

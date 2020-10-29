@@ -1,7 +1,9 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.shop;
 
 import com.rbkmoney.damsel.claim_management.*;
-import com.rbkmoney.damsel.domain.*;
+import com.rbkmoney.damsel.domain.CategoryRef;
+import com.rbkmoney.damsel.domain.ShopDetails;
+import com.rbkmoney.damsel.domain.ShopLocation;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -124,6 +126,8 @@ public class ShopModificationUnitConverter
             swagShopPayoutToolModification.setPayoutToolModification(shopModification.getPayoutToolModification());
             swagShopPayoutToolModification.setShopModificationType(PAYOUTTOOLMODIFICATION);
             swagShopModificationUnit.setModification(swagShopPayoutToolModification);
+        } else if (shopModification.isSetCashRegisterModificationUnit()) {
+            //todo
         } else {
             throw new IllegalArgumentException("Unknown party modification type!");
         }

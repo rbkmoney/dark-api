@@ -5,9 +5,8 @@ import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.merch_stat.BadToken;
 import com.rbkmoney.damsel.messages.ConversationsNotFound;
 import com.rbkmoney.damsel.questionary_proxy_aggr.DaDataNotFound;
-import com.rbkmoney.dark.api.DarkApiApplication;
-import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
 import com.rbkmoney.dark.api.claimmanagement.ClaimManagementServiceTest;
+import com.rbkmoney.dark.api.config.AbstractKeycloakOpenIdAsWiremockConfig;
 import com.rbkmoney.dark.api.service.*;
 import com.rbkmoney.file.storage.FileNotFound;
 import com.rbkmoney.questionary.manage.QuestionaryNotFound;
@@ -16,15 +15,11 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataParams;
 import com.rbkmoney.swag.questionary_aggr_proxy.model.DaDataRequest;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.apache.thrift.TException;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Instant;
@@ -37,16 +32,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {DarkApiApplication.class})
-@AutoConfigureMockMvc
-public class ErrorControllerTest {
+public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private JwtTokenBuilder jwtTokenBuilder;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -75,7 +64,7 @@ public class ErrorControllerTest {
     @MockBean
     private MagistaService magistaService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         doNothing().when(partyManagementService).checkStatus(anyString());
         doNothing().when(partyManagementService).checkStatus();
@@ -87,7 +76,7 @@ public class ErrorControllerTest {
         doThrow(ClaimNotFound.class).when(claimManagementService).getClaimById(any(), any());
 
         mockMvc.perform(
-                get("/processing/claims/{claimID}", anyLong())
+                get("/claim-management/v0/processing/claims/{claimID}", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateReadJwt())
                         .header("X-Request-ID", string())
@@ -98,7 +87,7 @@ public class ErrorControllerTest {
         doThrow(ClaimNotFound.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -111,7 +100,7 @@ public class ErrorControllerTest {
         doThrow(InvalidClaimStatus.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -124,7 +113,7 @@ public class ErrorControllerTest {
         doThrow(InvalidClaimRevision.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -137,7 +126,7 @@ public class ErrorControllerTest {
         doThrow(ChangesetConflict.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -150,7 +139,7 @@ public class ErrorControllerTest {
         doThrow(InvalidChangeset.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -163,7 +152,7 @@ public class ErrorControllerTest {
         doThrow(TException.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
+                put("/claim-management/v0/processing/claims/{claimID}/update", anyLong())
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateWriteJwt())
                         .header("X-Request-ID", string())
@@ -306,18 +295,6 @@ public class ErrorControllerTest {
                         .param("toTime", LocalDateTime.MAX.atOffset(ZoneOffset.MAX).toString())
                         .param("limit", String.valueOf(123))
         ).andExpect(status().isInternalServerError());
-    }
-
-    private String generateReadJwt() {
-        return jwtTokenBuilder.generateJwtWithRoles("party:read");
-    }
-
-    private String generateWriteJwt() {
-        return jwtTokenBuilder.generateJwtWithRoles("party:write");
-    }
-
-    private String generateInvoicesReadJwt() {
-        return jwtTokenBuilder.generateJwtWithRoles("invoices:read");
     }
 
     private String string() {
