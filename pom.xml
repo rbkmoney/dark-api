@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.17-a4113d5-server</version>
+            <version>1.20-951c05f-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -186,6 +186,11 @@
         </dependency>
 
         <!--third party-->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>joor</artifactId>
+            <version>0.9.12</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
