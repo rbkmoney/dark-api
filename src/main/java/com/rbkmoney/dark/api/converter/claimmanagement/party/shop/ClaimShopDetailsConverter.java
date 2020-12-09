@@ -4,7 +4,7 @@ import com.rbkmoney.damsel.domain.ShopDetails;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.DETAILSMODIFICATION;
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.DETAILSMODIFICATION;
 
 @Component
 public class ClaimShopDetailsConverter
@@ -22,7 +22,7 @@ public class ClaimShopDetailsConverter
         var swagShopDetails = new com.rbkmoney.swag.claim_management.model.ShopDetails();
         swagShopDetails.setName(detailsModification.getName());
         swagShopDetails.setDescription(detailsModification.getDescription());
-        swagShopDetails.setShopModificationType(DETAILSMODIFICATION);
+        swagShopDetails.setShopModificationType(DETAILSMODIFICATION.getValue());
         return swagShopDetails;
     }
 

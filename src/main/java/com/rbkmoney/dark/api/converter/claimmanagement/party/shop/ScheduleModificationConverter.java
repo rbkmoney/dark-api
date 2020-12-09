@@ -5,7 +5,7 @@ import com.rbkmoney.damsel.domain.BusinessScheduleRef;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.PAYOUTSCHEDULEMODIFICATION;
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.PAYOUTSCHEDULEMODIFICATION;
 
 @Component
 public class ScheduleModificationConverter
@@ -30,7 +30,7 @@ public class ScheduleModificationConverter
         var swagBusinessScheduleRef = new com.rbkmoney.swag.claim_management.model.BusinessScheduleRef();
         swagBusinessScheduleRef.setId(payoutScheduleModification.getSchedule().getId());
         swagScheduleModification.setSchedule(swagBusinessScheduleRef);
-        swagScheduleModification.setShopModificationType(PAYOUTSCHEDULEMODIFICATION);
+        swagScheduleModification.setShopModificationType(PAYOUTSCHEDULEMODIFICATION.getValue());
         return swagScheduleModification;
     }
 

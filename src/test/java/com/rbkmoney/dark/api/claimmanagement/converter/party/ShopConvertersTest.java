@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import static com.rbkmoney.dark.api.claimmanagement.converter.party.data.TestShopData.getTestShopParams;
 import static com.rbkmoney.dark.api.claimmanagement.converter.party.data.TestShopData.getTestSwagShopModificationUnit;
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.*;
 import static org.junit.Assert.assertEquals;
 
 public class ShopConvertersTest {
@@ -37,7 +37,7 @@ public class ShopConvertersTest {
     public void shopAccountParamsConverterTest() throws IOException {
         ShopAccountParamsConverter converter = new ShopAccountParamsConverter();
         var swagShopAccountParams = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ShopAccountParams.class);
-        swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATION);
+        swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATION.getValue());
 
         var resultShopAccountParams = converter.convertToSwag(converter.convertToThrift(swagShopAccountParams));
         assertEquals("Swag objects 'ShopAccountParams' not equals", swagShopAccountParams,
@@ -56,7 +56,7 @@ public class ShopConvertersTest {
         ScheduleModificationConverter converter = new ScheduleModificationConverter();
         var swagScheduleModification =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ScheduleModification.class);
-        swagScheduleModification.setShopModificationType(PAYOUTSCHEDULEMODIFICATION);
+        swagScheduleModification.setShopModificationType(PAYOUTSCHEDULEMODIFICATION.getValue());
 
         var resultScheduleModification = converter.convertToSwag(converter.convertToThrift(swagScheduleModification));
         assertEquals("Swag objects 'ScheduleModification' not equals",
@@ -77,7 +77,7 @@ public class ShopConvertersTest {
         ShopContractModificationConverter converter = new ShopContractModificationConverter();
         var swagShopContractModification =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ShopContractModification.class);
-        swagShopContractModification.setShopModificationType(CONTRACTMODIFICATION);
+        swagShopContractModification.setShopModificationType(CONTRACTMODIFICATION.getValue());
 
         var resultShopContractModificationConverter = converter.convertToSwag(
                 converter.convertToThrift(swagShopContractModification)
@@ -99,7 +99,7 @@ public class ShopConvertersTest {
     public void shopDetailsConverterTest() throws IOException {
         ClaimShopDetailsConverter converter = new ClaimShopDetailsConverter();
         var swagShopDetails = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ShopDetails.class);
-        swagShopDetails.setShopModificationType(DETAILSMODIFICATION);
+        swagShopDetails.setShopModificationType(DETAILSMODIFICATION.getValue());
         var resultShopContractModificationConverter = converter.convertToSwag(converter.convertToThrift(swagShopDetails));
         assertEquals("Swag objects 'ShopDetails' not equals",
                 swagShopDetails, resultShopContractModificationConverter);

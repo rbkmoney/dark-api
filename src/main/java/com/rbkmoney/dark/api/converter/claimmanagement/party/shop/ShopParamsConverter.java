@@ -7,7 +7,7 @@ import com.rbkmoney.damsel.domain.ShopLocation;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.CREATION;
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.CREATION;
 
 @Component
 public class ShopParamsConverter
@@ -34,7 +34,7 @@ public class ShopParamsConverter
         var swagShopParams = new com.rbkmoney.swag.claim_management.model.ShopParams();
         swagShopParams.setContractID(shopParams.getContractId());
         swagShopParams.setPayoutToolID(shopParams.getPayoutToolId());
-        swagShopParams.setShopModificationType(CREATION);
+        swagShopParams.setShopModificationType(CREATION.getValue());
 
         var swagCategoryRef = new com.rbkmoney.swag.claim_management.model.CategoryRef();
         swagCategoryRef.setId(shopParams.getCategory().getId());

@@ -5,7 +5,7 @@ import com.rbkmoney.damsel.domain.CurrencyRef;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPACCOUNTCREATION;
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.SHOPACCOUNTCREATION;
 
 @Component
 public class ShopAccountParamsConverter
@@ -33,7 +33,7 @@ public class ShopAccountParamsConverter
         swagCurrencyRef.setSymbolicCode(shopAccountCreation.getCurrency().getSymbolicCode());
 
         swagShopAccountParams.setCurrency(swagCurrencyRef);
-        swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATION);
+        swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATION.getValue());
         return swagShopAccountParams;
     }
 

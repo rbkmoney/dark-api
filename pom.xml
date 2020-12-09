@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.17-a4113d5-server</version>
+            <version>1.20-951c05f-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-admin-client</artifactId>
-            <version>11.0.2</version>
+            <version>11.0.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.jboss.resteasy</groupId>
@@ -164,7 +164,7 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-security-adapter</artifactId>
-            <version>11.0.2</version>
+            <version>11.0.3</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

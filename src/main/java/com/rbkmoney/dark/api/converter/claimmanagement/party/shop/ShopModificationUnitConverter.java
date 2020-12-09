@@ -5,11 +5,12 @@ import com.rbkmoney.damsel.domain.CategoryRef;
 import com.rbkmoney.damsel.domain.ShopDetails;
 import com.rbkmoney.damsel.domain.ShopLocation;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
+import com.rbkmoney.dark.api.domain.ShopModificationTypeEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.*;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
-import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
 
 @Component
 @RequiredArgsConstructor
@@ -38,7 +39,7 @@ public class ShopModificationUnitConverter
         shopModificationUnit.setId(swagShopModificationUnit.getId());
         ShopModification shopModification = new ShopModification();
         var swagModification = swagShopModificationUnit.getModification();
-        switch (swagModification.getShopModificationType()) {
+        switch (ShopModificationTypeEnum.toEnum(swagModification.getShopModificationType())) {
             case CREATION:
                 var swagCreation = (com.rbkmoney.swag.claim_management.model.ShopParams) swagModification;
                 shopModification.setCreation(shopParamsConverter.convertToThrift(swagCreation));
@@ -104,7 +105,7 @@ public class ShopModificationUnitConverter
             CategoryRef swagCategoryModification = shopModification.getCategoryModification();
             var swagCategoryRef = new com.rbkmoney.swag.claim_management.model.CategoryRef();
             swagCategoryRef.setId(swagCategoryModification.getId());
-            swagCategoryRef.setShopModificationType(CATEGORYMODIFICATION);
+            swagCategoryRef.setShopModificationType(CATEGORYMODIFICATION.getValue());
             swagShopModificationUnit.setModification(swagCategoryRef);
         } else if (shopModification.isSetDetailsModification()) {
             ShopDetails detailsModification = shopModification.getDetailsModification();
@@ -113,7 +114,7 @@ public class ShopModificationUnitConverter
             ShopLocation shopLocation = shopModification.getLocationModification();
             var swagShopLocation = new com.rbkmoney.swag.claim_management.model.ShopLocation();
             swagShopLocation.setUrl(shopLocation.getUrl());
-            swagShopLocation.setShopModificationType(LOCATIONMODIFICATION);
+            swagShopLocation.setShopModificationType(LOCATIONMODIFICATION.getValue());
             swagShopModificationUnit.setModification(swagShopLocation);
         } else if (shopModification.isSetShopAccountCreation()) {
             ShopAccountParams shopAccountCreation = shopModification.getShopAccountCreation();
@@ -124,7 +125,7 @@ public class ShopModificationUnitConverter
         } else if (shopModification.isSetPayoutToolModification()) {
             var swagShopPayoutToolModification = new com.rbkmoney.swag.claim_management.model.ShopPayoutToolModification();
             swagShopPayoutToolModification.setPayoutToolModification(shopModification.getPayoutToolModification());
-            swagShopPayoutToolModification.setShopModificationType(PAYOUTTOOLMODIFICATION);
+            swagShopPayoutToolModification.setShopModificationType(PAYOUTTOOLMODIFICATION.getValue());
             swagShopModificationUnit.setModification(swagShopPayoutToolModification);
         } else if (shopModification.isSetCashRegisterModificationUnit()) {
             //todo

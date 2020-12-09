@@ -30,7 +30,7 @@ public class RussianLegalEntityConverter
                 .setRegisteredNumber(swagRussianLegalEntity.getRegisteredNumber())
                 .setRepresentativeDocument(swagRussianLegalEntity.getRepresentativeDocument())
                 .setRepresentativeFullName(swagRussianLegalEntity.getRepresentativeFullName())
-                .setRepresentativePosition(swagRussianLegalEntity.getEpresentativePosition())
+                .setRepresentativePosition(swagRussianLegalEntity.getRepresentativePosition())
                 .setRussianBankAccount(russianBankAccount);
         return russianLegalEntity;
     }
@@ -42,7 +42,7 @@ public class RussianLegalEntityConverter
         var swagRussianLegalEntity = new com.rbkmoney.swag.claim_management.model.RussianLegalEntity();
         swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
         swagRussianLegalEntity.setActualAddress(russianLegalEntity.getActualAddress());
-        swagRussianLegalEntity.setEpresentativePosition(russianLegalEntity.getRepresentativePosition());
+        swagRussianLegalEntity.setRepresentativePosition(russianLegalEntity.getRepresentativePosition());
         swagRussianLegalEntity.setInn(russianLegalEntity.getInn());
         swagRussianLegalEntity.setPostAddress(russianLegalEntity.getPostAddress());
         swagRussianLegalEntity.setRegisteredName(russianLegalEntity.getRegisteredName());
