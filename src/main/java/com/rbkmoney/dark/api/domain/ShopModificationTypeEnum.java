@@ -38,7 +38,7 @@ public enum ShopModificationTypeEnum {
             case "payoutschedulemodification":
                 return PAYOUTSCHEDULEMODIFICATION;
             default:
-                throw new RuntimeException("Can't find enum value");
+                throw new RuntimeException("Can't find enum value: " + val);
         }
     }
 }
