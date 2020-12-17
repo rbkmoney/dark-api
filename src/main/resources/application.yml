@@ -61,6 +61,10 @@ keycloak:
 
 auth.enabled: true
 
+feedback:
+  emails:
+    - feedback@rbkmoney.com
+
 info:
   version: '@project.version@'
   stage: dev
@@ -91,4 +95,8 @@ dominant:
 
 analytics:
   url: http://localhost:8022/v1/analytics
+  networkTimeout: 30000
+
+dudoser:
+  url: http://localhost:8022/v1/dudoser
   networkTimeout: 30000

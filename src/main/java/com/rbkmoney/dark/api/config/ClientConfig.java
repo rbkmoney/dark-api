@@ -5,6 +5,7 @@ import com.rbkmoney.damsel.analytics.AnalyticsServiceSrv;
 import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.domain_config.RepositoryClientSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
+import com.rbkmoney.damsel.message_sender.MessageSenderSrv;
 import com.rbkmoney.damsel.messages.MessageServiceSrv;
 import com.rbkmoney.damsel.payment_processing.PartyManagementSrv;
 import com.rbkmoney.damsel.questionary_proxy_aggr.QuestionaryAggrProxyHandlerSrv;
@@ -16,7 +17,6 @@ import com.rbkmoney.dark.api.meta.UserIdentityEmailExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
 import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
-import com.rbkmoney.dark.api.service.AnalyticsService;
 import com.rbkmoney.file.storage.FileStorageSrv;
 import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
 import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
@@ -145,6 +145,14 @@ public class ClientConfig {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(AnalyticsServiceSrv.Iface.class);
+    }
+
+    @Bean
+    public MessageSenderSrv.Iface messageSenderClient(@Value("${dudoser.url}") Resource resource,
+                                                      @Value("${dudoser.networkTimeout}") int networkTimeout) throws IOException {
+        return new THSpawnClientBuilder()
+                .withNetworkTimeout(networkTimeout)
+                .withAddress(resource.getURI()).build(MessageSenderSrv.Iface.class);
     }
 
 }
