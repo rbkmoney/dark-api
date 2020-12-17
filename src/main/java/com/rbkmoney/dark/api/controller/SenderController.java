@@ -6,7 +6,7 @@ import com.rbkmoney.damsel.message_sender.MessageMail;
 import com.rbkmoney.damsel.message_sender.MessageSenderSrv;
 import com.rbkmoney.dark.api.config.property.FeedbackProperties;
 import com.rbkmoney.dark.api.service.KeycloakService;
-import com.rbkmoney.swag.sender.api.MesssageApi;
+import com.rbkmoney.swag.sender.api.MessageApi;
 import com.rbkmoney.swag.sender.model.InlineObject;
 import lombok.RequiredArgsConstructor;
 import org.apache.thrift.TException;
@@ -20,7 +20,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @RestController
 @RequiredArgsConstructor
-public class SenderController implements MesssageApi {
+public class SenderController implements MessageApi {
 
     private final FeedbackProperties feedbackProperties;
 
