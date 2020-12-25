@@ -48,7 +48,7 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
         doReturn(new Claim().id(1L)).when(claimManagementService).createClaim(any(), any());
 
         mockMvc.perform(
-                post("/claim-management/v0/processing/claims")
+                post("/processing/claims")
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .header("Authorization", "Bearer " + generateReadJwt())
                         .header("X-Request-ID", randomUUID())
