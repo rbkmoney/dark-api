@@ -127,17 +127,15 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "      \"partyModificationType\": \"ShopModificationUnit\",\n" +
                                 "      \"id\": \"80e5b7bd-f57e-482b-a1f0-4065fc7eb584\",\n" +
                                 "      \"modification\": {\n" +
-                                "        \"shopModificationType\": \"ShopParams\",\n" +
+                                "        \"shopModificationType\": \"ShopCreationModification\",\n" +
                                 "        \"category\": {\n" +
-                                "          \"shopModificationType\": \"CategoryRef\",\n" +
                                 "          \"id\": 1\n" +
                                 "        },\n" +
                                 "        \"location\": {\n" +
-                                "          \"shopModificationType\": \"ShopLocation\",\n" +
+                                "          \"locationType\": \"ShopLocationUrl\",\n" +
                                 "          \"url\": \"oaofoaofaofoaof\"\n" +
                                 "        },\n" +
                                 "        \"details\": {\n" +
-                                "          \"shopModificationType\": \"ShopDetails\",\n" +
                                 "          \"name\": \"kkfkakfkkafkkafkakfakkfa\"\n" +
                                 "        },\n" +
                                 "        \"contractID\": \"3dc3dc36-32ba-4e15-859a-a5c4434c5d92\",\n" +

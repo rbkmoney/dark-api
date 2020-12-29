@@ -5,19 +5,19 @@ import com.rbkmoney.damsel.domain.CategoryRef;
 import com.rbkmoney.damsel.domain.ShopDetails;
 import com.rbkmoney.damsel.domain.ShopLocation;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
+import com.rbkmoney.swag.claim_management.model.ShopCreationModification;
 import com.rbkmoney.swag.claim_management.model.ShopLocationUrl;
-import com.rbkmoney.swag.claim_management.model.ShopModification;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.CREATION;
+import static com.rbkmoney.swag.claim_management.model.ShopLocation.LocationTypeEnum.SHOPLOCATIONURL;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPCREATIONMODIFICATION;
 
 @Component
 public class ShopParamsConverter
-        implements DarkApiConverter<ShopParams, com.rbkmoney.swag.claim_management.model.ShopCreationModification> {
+        implements DarkApiConverter<ShopParams, ShopCreationModification> {
 
     @Override
-    public ShopParams convertToThrift(com.rbkmoney.swag.claim_management.model.ShopCreationModification swagCreation) {
+    public ShopParams convertToThrift(ShopCreationModification swagCreation) {
         ShopLocation shopLocation = new ShopLocation();
         shopLocation.setUrl(((ShopLocationUrl) swagCreation.getLocation()).getUrl());
 
@@ -48,7 +48,8 @@ public class ShopParamsConverter
         swagShopParamsDetails.setDescription(shopParams.getDetails().getDescription());
         swagShopParams.setDetails(swagShopParamsDetails);
 
-        var swagShopLocation = new com.rbkmoney.swag.claim_management.model.ShopLocationUrl();
+        var swagShopLocation = new ShopLocationUrl();
+        swagShopLocation.setLocationType(SHOPLOCATIONURL);
         swagShopLocation.setUrl(shopParams.getLocation().getUrl());
         swagShopParams.setLocation(swagShopLocation);
 

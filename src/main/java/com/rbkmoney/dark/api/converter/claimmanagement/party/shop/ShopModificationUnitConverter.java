@@ -47,7 +47,7 @@ public class ShopModificationUnitConverter
                 shopModification.setCreation(shopParamsConverter.convertToThrift(swagCreation));
                 break;
             case SHOPCATEGORYMODIFICATION:
-                var swagShopCategoryModification = (com.rbkmoney.swag.claim_management.model.ShopCreationModification) swagModification;
+                var swagShopCategoryModification = (com.rbkmoney.swag.claim_management.model.ShopCategoryModification) swagModification;
                 shopModification.setCategoryModification(new CategoryRef().setId(swagShopCategoryModification.getCategory().getCategoryID()));
                 break;
             case SHOPDETAILSMODIFICATION:

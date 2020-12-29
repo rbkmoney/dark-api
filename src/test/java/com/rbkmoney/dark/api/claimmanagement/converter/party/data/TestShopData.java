@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.SHOPMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ShopLocation.LocationTypeEnum.SHOPLOCATIONURL;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -14,6 +15,11 @@ public final class TestShopData {
     public static ShopCreationModification getTestShopParams() {
         var swagShopParams =
                 EnhancedRandom.random(ShopCreationModification.class);
+        swagShopParams.setLocation(
+                new ShopLocationUrl()
+                        .url("http://example.com")
+                        .locationType(SHOPLOCATIONURL)
+        );
         swagShopParams.setShopModificationType(SHOPCREATIONMODIFICATION);
         return swagShopParams;
     }
@@ -28,6 +34,7 @@ public final class TestShopData {
             case SHOPCREATIONMODIFICATION:
                 var shopParams = EnhancedRandom.random(ShopCreationModification.class);
                 shopParams.setShopModificationType(SHOPCREATIONMODIFICATION);
+                shopParams.setLocation(new ShopLocationUrl().url("http://example.com/").locationType(SHOPLOCATIONURL));
                 swagShopModificationUnit.setModification(shopParams);
                 break;
             case SHOPPAYOUTSCHEDULEMODIFICATION:

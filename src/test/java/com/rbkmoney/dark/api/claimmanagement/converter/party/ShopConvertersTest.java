@@ -11,6 +11,7 @@ import com.rbkmoney.swag.claim_management.model.ShopDetailsModification;
 import com.rbkmoney.swag.claim_management.model.ShopPayoutScheduleModification;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.Test;
+import org.springframework.test.annotation.Repeat;
 
 import java.io.IOException;
 
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 public class ShopConvertersTest {
 
     @Test
+    @Repeat(10)
     public void shopParamsConverterTest() throws IOException {
         ShopParamsConverter converter = new ShopParamsConverter();
         var swagShopParams = getTestShopParams();
@@ -118,6 +120,7 @@ public class ShopConvertersTest {
     }
 
     @Test
+    @Repeat(10)
     public void shopModificationUnitConverterTest() throws IOException {
         ShopModificationUnitConverter converter = new ShopModificationUnitConverter(
                 new ShopParamsConverter(),
