@@ -5,6 +5,7 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.CONTRACTMODIFICATION;
+import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPCONTRACTMODIFICATION;
 
 @Component
 public class ShopContractModificationConverter
@@ -26,7 +27,7 @@ public class ShopContractModificationConverter
         var swagShopContractModification = new com.rbkmoney.swag.claim_management.model.ShopContractModification();
         swagShopContractModification.setContractID(shopContractModification.getContractId());
         swagShopContractModification.setPayoutToolID(shopContractModification.getPayoutToolId());
-        swagShopContractModification.setShopModificationType(CONTRACTMODIFICATION.getValue());
+        swagShopContractModification.setShopModificationType(SHOPCONTRACTMODIFICATION);
         return swagShopContractModification;
     }
 

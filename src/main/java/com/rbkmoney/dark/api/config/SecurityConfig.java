@@ -111,13 +111,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     }
 
     private AdapterConfig adapterConfig() {
-        if (!StringUtils.isBlank(keycloakRealmPublicKeyFile)) {
-            keycloakRealmPublicKey = readKeyFromFile(keycloakRealmPublicKeyFile);
-        }
+//        if (!StringUtils.isBlank(keycloakRealmPublicKeyFile)) {
+//            keycloakRealmPublicKey = readKeyFromFile(keycloakRealmPublicKeyFile);
+//        }
 
         AdapterConfig adapterConfig = new AdapterConfig();
         adapterConfig.setRealm(keycloakRealmName);
-        adapterConfig.setRealmKey(keycloakRealmPublicKey);
+        adapterConfig.setRealmKey("MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAuJEISsn1jEYE2kFG+XBx3J3EXRcD+HfCidkqURGmvL7UZLINs9PKTbPYW5rvc725S6jE5Ux95eccBkH0VoYE5JX+2tIjfjEysHrZw8hCfy/Z8lJKwshVKRUuMpg1HpxVVpDjUIRmeNJ91JvjTDSIt9yYfy6Fkw52xmQRuNmTeJq/oojxIw1qmiKHO8eLcBIIn6YhuvknpDe/fKUeqB6Z1IXjV04NS4zr3BJOIZq3QCkMDNfts3w9aFhTtQtCMuavmBLaTkxyv1UShrtIqGLImSILGdHC47pLLfkU6q+8ydyKoHQ5n6VVWpmjYykHHQCnbc1sewfJADqIlrQZ5G7nZ3a+82o9e4x5+hzjEgi3/7QAUopp/Qyjr86szGbIY3od+2AoToiDcmrtRf/7wlqnKW9RMsJVAr1W0wUf+pElTlduS4unavFEt7134EiTQ9ulgzDW9rc0inyDH8tQD0iM9/QAG7h2TjY9NoVYToSKUGRtNrNUsQ1G8rwd6QQ28nD31S2ffi18gOCTkKO/DlZ2PUYYiWSiWJusBzNLZ7WkT/4rqweJC/KeV6ZWySAfNQ5ND+MxIfz/X3Z0sGEk01021wKwmRQY1iBAAvUOPrVwSli3DZ0ISBlN79dCGkU15/jiyJH54P8sgPnK0oj+skGNILTFPRVWVRYFahroyf8fpOkCAwEAAQ==");
         adapterConfig.setResource(keycloakResourceName);
         adapterConfig.setAuthServerUrl(keycloakAuthServerUrl);
         adapterConfig.setUseResourceRoleMappings(true);
