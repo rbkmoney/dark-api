@@ -49,7 +49,7 @@ public class ClaimManagementController implements ProcessingApi {
         try {
             log.info("Process 'createClaim' get started, xRequestId={}", xRequestId);
 
-//            partyManagementService.checkStatus(xRequestId);
+            partyManagementService.checkStatus(xRequestId);
 
             checkDeadline(xRequestDeadline, xRequestId);
 
