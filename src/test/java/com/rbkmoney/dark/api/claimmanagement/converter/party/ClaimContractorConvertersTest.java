@@ -27,7 +27,6 @@ public class ClaimContractorConvertersTest {
         var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
         swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
         swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
-        swagRussianLegalEntity.getRussianBankAccount().setPayoutToolModificationType(null);
         var resultSwagRussianLegalEntity = converter.convertToSwag(
                 converter.convertToThrift(swagRussianLegalEntity)
         );
@@ -97,7 +96,6 @@ public class ClaimContractorConvertersTest {
                 var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
                 swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
                 swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
-                swagRussianLegalEntity.getRussianBankAccount().setPayoutToolModificationType(null);
                 swagLegalEntity.setLegalEntityType(swagRussianLegalEntity);
                 break;
             case INTERNATIONALLEGALENTITY:
