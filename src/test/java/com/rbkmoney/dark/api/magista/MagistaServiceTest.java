@@ -30,7 +30,8 @@ import static org.mockito.Mockito.when;
 public class MagistaServiceTest {
 
     private MagistaService magistaService;
-    @Autowired DarkMessiahStatisticsSrv.Iface magistaClient;
+    @Autowired
+    DarkMessiahStatisticsSrv.Iface magistaClient;
 
     @Before
     public void init() {

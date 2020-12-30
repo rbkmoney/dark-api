@@ -51,7 +51,7 @@ public class ClaimCommentModificationUnitConverter
             swagCommentModification.setCommentModificationType(COMMENTCREATED);
         } else if (commentModification.getModification().isSetDeletion()) {
             swagCommentModification.setCommentModificationType(COMMENTDELETED);
-        } else  {
+        } else {
             throw new IllegalArgumentException("Unknown comment modification type!");
         }
 

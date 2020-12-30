@@ -488,7 +488,7 @@ public class KonturFocusCompareUtil {
     }
 
     private static void beneficialOwnerUlCompare(com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerUl thriftBeneficialOwnerUl,
-                                         BeneficialOwnerUl swagBeneficialOwnerUl) {
+                                                 BeneficialOwnerUl swagBeneficialOwnerUl) {
         Assert.assertEquals(thriftBeneficialOwnerUl.getInn(), swagBeneficialOwnerUl.getInn());
         Assert.assertEquals(thriftBeneficialOwnerUl.getFullName(), swagBeneficialOwnerUl.getFullName());
         Assert.assertEquals(thriftBeneficialOwnerUl.getOgrn(), swagBeneficialOwnerUl.getOgrn());

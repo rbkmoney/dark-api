@@ -23,9 +23,12 @@ public class CheckCurrencyRequestConverter implements ThriftConverter<CheckCurre
 
     private ExchangeAction extractExchangeAction(com.rbkmoney.swag.cabi.model.ExchangeAction exchangeAction) {
         switch (exchangeAction) {
-            case BUY: return ExchangeAction.buy;
-            case SELL: return ExchangeAction.sell;
-            default: throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
+            case BUY:
+                return ExchangeAction.buy;
+            case SELL:
+                return ExchangeAction.sell;
+            default:
+                throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
         }
     }
 }

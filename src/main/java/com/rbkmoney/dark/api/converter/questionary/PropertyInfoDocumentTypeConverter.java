@@ -35,7 +35,7 @@ public class PropertyInfoDocumentTypeConverter implements
     @Override
     public com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType toSwag(PropertyInfoDocumentType value, SwagConverterContext ctx) {
         if (value.isSetLeaseContract()) {
-           return new com.rbkmoney.swag.questionary.model.LeaseContract();
+            return new com.rbkmoney.swag.questionary.model.LeaseContract();
         } else if (value.isSetSubleaseContract()) {
             return new com.rbkmoney.swag.questionary.model.SubleaseContract();
         } else if (value.isSetCertificateOfOwnership()) {

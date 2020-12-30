@@ -27,10 +27,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {FileStorageConverterImpl.class, FileStorageService.class},
-                properties = {
-                    "filestorage.expiration.time.download.hours=1",
-                    "filestorage.expiration.time.upload.hours=1"
-                })
+        properties = {
+                "filestorage.expiration.time.download.hours=1",
+                "filestorage.expiration.time.upload.hours=1"
+        })
 public class FileStorageServiceTest {
 
     @MockBean

@@ -141,7 +141,7 @@ public class ClientConfig {
 
     @Bean
     public AnalyticsServiceSrv.Iface analyticsClient(@Value("${analytics.url}") Resource resource,
-                                                    @Value("${analytics.networkTimeout}") int networkTimeout) throws IOException {
+                                                     @Value("${analytics.networkTimeout}") int networkTimeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(AnalyticsServiceSrv.Iface.class);

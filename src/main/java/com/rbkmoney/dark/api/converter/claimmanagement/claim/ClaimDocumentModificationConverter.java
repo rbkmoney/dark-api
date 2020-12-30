@@ -1,6 +1,8 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
-import com.rbkmoney.damsel.claim_management.*;
+import com.rbkmoney.damsel.claim_management.DocumentCreated;
+import com.rbkmoney.damsel.claim_management.DocumentModification;
+import com.rbkmoney.damsel.claim_management.DocumentModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
