@@ -1,13 +1,14 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.shop;
 
 import com.rbkmoney.damsel.claim_management.*;
+import com.rbkmoney.damsel.claim_management.ShopContractModification;
+import com.rbkmoney.damsel.claim_management.ShopModification;
+import com.rbkmoney.damsel.claim_management.ShopModificationUnit;
 import com.rbkmoney.damsel.domain.CategoryRef;
 import com.rbkmoney.damsel.domain.ShopDetails;
 import com.rbkmoney.damsel.domain.ShopLocation;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
-import com.rbkmoney.swag.claim_management.model.ShopCategoryModification;
-import com.rbkmoney.swag.claim_management.model.ShopLocationModification;
-import com.rbkmoney.swag.claim_management.model.ShopLocationUrl;
+import com.rbkmoney.swag.claim_management.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,16 +20,13 @@ import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModi
 public class ShopModificationUnitConverter
         implements DarkApiConverter<ShopModificationUnit, com.rbkmoney.swag.claim_management.model.ShopModificationUnit> {
 
-    private final DarkApiConverter<ShopParams, com.rbkmoney.swag.claim_management.model.ShopCreationModification> shopParamsConverter;
+    private final DarkApiConverter<ShopParams, ShopCreationModification> shopParamsConverter;
 
-    private final DarkApiConverter<ScheduleModification,
-            com.rbkmoney.swag.claim_management.model.ShopPayoutScheduleModification> scheduleModificationConverter;
+    private final DarkApiConverter<ScheduleModification, ShopPayoutScheduleModification> scheduleModificationConverter;
 
-    private final DarkApiConverter<ShopDetails,
-            com.rbkmoney.swag.claim_management.model.ShopDetailsModification> claimShopDetailsConverter;
+    private final DarkApiConverter<ShopDetails, ShopDetailsModification> claimShopDetailsConverter;
 
-    private final DarkApiConverter<ShopAccountParams,
-            com.rbkmoney.swag.claim_management.model.ShopAccountCreationModification> shopAccountParamsConverter;
+    private final DarkApiConverter<ShopAccountParams, ShopAccountCreationModification> shopAccountParamsConverter;
 
     private final DarkApiConverter<ShopContractModification,
             com.rbkmoney.swag.claim_management.model.ShopContractModification> shopContractModificationConverter;
