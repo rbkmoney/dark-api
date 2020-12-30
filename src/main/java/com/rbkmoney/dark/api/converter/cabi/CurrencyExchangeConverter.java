@@ -38,17 +38,23 @@ public class CurrencyExchangeConverter implements SwagConverter<CurrencyExchange
 
     private int getExponent(CabiCheckCurrencyResponseDto value, ExchangeAction exchangeAction) {
         switch (exchangeAction) {
-            case SELL: return (int) value.getTo().getExponent();
-            case BUY: return (int) value.getFrom().getExponent();
-            default: throw new IllegalArgumentException("Unknown exchange action: " + exchangeAction);
+            case SELL:
+                return (int) value.getTo().getExponent();
+            case BUY:
+                return (int) value.getFrom().getExponent();
+            default:
+                throw new IllegalArgumentException("Unknown exchange action: " + exchangeAction);
         }
     }
 
     private ExchangeAction extractExchangeAction(com.rbkmoney.cabi.ExchangeAction exchangeAction) {
         switch (exchangeAction) {
-            case buy: return ExchangeAction.BUY;
-            case sell: return ExchangeAction.SELL;
-            default: throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
+            case buy:
+                return ExchangeAction.BUY;
+            case sell:
+                return ExchangeAction.SELL;
+            default:
+                throw new IllegalArgumentException("Unknown action type: " + exchangeAction);
         }
     }
 

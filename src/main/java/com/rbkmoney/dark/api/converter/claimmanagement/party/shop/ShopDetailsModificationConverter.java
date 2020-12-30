@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPDETAILSMODIFICATION;
 
 @Component
-public class ClaimShopDetailsConverter
+public class ShopDetailsModificationConverter
         implements DarkApiConverter<ShopDetails, ShopDetailsModification> {
 
     @Override
     public ShopDetails convertToThrift(ShopDetailsModification shopDetailsModification) {
         return new ShopDetails()
-                .setDescription(shopDetailsModification.getDetails().getDescription())
-                .setName(shopDetailsModification.getDetails().getName());
+                .setName(shopDetailsModification.getDetails().getName())
+                .setDescription(shopDetailsModification.getDetails().getDescription());
     }
 
     @Override

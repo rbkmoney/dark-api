@@ -28,7 +28,7 @@ public class MagistaTestData {
     private static EnrichedStatInvoice createEnrichedStatInvoiceWithRefund() {
         return new EnrichedStatInvoice(getStatInvoice(),
                 List.of(getStatPayment()),
-                List.of(new StatRefund(null,null,null,null,null, InvoicePaymentRefundStatus.succeeded(new InvoicePaymentRefundSucceeded()), OffsetDateTime.now().toString(),0L,0L,null)));
+                List.of(new StatRefund(null, null, null, null, null, InvoicePaymentRefundStatus.succeeded(new InvoicePaymentRefundSucceeded()), OffsetDateTime.now().toString(), 0L, 0L, null)));
     }
 
 

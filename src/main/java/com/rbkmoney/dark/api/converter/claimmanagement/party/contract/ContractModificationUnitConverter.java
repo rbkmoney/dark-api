@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.*;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTORID;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
 
 @Slf4j
@@ -32,7 +33,7 @@ public class ContractModificationUnitConverter
     private final DarkApiConverter<LegalAgreement,
             com.rbkmoney.swag.claim_management.model.LegalAgreement> legalAgreementConverter;
 
-        @Override
+    @Override
     public ContractModificationUnit convertToThrift(
             com.rbkmoney.swag.claim_management.model.ContractModificationUnit swagContractModificationUnit
     ) {

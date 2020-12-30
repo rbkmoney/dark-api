@@ -1,6 +1,9 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
-import com.rbkmoney.damsel.claim_management.*;
+import com.rbkmoney.damsel.claim_management.ClaimStatus;
+import com.rbkmoney.damsel.claim_management.StatusChanged;
+import com.rbkmoney.damsel.claim_management.StatusModification;
+import com.rbkmoney.damsel.claim_management.StatusModificationUnit;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

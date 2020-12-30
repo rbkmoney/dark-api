@@ -81,7 +81,7 @@ public class ClaimConvertersTest {
         thriftFileModificationUnit = new MockTBaseProcessor(MockMode.ALL)
                 .process(thriftFileModificationUnit, new TBaseHandler<>(FileModificationUnit.class));
         FileModificationUnit resultThriftFileModificationUnit = converter.convertToThrift(
-                        converter.convertToSwag(thriftFileModificationUnit)
+                converter.convertToSwag(thriftFileModificationUnit)
         );
         assertEquals("Thrift objects 'FileModificationUnit' not equals",
                 thriftFileModificationUnit, resultThriftFileModificationUnit);
@@ -159,7 +159,7 @@ public class ClaimConvertersTest {
         Modification thriftModification = new Modification();
         ClaimModification claimModification = new ClaimModification();
         claimModification = new MockTBaseProcessor(MockMode.ALL)
-                    .process(claimModification, new TBaseHandler<>(ClaimModification.class));
+                .process(claimModification, new TBaseHandler<>(ClaimModification.class));
 
         thriftModification.setClaimModification(claimModification);
         Modification resultThriftModification = converter.convertToThrift(

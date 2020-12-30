@@ -17,7 +17,6 @@ import java.io.IOException;
 
 import static com.rbkmoney.dark.api.claimmanagement.converter.party.data.TestShopData.getTestShopParams;
 import static com.rbkmoney.dark.api.claimmanagement.converter.party.data.TestShopData.getTestSwagShopModificationUnit;
-import static com.rbkmoney.dark.api.domain.ShopModificationTypeEnum.*;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.*;
 import static org.junit.Assert.assertEquals;
 
@@ -26,7 +25,7 @@ public class ShopConvertersTest {
     @Test
     @Repeat(10)
     public void shopParamsConverterTest() throws IOException {
-        ShopParamsConverter converter = new ShopParamsConverter();
+        ShopCreationModificationConverter converter = new ShopCreationModificationConverter();
         var swagShopParams = getTestShopParams();
         var resultShopParams = converter.convertToSwag(converter.convertToThrift(swagShopParams));
         assertEquals("Swag objects 'ShopParams' not equals", swagShopParams, resultShopParams);
@@ -41,7 +40,7 @@ public class ShopConvertersTest {
 
     @Test
     public void shopAccountParamsConverterTest() throws IOException {
-        ShopAccountParamsConverter converter = new ShopAccountParamsConverter();
+        ShopAccountCreationModificationConverter converter = new ShopAccountCreationModificationConverter();
         var swagShopAccountParams = EnhancedRandom.random(ShopAccountCreationModification.class);
         swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATIONMODIFICATION);
 
@@ -59,7 +58,7 @@ public class ShopConvertersTest {
 
     @Test
     public void scheduleModificationConverterTest() throws IOException {
-        ScheduleModificationConverter converter = new ScheduleModificationConverter();
+        ShopPayoutScheduleModificationConverter converter = new ShopPayoutScheduleModificationConverter();
         var swagScheduleModification =
                 EnhancedRandom.random(ShopPayoutScheduleModification.class);
         swagScheduleModification.setShopModificationType(SHOPPAYOUTSCHEDULEMODIFICATION);
@@ -103,7 +102,7 @@ public class ShopConvertersTest {
 
     @Test
     public void shopDetailsConverterTest() throws IOException {
-        ClaimShopDetailsConverter converter = new ClaimShopDetailsConverter();
+        ShopDetailsModificationConverter converter = new ShopDetailsModificationConverter();
         var swagShopDetails = EnhancedRandom.random(ShopDetailsModification.class);
         swagShopDetails.setShopModificationType(SHOPDETAILSMODIFICATION);
         var resultShopContractModificationConverter = converter.convertToSwag(converter.convertToThrift(swagShopDetails));
@@ -123,10 +122,10 @@ public class ShopConvertersTest {
     @Repeat(10)
     public void shopModificationUnitConverterTest() throws IOException {
         ShopModificationUnitConverter converter = new ShopModificationUnitConverter(
-                new ShopParamsConverter(),
-                new ScheduleModificationConverter(),
-                new ClaimShopDetailsConverter(),
-                new ShopAccountParamsConverter(),
+                new ShopCreationModificationConverter(),
+                new ShopPayoutScheduleModificationConverter(),
+                new ShopDetailsModificationConverter(),
+                new ShopAccountCreationModificationConverter(),
                 new ShopContractModificationConverter()
         );
         var swagShopModificationUnit = getTestSwagShopModificationUnit();

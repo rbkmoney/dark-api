@@ -13,13 +13,14 @@ import static com.rbkmoney.swag.claim_management.model.ShopLocation.LocationType
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPCREATIONMODIFICATION;
 
 @Component
-public class ShopParamsConverter
-        implements DarkApiConverter<ShopParams, ShopCreationModification> {
+public class ShopCreationModificationConverter implements DarkApiConverter<ShopParams, ShopCreationModification> {
 
     @Override
     public ShopParams convertToThrift(ShopCreationModification swagCreation) {
         ShopLocation shopLocation = new ShopLocation();
-        shopLocation.setUrl(((ShopLocationUrl) swagCreation.getLocation()).getUrl());
+        if (swagCreation.getLocation().getLocationType() == SHOPLOCATIONURL) {
+            shopLocation.setUrl(((ShopLocationUrl) swagCreation.getLocation()).getUrl());
+        }
 
         return new ShopParams()
                 .setContractId(swagCreation.getContractID())
@@ -48,10 +49,12 @@ public class ShopParamsConverter
         swagShopParamsDetails.setDescription(shopParams.getDetails().getDescription());
         swagShopParams.setDetails(swagShopParamsDetails);
 
-        var swagShopLocation = new ShopLocationUrl();
-        swagShopLocation.setLocationType(SHOPLOCATIONURL);
-        swagShopLocation.setUrl(shopParams.getLocation().getUrl());
-        swagShopParams.setLocation(swagShopLocation);
+        if (shopParams.getLocation().isSetUrl()) {
+            var swagShopLocation = new ShopLocationUrl();
+            swagShopLocation.setLocationType(SHOPLOCATIONURL);
+            swagShopLocation.setUrl(shopParams.getLocation().getUrl());
+            swagShopParams.setLocation(swagShopLocation);
+        }
 
         return swagShopParams;
     }

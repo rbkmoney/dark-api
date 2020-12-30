@@ -60,10 +60,10 @@ public class ClaimManagementConverterImpl implements ClaimManagementConverter {
         var userInfo = unit.getUserInfo();
         swagModificationUnit.setUserInfo(
                 new UserInfo()
-                .userId(userInfo.getId())
-                .email(userInfo.getEmail())
-                .username(userInfo.getUsername())
-                .userType(UserTypeEnum.fromValue(userInfo.getType().getSetField().getFieldName()))
+                        .userId(userInfo.getId())
+                        .email(userInfo.getEmail())
+                        .username(userInfo.getUsername())
+                        .userType(UserTypeEnum.fromValue(userInfo.getType().getSetField().getFieldName()))
         );
 
         swagModificationUnit.setModification(modificationConverter.convertToSwag(unit.getModification()));

@@ -1,6 +1,9 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contractor;
 
-import com.rbkmoney.damsel.domain.*;
+import com.rbkmoney.damsel.domain.Contractor;
+import com.rbkmoney.damsel.domain.LegalEntity;
+import com.rbkmoney.damsel.domain.PrivateEntity;
+import com.rbkmoney.damsel.domain.RegisteredUser;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

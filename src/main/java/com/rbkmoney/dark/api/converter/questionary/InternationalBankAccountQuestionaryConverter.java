@@ -121,17 +121,17 @@ public class InternationalBankAccountQuestionaryConverter implements
                                                                  String abaRtn,
                                                                  String address,
                                                                  String bic) {
-            InternationalBankDetails bankDetails = new InternationalBankDetails()
-                    .setName(name)
-                    .setCountry(country == null ?
-                            null : Residence.findByValue(country))
-                    .setAbaRtn(abaRtn)
-                    .setAddress(address)
-                    .setBic(bic);
-            if (country != null) {
-                bankDetails.setCountry(Residence.findByValue(country));
-            }
-            return bankDetails;
+        InternationalBankDetails bankDetails = new InternationalBankDetails()
+                .setName(name)
+                .setCountry(country == null ?
+                        null : Residence.findByValue(country))
+                .setAbaRtn(abaRtn)
+                .setAddress(address)
+                .setBic(bic);
+        if (country != null) {
+            bankDetails.setCountry(Residence.findByValue(country));
+        }
+        return bankDetails;
     }
 
 }

@@ -11,7 +11,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.*;
+import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTOR;
+import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTORIDENTIFICATIONLEVEL;
 import static com.rbkmoney.swag.claim_management.model.ContractorType.ContractorTypeEnum.*;
 import static com.rbkmoney.swag.claim_management.model.LegalEntityType.LegalEntityTypeEnum.INTERNATIONALLEGALENTITY;
 import static com.rbkmoney.swag.claim_management.model.LegalEntityType.LegalEntityTypeEnum.RUSSIANLEGALENTITY;

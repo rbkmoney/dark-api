@@ -4,12 +4,13 @@ import com.rbkmoney.damsel.claim_management.ShopAccountParams;
 import com.rbkmoney.damsel.domain.CurrencyRef;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import com.rbkmoney.swag.claim_management.model.ShopAccountCreationModification;
-import com.rbkmoney.swag.claim_management.model.ShopModification;
 import org.springframework.stereotype.Component;
 
+import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPACCOUNTCREATIONMODIFICATION;
+
 @Component
-public class ShopAccountParamsConverter
-        implements DarkApiConverter<ShopAccountParams, com.rbkmoney.swag.claim_management.model.ShopAccountCreationModification> {
+public class ShopAccountCreationModificationConverter
+        implements DarkApiConverter<ShopAccountParams, ShopAccountCreationModification> {
 
     @Override
     public ShopAccountParams convertToThrift(ShopAccountCreationModification shopAccountCreationModification) {
@@ -29,7 +30,7 @@ public class ShopAccountParamsConverter
         swagCurrencyRef.setSymbolicCode(shopAccountCreation.getCurrency().getSymbolicCode());
 
         swagShopAccountParams.setCurrency(swagCurrencyRef);
-        swagShopAccountParams.setShopModificationType(ShopModification.ShopModificationTypeEnum.SHOPACCOUNTCREATIONMODIFICATION);
+        swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATIONMODIFICATION);
         return swagShopAccountParams;
     }
 

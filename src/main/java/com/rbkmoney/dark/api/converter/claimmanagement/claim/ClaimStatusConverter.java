@@ -5,7 +5,6 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.dark.api.converter.claimmanagement.data.ThriftClaimStatus.*;
-import static com.rbkmoney.dark.api.converter.claimmanagement.data.ThriftClaimStatus.REVOKED;
 
 @Component
 public class ClaimStatusConverter implements DarkApiConverter<ClaimStatus, String> {

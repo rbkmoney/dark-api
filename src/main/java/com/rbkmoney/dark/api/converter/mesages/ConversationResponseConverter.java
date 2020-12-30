@@ -29,10 +29,10 @@ public class ConversationResponseConverter implements SwagConverter<Conversation
 
         Map<String, ConversationResponseUsers> users = value.getUsers().entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> {
-                        User user = ctx.convert(e.getValue(), User.class);
-                        return new ConversationResponseUsers()
-                                .user(user)
-                                .userId(user.getUserId());
+                            User user = ctx.convert(e.getValue(), User.class);
+                            return new ConversationResponseUsers()
+                                    .user(user)
+                                    .userId(user.getUserId());
                         }
                 ));
         conversationResponse.setUsers(users);
