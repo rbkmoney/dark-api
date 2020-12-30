@@ -53,7 +53,7 @@ partyManagement:
 
 keycloak:
   realm: internal
-  auth-server-url: https://keycloak:8080/auth/
+  auth-server-url: http://keycloak:8080/auth/
   resource: common-api
   not-before: 0
   ssl-required: none
