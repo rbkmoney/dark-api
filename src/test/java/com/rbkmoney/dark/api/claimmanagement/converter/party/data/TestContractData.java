@@ -15,7 +15,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.PAYOUTTOOLMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTPAYOUTTOOLMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLCREATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLINFOMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
@@ -63,7 +63,7 @@ public final class TestContractData {
     public static ContractPayoutToolModificationUnit getTestSwagPayoutToolModificationUnit() {
         var swagPayoutToolModificationUnit =
                 EnhancedRandom.random(ContractPayoutToolModificationUnit.class);
-        swagPayoutToolModificationUnit.setContractModificationType(PAYOUTTOOLMODIFICATIONUNIT);
+        swagPayoutToolModificationUnit.setContractModificationType(CONTRACTPAYOUTTOOLMODIFICATIONUNIT);
         switch (swagPayoutToolModificationUnit.getModification().getPayoutToolModificationType()) {
             case CONTRACTPAYOUTTOOLCREATIONMODIFICATION:
                 var swagPayoutToolParams = EnhancedRandom.random(ContractPayoutToolCreationModification.class);

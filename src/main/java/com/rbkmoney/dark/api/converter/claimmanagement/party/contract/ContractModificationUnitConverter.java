@@ -1,9 +1,9 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contract;
 
-import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.claim_management.ContractAdjustmentModificationUnit;
 import com.rbkmoney.damsel.claim_management.ContractModification;
 import com.rbkmoney.damsel.claim_management.ContractModificationUnit;
+import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.domain.LegalAgreement;
 import com.rbkmoney.damsel.domain.ReportPreferences;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
@@ -12,7 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.*;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTCONTRACTORMODIFICATION;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
 
 @Slf4j
@@ -70,7 +71,7 @@ public class ContractModificationUnitConverter
                         new ContractTermination().setReason(swagContractTerm.getReason())
                 );
                 break;
-            case PAYOUTTOOLMODIFICATIONUNIT:
+            case CONTRACTPAYOUTTOOLMODIFICATIONUNIT:
                 var swagPayoutToolModificationUnit =
                         (ContractPayoutToolModificationUnit) swagContractModification;
                 contractModification.setPayoutToolModification(

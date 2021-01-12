@@ -12,7 +12,7 @@ import com.rbkmoney.swag.claim_management.model.ContractPayoutToolModificationUn
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.PAYOUTTOOLMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTPAYOUTTOOLMODIFICATIONUNIT;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLCREATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLINFOMODIFICATION;
 
@@ -60,7 +60,7 @@ public class PayoutToolModificationUnitConverter
     ) {
         var swagPayoutToolModificationUnit = new ContractPayoutToolModificationUnit();
         swagPayoutToolModificationUnit.setPayoutToolID(payoutToolModificationUnit.getPayoutToolId());
-        swagPayoutToolModificationUnit.setContractModificationType(PAYOUTTOOLMODIFICATIONUNIT);
+        swagPayoutToolModificationUnit.setContractModificationType(CONTRACTPAYOUTTOOLMODIFICATIONUNIT);
 
         PayoutToolModification payoutToolModification = payoutToolModificationUnit.getModification();
 

@@ -92,7 +92,7 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "      \"partyModificationType\": \"ContractModificationUnit\",\n" +
                                 "      \"id\": \"3dc3dc36-32ba-4e15-859a-a5c4434c5d92\",\n" +
                                 "      \"modification\": {\n" +
-                                "        \"contractModificationType\": \"ContractParams\",\n" +
+                                "        \"contractModificationType\": \"ContractCreationModification\",\n" +
                                 "        \"contractorID\": \"c454ea42-8598-483a-840a-141b9ab0f3e2\"\n" +
                                 "      }\n" +
                                 "    }\n" +
@@ -103,10 +103,10 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "      \"partyModificationType\": \"ContractModificationUnit\",\n" +
                                 "      \"id\": \"3dc3dc36-32ba-4e15-859a-a5c4434c5d92\",\n" +
                                 "      \"modification\": {\n" +
-                                "        \"contractModificationType\": \"PayoutToolModificationUnit\",\n" +
+                                "        \"contractModificationType\": \"ContractPayoutToolModificationUnit\",\n" +
                                 "        \"payoutToolID\": \"a5648077-a4c7-4e35-95ae-380d171fbc0f\",\n" +
                                 "        \"modification\": {\n" +
-                                "          \"payoutToolModificationType\": \"PayoutToolParams\",\n" +
+                                "          \"payoutToolModificationType\": \"ContractPayoutToolCreationModification\",\n" +
                                 "          \"currency\": {\n" +
                                 "            \"symbolicCode\": \"RUB\"\n" +
                                 "          },\n" +
