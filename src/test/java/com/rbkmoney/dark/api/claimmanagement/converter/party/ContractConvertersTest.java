@@ -9,6 +9,9 @@ import com.rbkmoney.dark.api.converter.claimmanagement.party.contract.*;
 import com.rbkmoney.geck.serializer.kit.mock.MockMode;
 import com.rbkmoney.geck.serializer.kit.mock.MockTBaseProcessor;
 import com.rbkmoney.geck.serializer.kit.tbase.TBaseHandler;
+import com.rbkmoney.swag.claim_management.model.ContractCreationModification;
+import com.rbkmoney.swag.claim_management.model.ContractLegalAgreementBindingModification;
+import com.rbkmoney.swag.claim_management.model.ContractReportPreferencesModification;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import org.junit.Test;
 
@@ -27,7 +30,6 @@ public class ContractConvertersTest {
         ClaimRussianBankAccountConverter converter = new ClaimRussianBankAccountConverter();
         var swagRussianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
         swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
-        swagRussianBankAccount.setPayoutToolModificationType(null);
         var resultSwagRussianBankAccount = converter.convertToSwag(
                 converter.convertToThrift(swagRussianBankAccount));
         assertEquals("Swag objects 'RussianBankAccount' not equals",
@@ -105,8 +107,8 @@ public class ContractConvertersTest {
     @Test
     public void legalAgreementConverterTest() throws IOException {
         LegalAgreementConverter converter = new LegalAgreementConverter();
-        var swagLegalAgreement = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.LegalAgreement.class);
-        swagLegalAgreement.setContractModificationType(LEGALAGREEMENT);
+        var swagLegalAgreement = EnhancedRandom.random(ContractLegalAgreementBindingModification.class);
+        swagLegalAgreement.setContractModificationType(CONTRACTLEGALAGREEMENTBINDINGMODIFICATION);
         var resultSwagLegalAgreement = converter.convertToSwag(
                 converter.convertToThrift(swagLegalAgreement)
         );
@@ -132,12 +134,12 @@ public class ContractConvertersTest {
 
     @Test
     public void reportPreferencesConverterTest() throws IOException {
-        ReportPreferencesConverter converter = new ReportPreferencesConverter(new RepresentativeDocumentConverter());
-        var swagReportPreferences = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ReportPreferences.class);
-        swagReportPreferences.setContractModificationType(REPORTPREFERENCES);
+        ContractReportPreferencesModificationConverter converter = new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter());
+        var swagReportPreferences = EnhancedRandom.random(ContractReportPreferencesModification.class);
+        swagReportPreferences.setContractModificationType(CONTRACTREPORTPREFERENCESMODIFICATION);
         var articlesOfAssociation = new com.rbkmoney.swag.claim_management.model.ArticlesOfAssociation();
         articlesOfAssociation.setDocumentType(ARTICLESOFASSOCIATION);
-        swagReportPreferences.getServiceAcceptanceActPreferences().getSigner().setDocument(articlesOfAssociation);
+        swagReportPreferences.getReportPreferences().getServiceAcceptanceActPreferences().getSigner().setDocument(articlesOfAssociation);
 
         var resultSwagReportPreferences = converter.convertToSwag(
                 converter.convertToThrift(swagReportPreferences)
@@ -219,7 +221,7 @@ public class ContractConvertersTest {
     public void contractModificationUnitConverterTest() {
         ContractModificationUnitConverter converter = new ContractModificationUnitConverter(
                 new ContractModificationCreationConverter(),
-                new ReportPreferencesConverter(new RepresentativeDocumentConverter()),
+                new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter()),
                 new PayoutToolModificationUnitConverter(
                         new PayoutToolInfoConverter(
                                 new InternationalBankAccountConverter(),
@@ -243,8 +245,8 @@ public class ContractConvertersTest {
     @Test
     public void contractModificationCreationConverterTest() throws IOException {
         ContractModificationCreationConverter converter = new ContractModificationCreationConverter();
-        var swagContractParams = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractParams.class);
-        swagContractParams.setContractModificationType(CONTRACTPARAMS);
+        var swagContractParams = EnhancedRandom.random(ContractCreationModification.class);
+        swagContractParams.setContractModificationType(CONTRACTCREATIONMODIFICATION);
         var resultSwagContractParams = converter.convertToSwag(
                 converter.convertToThrift(swagContractParams)
         );

@@ -1,15 +1,19 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contract;
 
+import com.rbkmoney.damsel.claim_management.ContractAdjustmentModificationUnit;
+import com.rbkmoney.damsel.claim_management.ContractModification;
+import com.rbkmoney.damsel.claim_management.ContractModificationUnit;
 import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.domain.LegalAgreement;
 import com.rbkmoney.damsel.domain.ReportPreferences;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
+import com.rbkmoney.swag.claim_management.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTORID;
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATION;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTCONTRACTORMODIFICATION;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
 
 @Slf4j
@@ -18,20 +22,16 @@ import static com.rbkmoney.swag.claim_management.model.PartyModificationType.Par
 public class ContractModificationUnitConverter
         implements DarkApiConverter<ContractModificationUnit, com.rbkmoney.swag.claim_management.model.ContractModificationUnit> {
 
-    private final DarkApiConverter<ContractParams,
-            com.rbkmoney.swag.claim_management.model.ContractParams> contractModificationCreationConverter;
+    private final DarkApiConverter<ContractParams, ContractCreationModification> contractModificationCreationConverter;
 
-    private final DarkApiConverter<ReportPreferences,
-            com.rbkmoney.swag.claim_management.model.ReportPreferences> reportPreferencesConverter;
+    private final DarkApiConverter<ReportPreferences, ContractReportPreferencesModification> reportPreferencesConverter;
 
-    private final DarkApiConverter<PayoutToolModificationUnit,
-            com.rbkmoney.swag.claim_management.model.PayoutToolModificationUnit> payoutToolModificationUnitConverter;
+    private final DarkApiConverter<PayoutToolModificationUnit, ContractPayoutToolModificationUnit> payoutToolModificationUnitConverter;
 
     private final DarkApiConverter<ContractAdjustmentModificationUnit,
             com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> adjustmentModificationConverter;
 
-    private final DarkApiConverter<LegalAgreement,
-            com.rbkmoney.swag.claim_management.model.LegalAgreement> legalAgreementConverter;
+    private final DarkApiConverter<LegalAgreement, ContractLegalAgreementBindingModification> legalAgreementConverter;
 
     @Override
     public ContractModificationUnit convertToThrift(
@@ -43,37 +43,37 @@ public class ContractModificationUnitConverter
         var swagContractModification = swagContractModificationUnit.getModification();
 
         switch (swagContractModification.getContractModificationType()) {
-            case CONTRACTPARAMS:
-                var swagContractParams = (com.rbkmoney.swag.claim_management.model.ContractParams) swagContractModification;
+            case CONTRACTCREATIONMODIFICATION:
+                var swagContractParams = (ContractCreationModification) swagContractModification;
                 contractModification.setCreation(
                         contractModificationCreationConverter.convertToThrift(swagContractParams)
                 );
                 break;
-            case CONTRACTORID:
-                var swagContractorId = (com.rbkmoney.swag.claim_management.model.ContractorID) swagContractModification;
+            case CONTRACTCONTRACTORMODIFICATION:
+                var swagContractorId = (ContractContractorModification) swagContractModification;
                 contractModification.setContractorModification(swagContractorId.getContractorID());
                 break;
-            case LEGALAGREEMENT:
-                var swagLegalAgreement = (com.rbkmoney.swag.claim_management.model.LegalAgreement) swagContractModification;
+            case CONTRACTLEGALAGREEMENTBINDINGMODIFICATION:
+                var swagLegalAgreement = (ContractLegalAgreementBindingModification) swagContractModification;
                 contractModification.setLegalAgreementBinding(
                         legalAgreementConverter.convertToThrift(swagLegalAgreement)
                 );
                 break;
-            case REPORTPREFERENCES:
-                var swagReportPreferences = (com.rbkmoney.swag.claim_management.model.ReportPreferences) swagContractModification;
+            case CONTRACTREPORTPREFERENCESMODIFICATION:
+                var swagReportPreferences = (ContractReportPreferencesModification) swagContractModification;
                 contractModification.setReportPreferencesModification(
                         reportPreferencesConverter.convertToThrift(swagReportPreferences)
                 );
                 break;
-            case CONTRACTTERMINATION:
-                var swagContractTerm = (com.rbkmoney.swag.claim_management.model.ContractTermination) swagContractModification;
+            case CONTRACTTERMINATIONMODIFICATION:
+                var swagContractTerm = (ContractTerminationModification) swagContractModification;
                 contractModification.setTermination(
                         new ContractTermination().setReason(swagContractTerm.getReason())
                 );
                 break;
-            case PAYOUTTOOLMODIFICATIONUNIT:
+            case CONTRACTPAYOUTTOOLMODIFICATIONUNIT:
                 var swagPayoutToolModificationUnit =
-                        (com.rbkmoney.swag.claim_management.model.PayoutToolModificationUnit) swagContractModification;
+                        (ContractPayoutToolModificationUnit) swagContractModification;
                 contractModification.setPayoutToolModification(
                         payoutToolModificationUnitConverter.convertToThrift(swagPayoutToolModificationUnit)
                 );
@@ -112,14 +112,14 @@ public class ContractModificationUnitConverter
                     contractModification.getAdjustmentModification();
             swagContractModificationUnit.setModification(adjustmentModificationConverter.convertToSwag(adjustmentModification));
         } else if (contractModification.isSetContractorModification()) {
-            var swagContractModification = new com.rbkmoney.swag.claim_management.model.ContractorID();
-            swagContractModification.setContractModificationType(CONTRACTORID);
+            var swagContractModification = new ContractContractorModification();
+            swagContractModification.setContractModificationType(CONTRACTCONTRACTORMODIFICATION);
             swagContractModification.setContractorID(contractModification.getContractorModification());
             swagContractModificationUnit.setModification(swagContractModification);
         } else if (contractModification.isSetTermination()) {
             ContractTermination contractTermination = contractModification.getTermination();
-            var swagContractTermination = new com.rbkmoney.swag.claim_management.model.ContractTermination();
-            swagContractTermination.setContractModificationType(CONTRACTTERMINATION);
+            var swagContractTermination = new ContractTerminationModification();
+            swagContractTermination.setContractModificationType(CONTRACTTERMINATIONMODIFICATION);
             swagContractTermination.setReason(contractTermination.getReason());
             swagContractModificationUnit.setModification(swagContractTermination);
         } else if (contractModification.isSetLegalAgreementBinding()) {
