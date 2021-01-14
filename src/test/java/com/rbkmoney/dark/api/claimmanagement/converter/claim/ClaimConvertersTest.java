@@ -103,6 +103,7 @@ public class ClaimConvertersTest {
         DocumentModificationUnit thriftDocumentModificationUnit = new DocumentModificationUnit();
         thriftDocumentModificationUnit = new MockTBaseProcessor(MockMode.ALL)
                 .process(thriftDocumentModificationUnit, new TBaseHandler<>(DocumentModificationUnit.class));
+        thriftDocumentModificationUnit.setType(null);
         DocumentModificationUnit resultThriftDocumentModificationUnit = converter.convertToThrift(
                 converter.convertToSwag(thriftDocumentModificationUnit)
         );
