@@ -1,5 +1,6 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
+import com.rbkmoney.damsel.claim_management.DocumentChanged;
 import com.rbkmoney.damsel.claim_management.DocumentCreated;
 import com.rbkmoney.damsel.claim_management.DocumentModification;
 import com.rbkmoney.damsel.claim_management.DocumentModificationUnit;
@@ -7,6 +8,7 @@ import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.DOCUMENTMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.DocumentModification.DocumentModificationTypeEnum.DOCUMENTCHANGED;
 import static com.rbkmoney.swag.claim_management.model.DocumentModification.DocumentModificationTypeEnum.DOCUMENTCREATED;
 
 @Component
@@ -22,9 +24,14 @@ public class ClaimDocumentModificationConverter
 
         switch (swagDocModificationUnit.getDocumentModification().getDocumentModificationType()) {
             case DOCUMENTCREATED:
-                DocumentModification docModification = new DocumentModification();
-                docModification.setCreation(new DocumentCreated());
-                docModificationUnit.setModification(docModification);
+                DocumentModification docCreatedModification = new DocumentModification();
+                docCreatedModification.setCreation(new DocumentCreated());
+                docModificationUnit.setModification(docCreatedModification);
+                break;
+            case DOCUMENTCHANGED:
+                DocumentModification docChangedModification = new DocumentModification();
+                docChangedModification.setChanged(new DocumentChanged());
+                docModificationUnit.setModification(docChangedModification);
                 break;
             default:
                 throw new IllegalArgumentException("DocumentModificationType not found: " +
@@ -43,8 +50,11 @@ public class ClaimDocumentModificationConverter
         swagDocumentModificationUnit.setClaimModificationType(DOCUMENTMODIFICATIONUNIT);
         var swagDocumentModification = new com.rbkmoney.swag.claim_management.model.DocumentModification();
 
-        if (documentModification.getModification().isSetCreation()) {
+        DocumentModification modification = documentModification.getModification();
+        if (modification.isSetCreation()) {
             swagDocumentModification.setDocumentModificationType(DOCUMENTCREATED);
+        } else if (modification.isSetChanged()) {
+            swagDocumentModification.setDocumentModificationType(DOCUMENTCHANGED);
         } else {
             throw new IllegalArgumentException("Unknown document modification type!");
         }
