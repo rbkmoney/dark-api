@@ -1,15 +1,11 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
-import com.rbkmoney.damsel.claim_management.FileCreated;
-import com.rbkmoney.damsel.claim_management.FileDeleted;
-import com.rbkmoney.damsel.claim_management.FileModification;
-import com.rbkmoney.damsel.claim_management.FileModificationUnit;
+import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.FILEMODIFICATIONUNIT;
-import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.FILECREATED;
-import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.FILEDELETED;
+import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.*;
 
 @Component
 public class ClaimFileModificationUnitConverter
@@ -28,6 +24,9 @@ public class ClaimFileModificationUnitConverter
                 return fileModificationUnit;
             case FILEDELETED:
                 fileModificationUnit.setModification(FileModification.deletion(new FileDeleted()));
+                return fileModificationUnit;
+            case FILECHANGED:
+                fileModificationUnit.setModification(FileModification.changed(new FileChanged()));
                 return fileModificationUnit;
             default:
                 throw new IllegalArgumentException("Unknown file modification type: " +
@@ -48,6 +47,8 @@ public class ClaimFileModificationUnitConverter
             swagFileModification.setFileModificationType(FILECREATED);
         } else if (fileModificationUnit.getModification().isSetDeletion()) {
             swagFileModification.setFileModificationType(FILEDELETED);
+        } else if (fileModificationUnit.getModification().isSetChanged()) {
+            swagFileModification.setFileModificationType(FILECHANGED);
         } else {
             throw new IllegalArgumentException("Unknown file modification type!");
         }

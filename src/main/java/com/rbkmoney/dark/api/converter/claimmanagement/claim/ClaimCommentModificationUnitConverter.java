@@ -1,15 +1,11 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.claim;
 
-import com.rbkmoney.damsel.claim_management.CommentCreated;
-import com.rbkmoney.damsel.claim_management.CommentDeleted;
-import com.rbkmoney.damsel.claim_management.CommentModification;
-import com.rbkmoney.damsel.claim_management.CommentModificationUnit;
+import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
 import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.ClaimModificationTypeEnum.COMMENTMODIFICATIONUNIT;
-import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.COMMENTCREATED;
-import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.COMMENTDELETED;
+import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.*;
 
 @Component
 public class ClaimCommentModificationUnitConverter
@@ -29,6 +25,9 @@ public class ClaimCommentModificationUnitConverter
                 break;
             case COMMENTDELETED:
                 commentModificationUnit.setModification(CommentModification.deletion(new CommentDeleted()));
+                break;
+            case COMMENTCHANGED:
+                commentModificationUnit.setModification(CommentModification.changed(new CommentChanged()));
                 break;
             default:
                 throw new IllegalArgumentException("Type " + commentModificationType +
@@ -51,6 +50,8 @@ public class ClaimCommentModificationUnitConverter
             swagCommentModification.setCommentModificationType(COMMENTCREATED);
         } else if (commentModification.getModification().isSetDeletion()) {
             swagCommentModification.setCommentModificationType(COMMENTDELETED);
+        } else if (commentModification.getModification().isSetChanged()) {
+            swagCommentModification.setCommentModificationType(COMMENTCHANGED);
         } else {
             throw new IllegalArgumentException("Unknown comment modification type!");
         }

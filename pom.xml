@@ -89,7 +89,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.27-1672eef-server</version>
+            <version>1.28-ae84b84-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
