@@ -1,10 +1,16 @@
 package com.rbkmoney.dark.api.controller;
 
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbkmoney.damsel.message_sender.Message;
 import com.rbkmoney.damsel.message_sender.MessageSenderSrv;
-import com.rbkmoney.dark.api.auth.utils.JwtTokenBuilder;
 import com.rbkmoney.dark.api.config.AbstractKeycloakOpenIdAsWiremockConfig;
+import com.rbkmoney.dark.api.config.property.FeedbackProperties;
 import com.rbkmoney.swag.sender.model.InlineObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +29,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Mockito.atMostOnce;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @MockBean
@@ -39,6 +39,9 @@ public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private FeedbackProperties feedbackProperties;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -69,7 +72,7 @@ public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig
         verify(messageSenderClientMock, atMostOnce()).send(argumentCaptor.capture());
         Message captorValue = argumentCaptor.getValue();
         Assert.assertTrue(captorValue.getMessageMail().getSubject().startsWith("Обратная связь от"));
-        Assert.assertEquals(JwtTokenBuilder.DEFAULT_EMAIL,
+        Assert.assertEquals(feedbackProperties.getFromEmail(),
                 captorValue.getMessageMail().getFromEmail());
         Assert.assertEquals("feedback@rbkmoney.com",
                 captorValue.getMessageMail().getToEmails().get(0));

@@ -1,12 +1,11 @@
 package com.rbkmoney.dark.api.config.property;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.annotation.Validated;
-
-import java.util.List;
 
 @Configuration
 @ConfigurationProperties(prefix = "feedback")
@@ -15,6 +14,8 @@ import java.util.List;
 @Setter
 public class FeedbackProperties {
 
-    private List<String> emails;
+    private String fromEmail;
+
+    private List<String> toEmails;
 
 }

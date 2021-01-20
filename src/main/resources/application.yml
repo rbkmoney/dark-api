@@ -62,7 +62,8 @@ keycloak:
 auth.enabled: true
 
 feedback:
-  emails:
+  fromEmail: no-reply@rbkmoney.com
+  toEmails:
     - feedback@rbkmoney.com
 
 info:
