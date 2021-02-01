@@ -1,16 +1,28 @@
 server:
   port: '@server.port@'
 management:
-  endpoint:
-    health:
-      show-details: ALWAYS
+  security:
+    flag: false
+  server:
+    port: @management.port@
   metrics:
     export:
       statsd:
         flavor: etsy
         enabled: false
-  security:
-    flag: false
+      prometheus:
+        enabled: false
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
 
 spring:
   application:
