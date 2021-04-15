@@ -72,7 +72,7 @@ public class InternationalBankAccountConverter
             swagBank.setAddress(bank.getAddress());
             swagBank.setBic(bank.getBic());
             swagBank.setName(bank.getName());
-            swagBank.setCountry(bank.getCountry().name());
+            swagBank.setCountry(bank.getCountry() != null ? bank.getCountry().name() : null);
 
             swagInternationalBankAccount.setBank(swagBank);
         }
