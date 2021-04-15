@@ -29,7 +29,7 @@ public class InternationalBankAccountConverter
                 .setAddress(swagBankDetails.getAddress())
                 .setBic(swagBankDetails.getBic())
                 .setName(swagBankDetails.getName())
-                .setCountry(Residence.valueOf(swagBankDetails.getCountry())));
+                .setCountry(convertCountryToResidence(swagBankDetails.getCountry())));
 
         var swagCorrespondentAccount = swagInternationalBankAccount.getCorrespondentAccount();
         if (swagCorrespondentAccount != null) {
@@ -91,7 +91,8 @@ public class InternationalBankAccountConverter
                 swagCorrespondentBankDetails.setAddress(correspondentAccountBank.getAddress());
                 swagCorrespondentBankDetails.setBic(correspondentAccountBank.getBic());
                 swagCorrespondentBankDetails.setName(correspondentAccountBank.getName());
-                swagCorrespondentBankDetails.setCountry(correspondentAccountBank.getCountry().name());
+                swagCorrespondentBankDetails.setCountry(correspondentAccountBank.getCountry() != null ?
+                        correspondentAccountBank.getCountry().name() : null);
 
                 swagCorrespondentAccount.setBank(swagCorrespondentBankDetails);
             }
@@ -99,6 +100,10 @@ public class InternationalBankAccountConverter
         }
 
         return swagInternationalBankAccount;
+    }
+
+    private Residence convertCountryToResidence(String country) {
+        return country != null ? Residence.valueOf(country) : null;
     }
 
 }
