@@ -12,10 +12,12 @@ import static com.rbkmoney.swag.claim_management.model.RepresentativeDocument.Do
 
 @Component
 public class RepresentativeDocumentConverter
-        implements DarkApiConverter<RepresentativeDocument, com.rbkmoney.swag.claim_management.model.RepresentativeDocument> {
+        implements
+        DarkApiConverter<RepresentativeDocument, com.rbkmoney.swag.claim_management.model.RepresentativeDocument> {
 
     @Override
-    public RepresentativeDocument convertToThrift(com.rbkmoney.swag.claim_management.model.RepresentativeDocument swagDocument) {
+    public RepresentativeDocument convertToThrift(
+            com.rbkmoney.swag.claim_management.model.RepresentativeDocument swagDocument) {
         RepresentativeDocument signerDocument = new RepresentativeDocument();
 
         switch (swagDocument.getDocumentType()) {
@@ -37,7 +39,8 @@ public class RepresentativeDocumentConverter
     }
 
     @Override
-    public com.rbkmoney.swag.claim_management.model.RepresentativeDocument convertToSwag(RepresentativeDocument signer) {
+    public com.rbkmoney.swag.claim_management.model.RepresentativeDocument convertToSwag(
+            RepresentativeDocument signer) {
         if (signer.isSetArticlesOfAssociation()) {
             var swagArticlesOfAssociation = new com.rbkmoney.swag.claim_management.model.ArticlesOfAssociation();
             swagArticlesOfAssociation.setDocumentType(ARTICLESOFASSOCIATION);

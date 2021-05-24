@@ -18,7 +18,8 @@ public class RussianIndividualEntityConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.RussianIndividualEntity, RussianIndividualEntity> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.RussianIndividualEntity toSwag(RussianIndividualEntity value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.RussianIndividualEntity toSwag(RussianIndividualEntity value,
+                                                                              SwagConverterContext ctx) {
         var russianIndividualEntity = new com.rbkmoney.swag.questionary.model.RussianIndividualEntity()
                 .name(value.getName())
                 .inn(value.getInn())
@@ -27,28 +28,34 @@ public class RussianIndividualEntityConverter implements
                 .pdlCategory(value.isPdlCategory())
                 .pdlRelationDegree(value.getPdlRelationDegree());
         if (value.isSetRegistrationInfo()) {
-            russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), RegistrationInfo.class));
+            russianIndividualEntity
+                    .setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), RegistrationInfo.class));
         }
         if (value.isSetIdentityDocument()) {
-            russianIndividualEntity.setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
+            russianIndividualEntity
+                    .setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
         }
         if (value.isSetLicenseInfo()) {
             russianIndividualEntity.setLicenseInfo(ctx.convert(value.getLicenseInfo(), LicenseInfo.class));
         }
         if (value.isSetMigrationCardInfo()) {
-            russianIndividualEntity.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), MigrationCardInfo.class));
+            russianIndividualEntity
+                    .setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), MigrationCardInfo.class));
         }
         if (value.isSetResidenceApprove()) {
-            russianIndividualEntity.setResidenceApprove(ctx.convert(value.getResidenceApprove(), ResidenceApprove.class));
+            russianIndividualEntity
+                    .setResidenceApprove(ctx.convert(value.getResidenceApprove(), ResidenceApprove.class));
         }
         if (value.isSetIndividualPersonCategories()) {
-            russianIndividualEntity.setIndividualPersonCategories(ctx.convert(value.getIndividualPersonCategories(), IndividualPersonCategories.class));
+            russianIndividualEntity.setIndividualPersonCategories(
+                    ctx.convert(value.getIndividualPersonCategories(), IndividualPersonCategories.class));
         }
         if (value.isSetResidencyInfo()) {
             russianIndividualEntity.setResidencyInfo(ctx.convert(value.getResidencyInfo(), ResidencyInfo.class));
         }
         if (value.isSetRussianPrivateEntity()) {
-            russianIndividualEntity.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
+            russianIndividualEntity
+                    .setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
         }
         if (value.isSetPrincipalActivity()) {
             russianIndividualEntity.setPrincipalActivity(ctx.convert(value.getPrincipalActivity(), Activity.class));
@@ -71,7 +78,8 @@ public class RussianIndividualEntityConverter implements
     }
 
     @Override
-    public RussianIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RussianIndividualEntity value, ThriftConverterContext ctx) {
+    public RussianIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RussianIndividualEntity value,
+                                            ThriftConverterContext ctx) {
         RussianIndividualEntity russianIndividualEntity = new RussianIndividualEntity()
                 .setName(value.getName())
                 .setInn(value.getInn())
@@ -80,42 +88,54 @@ public class RussianIndividualEntityConverter implements
                 .setPdlRelationDegree(value.getPdlRelationDegree())
                 .setHasBeneficialOwners(ConverterUtils.safeSetValue(value.isHasBeneficialOwners()));
         if (value.getRegistrationInfo() != null) {
-            russianIndividualEntity.setRegistrationInfo(ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
+            russianIndividualEntity.setRegistrationInfo(
+                    ctx.convert(value.getRegistrationInfo(), com.rbkmoney.questionary.RegistrationInfo.class));
         }
         if (value.getIdentityDocument() != null) {
-            russianIndividualEntity.setIdentityDocument(ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
+            russianIndividualEntity.setIdentityDocument(
+                    ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
         }
         if (value.getLicenseInfo() != null) {
-            russianIndividualEntity.setLicenseInfo(ctx.convert(value.getLicenseInfo(), com.rbkmoney.questionary.LicenseInfo.class));
+            russianIndividualEntity
+                    .setLicenseInfo(ctx.convert(value.getLicenseInfo(), com.rbkmoney.questionary.LicenseInfo.class));
         }
         if (value.getMigrationCardInfo() != null) {
-            russianIndividualEntity.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
+            russianIndividualEntity.setMigrationCardInfo(
+                    ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
         }
         if (value.getResidenceApprove() != null) {
-            russianIndividualEntity.setResidenceApprove(ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
+            russianIndividualEntity.setResidenceApprove(
+                    ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
         }
         if (value.getIndividualPersonCategories() != null) {
-            russianIndividualEntity.setIndividualPersonCategories(ctx.convert(value.getIndividualPersonCategories(), com.rbkmoney.questionary.IndividualPersonCategories.class));
+            russianIndividualEntity.setIndividualPersonCategories(ctx.convert(value.getIndividualPersonCategories(),
+                    com.rbkmoney.questionary.IndividualPersonCategories.class));
         }
         if (value.getResidencyInfo() != null) {
-            russianIndividualEntity.setResidencyInfo(ctx.convert(value.getResidencyInfo(), com.rbkmoney.questionary.ResidencyInfo.class));
+            russianIndividualEntity.setResidencyInfo(
+                    ctx.convert(value.getResidencyInfo(), com.rbkmoney.questionary.ResidencyInfo.class));
         }
         if (value.getRussianPrivateEntity() != null) {
-            russianIndividualEntity.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
+            russianIndividualEntity.setRussianPrivateEntity(
+                    ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
         }
         if (value.getPrincipalActivity() != null) {
-            russianIndividualEntity.setPrincipalActivity(ctx.convert(value.getPrincipalActivity(), com.rbkmoney.questionary.Activity.class));
+            russianIndividualEntity.setPrincipalActivity(
+                    ctx.convert(value.getPrincipalActivity(), com.rbkmoney.questionary.Activity.class));
         }
         if (value.getAdditionalInfo() != null) {
-            russianIndividualEntity.setAdditionalInfo(ctx.convert(value.getAdditionalInfo(), com.rbkmoney.questionary.AdditionalInfo.class));
+            russianIndividualEntity.setAdditionalInfo(
+                    ctx.convert(value.getAdditionalInfo(), com.rbkmoney.questionary.AdditionalInfo.class));
         }
         if (value.getPropertyInfoDocumentType() != null) {
             russianIndividualEntity.setPropertyInfoDocumentType(
-                    ctx.convert(value.getPropertyInfoDocumentType(), com.rbkmoney.questionary.PropertyInfoDocumentType.class));
+                    ctx.convert(value.getPropertyInfoDocumentType(),
+                            com.rbkmoney.questionary.PropertyInfoDocumentType.class));
         }
         if (value.getBeneficialOwners() != null) {
             List<com.rbkmoney.questionary.BeneficialOwner> beneficialOwnerList = value.getBeneficialOwners().stream()
-                    .map(beneficialOwner -> ctx.convert(beneficialOwner, com.rbkmoney.questionary.BeneficialOwner.class))
+                    .map(beneficialOwner -> ctx
+                            .convert(beneficialOwner, com.rbkmoney.questionary.BeneficialOwner.class))
                     .collect(Collectors.toList());
             russianIndividualEntity.setBeneficialOwners(beneficialOwnerList);
         }

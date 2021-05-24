@@ -39,10 +39,10 @@ public class FileStorageServiceTest {
     @Autowired
     public FileStorageService service;
 
-    private String fileId = "fileId";
-    private String fileName = "fileName";
-    private String fileIdUrl = "fileIdUrl";
-    private Map<String, Value> metadata = new HashMap<>();
+    private final String fileId = "fileId";
+    private final String fileName = "fileName";
+    private final String fileIdUrl = "fileIdUrl";
+    private final Map<String, Value> metadata = new HashMap<>();
 
     @Test
     public void generateDownloadUrlSuccess() throws TException {

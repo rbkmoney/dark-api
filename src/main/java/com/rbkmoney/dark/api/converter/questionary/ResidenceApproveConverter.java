@@ -13,7 +13,8 @@ public class ResidenceApproveConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.ResidenceApprove, ResidenceApprove> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.ResidenceApprove toSwag(ResidenceApprove value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.ResidenceApprove toSwag(ResidenceApprove value,
+                                                                       SwagConverterContext ctx) {
         return new com.rbkmoney.swag.questionary.model.ResidenceApprove()
                 .beginningDate(value.getBeginningDate())
                 .expirationDate(value.getExpirationDate())
@@ -23,7 +24,8 @@ public class ResidenceApproveConverter implements
     }
 
     @Override
-    public ResidenceApprove toThrift(com.rbkmoney.swag.questionary.model.ResidenceApprove value, ThriftConverterContext ctx) {
+    public ResidenceApprove toThrift(com.rbkmoney.swag.questionary.model.ResidenceApprove value,
+                                     ThriftConverterContext ctx) {
         ResidenceApprove residenceApprove = new ResidenceApprove();
         residenceApprove.setExpirationDate(value.getExpirationDate());
         residenceApprove.setBeginningDate(value.getBeginningDate());

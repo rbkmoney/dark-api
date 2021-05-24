@@ -55,7 +55,8 @@ public class ClientConfig {
 
     @Bean
     public DarkMessiahStatisticsSrv.Iface magistaClient(@Value("${magista.client.adapter.url}") Resource resource,
-                                                        @Value("${magista.client.adapter.networkTimeout}") int timeout) throws IOException {
+                                                        @Value("${magista.client.adapter.networkTimeout}") int timeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(resource.getURI())
                 .withNetworkTimeout(timeout)
@@ -63,8 +64,9 @@ public class ClientConfig {
     }
 
     @Bean
-    public ClaimManagementSrv.Iface claimManagementClient(@Value("${claimmanagement.client.adapter.url}") Resource resource,
-                                                          @Value("${claimmanagement.client.adapter.networkTimeout}") int timeout) throws IOException {
+    public ClaimManagementSrv.Iface claimManagementClient(
+            @Value("${claimmanagement.client.adapter.url}") Resource resource,
+            @Value("${claimmanagement.client.adapter.networkTimeout}") int timeout) throws IOException {
         return new THSpawnClientBuilder()
                 .withMetaExtensions(
                         Arrays.asList(
@@ -81,7 +83,8 @@ public class ClientConfig {
 
     @Bean
     public FileStorageSrv.Iface fileStorageClient(@Value("${filestorage.client.adapter.url}") Resource resource,
-                                                  @Value("${filestorage.client.adapter.networkTimeout}") int timeout) throws IOException {
+                                                  @Value("${filestorage.client.adapter.networkTimeout}") int timeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(resource.getURI())
                 .withNetworkTimeout(timeout)
@@ -89,7 +92,8 @@ public class ClientConfig {
     }
 
     @Bean
-    public MessageServiceSrv.Iface messageServiceClient(ConversationProperties conversationProperties) throws IOException {
+    public MessageServiceSrv.Iface messageServiceClient(ConversationProperties conversationProperties)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(conversationProperties.getUrl().getURI())
                 .withNetworkTimeout(conversationProperties.getNetworkTimeout())
@@ -99,7 +103,8 @@ public class ClientConfig {
 
     @Bean
     public PartyManagementSrv.Iface partyManagementClient(@Value("${partyManagement.url}") Resource resource,
-                                                          @Value("${partyManagement.timeout}") int timeout) throws IOException {
+                                                          @Value("${partyManagement.timeout}") int timeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(resource.getURI())
                 .withNetworkTimeout(timeout)
@@ -107,7 +112,8 @@ public class ClientConfig {
     }
 
     @Bean
-    public QuestionaryAggrProxyHandlerSrv.Iface questionaryAggrProxyClient(QuestionaryAggrProxyProperties questionaryAggrProxyProperties) throws IOException {
+    public QuestionaryAggrProxyHandlerSrv.Iface questionaryAggrProxyClient(
+            QuestionaryAggrProxyProperties questionaryAggrProxyProperties) throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(questionaryAggrProxyProperties.getUrl().getURI())
                 .withNetworkTimeout(questionaryAggrProxyProperties.getNetworkTimeout())
@@ -116,7 +122,8 @@ public class ClientConfig {
     }
 
     @Bean
-    public QuestionaryManagerSrv.Iface questionaryManagerClient(QuestionaryProperties questionaryProperties) throws IOException {
+    public QuestionaryManagerSrv.Iface questionaryManagerClient(QuestionaryProperties questionaryProperties)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withAddress(questionaryProperties.getUrl().getURI())
                 .withNetworkTimeout(questionaryProperties.getNetworkTimeout())
@@ -133,7 +140,8 @@ public class ClientConfig {
 
     @Bean
     public RepositoryClientSrv.Iface dominantClient(@Value("${dominant.url}") Resource resource,
-                                                    @Value("${dominant.networkTimeout}") int networkTimeout) throws IOException {
+                                                    @Value("${dominant.networkTimeout}") int networkTimeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(RepositoryClientSrv.Iface.class);
@@ -141,7 +149,8 @@ public class ClientConfig {
 
     @Bean
     public AnalyticsServiceSrv.Iface analyticsClient(@Value("${analytics.url}") Resource resource,
-                                                     @Value("${analytics.networkTimeout}") int networkTimeout) throws IOException {
+                                                     @Value("${analytics.networkTimeout}") int networkTimeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(AnalyticsServiceSrv.Iface.class);
@@ -149,7 +158,8 @@ public class ClientConfig {
 
     @Bean
     public MessageSenderSrv.Iface messageSenderClient(@Value("${dudoser.url}") Resource resource,
-                                                      @Value("${dudoser.networkTimeout}") int networkTimeout) throws IOException {
+                                                      @Value("${dudoser.networkTimeout}") int networkTimeout)
+            throws IOException {
         return new THSpawnClientBuilder()
                 .withNetworkTimeout(networkTimeout)
                 .withAddress(resource.getURI()).build(MessageSenderSrv.Iface.class);

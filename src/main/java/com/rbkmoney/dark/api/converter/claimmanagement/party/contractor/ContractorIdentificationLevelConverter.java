@@ -8,7 +8,8 @@ import static com.rbkmoney.swag.claim_management.model.ContractorModification.Co
 
 @Component
 public class ContractorIdentificationLevelConverter
-        implements DarkApiConverter<ContractorIdentificationLevel, com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel> {
+        implements
+        DarkApiConverter<ContractorIdentificationLevel, com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel> {
 
     @Override
     public ContractorIdentificationLevel convertToThrift(

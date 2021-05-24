@@ -9,10 +9,13 @@ import java.math.BigDecimal;
 
 @Component
 public class BeneficialOwnerUlSwagConverter
-        implements SwagConverter<BeneficialOwnerUl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerUl> {
+        implements
+        SwagConverter<BeneficialOwnerUl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerUl> {
 
     @Override
-    public BeneficialOwnerUl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerUl value, SwagConverterContext ctx) {
+    public BeneficialOwnerUl toSwag(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerUl value,
+            SwagConverterContext ctx) {
         BeneficialOwnerUl beneficialOwnerUl = new BeneficialOwnerUl();
         beneficialOwnerUl.setFullName(value.getFullName());
         beneficialOwnerUl.setInn(value.getInn());

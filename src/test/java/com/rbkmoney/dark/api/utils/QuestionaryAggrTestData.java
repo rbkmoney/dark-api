@@ -32,7 +32,8 @@ public class QuestionaryAggrTestData {
     public static KonturFocusResponse createThriftKonturFocusReqResponse() throws IOException {
         KonturFocusResponse konturFocusResponse = new KonturFocusResponse();
         ReqResponses reqResponses = new ReqResponses();
-        reqResponses = new MockTBaseProcessor(MockMode.ALL).process(reqResponses, new TBaseHandler<>(ReqResponses.class));
+        reqResponses =
+                new MockTBaseProcessor(MockMode.ALL).process(reqResponses, new TBaseHandler<>(ReqResponses.class));
         konturFocusResponse.setReqResponses(reqResponses);
         return konturFocusResponse;
     }
@@ -40,7 +41,8 @@ public class QuestionaryAggrTestData {
     public static KonturFocusResponse createThriftKonturFocusLicensesResponse() throws IOException {
         KonturFocusResponse konturFocusResponse = new KonturFocusResponse();
         LicencesResponses licencesResponses = new LicencesResponses();
-        licencesResponses = new MockTBaseProcessor(MockMode.ALL).process(licencesResponses, new TBaseHandler<>(LicencesResponses.class));
+        licencesResponses = new MockTBaseProcessor(MockMode.ALL)
+                .process(licencesResponses, new TBaseHandler<>(LicencesResponses.class));
         konturFocusResponse.setLicencesResponses(licencesResponses);
         return konturFocusResponse;
     }
@@ -48,7 +50,8 @@ public class QuestionaryAggrTestData {
     public static KonturFocusResponse createThriftKonturFocusEgrDetailsResponse() throws IOException {
         KonturFocusResponse konturFocusResponse = new KonturFocusResponse();
         EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
-        egrDetailsResponses = new MockTBaseProcessor(MockMode.ALL).process(egrDetailsResponses, new TBaseHandler<>(EgrDetailsResponses.class));
+        egrDetailsResponses = new MockTBaseProcessor(MockMode.ALL)
+                .process(egrDetailsResponses, new TBaseHandler<>(EgrDetailsResponses.class));
         konturFocusResponse.setEgrDetailsResponses(egrDetailsResponses);
         return konturFocusResponse;
     }
@@ -56,7 +59,8 @@ public class QuestionaryAggrTestData {
     public static KonturFocusResponse createThriftKonturFocusBeneficialOwnerResponse() throws IOException {
         KonturFocusResponse konturFocusResponse = new KonturFocusResponse();
         BeneficialOwnerResponses beneficialOwnerResponses = new BeneficialOwnerResponses();
-        beneficialOwnerResponses = new MockTBaseProcessor(MockMode.ALL).process(beneficialOwnerResponses, new TBaseHandler<>(BeneficialOwnerResponses.class));
+        beneficialOwnerResponses = new MockTBaseProcessor(MockMode.ALL)
+                .process(beneficialOwnerResponses, new TBaseHandler<>(BeneficialOwnerResponses.class));
         konturFocusResponse.setBeneficialOwnerResponses(beneficialOwnerResponses);
         return konturFocusResponse;
     }
@@ -64,7 +68,8 @@ public class QuestionaryAggrTestData {
     public static DaDataResponse createThriftDaDataAddressResponse() throws IOException {
         DaDataResponse daDataResponse = new DaDataResponse();
         AddressResponse addressResponse = new AddressResponse();
-        addressResponse = new MockTBaseProcessor(MockMode.ALL).process(addressResponse, new TBaseHandler<>(AddressResponse.class));
+        addressResponse = new MockTBaseProcessor(MockMode.ALL)
+                .process(addressResponse, new TBaseHandler<>(AddressResponse.class));
         daDataResponse.setAddressResponse(addressResponse);
         return daDataResponse;
     }
@@ -72,7 +77,8 @@ public class QuestionaryAggrTestData {
     public static DaDataResponse createThriftDaDataPartyResponse() throws IOException {
         DaDataResponse daDataResponse = new DaDataResponse();
         PartyResponse partyResponse = new PartyResponse();
-        partyResponse = new MockTBaseProcessor(MockMode.ALL).process(partyResponse, new TBaseHandler<>(PartyResponse.class));
+        partyResponse =
+                new MockTBaseProcessor(MockMode.ALL).process(partyResponse, new TBaseHandler<>(PartyResponse.class));
         daDataResponse.setPartyResponse(partyResponse);
         return daDataResponse;
     }
@@ -80,7 +86,8 @@ public class QuestionaryAggrTestData {
     public static DaDataResponse createThriftDaDataOkvedResponse() throws IOException {
         DaDataResponse daDataResponse = new DaDataResponse();
         OkvedResponse okvedResponse = new OkvedResponse();
-        okvedResponse = new MockTBaseProcessor(MockMode.ALL).process(okvedResponse, new TBaseHandler<>(OkvedResponse.class));
+        okvedResponse =
+                new MockTBaseProcessor(MockMode.ALL).process(okvedResponse, new TBaseHandler<>(OkvedResponse.class));
         daDataResponse.setOkvedResponse(okvedResponse);
         return daDataResponse;
     }
@@ -88,7 +95,8 @@ public class QuestionaryAggrTestData {
     public static DaDataResponse createThriftDaDataBankResponse() throws IOException {
         DaDataResponse daDataResponse = new DaDataResponse();
         BankResponse bankResponse = new BankResponse();
-        bankResponse = new MockTBaseProcessor(MockMode.ALL).process(bankResponse, new TBaseHandler<>(BankResponse.class));
+        bankResponse =
+                new MockTBaseProcessor(MockMode.ALL).process(bankResponse, new TBaseHandler<>(BankResponse.class));
         daDataResponse.setBankResponse(bankResponse);
         return daDataResponse;
     }
@@ -104,7 +112,8 @@ public class QuestionaryAggrTestData {
     public static DaDataResponse createThriftDaDateFmsUnitResponse() throws IOException {
         DaDataResponse daDataResponse = new DaDataResponse();
         FmsUnitResponse fmsUnitResponse = new FmsUnitResponse();
-        fmsUnitResponse = new MockTBaseProcessor(MockMode.ALL).process(fmsUnitResponse, new TBaseHandler<>(FmsUnitResponse.class));
+        fmsUnitResponse = new MockTBaseProcessor(MockMode.ALL)
+                .process(fmsUnitResponse, new TBaseHandler<>(FmsUnitResponse.class));
         daDataResponse.setFmsUnitResponse(fmsUnitResponse);
         return daDataResponse;
     }

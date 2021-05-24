@@ -26,7 +26,8 @@ public class FounderHeadConverter implements ThriftConverter<Head, FounderHead>,
     public Head toThrift(FounderHead value, ThriftConverterContext ctx) {
         Head head = new Head();
         if (value.getIndividualPerson() != null) {
-            head.setIndividualPerson(ctx.convert(value.getIndividualPerson(), com.rbkmoney.questionary.IndividualPerson.class));
+            head.setIndividualPerson(
+                    ctx.convert(value.getIndividualPerson(), com.rbkmoney.questionary.IndividualPerson.class));
         }
         head.setPosition(value.getPosition());
         return head;

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 public final class ConverterUtils {
 
     public static boolean safeSetValue(Boolean value) {
-        return value == null ? false : value;
+        return value != null && value;
     }
 
     public static int safeSetValue(Integer value) {

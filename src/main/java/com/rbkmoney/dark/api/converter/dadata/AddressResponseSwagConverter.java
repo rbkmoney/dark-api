@@ -10,10 +10,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class AddressResponseSwagConverter implements SwagConverter<AddressResponse, com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse> {
+public class AddressResponseSwagConverter
+        implements SwagConverter<AddressResponse, com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse> {
 
     @Override
-    public AddressResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse value, SwagConverterContext ctx) {
+    public AddressResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressResponse value,
+                                  SwagConverterContext ctx) {
         AddressResponse addressResponse = new AddressResponse();
         if (value.isSetSuggestions()) {
             List<DaDataAddress> daDataAddressList = value.getSuggestions().stream()

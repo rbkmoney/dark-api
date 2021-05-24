@@ -25,7 +25,8 @@ public class PayoutToolModificationUnitConverter
             com.rbkmoney.swag.claim_management.model.PayoutToolInfo> payoutToolInfoConverter;
 
     @Override
-    public PayoutToolModificationUnit convertToThrift(ContractPayoutToolModificationUnit swagPayoutToolModificationUnit) {
+    public PayoutToolModificationUnit convertToThrift(
+            ContractPayoutToolModificationUnit swagPayoutToolModificationUnit) {
         PayoutToolModificationUnit payoutToolModificationUnit = new PayoutToolModificationUnit();
         payoutToolModificationUnit.setPayoutToolId(swagPayoutToolModificationUnit.getPayoutToolID());
 
@@ -34,16 +35,20 @@ public class PayoutToolModificationUnitConverter
         var swagPayoutToolModification = swagPayoutToolModificationUnit.getModification();
         switch (swagPayoutToolModification.getPayoutToolModificationType()) {
             case CONTRACTPAYOUTTOOLCREATIONMODIFICATION:
-                var swagContractPayoutToolCreation = (ContractPayoutToolCreationModification) swagPayoutToolModification;
+                var swagContractPayoutToolCreation =
+                        (ContractPayoutToolCreationModification) swagPayoutToolModification;
                 PayoutToolParams creation = new PayoutToolParams();
                 creation.setCurrency(
-                        new CurrencyRef().setSymbolicCode(swagContractPayoutToolCreation.getCurrency().getSymbolicCode()));
-                creation.setToolInfo(payoutToolInfoConverter.convertToThrift(swagContractPayoutToolCreation.getToolInfo()));
+                        new CurrencyRef()
+                                .setSymbolicCode(swagContractPayoutToolCreation.getCurrency().getSymbolicCode()));
+                creation.setToolInfo(
+                        payoutToolInfoConverter.convertToThrift(swagContractPayoutToolCreation.getToolInfo()));
                 payoutToolModification.setCreation(creation);
                 break;
             case CONTRACTPAYOUTTOOLINFOMODIFICATION:
                 var swagPayoutToolInfo = (ContractPayoutToolInfoModification) swagPayoutToolModification;
-                payoutToolModification.setInfoModification(payoutToolInfoConverter.convertToThrift(swagPayoutToolInfo.getPayoutToolInfo()));
+                payoutToolModification.setInfoModification(
+                        payoutToolInfoConverter.convertToThrift(swagPayoutToolInfo.getPayoutToolInfo()));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown PayoutTool modification type: " +
@@ -67,7 +72,8 @@ public class PayoutToolModificationUnitConverter
         if (payoutToolModification.isSetCreation()) {
             var contractPayoutToolCreationModification = new ContractPayoutToolCreationModification();
 
-            contractPayoutToolCreationModification.setPayoutToolModificationType(CONTRACTPAYOUTTOOLCREATIONMODIFICATION);
+            contractPayoutToolCreationModification
+                    .setPayoutToolModificationType(CONTRACTPAYOUTTOOLCREATIONMODIFICATION);
 
             PayoutToolParams creation = payoutToolModification.getCreation();
 

@@ -11,7 +11,9 @@ import org.junit.Assert;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DaDataCompareUtil {
 
-    public static void fmsUnitCompare(com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent thriftFmsUnitContent, FmsUnitContent swagFmsUnitContent) {
+    public static void fmsUnitCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent thriftFmsUnitContent,
+            FmsUnitContent swagFmsUnitContent) {
         Assert.assertEquals(thriftFmsUnitContent.getCode(), swagFmsUnitContent.getCode());
         Assert.assertEquals(thriftFmsUnitContent.getName(), swagFmsUnitContent.getName());
         Assert.assertEquals(thriftFmsUnitContent.getRegionCode(), swagFmsUnitContent.getRegionCode());
@@ -20,7 +22,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftFmsUnitContent.getType(), swagFmsUnitContent.getType());
     }
 
-    public static void fioCompare(com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent thriftFioContent, FioContent swagFioContent) {
+    public static void fioCompare(com.rbkmoney.questionary_proxy_aggr.dadata_fio.FioContent thriftFioContent,
+                                  FioContent swagFioContent) {
         Assert.assertEquals(thriftFioContent.getName(), swagFioContent.getName());
         Assert.assertEquals(thriftFioContent.getPatronymic(), swagFioContent.getPatronymic());
         Assert.assertEquals(thriftFioContent.getQc(), swagFioContent.getQc().byteValue());
@@ -29,7 +32,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftFioContent.getUnrestrictedValue(), swagFioContent.getUnrestrictedValue());
     }
 
-    public static void bankCompare(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent thriftBankContent, BankContent swagBankContent) {
+    public static void bankCompare(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent thriftBankContent,
+                                   BankContent swagBankContent) {
         Assert.assertEquals(thriftBankContent.getPayment().getFullName(), swagBankContent.getPayment().getFullName());
         Assert.assertEquals(thriftBankContent.getPayment().getName(), swagBankContent.getPayment().getName());
         Assert.assertEquals(thriftBankContent.getPayment().getShortName(), swagBankContent.getPayment().getShortName());
@@ -46,7 +50,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftBankContent.getRkc(), swagBankContent.getRkc());
     }
 
-    public static void okvedCompare(com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent thriftOkvedContent, OkvedContent swagOkvedContent) {
+    public static void okvedCompare(com.rbkmoney.questionary_proxy_aggr.dadata_okved2.OkvedContent thriftOkvedContent,
+                                    OkvedContent swagOkvedContent) {
         Assert.assertEquals(thriftOkvedContent.getCode(), swagOkvedContent.getCode());
         Assert.assertEquals(thriftOkvedContent.getIdx(), swagOkvedContent.getIdx());
         Assert.assertEquals(thriftOkvedContent.getName(), swagOkvedContent.getName());
@@ -54,15 +59,21 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftOkvedContent.getValue(), swagOkvedContent.getValue());
     }
 
-    public static void partyCompare(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent thriftPartyContent, PartyContent swagPartyContent) {
+    public static void partyCompare(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent thriftPartyContent,
+                                    PartyContent swagPartyContent) {
         addressCompare(thriftPartyContent.getAddress(), swagPartyContent.getAddress());
-        authoritiesCompare(thriftPartyContent.getAuthorities().getFtsRegistration(), swagPartyContent.getAuthorities().getFtsRegistration());
-        authoritiesCompare(thriftPartyContent.getAuthorities().getFtsReport(), swagPartyContent.getAuthorities().getFtsReport());
+        authoritiesCompare(thriftPartyContent.getAuthorities().getFtsRegistration(),
+                swagPartyContent.getAuthorities().getFtsRegistration());
+        authoritiesCompare(thriftPartyContent.getAuthorities().getFtsReport(),
+                swagPartyContent.getAuthorities().getFtsReport());
         authoritiesCompare(thriftPartyContent.getAuthorities().getPf(), swagPartyContent.getAuthorities().getPf());
         authoritiesCompare(thriftPartyContent.getAuthorities().getSif(), swagPartyContent.getAuthorities().getSif());
-        registrationCompare(thriftPartyContent.getDocuments().getFtsRegistration(), swagPartyContent.getDocuments().getFtsRegistration());
-        registrationCompare(thriftPartyContent.getDocuments().getPfRegistration(), swagPartyContent.getDocuments().getPfRegistration());
-        registrationCompare(thriftPartyContent.getDocuments().getSifRegistration(), swagPartyContent.getDocuments().getSifRegistration());
+        registrationCompare(thriftPartyContent.getDocuments().getFtsRegistration(),
+                swagPartyContent.getDocuments().getFtsRegistration());
+        registrationCompare(thriftPartyContent.getDocuments().getPfRegistration(),
+                swagPartyContent.getDocuments().getPfRegistration());
+        registrationCompare(thriftPartyContent.getDocuments().getSifRegistration(),
+                swagPartyContent.getDocuments().getSifRegistration());
         Assert.assertEquals(thriftPartyContent.getInn(), swagPartyContent.getInn());
         Assert.assertEquals(thriftPartyContent.getKpp(), swagPartyContent.getKpp());
         for (int i = 0; i < thriftPartyContent.getLicenses().size(); i++) {
@@ -78,9 +89,12 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftPartyContent.getUnrestrictedValue(), swagPartyContent.getUnrestrictedValue());
         Assert.assertEquals(thriftPartyContent.getCapital().getType(), swagPartyContent.getCapital().getType());
         Assert.assertEquals(thriftPartyContent.getCapital().getValue(), swagPartyContent.getCapital().getValue());
-        Assert.assertEquals(thriftPartyContent.getCitizenship().getAlpha3(), swagPartyContent.getCitizenship().getAlpha3());
-        Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryFullName(), swagPartyContent.getCitizenship().getCountryFullName());
-        Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryShortName(), swagPartyContent.getCitizenship().getCountryShortName());
+        Assert.assertEquals(thriftPartyContent.getCitizenship().getAlpha3(),
+                swagPartyContent.getCitizenship().getAlpha3());
+        Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryFullName(),
+                swagPartyContent.getCitizenship().getCountryFullName());
+        Assert.assertEquals(thriftPartyContent.getCitizenship().getCountryShortName(),
+                swagPartyContent.getCitizenship().getCountryShortName());
         Assert.assertEquals(thriftPartyContent.getHid(), swagPartyContent.getHid().getHid());
         Assert.assertEquals(thriftPartyContent.getManagement().getName(), swagPartyContent.getManagement().getName());
         Assert.assertEquals(thriftPartyContent.getManagement().getPost(), swagPartyContent.getManagement().getPost());
@@ -88,7 +102,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftPartyContent.getBranchCount(), ((int) swagPartyContent.getBranchCount()));
         Assert.assertEquals(thriftPartyContent.getOkved(), swagPartyContent.getOkved());
         for (int i = 0; i < thriftPartyContent.getOkveds().size(); i++) {
-            com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyOkved partyOkved = thriftPartyContent.getOkveds().get(i);
+            com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyOkved partyOkved =
+                    thriftPartyContent.getOkveds().get(i);
             PartyOkved swagPartyOkved = swagPartyContent.getOkveds().get(i);
             Assert.assertEquals(partyOkved.getCode(), swagPartyOkved.getCode());
             Assert.assertEquals(partyOkved.getName(), swagPartyOkved.getName());
@@ -102,7 +117,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftOpf.getType(), swagOpf.getType());
     }
 
-    private static void orgNameCompare(com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgName thriftOrgName, OrgName swagOrgName) {
+    private static void orgNameCompare(com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgName thriftOrgName,
+                                       OrgName swagOrgName) {
         Assert.assertEquals(thriftOrgName.getFullName(), swagOrgName.getFullName());
         Assert.assertEquals(thriftOrgName.getFullWithOpf(), swagOrgName.getFullWithOpf());
         Assert.assertEquals(thriftOrgName.getLatin(), swagOrgName.getLatin());
@@ -110,7 +126,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftOrgName.getShortWithOpf(), swagOrgName.getShortWithOpf());
     }
 
-    private static void daDataLicenseCompare(com.rbkmoney.questionary_proxy_aggr.base_dadata.License thriftLicense, DaDataLicense swagLicense) {
+    private static void daDataLicenseCompare(com.rbkmoney.questionary_proxy_aggr.base_dadata.License thriftLicense,
+                                             DaDataLicense swagLicense) {
         Assert.assertThat(thriftLicense.getActivities(), CoreMatchers.is(swagLicense.getActivities()));
         Assert.assertThat(thriftLicense.getAddresses(), CoreMatchers.is(swagLicense.getAddresses()));
         Assert.assertEquals(thriftLicense.getIssueAuthority(), swagLicense.getIssueAuthority());
@@ -128,7 +145,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftRegistration.getIssueDate(), swagRegistration.getIssueDate());
     }
 
-    private static void authoritiesCompare(com.rbkmoney.questionary_proxy_aggr.base_dadata.Authorities thriftAuthorities, com.rbkmoney.swag.questionary_aggr_proxy.model.Authorities swagAuthorities) {
+    private static void authoritiesCompare(
+            com.rbkmoney.questionary_proxy_aggr.base_dadata.Authorities thriftAuthorities,
+            com.rbkmoney.swag.questionary_aggr_proxy.model.Authorities swagAuthorities) {
         Assert.assertEquals(thriftAuthorities.getAddress(), swagAuthorities.getAddress());
         Assert.assertEquals(thriftAuthorities.getCode(), swagAuthorities.getCode());
         Assert.assertEquals(thriftAuthorities.getName(), swagAuthorities.getName());
@@ -152,7 +171,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftAddress.getFederalDistrict(), swagDaDataAddress.getFederalDistrict());
         Assert.assertEquals(thriftAddress.getCapitalMarker(), swagDaDataAddress.getCapitalMarker().byteValue());
         Assert.assertEquals(thriftAddress.getCountry(), swagDaDataAddress.getContry());
-        Assert.assertEquals(thriftAddress.getFiasActualityState(), swagDaDataAddress.getFiasActualityState().byteValue());
+        Assert.assertEquals(thriftAddress.getFiasActualityState(),
+                swagDaDataAddress.getFiasActualityState().byteValue());
         Assert.assertEquals(thriftAddress.getFiasCode(), swagDaDataAddress.getFiasCode());
         Assert.assertEquals(thriftAddress.getFiasId(), swagDaDataAddress.getFiasId());
         Assert.assertEquals(thriftAddress.getFiasLevel(), swagDaDataAddress.getFiasLevel().byteValue());
@@ -162,7 +182,8 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftAddress.getQcGeo(), swagDaDataAddress.getQcGeo().byteValue());
         Assert.assertEquals(thriftAddress.getKladrId(), swagDaDataAddress.getKladrId());
         for (int i = 0; i < thriftAddress.getMetroList().size(); i++) {
-            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro addressMetro = thriftAddress.getMetroList().get(i);
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro addressMetro =
+                    thriftAddress.getMetroList().get(i);
             AddressMetro swagAddressMetro = swagDaDataAddress.getMetroList().get(i);
             addressMetroCompare(addressMetro, swagAddressMetro);
         }
@@ -177,13 +198,17 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftAddress.getTimezone(), swagDaDataAddress.getTimezone());
     }
 
-    private static void addressMetroCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro thriftAddressMetro, AddressMetro swagAddressMetro) {
+    private static void addressMetroCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro thriftAddressMetro,
+            AddressMetro swagAddressMetro) {
         Assert.assertEquals(thriftAddressMetro.getDistance(), swagAddressMetro.getDistance());
         Assert.assertEquals(thriftAddressMetro.getLine(), swagAddressMetro.getLine());
         Assert.assertEquals(thriftAddressMetro.getName(), swagAddressMetro.getName());
     }
 
-    private static void addressHouseCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressHouseData thriftHouse, AddressHouseData swagHouse) {
+    private static void addressHouseCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressHouseData thriftHouse,
+            AddressHouseData swagHouse) {
         Assert.assertEquals(thriftHouse.getHouse(), swagHouse.getHouse());
         Assert.assertEquals(thriftHouse.getHouseFiasId(), swagHouse.getHouseFiasId());
         Assert.assertEquals(thriftHouse.getHouseKladrId(), swagHouse.getHouseKladrId());
@@ -191,7 +216,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftHouse.getHouseTypeFull(), swagHouse.getHouseTypeFull());
     }
 
-    private static void addressSettlement(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressSettlementData thriftSettlement, AddressSettlementData swagSettlement) {
+    private static void addressSettlement(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressSettlementData thriftSettlement,
+            AddressSettlementData swagSettlement) {
         Assert.assertEquals(thriftSettlement.getSettlement(), swagSettlement.getSettlement());
         Assert.assertEquals(thriftSettlement.getSettlementFiasId(), swagSettlement.getSettlementFiasId());
         Assert.assertEquals(thriftSettlement.getSettlementKladrId(), swagSettlement.getSettlementKladrId());
@@ -200,7 +227,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftSettlement.getSettlementWithType(), swagSettlement.getSettlementWithType());
     }
 
-    private static void addressRegionCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressRegionData thriftRegion, AddressRegionData swagRegion) {
+    private static void addressRegionCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressRegionData thriftRegion,
+            AddressRegionData swagRegion) {
         Assert.assertEquals(thriftRegion.getRegion(), swagRegion.getRegion());
         Assert.assertEquals(thriftRegion.getRegionFiasId(), swagRegion.getRegionFiasId());
         Assert.assertEquals(thriftRegion.getRegionKladrId(), swagRegion.getRegionKladrId());
@@ -208,7 +237,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftRegion.getRegionWithType(), swagRegion.getRegionWithType());
     }
 
-    private static void addressFlatDataCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressFlatData thriftFlatData, AddressFlatData swagFlatData) {
+    private static void addressFlatDataCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressFlatData thriftFlatData,
+            AddressFlatData swagFlatData) {
         Assert.assertEquals(thriftFlatData.getFlat(), swagFlatData.getFlat());
         Assert.assertEquals(thriftFlatData.getFlatArea(), swagFlatData.getFlatArea());
         Assert.assertEquals(thriftFlatData.getFlatPrice(), swagFlatData.getFlatPrice());
@@ -216,7 +247,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftFlatData.getFlatTypeFull(), swagFlatData.getFlatTypeFull());
     }
 
-    private static void addressCityDistrictCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityDistrictData thriftCityDistrict, AddressCityDistrictData swagCityDistrict) {
+    private static void addressCityDistrictCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityDistrictData thriftCityDistrict,
+            AddressCityDistrictData swagCityDistrict) {
         Assert.assertEquals(thriftCityDistrict.getCityDistrict(), swagCityDistrict.getCityDistrict());
         Assert.assertEquals(thriftCityDistrict.getCityDistrictFiasId(), swagCityDistrict.getCityDistrictFiasId());
         Assert.assertEquals(thriftCityDistrict.getCityDistrictKladrId(), swagCityDistrict.getCityDistrictKladrId());
@@ -225,13 +258,17 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftCityDistrict.getCityDistrictWithType(), swagCityDistrict.getCityDistrictWithType());
     }
 
-    private static void addressBlockDataCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressBlockData thriftBlock, AddressBlockData swagBlock) {
+    private static void addressBlockDataCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressBlockData thriftBlock,
+            AddressBlockData swagBlock) {
         Assert.assertEquals(thriftBlock.getBlock(), swagBlock.getBlock());
         Assert.assertEquals(thriftBlock.getBlockType(), swagBlock.getBlockType());
         Assert.assertEquals(thriftBlock.getBlockTypeFull(), swagBlock.getBlockTypeFull());
     }
 
-    private static void addressCityDataCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData thriftAddressCityData, AddressCityData swagAddressCityData) {
+    private static void addressCityDataCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData thriftAddressCityData,
+            AddressCityData swagAddressCityData) {
         Assert.assertEquals(thriftAddressCityData.getCity(), swagAddressCityData.getCity());
         Assert.assertEquals(thriftAddressCityData.getCityArea(), swagAddressCityData.getCityArea());
         Assert.assertEquals(thriftAddressCityData.getCityFiasId(), swagAddressCityData.getCityFiasId());
@@ -241,7 +278,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftAddressCityData.getCityWithType(), swagAddressCityData.getCityWithType());
     }
 
-    private static void addressAreaDataCompare(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressAreaData thriftAddressAreaData, AddressAreaData swagAddressAreaData) {
+    private static void addressAreaDataCompare(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressAreaData thriftAddressAreaData,
+            AddressAreaData swagAddressAreaData) {
         Assert.assertEquals(thriftAddressAreaData.getArea(), swagAddressAreaData.getArea());
         Assert.assertEquals(thriftAddressAreaData.getAreaFiasId(), swagAddressAreaData.getAreaFiasId());
         Assert.assertEquals(thriftAddressAreaData.getAreaKladrId(), swagAddressAreaData.getAreaKladrId());
@@ -250,7 +289,9 @@ public class DaDataCompareUtil {
         Assert.assertEquals(thriftAddressAreaData.getAreaWithType(), swagAddressAreaData.getAreaWithType());
     }
 
-    private void nalogRegBodyCompare(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.NalogRegBody thriftNalogRegBody, NalogRegBody swagNalogRegBody) {
+    private void nalogRegBodyCompare(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.NalogRegBody thriftNalogRegBody,
+            NalogRegBody swagNalogRegBody) {
         Assert.assertEquals(thriftNalogRegBody.getDate(), swagNalogRegBody.getDate());
         Assert.assertEquals(thriftNalogRegBody.getKpp(), swagNalogRegBody.getKpp());
         Assert.assertEquals(thriftNalogRegBody.getNalogCode(), swagNalogRegBody.getNalogCode());

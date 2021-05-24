@@ -8,7 +8,8 @@ import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModi
 
 @Component
 public class ShopContractModificationConverter
-        implements DarkApiConverter<ShopContractModification, com.rbkmoney.swag.claim_management.model.ShopContractModification> {
+        implements
+        DarkApiConverter<ShopContractModification, com.rbkmoney.swag.claim_management.model.ShopContractModification> {
 
     @Override
     public ShopContractModification convertToThrift(

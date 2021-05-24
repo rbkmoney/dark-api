@@ -18,6 +18,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.time.Instant;
@@ -71,7 +72,8 @@ public class WebConfig {
     }
 
     private void addWoodyContext(Principal principal) {
-        KeycloakSecurityContext keycloakSecurityContext = ((KeycloakAuthenticationToken) principal).getAccount().getKeycloakSecurityContext();
+        KeycloakSecurityContext keycloakSecurityContext =
+                ((KeycloakAuthenticationToken) principal).getAccount().getKeycloakSecurityContext();
         AccessToken accessToken = keycloakSecurityContext.getToken();
 
         setCustomMetadataValue(UserIdentityIdExtensionKit.KEY, accessToken.getSubject());

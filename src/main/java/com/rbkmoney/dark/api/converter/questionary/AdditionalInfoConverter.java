@@ -28,7 +28,8 @@ public class AdditionalInfoConverter implements
                 .hasBeneficiary(value.isHasBeneficiary())
                 .hasLiquidationProcess(value.isHasLiquidationProcess());
         if (value.isSetMonthOperationCount()) {
-            additionalInfo.setMonthOperationCount(ctx.convert(value.getMonthOperationCount(), MonthOperationCount.class));
+            additionalInfo
+                    .setMonthOperationCount(ctx.convert(value.getMonthOperationCount(), MonthOperationCount.class));
         }
         if (value.isSetMonthOperationSum()) {
             additionalInfo.setMonthOperationSum(ctx.convert(value.getMonthOperationSum(), MonthOperationSum.class));
@@ -46,7 +47,8 @@ public class AdditionalInfoConverter implements
             additionalInfo.setBusinessInfo(businessInfoList);
         }
         if (value.isSetRelationIndividualEntity()) {
-            additionalInfo.setRelationIndividualEntity(ctx.convert(value.getRelationIndividualEntity(), RelationIndividualEntity.class));
+            additionalInfo.setRelationIndividualEntity(
+                    ctx.convert(value.getRelationIndividualEntity(), RelationIndividualEntity.class));
         }
         if (value.isSetBusinessReputation()) {
             additionalInfo.setBusinessReputation(ctx.convert(value.getBusinessReputation(), BusinessReputation.class));
@@ -59,7 +61,8 @@ public class AdditionalInfoConverter implements
     }
 
     @Override
-    public AdditionalInfo toThrift(com.rbkmoney.swag.questionary.model.AdditionalInfo value, ThriftConverterContext ctx) {
+    public AdditionalInfo toThrift(com.rbkmoney.swag.questionary.model.AdditionalInfo value,
+                                   ThriftConverterContext ctx) {
         AdditionalInfo additionalInfo = new AdditionalInfo()
                 .setStaffCount(ConverterUtils.safeSetValue(value.getStaffCount()))
                 .setNKORelationTarget(value.getNkoRelationTarget())
@@ -77,9 +80,11 @@ public class AdditionalInfoConverter implements
                     com.rbkmoney.questionary.MonthOperationSum.class));
         }
         if (value.getFinancialPosition() != null) {
-            List<com.rbkmoney.questionary.FinancialPosition> financialPositionList = value.getFinancialPosition().stream()
-                    .map(financialPosition -> ctx.convert(financialPosition, com.rbkmoney.questionary.FinancialPosition.class))
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary.FinancialPosition> financialPositionList =
+                    value.getFinancialPosition().stream()
+                            .map(financialPosition -> ctx
+                                    .convert(financialPosition, com.rbkmoney.questionary.FinancialPosition.class))
+                            .collect(Collectors.toList());
             additionalInfo.setFinancialPosition(financialPositionList);
         }
         if (value.getBusinessInfo() != null) {

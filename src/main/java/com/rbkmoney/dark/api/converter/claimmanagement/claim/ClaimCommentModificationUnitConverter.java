@@ -9,7 +9,8 @@ import static com.rbkmoney.swag.claim_management.model.CommentModification.Comme
 
 @Component
 public class ClaimCommentModificationUnitConverter
-        implements DarkApiConverter<CommentModificationUnit, com.rbkmoney.swag.claim_management.model.CommentModificationUnit> {
+        implements
+        DarkApiConverter<CommentModificationUnit, com.rbkmoney.swag.claim_management.model.CommentModificationUnit> {
 
     @Override
     public CommentModificationUnit convertToThrift(

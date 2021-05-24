@@ -36,19 +36,23 @@ public class QuestionaryDataConverter implements
     }
 
     @Override
-    public QuestionaryData toThrift(com.rbkmoney.swag.questionary.model.QuestionaryData value, ThriftConverterContext ctx) {
+    public QuestionaryData toThrift(com.rbkmoney.swag.questionary.model.QuestionaryData value,
+                                    ThriftConverterContext ctx) {
         QuestionaryData questionaryData = new QuestionaryData();
         if (value.getBankAccount() != null) {
-            questionaryData.setBankAccount(ctx.convert(value.getBankAccount(), com.rbkmoney.questionary.BankAccount.class));
+            questionaryData
+                    .setBankAccount(ctx.convert(value.getBankAccount(), com.rbkmoney.questionary.BankAccount.class));
         }
         if (value.getContactInfo() != null) {
-            questionaryData.setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
+            questionaryData
+                    .setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
         }
         if (value.getShopInfo() != null) {
             questionaryData.setShopInfo(ctx.convert(value.getShopInfo(), com.rbkmoney.questionary.ShopInfo.class));
         }
         if (value.getContractor() != null) {
-            questionaryData.setContractor(ctx.convert(value.getContractor(), com.rbkmoney.questionary.Contractor.class));
+            questionaryData
+                    .setContractor(ctx.convert(value.getContractor(), com.rbkmoney.questionary.Contractor.class));
         }
         return questionaryData;
     }

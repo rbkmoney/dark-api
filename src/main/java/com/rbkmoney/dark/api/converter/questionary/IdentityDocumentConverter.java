@@ -15,7 +15,8 @@ public class IdentityDocumentConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.IdentityDocument, IdentityDocument> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.IdentityDocument toSwag(IdentityDocument value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.IdentityDocument toSwag(IdentityDocument value,
+                                                                       SwagConverterContext ctx) {
         if (value.isSetRussianDomesticPassword()) {
             return ctx.convert(value.getRussianDomesticPassword(), RussianDomesticPassport.class)
                     .identityDocumentType(IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT);
@@ -25,10 +26,12 @@ public class IdentityDocumentConverter implements
     }
 
     @Override
-    public IdentityDocument toThrift(com.rbkmoney.swag.questionary.model.IdentityDocument value, ThriftConverterContext ctx) {
+    public IdentityDocument toThrift(com.rbkmoney.swag.questionary.model.IdentityDocument value,
+                                     ThriftConverterContext ctx) {
         IdentityDocument identityDocument = new IdentityDocument();
         if (value.getIdentityDocumentType() == IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT) {
-            identityDocument.setRussianDomesticPassword(ctx.convert(value, com.rbkmoney.questionary.RussianDomesticPassport.class));
+            identityDocument.setRussianDomesticPassword(
+                    ctx.convert(value, com.rbkmoney.questionary.RussianDomesticPassport.class));
         } else {
             throw new IllegalArgumentException("Unknown identityDocument type: " + value.getIdentityDocumentType());
         }

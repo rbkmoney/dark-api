@@ -6,10 +6,12 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BankContentSwagConverter implements SwagConverter<BankContent, com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent> {
+public class BankContentSwagConverter
+        implements SwagConverter<BankContent, com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent> {
 
     @Override
-    public BankContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent value, SwagConverterContext ctx) {
+    public BankContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_bank.BankContent value,
+                              SwagConverterContext ctx) {
         BankContent swagBankContent = new BankContent()
                 .bic(value.getBic())
                 .correspondentAccount(value.getCorrespondentAccount())

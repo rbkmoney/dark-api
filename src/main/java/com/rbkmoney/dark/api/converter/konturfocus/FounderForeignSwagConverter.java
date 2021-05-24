@@ -7,10 +7,12 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Share;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FounderForeignSwagConverter implements SwagConverter<FounderForeign, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign> {
+public class FounderForeignSwagConverter
+        implements SwagConverter<FounderForeign, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign> {
 
     @Override
-    public FounderForeign toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign value, SwagConverterContext ctx) {
+    public FounderForeign toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.FounderForeign value,
+                                 SwagConverterContext ctx) {
         FounderForeign founderForeign = new FounderForeign();
         founderForeign.setCountry(value.getCountry());
         founderForeign.setDate(value.getDate());

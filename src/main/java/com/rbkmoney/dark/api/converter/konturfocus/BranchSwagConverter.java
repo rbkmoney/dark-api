@@ -8,7 +8,8 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.ParsedAddressRF;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BranchSwagConverter implements SwagConverter<Branch, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Branch> {
+public class BranchSwagConverter
+        implements SwagConverter<Branch, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Branch> {
 
     @Override
     public Branch toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Branch value, SwagConverterContext ctx) {

@@ -8,7 +8,8 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Founder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FounderSwagConverter implements SwagConverter<Founder, com.rbkmoney.questionary_proxy_aggr.base_dadata.Founder> {
+public class FounderSwagConverter
+        implements SwagConverter<Founder, com.rbkmoney.questionary_proxy_aggr.base_dadata.Founder> {
 
     @Override
     public Founder toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.Founder value, SwagConverterContext ctx) {

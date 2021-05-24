@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ShareSwagConverter implements SwagConverter<Share, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share> {
+public class ShareSwagConverter
+        implements SwagConverter<Share, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share> {
 
     @Override
     public Share toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Share value, SwagConverterContext ctx) {

@@ -14,8 +14,8 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTPAYOUTTOOLMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLCREATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLINFOMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
@@ -67,15 +67,18 @@ public final class TestContractData {
         switch (swagPayoutToolModificationUnit.getModification().getPayoutToolModificationType()) {
             case CONTRACTPAYOUTTOOLCREATIONMODIFICATION:
                 var swagPayoutToolParams = EnhancedRandom.random(ContractPayoutToolCreationModification.class);
-                var swagRussianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
+                var swagRussianBankAccount =
+                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
                 swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
                 swagPayoutToolParams.setPayoutToolModificationType(CONTRACTPAYOUTTOOLCREATIONMODIFICATION);
                 swagPayoutToolParams.setToolInfo(swagRussianBankAccount);
                 swagPayoutToolModificationUnit.setModification(swagPayoutToolParams);
                 break;
             case CONTRACTPAYOUTTOOLINFOMODIFICATION:
-                var contractPayoutToolInfoModification = EnhancedRandom.random(ContractPayoutToolInfoModification.class);
-                var swagInternationalBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
+                var contractPayoutToolInfoModification =
+                        EnhancedRandom.random(ContractPayoutToolInfoModification.class);
+                var swagInternationalBankAccount =
+                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
 
                 swagInternationalBankAccount.setPayoutToolType(INTERNATIONALBANKACCOUNT);
                 swagInternationalBankAccount.getBank().setCountry("RUS");

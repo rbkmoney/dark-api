@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PartyContentSwagConverter implements SwagConverter<PartyContent, com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent> {
+public class PartyContentSwagConverter
+        implements SwagConverter<PartyContent, com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent> {
 
     @Override
-    public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value, SwagConverterContext ctx) {
+    public PartyContent toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyContent value,
+                               SwagConverterContext ctx) {
         PartyContent partyContent = new PartyContent()
                 .inn(value.getInn())
                 .kpp(value.getKpp())
@@ -97,7 +99,8 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         return partyContent;
     }
 
-    private CitizenshipIP convertCitizenshipIP(com.rbkmoney.questionary_proxy_aggr.base_dadata.CitizenshipIP citizenshipIP) {
+    private CitizenshipIP convertCitizenshipIP(
+            com.rbkmoney.questionary_proxy_aggr.base_dadata.CitizenshipIP citizenshipIP) {
         return new CitizenshipIP()
                 .alpha3(citizenshipIP.getAlpha3())
                 .countryFullName(citizenshipIP.getCountryFullName())
@@ -105,7 +108,8 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
                 .numeric(citizenshipIP.getNumeric());
     }
 
-    private PartyAuthorities convertPartyAuthorities(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyAuthorities partyAuthorities) {
+    private PartyAuthorities convertPartyAuthorities(
+            com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyAuthorities partyAuthorities) {
         PartyAuthorities swagPartyAuthorities = new PartyAuthorities();
         if (partyAuthorities.isSetFtsRegistration()) {
             swagPartyAuthorities.setFtsRegistration(convertAuthorities(partyAuthorities.getFtsRegistration()));
@@ -122,7 +126,8 @@ public class PartyContentSwagConverter implements SwagConverter<PartyContent, co
         return swagPartyAuthorities;
     }
 
-    private PartyCapital convertPartyCapital(com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyCapital partyCapital) {
+    private PartyCapital convertPartyCapital(
+            com.rbkmoney.questionary_proxy_aggr.dadata_party.PartyCapital partyCapital) {
         return new PartyCapital()
                 .type(partyCapital.getType())
                 .value(partyCapital.getValue());

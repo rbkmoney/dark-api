@@ -52,7 +52,8 @@ public class ClaimLegalEntityConverter
             swagLegalEntity.setLegalEntityType(russianLegalEntityConverter.convertToSwag(russianLegalEntity));
         } else if (legalEntity.isSetInternationalLegalEntity()) {
             InternationalLegalEntity internationalLegalEntity = legalEntity.getInternationalLegalEntity();
-            swagLegalEntity.setLegalEntityType(internationalLegalEntityConverter.convertToSwag(internationalLegalEntity));
+            swagLegalEntity
+                    .setLegalEntityType(internationalLegalEntityConverter.convertToSwag(internationalLegalEntity));
         } else {
             throw new IllegalArgumentException("Unknown legal entity type!");
         }

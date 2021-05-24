@@ -21,22 +21,25 @@ public class ClaimManagementService {
     private final ClaimManagementConverter claimManagementConverter;
 
     public Claim createClaim(String partyId,
-                             List<com.rbkmoney.swag.claim_management.model.Modification> changeset) throws InvalidChangeset, TException {
+                             List<com.rbkmoney.swag.claim_management.model.Modification> changeset)
+            throws TException {
         List<Modification> modificationList = claimManagementConverter.convertModificationUnitToThrift(changeset);
         var claim = claimManagementClient.createClaim(partyId, modificationList);
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public Claim getClaimById(String partyId, Long claimId) throws ClaimNotFound, TException {
+    public Claim getClaimById(String partyId, Long claimId) throws TException {
         var claim = claimManagementClient.getClaim(partyId, claimId);
         return claimManagementConverter.convertClaimToSwag(claim);
     }
 
-    public void revokeClaimById(String partyId, Long claimId, Integer claimRevision, String reason) throws ClaimNotFound, InvalidClaimStatus, InvalidClaimRevision, TException {
+    public void revokeClaimById(String partyId, Long claimId, Integer claimRevision, String reason)
+            throws TException {
         claimManagementClient.revokeClaim(partyId, claimId, claimRevision, reason);
     }
 
-    public void requestClaimReviewById(String partyId, Long claimId, Integer claimRevision) throws ClaimNotFound, InvalidClaimStatus, InvalidClaimRevision, TException {
+    public void requestClaimReviewById(String partyId, Long claimId, Integer claimRevision)
+            throws TException {
         claimManagementClient.requestClaimReview(partyId, claimId, claimRevision);
     }
 
@@ -44,8 +47,10 @@ public class ClaimManagementService {
                                           Integer limit,
                                           String continuationToken,
                                           Long claimId,
-                                          List<String> claimStatuses) throws LimitExceeded, BadContinuationToken, TException {
-        ClaimSearchQuery claimSearchQuery = claimManagementConverter.convertSearchClaimsToThrift(partyId, claimId, limit, continuationToken, claimStatuses);
+                                          List<String> claimStatuses)
+            throws TException {
+        ClaimSearchQuery claimSearchQuery = claimManagementConverter
+                .convertSearchClaimsToThrift(partyId, claimId, limit, continuationToken, claimStatuses);
         ClaimSearchResponse claimSearchResponse = claimManagementClient.searchClaims(claimSearchQuery);
         return new InlineResponse200()
                 .result(claimManagementConverter.convertClaimListToSwag(claimSearchResponse.getResult()))
@@ -55,7 +60,9 @@ public class ClaimManagementService {
     public void updateClaimById(String partyId,
                                 Long claimId,
                                 Integer claimRevision,
-                                List<com.rbkmoney.swag.claim_management.model.Modification> changeset) throws ClaimNotFound, InvalidClaimStatus, InvalidClaimRevision, ChangesetConflict, InvalidChangeset, TException {
+                                List<com.rbkmoney.swag.claim_management.model.Modification> changeset)
+            throws
+            TException {
         List<Modification> modificationList = claimManagementConverter.convertModificationUnitToThrift(changeset);
         claimManagementClient.updateClaim(partyId, claimId, claimRevision, modificationList);
     }

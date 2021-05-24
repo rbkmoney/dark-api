@@ -35,15 +35,18 @@ public class LegalEntityConverter implements
                     .postalAddress(value.getRussianLegalEntity().getPostalAddress())
                     .hasBeneficialOwners(value.getRussianLegalEntity().isHasBeneficialOwners());
             if (value.getRussianLegalEntity().isSetFoundersInfo()) {
-                russianLegalEntity.setFoundersInfo(ctx.convert(value.getRussianLegalEntity().getFoundersInfo(), FoundersInfo.class));
+                russianLegalEntity.setFoundersInfo(
+                        ctx.convert(value.getRussianLegalEntity().getFoundersInfo(), FoundersInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetLicenseInfo()) {
-                russianLegalEntity.setLicenseInfo(ctx.convert(value.getRussianLegalEntity().getLicenseInfo(), LicenseInfo.class));
+                russianLegalEntity
+                        .setLicenseInfo(ctx.convert(value.getRussianLegalEntity().getLicenseInfo(), LicenseInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetLegalOwnerInfo()) {
-                russianLegalEntity.setLegalOwnerInfo(ctx.convert(value.getRussianLegalEntity().getLegalOwnerInfo(), LegalOwnerInfo.class));
+                russianLegalEntity.setLegalOwnerInfo(
+                        ctx.convert(value.getRussianLegalEntity().getLegalOwnerInfo(), LegalOwnerInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetBeneficialOwners()) {
@@ -54,24 +57,29 @@ public class LegalEntityConverter implements
             }
 
             if (value.getRussianLegalEntity().isSetPrincipalActivity()) {
-                russianLegalEntity.setPrincipalActivity(ctx.convert(value.getRussianLegalEntity().getPrincipalActivity(), Activity.class));
+                russianLegalEntity.setPrincipalActivity(
+                        ctx.convert(value.getRussianLegalEntity().getPrincipalActivity(), Activity.class));
             }
 
             if (value.getRussianLegalEntity().isSetRegistrationInfo()) {
-                russianLegalEntity.setRegistrationInfo(ctx.convert(value.getRussianLegalEntity().getRegistrationInfo(), RegistrationInfo.class));
+                russianLegalEntity.setRegistrationInfo(
+                        ctx.convert(value.getRussianLegalEntity().getRegistrationInfo(), RegistrationInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetResidencyInfo()) {
-                russianLegalEntity.setResidencyInfo(ctx.convert(value.getRussianLegalEntity().getResidencyInfo(), ResidencyInfo.class));
+                russianLegalEntity.setResidencyInfo(
+                        ctx.convert(value.getRussianLegalEntity().getResidencyInfo(), ResidencyInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetAdditionalInfo()) {
-                russianLegalEntity.setAdditionalInfo(ctx.convert(value.getRussianLegalEntity().getAdditionalInfo(), AdditionalInfo.class));
+                russianLegalEntity.setAdditionalInfo(
+                        ctx.convert(value.getRussianLegalEntity().getAdditionalInfo(), AdditionalInfo.class));
             }
 
             if (value.getRussianLegalEntity().isSetPropertyInfoDocumentType()) {
                 russianLegalEntity.setPropertyInfoDocumentType(
-                        ctx.convert(value.getRussianLegalEntity().getPropertyInfoDocumentType(), PropertyInfoDocumentType.class));
+                        ctx.convert(value.getRussianLegalEntity().getPropertyInfoDocumentType(),
+                                PropertyInfoDocumentType.class));
             }
             russianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
             return russianLegalEntity;
@@ -101,7 +109,8 @@ public class LegalEntityConverter implements
                     .setOkatoCode(((RussianLegalEntity) value).getOkatoCode())
                     .setOkpoCode(((RussianLegalEntity) value).getOkpoCode())
                     .setPostalAddress(((RussianLegalEntity) value).getPostalAddress())
-                    .setHasBeneficialOwners(ConverterUtils.safeSetValue(((RussianLegalEntity) value).isHasBeneficialOwners()));
+                    .setHasBeneficialOwners(
+                            ConverterUtils.safeSetValue(((RussianLegalEntity) value).isHasBeneficialOwners()));
             if (((RussianLegalEntity) value).getFoundersInfo() != null) {
                 russianLegalEntity.setFoundersInfo(ctx.convert(((RussianLegalEntity) value).getFoundersInfo(),
                         com.rbkmoney.questionary.FoundersInfo.class));
@@ -115,9 +124,11 @@ public class LegalEntityConverter implements
                         com.rbkmoney.questionary.LegalOwnerInfo.class));
             }
             if (((RussianLegalEntity) value).getBeneficialOwner() != null) {
-                List<com.rbkmoney.questionary.BeneficialOwner> beneficialOwnerList = ((RussianLegalEntity) value).getBeneficialOwner().stream()
-                        .map(beneficialOwner -> ctx.convert(beneficialOwner, com.rbkmoney.questionary.BeneficialOwner.class))
-                        .collect(Collectors.toList());
+                List<com.rbkmoney.questionary.BeneficialOwner> beneficialOwnerList =
+                        ((RussianLegalEntity) value).getBeneficialOwner().stream()
+                                .map(beneficialOwner -> ctx
+                                        .convert(beneficialOwner, com.rbkmoney.questionary.BeneficialOwner.class))
+                                .collect(Collectors.toList());
                 russianLegalEntity.setBeneficialOwners(beneficialOwnerList);
             }
             if (((RussianLegalEntity) value).getPrincipalActivity() != null) {

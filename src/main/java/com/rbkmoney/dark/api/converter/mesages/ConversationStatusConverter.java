@@ -8,7 +8,8 @@ import com.rbkmoney.swag.messages.model.ConversationStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ConversationStatusConverter implements SwagConverter<ConversationStatus, com.rbkmoney.damsel.messages.ConversationStatus>,
+public class ConversationStatusConverter
+        implements SwagConverter<ConversationStatus, com.rbkmoney.damsel.messages.ConversationStatus>,
         ThriftConverter<com.rbkmoney.damsel.messages.ConversationStatus, ConversationStatus> {
 
     @Override
@@ -24,7 +25,8 @@ public class ConversationStatusConverter implements SwagConverter<ConversationSt
     }
 
     @Override
-    public com.rbkmoney.damsel.messages.ConversationStatus toThrift(ConversationStatus value, ThriftConverterContext ctx) {
+    public com.rbkmoney.damsel.messages.ConversationStatus toThrift(ConversationStatus value,
+                                                                    ThriftConverterContext ctx) {
         switch (value) {
             case ACTUAL:
                 return com.rbkmoney.damsel.messages.ConversationStatus.ACTUAL;

@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity> {
+public class ActivitySwagConverter
+        implements SwagConverter<Activity, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity> {
 
     @Override
-    public Activity toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity value, SwagConverterContext ctx) {
+    public Activity toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Activity value,
+                           SwagConverterContext ctx) {
         Activity swagActivity = new Activity();
         if (value.isSetComplementaryActivities()) {
             List<ComplementaryActivity> swagComplementaryActivityList = value.getComplementaryActivities().stream()
@@ -30,7 +32,8 @@ public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmon
         return swagActivity;
     }
 
-    private ComplementaryActivity convertComplementaryActivity(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ComplementaryActivity complementaryActivity) {
+    private ComplementaryActivity convertComplementaryActivity(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ComplementaryActivity complementaryActivity) {
         ComplementaryActivity swagComplementaryActivity = new ComplementaryActivity();
         swagComplementaryActivity.setCode(complementaryActivity.getCode());
         swagComplementaryActivity.setDate(complementaryActivity.getDate());
@@ -38,7 +41,8 @@ public class ActivitySwagConverter implements SwagConverter<Activity, com.rbkmon
         return swagComplementaryActivity;
     }
 
-    private PrincipalActivity convertPrincipalActivity(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.PrincipalActivity principalActivity) {
+    private PrincipalActivity convertPrincipalActivity(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.PrincipalActivity principalActivity) {
         PrincipalActivity swagPrincipalActivity = new PrincipalActivity();
         swagPrincipalActivity.setCode(principalActivity.getCode());
         swagPrincipalActivity.setDate(principalActivity.getDate());

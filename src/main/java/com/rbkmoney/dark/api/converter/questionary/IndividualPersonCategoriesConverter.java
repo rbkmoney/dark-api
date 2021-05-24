@@ -14,7 +14,8 @@ public class IndividualPersonCategoriesConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.IndividualPersonCategories, IndividualPersonCategories> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.IndividualPersonCategories toSwag(IndividualPersonCategories value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.IndividualPersonCategories toSwag(IndividualPersonCategories value,
+                                                                                 SwagConverterContext ctx) {
         return new com.rbkmoney.swag.questionary.model.IndividualPersonCategories()
                 .behalfOfForeign(value.isBehalfOfForeign())
                 .beneficialOwner(value.isBeneficialOwner())
@@ -25,7 +26,8 @@ public class IndividualPersonCategoriesConverter implements
     }
 
     @Override
-    public IndividualPersonCategories toThrift(com.rbkmoney.swag.questionary.model.IndividualPersonCategories value, ThriftConverterContext ctx) {
+    public IndividualPersonCategories toThrift(com.rbkmoney.swag.questionary.model.IndividualPersonCategories value,
+                                               ThriftConverterContext ctx) {
         return new IndividualPersonCategories()
                 .setBehalfOfForeign(ConverterUtils.safeSetValue(value.isBehalfOfForeign()))
                 .setBeneficialOwner(ConverterUtils.safeSetValue(value.isBeneficialOwner()))

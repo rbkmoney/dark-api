@@ -42,7 +42,8 @@ public class AnalyticsService {
         return null;
     }
 
-    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, List<String> shopIds) throws TException {
+    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId,
+                                               List<String> shopIds) throws TException {
         AmountResponse paymentsAmount = analyticsClient.getPaymentsAmount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
@@ -81,7 +82,8 @@ public class AnalyticsService {
     }
 
     public InlineResponse2004 getPaymentsSplitAmount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                     String splitUnit, String partyId, List<String> shopIds) throws TException {
+                                                     String splitUnit, String partyId, List<String> shopIds)
+            throws TException {
         SplitAmountResponse response = analyticsClient.getPaymentsSplitAmount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()
@@ -96,7 +98,8 @@ public class AnalyticsService {
     }
 
     public InlineResponse2005 getPaymentsSplitCount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                    String splitUnit, String partyId, List<String> shopIds) throws TException {
+                                                    String splitUnit, String partyId, List<String> shopIds)
+            throws TException {
         SplitCountResponse response = analyticsClient.getPaymentsSplitCount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()

@@ -92,7 +92,8 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(keycloakService.getPartyId()).thenReturn(UUID.randomUUID().toString());
         when(dominantService.getCurrency("BTC")).thenReturn(new Currency("Bitcoin", "BTC", (short) 999, (short) 6));
         when(dominantService.getCurrency("USD")).thenReturn(new Currency("Доллары США", "USD", (short) 840, (short) 2));
-        when(dominantService.getCurrency("RUR")).thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
+        when(dominantService.getCurrency("RUR"))
+                .thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
     }
 
     @Test

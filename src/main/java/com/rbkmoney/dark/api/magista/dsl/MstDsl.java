@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 
 public class MstDsl {
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     static {
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)

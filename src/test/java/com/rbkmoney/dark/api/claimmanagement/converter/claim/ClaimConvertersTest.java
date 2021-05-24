@@ -32,7 +32,8 @@ public class ClaimConvertersTest {
         assertEquals("Swag objects 'StatusModificationUnit' not equals", swagStatus, resultSwagStatus);
 
         ClaimStatus thriftClaimStatus = new ClaimStatus();
-        thriftClaimStatus = new MockTBaseProcessor(MockMode.ALL).process(thriftClaimStatus, new TBaseHandler<>(ClaimStatus.class));
+        thriftClaimStatus =
+                new MockTBaseProcessor(MockMode.ALL).process(thriftClaimStatus, new TBaseHandler<>(ClaimStatus.class));
         var statusModificationUnitTmp = statusConverter.convertToSwag(thriftClaimStatus);
         ClaimStatus resultClaimStatus = statusConverter.convertToThrift(statusModificationUnitTmp);
 
@@ -148,7 +149,8 @@ public class ClaimConvertersTest {
         swagStatusModUnit.setReason("testReason");
         swagStatusModUnit.setStatus(DENIED);
 
-        swagStatusModUnit.setStatusModification(EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
+        swagStatusModUnit.setStatusModification(
+                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
 
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
         swagClaimModification.setClaimModificationType(swagStatusModUnit);

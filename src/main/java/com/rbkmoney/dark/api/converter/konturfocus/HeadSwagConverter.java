@@ -6,7 +6,8 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Head;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HeadSwagConverter implements SwagConverter<Head, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Head> {
+public class HeadSwagConverter
+        implements SwagConverter<Head, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Head> {
 
     @Override
     public Head toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.Head value, SwagConverterContext ctx) {

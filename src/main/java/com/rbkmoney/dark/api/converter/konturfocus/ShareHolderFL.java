@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class ShareHolderFL implements SwagConverter<ShareHolderFl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl> {
+public class ShareHolderFL implements
+        SwagConverter<ShareHolderFl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl> {
 
     @Override
-    public ShareHolderFl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl value, SwagConverterContext ctx) {
+    public ShareHolderFl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolderFl value,
+                                SwagConverterContext ctx) {
         return new ShareHolderFl()
                 .address(value.getAddress())
                 .capitalSharesPercent(BigDecimal.valueOf(value.getCapitalSharesPercent()))

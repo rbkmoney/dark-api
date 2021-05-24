@@ -13,7 +13,8 @@ public class MonthOperationCountConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.MonthOperationCount, MonthOperationCount> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.MonthOperationCount toSwag(MonthOperationCount value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.MonthOperationCount toSwag(MonthOperationCount value,
+                                                                          SwagConverterContext ctx) {
         switch (value) {
             case lt_ten:
                 return com.rbkmoney.swag.questionary.model.MonthOperationCount.LTTEN;
@@ -27,7 +28,8 @@ public class MonthOperationCountConverter implements
     }
 
     @Override
-    public MonthOperationCount toThrift(com.rbkmoney.swag.questionary.model.MonthOperationCount value, ThriftConverterContext ctx) {
+    public MonthOperationCount toThrift(com.rbkmoney.swag.questionary.model.MonthOperationCount value,
+                                        ThriftConverterContext ctx) {
         switch (value) {
             case BTWTENTOFIFTY:
                 return MonthOperationCount.btw_ten_to_fifty;

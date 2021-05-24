@@ -26,7 +26,8 @@ public class SwagConvertManager {
         initSwagConverterList(swagConverterList, thriftConverterList);
     }
 
-    private void initSwagConverterList(List<SwagConverter> swagConverterList, List<ThriftConverter> thriftConverterList) {
+    private void initSwagConverterList(List<SwagConverter> swagConverterList,
+                                       List<ThriftConverter> thriftConverterList) {
         for (SwagConverter swagConverter : swagConverterList) {
             Class<?> swagTypeArgument = getSwagTypeArgument(swagConverter.getClass());
             swagConverterMap.put(swagTypeArgument, swagConverter);
@@ -43,7 +44,8 @@ public class SwagConvertManager {
             throw new IllegalArgumentException("Unregistered converter type: " + swagType.getName());
         }
 
-        SwagConverterContext swagConverterContext = new SwagConverterContext(Collections.unmodifiableMap(swagConverterMap));
+        SwagConverterContext swagConverterContext =
+                new SwagConverterContext(Collections.unmodifiableMap(swagConverterMap));
 
         return (S) swagConverter.toSwag(thriftVal, swagConverterContext);
     }
@@ -54,7 +56,8 @@ public class SwagConvertManager {
             throw new IllegalArgumentException("Unregistered converter type: " + thriftType.getName());
         }
 
-        ThriftConverterContext thriftConverterContext = new ThriftConverterContext(Collections.unmodifiableMap(thriftConverterMap));
+        ThriftConverterContext thriftConverterContext =
+                new ThriftConverterContext(Collections.unmodifiableMap(thriftConverterMap));
 
         return (T) thriftConverter.toThrift(swagVal, thriftConverterContext);
     }

@@ -22,8 +22,10 @@ public class QuestionaryAggrProxyService {
 
     private final SwagConvertManager swagConvertManager;
 
-    public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams) throws KonturFocusInvalidRequest, KonturFocusNotFound, TException {
-        KonturFocusRequestHolder konturFocusRequestHolder = swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
+    public KonturFocusResponse requestKonturFocus(KonturFocusParams konturFocusParams)
+            throws TException {
+        KonturFocusRequestHolder konturFocusRequestHolder =
+                swagConvertManager.convertToThrift(konturFocusParams, KonturFocusRequestHolder.class);
 
         var thriftKonturFocusResponse = questionaryAggrProxyClient.requestKonturFocus(
                 konturFocusRequestHolder.getKonturFocusRequest(), konturFocusRequestHolder.getKonturFocusEndPoint()
@@ -32,8 +34,10 @@ public class QuestionaryAggrProxyService {
         return swagConvertManager.convertFromThrift(thriftKonturFocusResponse, KonturFocusResponse.class);
     }
 
-    public DaDataResponse requestDaData(DaDataParams daDataParams) throws DaDataInvalidRequest, DaDataNotFound, TException {
-        DaDataRequestHolder daDataRequestHolder = swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
+    public DaDataResponse requestDaData(DaDataParams daDataParams)
+            throws TException {
+        DaDataRequestHolder daDataRequestHolder =
+                swagConvertManager.convertToThrift(daDataParams, DaDataRequestHolder.class);
 
         var thriftDaDataResponse = questionaryAggrProxyClient.requestDaData(
                 daDataRequestHolder.getDaDataRequest(),

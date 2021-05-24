@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
@@ -37,7 +38,8 @@ public class ConversationController implements ConversationApi {
         try {
             partyManagementService.checkStatus();
 
-            ConversationResponse conversation = conversationService.getConversation(conversationIds, conversationStatus);
+            ConversationResponse conversation =
+                    conversationService.getConversation(conversationIds, conversationStatus);
 
             return ResponseEntity.ok(conversation);
         } catch (ConversationsNotFound ex) {

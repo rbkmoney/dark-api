@@ -1,11 +1,5 @@
 package com.rbkmoney.dark.api.controller;
 
-import static org.mockito.Mockito.atMostOnce;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbkmoney.damsel.message_sender.Message;
 import com.rbkmoney.damsel.message_sender.MessageSenderSrv;
@@ -29,6 +23,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Mockito.atMostOnce;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @MockBean
@@ -46,7 +46,8 @@ public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig
     @BeforeEach
     public void setUp() throws Exception {
         Authentication authentication = Mockito.mock(Authentication.class);
-        KeycloakSecurityContext keycloakSecurityContext = new KeycloakSecurityContext("tokenTest", new AccessToken(), "testToken", new IDToken());
+        KeycloakSecurityContext keycloakSecurityContext =
+                new KeycloakSecurityContext("tokenTest", new AccessToken(), "testToken", new IDToken());
         KeycloakPrincipal keycloakPrincipal = new KeycloakPrincipal<>("test", keycloakSecurityContext);
         Mockito.when(authentication.getPrincipal()).thenReturn(keycloakPrincipal);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);

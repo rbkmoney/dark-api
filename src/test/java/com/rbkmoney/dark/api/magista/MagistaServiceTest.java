@@ -29,9 +29,9 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = MagistaServiceTest.Config.class)
 public class MagistaServiceTest {
 
-    private MagistaService magistaService;
     @Autowired
     DarkMessiahStatisticsSrv.Iface magistaClient;
+    private MagistaService magistaService;
 
     @Before
     public void init() {

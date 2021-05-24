@@ -7,10 +7,12 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.OrgStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DaDataStateSwagConverter implements SwagConverter<DaDataState, com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState> {
+public class DaDataStateSwagConverter
+        implements SwagConverter<DaDataState, com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState> {
 
     @Override
-    public DaDataState toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState value, SwagConverterContext ctx) {
+    public DaDataState toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.DaDataState value,
+                              SwagConverterContext ctx) {
         DaDataState swagDaDataState = new DaDataState()
                 .actualityDate(value.getActualityDate())
                 .liquidationDate(value.getLiquidationDate())

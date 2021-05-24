@@ -13,7 +13,8 @@ public class AuthorityConfirmDocumentConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument, AuthorityConfirmingDocument> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument toSwag(AuthorityConfirmingDocument value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument toSwag(AuthorityConfirmingDocument value,
+                                                                                  SwagConverterContext ctx) {
         var authorityConfirmingDocument = new com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument();
         authorityConfirmingDocument.setDate(value.getDate());
         authorityConfirmingDocument.setNumber(value.getNumber());
@@ -23,7 +24,8 @@ public class AuthorityConfirmDocumentConverter implements
     }
 
     @Override
-    public AuthorityConfirmingDocument toThrift(com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument value, ThriftConverterContext ctx) {
+    public AuthorityConfirmingDocument toThrift(com.rbkmoney.swag.questionary.model.AuthorityConfirmingDocument value,
+                                                ThriftConverterContext ctx) {
         AuthorityConfirmingDocument authorityConfirmingDocument = new AuthorityConfirmingDocument();
         authorityConfirmingDocument.setDate(value.getDate());
         authorityConfirmingDocument.setType(value.getType());

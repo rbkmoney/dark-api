@@ -21,10 +21,19 @@ import static org.junit.Assert.assertEquals;
 
 public class ClaimContractorConvertersTest {
 
+    private static com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel getTestContractorIdentificationLevel() {
+        var swagIdentificationLevel =
+                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel.class);
+        swagIdentificationLevel.setContractorModificationType(CONTRACTORIDENTIFICATIONLEVEL);
+        swagIdentificationLevel.setContractorIdentificationLevel(100);
+        return swagIdentificationLevel;
+    }
+
     @Test
     public void russianLegalEntityConverterTest() throws IOException {
         RussianLegalEntityConverter converter = new RussianLegalEntityConverter();
-        var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
+        var swagRussianLegalEntity =
+                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
         swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
         swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
         var resultSwagRussianLegalEntity = converter.convertToSwag(
@@ -94,7 +103,8 @@ public class ClaimContractorConvertersTest {
         swagLegalEntity.setContractorType(LEGALENTITY);
         switch (swagLegalEntity.getLegalEntityType().getLegalEntityType()) {
             case RUSSIANLEGALENTITY:
-                var swagRussianLegalEntity = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
+                var swagRussianLegalEntity =
+                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianLegalEntity.class);
                 swagRussianLegalEntity.setLegalEntityType(RUSSIANLEGALENTITY);
                 swagRussianLegalEntity.getRussianBankAccount().setPayoutToolType(null);
                 swagLegalEntity.setLegalEntityType(swagRussianLegalEntity);
@@ -182,7 +192,8 @@ public class ClaimContractorConvertersTest {
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorModificationUnit.class);
         swagContractorModificationUnit.setPartyModificationType(CONTRACTORMODIFICATIONUNIT);
         swagContractorModificationUnit.setModification(getTestContractorIdentificationLevel());
-        var resultContractorModification = converter.convertToSwag(converter.convertToThrift(swagContractorModificationUnit));
+        var resultContractorModification =
+                converter.convertToSwag(converter.convertToThrift(swagContractorModificationUnit));
         assertEquals("Swag objects 'ContractorModificationUnit' not equals",
                 swagContractorModificationUnit, resultContractorModification);
 
@@ -208,7 +219,8 @@ public class ClaimContractorConvertersTest {
     @Test
     public void contractorConverterTest() throws IOException {
         ClaimContractorConverter converter = new ClaimContractorConverter(
-                new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(), new RussianLegalEntityConverter()),
+                new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(),
+                        new RussianLegalEntityConverter()),
                 new PrivateEntityConverter());
         var swagRegisteredUser = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
         swagRegisteredUser.setContractorType(REGISTEREDUSER);
@@ -222,22 +234,16 @@ public class ClaimContractorConvertersTest {
                 swagContractor, resultContractor);
 
         Contractor thriftContractor = new Contractor();
-        thriftContractor = new MockTBaseProcessor(MockMode.ALL).process(thriftContractor, new TBaseHandler<>(Contractor.class));
+        thriftContractor =
+                new MockTBaseProcessor(MockMode.ALL).process(thriftContractor, new TBaseHandler<>(Contractor.class));
         Contractor resultThriftContractor = converter.convertToThrift(converter.convertToSwag(thriftContractor));
         assertEquals("Thrift objects 'Contractor' (MockMode.ALL) not equals", thriftContractor, resultThriftContractor);
 
-        thriftContractor = new MockTBaseProcessor(MockMode.REQUIRED_ONLY).process(thriftContractor, new TBaseHandler<>(Contractor.class));
+        thriftContractor = new MockTBaseProcessor(MockMode.REQUIRED_ONLY)
+                .process(thriftContractor, new TBaseHandler<>(Contractor.class));
         resultThriftContractor = converter.convertToThrift(converter.convertToSwag(thriftContractor));
         assertEquals("Thrift objects 'Contractor' (MockMode.REQUIRED_ONLY) not equals",
                 thriftContractor, resultThriftContractor);
-    }
-
-    private static com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel getTestContractorIdentificationLevel() {
-        var swagIdentificationLevel =
-                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel.class);
-        swagIdentificationLevel.setContractorModificationType(CONTRACTORIDENTIFICATIONLEVEL);
-        swagIdentificationLevel.setContractorIdentificationLevel(100);
-        return swagIdentificationLevel;
     }
 
 }

@@ -10,7 +10,8 @@ import static com.rbkmoney.swag.claim_management.model.ContractModification.Cont
 
 @Component
 public class ContractAdjustmentModificationUnitConverter
-        implements DarkApiConverter<ContractAdjustmentModificationUnit, com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> {
+        implements
+        DarkApiConverter<ContractAdjustmentModificationUnit, com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> {
 
     @Override
     public ContractAdjustmentModificationUnit convertToThrift(
@@ -41,7 +42,8 @@ public class ContractAdjustmentModificationUnitConverter
         swagContractAdjustmentModificationUnit.setContractModificationType(CONTRACTADJUSTMENTMODIFICATIONUNIT);
 
         if (adjustmentModification.getModification().isSetCreation()) {
-            var swagContractAdjustmentModification = new com.rbkmoney.swag.claim_management.model.ContractAdjustmentModification();
+            var swagContractAdjustmentModification =
+                    new com.rbkmoney.swag.claim_management.model.ContractAdjustmentModification();
             var swagContractAdjustmentParams = new com.rbkmoney.swag.claim_management.model.ContractAdjustmentParams();
             var contractTemplateRef = new com.rbkmoney.swag.claim_management.model.ContractTemplateRef();
             contractTemplateRef.setId(adjustmentModification.getModification().getCreation().getTemplate().getId());

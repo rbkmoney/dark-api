@@ -13,7 +13,8 @@ public class RelationIndividualEntityConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.RelationIndividualEntity, RelationIndividualEntity> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.RelationIndividualEntity toSwag(RelationIndividualEntity value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.RelationIndividualEntity toSwag(RelationIndividualEntity value,
+                                                                               SwagConverterContext ctx) {
         switch (value) {
             case liquidation_process:
                 return com.rbkmoney.swag.questionary.model.RelationIndividualEntity.LIQUIDATIONPROCESS;
@@ -27,7 +28,8 @@ public class RelationIndividualEntityConverter implements
     }
 
     @Override
-    public RelationIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RelationIndividualEntity value, ThriftConverterContext ctx) {
+    public RelationIndividualEntity toThrift(com.rbkmoney.swag.questionary.model.RelationIndividualEntity value,
+                                             ThriftConverterContext ctx) {
         switch (value) {
             case LIQUIDATIONPROCESS:
                 return RelationIndividualEntity.liquidation_process;

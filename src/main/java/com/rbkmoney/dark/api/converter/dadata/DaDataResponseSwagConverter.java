@@ -15,10 +15,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class DaDataResponseSwagConverter implements SwagConverter<DaDataResponse, com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse> {
+public class DaDataResponseSwagConverter
+        implements SwagConverter<DaDataResponse, com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse> {
 
     @Override
-    public DaDataResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse value, SwagConverterContext ctx) {
+    public DaDataResponse toSwag(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataResponse value,
+                                 SwagConverterContext ctx) {
         if (value.isSetAddressResponse()) {
             var swagAddressResponse = new com.rbkmoney.swag.questionary_aggr_proxy.model.AddressResponse();
             AddressResponse addressResponse = value.getAddressResponse();

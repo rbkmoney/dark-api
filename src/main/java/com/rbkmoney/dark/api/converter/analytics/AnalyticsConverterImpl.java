@@ -102,7 +102,8 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
         return paymentsErrorsDistributionResult;
     }
 
-    private SplitAmountResult createSplitAmountResult(GroupedCurrencyOffsetAmount groupedCurrencyOffsetAmount, SplitUnit unit) {
+    private SplitAmountResult createSplitAmountResult(GroupedCurrencyOffsetAmount groupedCurrencyOffsetAmount,
+                                                      SplitUnit unit) {
         SplitAmountResult splitAmountResult = new SplitAmountResult();
         splitAmountResult.setSplitUnit(SplitAmountResult.SplitUnitEnum.valueOf(unit.name()));
         splitAmountResult.setCurrency(groupedCurrencyOffsetAmount.getCurrency());
@@ -112,7 +113,8 @@ public class AnalyticsConverterImpl implements AnalyticsConverter {
         return splitAmountResult;
     }
 
-    private SplitCountResult createSplitCountResult(GroupedCurrencyOffsetCount groupedCurrencyOffsetCount, SplitUnit unit) {
+    private SplitCountResult createSplitCountResult(GroupedCurrencyOffsetCount groupedCurrencyOffsetCount,
+                                                    SplitUnit unit) {
         SplitCountResult splitCountResult = new SplitCountResult();
         splitCountResult.setSplitUnit(SplitCountResult.SplitUnitEnum.valueOf(unit.name()));
         splitCountResult.setCurrency(groupedCurrencyOffsetCount.getCurrency());

@@ -40,18 +40,14 @@ public class AnalyticsControllerTest {
     public static final String NAME = "Name";
     public static final Long PERCENTS = 89L;
     public static final Long OFFSET = 12L;
-
-    @Autowired
-    AnalyticsController analyticsController;
-
-    @MockBean
-    KeycloakService keycloakService;
-
-    @MockBean
-    AnalyticsServiceSrv.Iface analyticsClient;
-
     private final String xRequestID = "xRequestID";
     private final String xRequestDeadline = "xRequestID";
+    @Autowired
+    AnalyticsController analyticsController;
+    @MockBean
+    KeycloakService keycloakService;
+    @MockBean
+    AnalyticsServiceSrv.Iface analyticsClient;
 
     @Before
     public void init() {
@@ -136,12 +132,14 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getPaymentsErrorDistribution(any()))
                 .thenReturn(new ErrorDistributionsResponse().setErrorDistributions(namingDistributions));
 
-        ResponseEntity<InlineResponse2003> paymentsErrorDistribution = analyticsController.getPaymentsErrorDistribution(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2003> paymentsErrorDistribution =
+                analyticsController.getPaymentsErrorDistribution(xRequestID,
+                        OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
 
         assertTrue(paymentsErrorDistribution.getStatusCode().is2xxSuccessful());
 
-        PaymentsErrorsDistributionResult paymentsErrorsDistributionResult = paymentsErrorDistribution.getBody().getResult().get(0);
+        PaymentsErrorsDistributionResult paymentsErrorsDistributionResult =
+                paymentsErrorDistribution.getBody().getResult().get(0);
 
         assertEquals(NAME, paymentsErrorsDistributionResult.getError());
         assertEquals(PERCENTS, paymentsErrorsDistributionResult.getPercents());

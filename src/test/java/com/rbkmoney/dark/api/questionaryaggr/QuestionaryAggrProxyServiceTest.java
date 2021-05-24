@@ -49,7 +49,8 @@ public class QuestionaryAggrProxyServiceTest {
     @Test
     public void requestKonturFocusReqQueryTest() throws TException, IOException {
         var thriftKonturFocusReqResponse = QuestionaryAggrTestData.createThriftKonturFocusReqResponse();
-        when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
+        when(questionaryAggrProxyHandler
+                .requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusReqResponse);
 
         ReqQuery reqQuery = EnhancedRandom.random(ReqQuery.class);
@@ -59,9 +60,11 @@ public class QuestionaryAggrProxyServiceTest {
 
         ReqResponses reqResponses = (ReqResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
-        Assert.assertEquals(thriftKonturFocusReqResponse.getReqResponses().getReqResponses().size(), reqResponses.getResponses().size());
+        Assert.assertEquals(thriftKonturFocusReqResponse.getReqResponses().getReqResponses().size(),
+                reqResponses.getResponses().size());
         for (int i = 0; i < thriftKonturFocusReqResponse.getReqResponses().getReqResponses().size(); i++) {
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponse reqResponse = thriftKonturFocusReqResponse.getReqResponses().getReqResponses().get(i);
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponse reqResponse =
+                    thriftKonturFocusReqResponse.getReqResponses().getReqResponses().get(i);
             ReqResponse swagReqResponse = reqResponses.getResponses().get(i);
             KonturFocusCompareUtil.reqResponseCompare(reqResponse, swagReqResponse);
         }
@@ -70,7 +73,8 @@ public class QuestionaryAggrProxyServiceTest {
     @Test
     public void requestKonturFocusLicensesTest() throws IOException, TException {
         var thriftKonturFocusLicensesResponse = QuestionaryAggrTestData.createThriftKonturFocusLicensesResponse();
-        when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
+        when(questionaryAggrProxyHandler
+                .requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusLicensesResponse);
 
         LicencesQuery licencesQuery = EnhancedRandom.random(LicencesQuery.class);
@@ -78,7 +82,8 @@ public class QuestionaryAggrProxyServiceTest {
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(licencesQuery);
 
-        LicencesResponses licencesResponses = (LicencesResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
+        LicencesResponses licencesResponses =
+                (LicencesResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
         int thriftLicensesSize = thriftKonturFocusLicensesResponse.getLicencesResponses().getLicenseResponses().size();
         Assert.assertEquals(thriftLicensesSize, licencesResponses.getResponses().size());
@@ -93,7 +98,8 @@ public class QuestionaryAggrProxyServiceTest {
     @Test
     public void requestKonturFocusEgrDetailsTest() throws IOException, TException {
         var thriftKonturFocusEgrDetailsResponse = QuestionaryAggrTestData.createThriftKonturFocusEgrDetailsResponse();
-        when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
+        when(questionaryAggrProxyHandler
+                .requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusEgrDetailsResponse);
 
         EgrDetailsQuery egrDetailsQuery = EnhancedRandom.random(EgrDetailsQuery.class);
@@ -101,12 +107,15 @@ public class QuestionaryAggrProxyServiceTest {
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(egrDetailsQuery);
 
-        EgrDetailsResponses egrDetailsResponses = (EgrDetailsResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
+        EgrDetailsResponses egrDetailsResponses =
+                (EgrDetailsResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams);
 
-        int thriftEgrDetailsSize = thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().size();
+        int thriftEgrDetailsSize =
+                thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().size();
         Assert.assertEquals(thriftEgrDetailsSize, egrDetailsResponses.getResponses().size());
         for (int i = 0; i < thriftEgrDetailsSize; i++) {
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse = thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().get(i);
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse =
+                    thriftKonturFocusEgrDetailsResponse.getEgrDetailsResponses().getEgrDetailsResponses().get(i);
             EgrDetailsResponse swagEgrDetailsResponse = egrDetailsResponses.getResponses().get(i);
             KonturFocusCompareUtil.egrDetailsCompare(egrDetailsResponse, swagEgrDetailsResponse);
         }
@@ -114,8 +123,10 @@ public class QuestionaryAggrProxyServiceTest {
 
     @Test
     public void requestKonturFocusBeneficialOwnersTest() throws IOException, TException {
-        var thriftKonturFocusBeneficialOwnerResponse = QuestionaryAggrTestData.createThriftKonturFocusBeneficialOwnerResponse();
-        when(questionaryAggrProxyHandler.requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
+        var thriftKonturFocusBeneficialOwnerResponse =
+                QuestionaryAggrTestData.createThriftKonturFocusBeneficialOwnerResponse();
+        when(questionaryAggrProxyHandler
+                .requestKonturFocus(any(KonturFocusRequest.class), any(KonturFocusEndPoint.class)))
                 .thenReturn(thriftKonturFocusBeneficialOwnerResponse);
 
         BeneficialOwnerQuery beneficialOwnerQuery = EnhancedRandom.random(BeneficialOwnerQuery.class);
@@ -123,13 +134,18 @@ public class QuestionaryAggrProxyServiceTest {
         KonturFocusParams konturFocusParams = new KonturFocusParams();
         konturFocusParams.setRequest(beneficialOwnerQuery);
 
-        BeneficialOwnerResponses beneficialOwnerResponses = ((BeneficialOwnerResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams));
+        BeneficialOwnerResponses beneficialOwnerResponses =
+                ((BeneficialOwnerResponses) questionaryAggrProxyService.requestKonturFocus(konturFocusParams));
 
-        int thriftBeneficialOwnersSize = thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses().size();
+        int thriftBeneficialOwnersSize =
+                thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses()
+                        .size();
         Assert.assertEquals(thriftBeneficialOwnersSize, beneficialOwnerResponses.getResponses().size());
         for (int i = 0; i < thriftBeneficialOwnersSize; i++) {
-            com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerResponse beneficialOwnerResponse =
-                    thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses().get(i);
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerResponse
+                    beneficialOwnerResponse =
+                    thriftKonturFocusBeneficialOwnerResponse.getBeneficialOwnerResponses().getBeneficialOwnerResponses()
+                            .get(i);
             BeneficialOwnerResponse swagBeneficialOwnerResponse = beneficialOwnerResponses.getResponses().get(i);
             KonturFocusCompareUtil.beneficialOwnerResponseCompare(beneficialOwnerResponse, swagBeneficialOwnerResponse);
         }
@@ -264,7 +280,8 @@ public class QuestionaryAggrProxyServiceTest {
         int thriftSuggestionsSize = thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().size();
         Assert.assertEquals(thriftSuggestionsSize, fmsUnitResponse.getSuggestions().size());
         for (int i = 0; i < thriftSuggestionsSize; i++) {
-            com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent fmsUnitContent = thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().get(i);
+            com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitContent fmsUnitContent =
+                    thriftDaDateFmsUnitResponse.getFmsUnitResponse().getSuggestions().get(i);
             FmsUnitContent swagFmsUnitContent = fmsUnitResponse.getSuggestions().get(i);
             DaDataCompareUtil.fmsUnitCompare(fmsUnitContent, swagFmsUnitContent);
         }

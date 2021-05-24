@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
 import java.time.OffsetDateTime;
 
 import static com.rbkmoney.dark.api.util.DeadlineUtils.checkDeadline;
@@ -37,8 +38,12 @@ public class SearchController implements SearchApi {
     @Override
     public ResponseEntity<InlineResponse200> searchPayments(String xRequestId,
                                                             @Size(min = 1, max = 40) String shopID,
-                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
-                                                            @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
+                                                            @NotNull @Valid
+                                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                    OffsetDateTime fromTime,
+                                                            @NotNull @Valid
+                                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                    OffsetDateTime toTime,
                                                             @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
                                                             String xRequestDeadline,
                                                             @Valid String paymentStatus,
@@ -60,7 +65,8 @@ public class SearchController implements SearchApi {
         try {
             String partyId = keycloakService.getPartyId();
 
-            log.info("Handling request for /search/payments, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID, partyId);
+            log.info("Handling request for /search/payments, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID,
+                    partyId);
 
             partyManagementService.checkStatus(xRequestId);
 
@@ -98,7 +104,8 @@ public class SearchController implements SearchApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidRequest ex) {
-            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId, String.join(", ", ex.getErrors()));
+            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId,
+                    String.join(", ", ex.getErrors()));
             InlineResponse400 response = new InlineResponse400()
                     .code(InlineResponse400.CodeEnum.INVALIDREQUEST)
                     .message(msg);
@@ -117,8 +124,12 @@ public class SearchController implements SearchApi {
     @Override
     public ResponseEntity<InlineResponse200> searchRefunds(String xRequestId,
                                                            @Size(min = 1, max = 40) String shopID,
-                                                           @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fromTime,
-                                                           @NotNull @Valid @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime toTime,
+                                                           @NotNull @Valid
+                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                   OffsetDateTime fromTime,
+                                                           @NotNull @Valid
+                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+                                                                   OffsetDateTime toTime,
                                                            @NotNull @Min(1L) @Max(1000L) @Valid Integer limit,
                                                            String xRequestDeadline,
                                                            @Size(min = 1, max = 40) @Valid String invoiceID,
@@ -129,7 +140,8 @@ public class SearchController implements SearchApi {
         try {
             String partyId = keycloakService.getPartyId();
 
-            log.info("Handling request for /search/refunds, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID, partyId);
+            log.info("Handling request for /search/refunds, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID,
+                    partyId);
 
             partyManagementService.checkStatus(xRequestId);
 
@@ -156,7 +168,8 @@ public class SearchController implements SearchApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidRequest ex) {
-            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId, String.join(", ", ex.getErrors()));
+            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId,
+                    String.join(", ", ex.getErrors()));
             InlineResponse400 response = new InlineResponse400()
                     .code(InlineResponse400.CodeEnum.INVALIDREQUEST)
                     .message(msg);

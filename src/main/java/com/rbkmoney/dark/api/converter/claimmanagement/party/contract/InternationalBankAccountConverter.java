@@ -10,7 +10,8 @@ import static com.rbkmoney.swag.claim_management.model.PayoutToolInfo.PayoutTool
 
 @Component
 public class InternationalBankAccountConverter
-        implements DarkApiConverter<InternationalBankAccount, com.rbkmoney.swag.claim_management.model.InternationalBankAccount> {
+        implements
+        DarkApiConverter<InternationalBankAccount, com.rbkmoney.swag.claim_management.model.InternationalBankAccount> {
 
     @Override
     public InternationalBankAccount convertToThrift(

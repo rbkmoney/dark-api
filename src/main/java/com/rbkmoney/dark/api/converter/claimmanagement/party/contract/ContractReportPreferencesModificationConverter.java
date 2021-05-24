@@ -43,7 +43,8 @@ public class ContractReportPreferencesModificationConverter
 
     @Override
     public ContractReportPreferencesModification convertToSwag(ReportPreferences reportPreferences) {
-        ContractReportPreferencesModification contractReportPreferencesModification = new ContractReportPreferencesModification();
+        ContractReportPreferencesModification contractReportPreferencesModification =
+                new ContractReportPreferencesModification();
         contractReportPreferencesModification.setContractModificationType(CONTRACTREPORTPREFERENCESMODIFICATION);
         var swagReportPreferences = new com.rbkmoney.swag.claim_management.model.ReportPreferences();
 

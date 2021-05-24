@@ -26,6 +26,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.util.List;
 
 import static com.rbkmoney.dark.api.util.DeadlineUtils.checkDeadline;
@@ -135,7 +136,8 @@ public class ClaimManagementController implements ProcessingApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidClaimRevision ex) {
-            String msg = String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
+            String msg =
+                    String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
             InlineResponse4002 response = new InlineResponse4002()
                     .code(InlineResponse4002.CodeEnum.INVALIDCLAIMREVISION)
                     .message(msg);
@@ -178,7 +180,8 @@ public class ClaimManagementController implements ProcessingApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidClaimRevision ex) {
-            String msg = String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
+            String msg =
+                    String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
             InlineResponse4002 response = new InlineResponse4002()
                     .code(InlineResponse4002.CodeEnum.INVALIDCLAIMREVISION)
                     .message(msg);
@@ -205,9 +208,11 @@ public class ClaimManagementController implements ProcessingApi {
 
             checkDeadline(xRequestDeadline, xRequestId);
 
-            InlineResponse200 response = claimManagementService.searchClaims(keycloakService.getPartyId(), limit, continuationToken, claimId, claimStatuses);
+            InlineResponse200 response = claimManagementService
+                    .searchClaims(keycloakService.getPartyId(), limit, continuationToken, claimId, claimStatuses);
 
-            log.info("For status list, xRequestId={}, claimId={}, list statuses={}, size results={}", xRequestId, claimId, claimStatuses, response.getResult().size());
+            log.info("For status list, xRequestId={}, claimId={}, list statuses={}, size results={}", xRequestId,
+                    claimId, claimStatuses, response.getResult().size());
 
             return ResponseEntity.ok(response);
         } catch (DeadlineException ex) {
@@ -265,13 +270,15 @@ public class ClaimManagementController implements ProcessingApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidClaimRevision ex) {
-            String msg = String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
+            String msg =
+                    String.format("Invalid claim revision, xRequestId=%s, claimRevision=%s", xRequestId, claimRevision);
             InlineResponse4003 response = new InlineResponse4003()
                     .code(InlineResponse4003.CodeEnum.INVALIDCLAIMREVISION)
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (ChangesetConflict ex) {
-            String msg = String.format("Changeset conflict, xRequestId=%s, conflictedId=%s", xRequestId, ex.getConflictedId());
+            String msg = String.format("Changeset conflict, xRequestId=%s, conflictedId=%s", xRequestId,
+                    ex.getConflictedId());
             InlineResponse4003 response = new InlineResponse4003()
                     .code(InlineResponse4003.CodeEnum.CHANGESETCONFLICT)
                     .message(msg);
@@ -296,7 +303,7 @@ public class ClaimManagementController implements ProcessingApi {
     }
 
     private String messageClaimNotFound(Long claimId, String xRequestId) {
-        return String.format("Claim not found, claimId=%s, xRequestId=%s", String.valueOf(claimId), xRequestId);
+        return String.format("Claim not found, claimId=%s, xRequestId=%s", claimId, xRequestId);
     }
 
     private BadRequestException badRequestException(String msg, Throwable cause, Object response) {

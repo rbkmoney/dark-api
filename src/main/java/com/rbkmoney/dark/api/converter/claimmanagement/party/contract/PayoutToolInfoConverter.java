@@ -48,7 +48,8 @@ public class PayoutToolInfoConverter
                 );
                 break;
             default:
-                throw new IllegalArgumentException("Unknown payout tool type: " + swagPayoutToolInfo.getPayoutToolType());
+                throw new IllegalArgumentException(
+                        "Unknown payout tool type: " + swagPayoutToolInfo.getPayoutToolType());
         }
         return payoutToolInfo;
     }

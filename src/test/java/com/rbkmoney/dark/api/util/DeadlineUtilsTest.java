@@ -37,7 +37,8 @@ public class DeadlineUtilsTest {
         assertThrows(DeadlineException.class, () -> checkDeadline("12s12s12ms", null));
 
         checkDeadline(Instant.now().plus(1, ChronoUnit.DAYS).toString(), null);
-        assertThrows(DeadlineException.class, () -> checkDeadline(Instant.now().minus(1, ChronoUnit.DAYS).toString(), null));
+        assertThrows(DeadlineException.class,
+                () -> checkDeadline(Instant.now().minus(1, ChronoUnit.DAYS).toString(), null));
 
         assertThrows(DeadlineException.class, () -> checkDeadline("undefined", null));
     }

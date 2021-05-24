@@ -2,7 +2,7 @@ package com.rbkmoney.dark.api.service;
 
 public class CurrencyNotFound extends RuntimeException {
 
-    private String symbolicCode;
+    private final String symbolicCode;
 
     public CurrencyNotFound(String symbolicCode) {
         this.symbolicCode = symbolicCode;

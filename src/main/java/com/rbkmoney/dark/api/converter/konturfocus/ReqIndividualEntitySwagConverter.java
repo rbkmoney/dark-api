@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReqIndividualEntitySwagConverter
-        implements SwagConverter<ReqIndividualEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqIndividualEntity> {
+        implements
+        SwagConverter<ReqIndividualEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqIndividualEntity> {
 
     @Override
-    public ReqIndividualEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqIndividualEntity value, SwagConverterContext ctx) {
+    public ReqIndividualEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqIndividualEntity value,
+                                      SwagConverterContext ctx) {
         ReqIndividualEntity swagReqIndividualEntity = new ReqIndividualEntity();
         swagReqIndividualEntity.setFio(value.getFio());
         swagReqIndividualEntity.setOktmo(value.getOktmo());
@@ -33,7 +35,8 @@ public class ReqIndividualEntitySwagConverter
         return swagReqIndividualEntity;
     }
 
-    private PrivateEntityStatusDetail convertPrivateEntityStatusDetail(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.PrivateEntityStatusDetail privateEntityStatusDetail) {
+    private PrivateEntityStatusDetail convertPrivateEntityStatusDetail(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.PrivateEntityStatusDetail privateEntityStatusDetail) {
         PrivateEntityStatusDetail swagPrivateEntityStatusDetail = new PrivateEntityStatusDetail();
         swagPrivateEntityStatusDetail.setDate(privateEntityStatusDetail.getDate());
         swagPrivateEntityStatusDetail.setDissolved(privateEntityStatusDetail.isDissolved());

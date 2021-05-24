@@ -20,16 +20,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FileStorageService {
 
+    private final FileStorageSrv.Iface fileStorageClient;
+    private final FileStorageConverter fileStorageConverter;
     @Value("${filestorage.expiration.time.download.hours}")
     private Integer downloadExpirationHours;
-
     @Value("${filestorage.expiration.time.upload.hours}")
     private Integer uploadExpirationHours;
 
-    private final FileStorageSrv.Iface fileStorageClient;
-    private final FileStorageConverter fileStorageConverter;
-
-    public FileDownload downloadFile(String fileID) throws FileNotFound, TException {
+    public FileDownload downloadFile(String fileID) throws TException {
         return fileStorageConverter.convertFileDownload(
                 fileStorageClient.generateDownloadUrl(
                         fileID,
@@ -38,7 +36,7 @@ public class FileStorageService {
         );
     }
 
-    public FileData getFileInfo(String fileID) throws FileNotFound, TException {
+    public FileData getFileInfo(String fileID) throws TException {
         return fileStorageConverter.convertFileData(fileStorageClient.getFileData(fileID));
     }
 

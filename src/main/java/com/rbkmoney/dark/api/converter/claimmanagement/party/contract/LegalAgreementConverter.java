@@ -12,7 +12,8 @@ public class LegalAgreementConverter
         implements DarkApiConverter<LegalAgreement, ContractLegalAgreementBindingModification> {
 
     @Override
-    public LegalAgreement convertToThrift(ContractLegalAgreementBindingModification swagContractLegalAgreementBindingModification) {
+    public LegalAgreement convertToThrift(
+            ContractLegalAgreementBindingModification swagContractLegalAgreementBindingModification) {
         var swagLegalAgreement = swagContractLegalAgreementBindingModification.getLegalAgreement();
         return new LegalAgreement()
                 .setLegalAgreementId(swagLegalAgreement.getLegalAgreementID())
@@ -30,7 +31,8 @@ public class LegalAgreementConverter
                         .validUntil(legalAgreementBinding.getValidUntil())
 
         );
-        contractLegalAgreementBindingModification.setContractModificationType(CONTRACTLEGALAGREEMENTBINDINGMODIFICATION);
+        contractLegalAgreementBindingModification
+                .setContractModificationType(CONTRACTLEGALAGREEMENTBINDINGMODIFICATION);
         return contractLegalAgreementBindingModification;
     }
 

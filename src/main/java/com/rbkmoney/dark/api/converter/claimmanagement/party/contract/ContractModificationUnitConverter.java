@@ -20,16 +20,19 @@ import static com.rbkmoney.swag.claim_management.model.PartyModificationType.Par
 @Component
 @RequiredArgsConstructor
 public class ContractModificationUnitConverter
-        implements DarkApiConverter<ContractModificationUnit, com.rbkmoney.swag.claim_management.model.ContractModificationUnit> {
+        implements
+        DarkApiConverter<ContractModificationUnit, com.rbkmoney.swag.claim_management.model.ContractModificationUnit> {
 
     private final DarkApiConverter<ContractParams, ContractCreationModification> contractModificationCreationConverter;
 
     private final DarkApiConverter<ReportPreferences, ContractReportPreferencesModification> reportPreferencesConverter;
 
-    private final DarkApiConverter<PayoutToolModificationUnit, ContractPayoutToolModificationUnit> payoutToolModificationUnitConverter;
+    private final DarkApiConverter<PayoutToolModificationUnit, ContractPayoutToolModificationUnit>
+            payoutToolModificationUnitConverter;
 
     private final DarkApiConverter<ContractAdjustmentModificationUnit,
-            com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> adjustmentModificationConverter;
+            com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit>
+            adjustmentModificationConverter;
 
     private final DarkApiConverter<LegalAgreement, ContractLegalAgreementBindingModification> legalAgreementConverter;
 
@@ -110,7 +113,8 @@ public class ContractModificationUnitConverter
         } else if (contractModification.isSetAdjustmentModification()) {
             ContractAdjustmentModificationUnit adjustmentModification =
                     contractModification.getAdjustmentModification();
-            swagContractModificationUnit.setModification(adjustmentModificationConverter.convertToSwag(adjustmentModification));
+            swagContractModificationUnit
+                    .setModification(adjustmentModificationConverter.convertToSwag(adjustmentModification));
         } else if (contractModification.isSetContractorModification()) {
             var swagContractModification = new ContractContractorModification();
             swagContractModification.setContractModificationType(CONTRACTCONTRACTORMODIFICATION);

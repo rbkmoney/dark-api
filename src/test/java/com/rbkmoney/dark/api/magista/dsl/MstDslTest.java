@@ -12,7 +12,8 @@ public class MstDslTest {
 
     @Test
     public void createPaymentsRequest() throws JsonProcessingException, JSONException {
-        JSONAssert.assertEquals("{'query': {'enriched_payments': {'payment_flow':'hold', 'shop_id': '2', 'merchant_id': '2', 'invoice_id':'A','payment_id':'B', 'payment_last_digits':'1212','from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
+        JSONAssert.assertEquals(
+                "{'query': {'enriched_payments': {'payment_flow':'hold', 'shop_id': '2', 'merchant_id': '2', 'invoice_id':'A','payment_id':'B', 'payment_last_digits':'1212','from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createPaymentsRequest(
                         "2",
                         "2",
@@ -35,7 +36,8 @@ public class MstDslTest {
                         null,
                         null
                 ), false);
-        JSONAssert.assertEquals("{'query': {'enriched_payments': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
+        JSONAssert.assertEquals(
+                "{'query': {'enriched_payments': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createPaymentsRequest(
                         null,
                         null,
@@ -62,7 +64,8 @@ public class MstDslTest {
 
     @Test
     public void createRefundsRequest() throws JsonProcessingException, JSONException {
-        JSONAssert.assertEquals("{'query': {'enriched_refunds': {'refund_status': 'succeeded', 'shop_id': '2', 'merchant_id': '2', 'invoice_id':'A', 'payment_id':'B', 'refund_id':'1212','from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
+        JSONAssert.assertEquals(
+                "{'query': {'enriched_refunds': {'refund_status': 'succeeded', 'shop_id': '2', 'merchant_id': '2', 'invoice_id':'A', 'payment_id':'B', 'refund_id':'1212','from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createRefundsRequest(
                         "2",
                         "2",
@@ -74,7 +77,8 @@ public class MstDslTest {
                         "1212",
                         RefundStatus.StatusEnum.SUCCEEDED.toString()
                 ), false);
-        JSONAssert.assertEquals("{'query': {'enriched_refunds': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
+        JSONAssert.assertEquals(
+                "{'query': {'enriched_refunds': {'from_time': '2016-03-22T00:12:00Z','to_time': '2016-03-22T01:12:00Z'}}}",
                 MstDsl.createRefundsRequest(
                         null,
                         null,

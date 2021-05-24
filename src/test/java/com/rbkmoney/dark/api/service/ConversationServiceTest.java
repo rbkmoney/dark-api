@@ -67,7 +67,8 @@ public class ConversationServiceTest {
         ArgumentCaptor<com.rbkmoney.damsel.messages.ConversationFilter> conversationFilterCaptor =
                 ArgumentCaptor.forClass((Class) List.class);
         List<String> conversationIds = Collections.singletonList("4254364");
-        ConversationFilter swagConversationFilter = new ConversationFilter().conversationStatus(ConversationStatus.ACTUAL);
+        ConversationFilter swagConversationFilter =
+                new ConversationFilter().conversationStatus(ConversationStatus.ACTUAL);
         GetConversationResponse getConversationResponse = conversationResponse();
 
         when(messageService.getConversations(anyList(), any(com.rbkmoney.damsel.messages.ConversationFilter.class)))
@@ -81,11 +82,13 @@ public class ConversationServiceTest {
         Assert.assertEquals(thriftConversationFilter.getConversationStatus().toString().toLowerCase(),
                 swagConversationFilter.getConversationStatus().toString().toLowerCase());
 
-        com.rbkmoney.damsel.messages.Conversation expectedConversation = getConversationResponse.getConversations().get(0);
+        com.rbkmoney.damsel.messages.Conversation expectedConversation =
+                getConversationResponse.getConversations().get(0);
         Conversation conversation = conversationResponse.getConversations().get(0);
 
         Assert.assertEquals(expectedConversation.getConversationId(), conversation.getConversationId());
-        Assert.assertEquals(expectedConversation.getStatus().toString().toLowerCase(), conversation.getStatus().toString().toLowerCase());
+        Assert.assertEquals(expectedConversation.getStatus().toString().toLowerCase(),
+                conversation.getStatus().toString().toLowerCase());
 
         com.rbkmoney.damsel.messages.Message expectedMessage = expectedConversation.getMessages().get(0);
         Message message = conversation.getMessages().get(0);

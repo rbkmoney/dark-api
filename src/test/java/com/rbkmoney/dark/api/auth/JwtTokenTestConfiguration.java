@@ -17,19 +17,8 @@ import java.util.Properties;
 public class JwtTokenTestConfiguration {
 
     @Bean
-    public JwtTokenBuilder JwtTokenBuilder(KeyPair keyPair) {
-        return new JwtTokenBuilder(keyPair.getPrivate());
-    }
-
-    @Bean
-    public KeyPair keyPair() throws GeneralSecurityException {
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(2048);
-        return keyGen.generateKeyPair();
-    }
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer properties(KeyPair keyPair) throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
+    public static PropertySourcesPlaceholderConfigurer properties(KeyPair keyPair)
+            throws NoSuchAlgorithmException, InvalidKeySpecException, IOException {
         KeyFactory fact = KeyFactory.getInstance("RSA");
         X509EncodedKeySpec spec = fact.getKeySpec(keyPair.getPublic(), X509EncodedKeySpec.class);
         String publicKey = Base64.getEncoder().encodeToString(spec.getEncoded());
@@ -40,5 +29,17 @@ public class JwtTokenTestConfiguration {
         pspc.setProperties(properties);
         pspc.setLocalOverride(true);
         return pspc;
+    }
+
+    @Bean
+    public JwtTokenBuilder JwtTokenBuilder(KeyPair keyPair) {
+        return new JwtTokenBuilder(keyPair.getPrivate());
+    }
+
+    @Bean
+    public KeyPair keyPair() throws GeneralSecurityException {
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+        keyGen.initialize(2048);
+        return keyGen.generateKeyPair();
     }
 }

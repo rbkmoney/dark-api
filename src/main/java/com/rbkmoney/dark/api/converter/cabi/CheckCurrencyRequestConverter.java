@@ -10,7 +10,8 @@ import com.rbkmoney.dark.api.util.MathUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CheckCurrencyRequestConverter implements ThriftConverter<CheckCurrencyExchangeParams, CabiCheckCurrencyRequestDto> {
+public class CheckCurrencyRequestConverter
+        implements ThriftConverter<CheckCurrencyExchangeParams, CabiCheckCurrencyRequestDto> {
 
     @Override
     public CheckCurrencyExchangeParams toThrift(CabiCheckCurrencyRequestDto value, ThriftConverterContext ctx) {
