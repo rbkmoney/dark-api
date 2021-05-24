@@ -5,8 +5,8 @@
 
     <parent>
         <groupId>com.rbkmoney</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.8</version>
+        <artifactId>service-parent-pom</artifactId>
+        <version>1.2.2</version>
     </parent>
 
     <artifactId>dark-api</artifactId>
@@ -33,37 +33,35 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>custom-actuator-endpoints</artifactId>
-            <version>0.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>custom-metrics-spring-boot-starter</artifactId>
-            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.woody</groupId>
             <artifactId>woody-thrift</artifactId>
-            <version>1.1.15</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>shared-resources</artifactId>
-            <version>${shared.resources.version}</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>
             <artifactId>filter</artifactId>
-            <version>0.6.11</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.geck</groupId>
             <artifactId>serializer</artifactId>
-            <version>0.6.11</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
-            <version>1.473-093c982</version>
+        </dependency>
+        <dependency>
+            <groupId>com.rbkmoney</groupId>
+            <artifactId>mamsel</artifactId>
+            <version>0.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -88,7 +86,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.28-ae84b84-server</version>
+            <version>1.29-d665bf2-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -276,17 +274,14 @@
         </dependency>
         <!-- Provide JUnit 5 API -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- and the engine for surefire and failsafe -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <scope>test</scope>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>

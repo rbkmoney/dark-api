@@ -1,8 +1,8 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contract;
 
+import com.rbkmoney.damsel.domain.CountryCode;
 import com.rbkmoney.damsel.domain.InternationalBankAccount;
 import com.rbkmoney.damsel.domain.InternationalBankDetails;
-import com.rbkmoney.damsel.domain.Residence;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import org.springframework.stereotype.Component;
 
@@ -45,7 +45,7 @@ public class InternationalBankAccountConverter
                         .setAddress(swagCorrespondentAccountBank.getAddress())
                         .setBic(swagCorrespondentAccountBank.getBic())
                         .setName(swagCorrespondentAccountBank.getName())
-                        .setCountry(Residence.valueOf(swagCorrespondentAccountBank.getCountry())));
+                        .setCountry(CountryCode.valueOf(swagCorrespondentAccountBank.getCountry())));
 
                 internationalBankAccount.setCorrespondentAccount(correspondentAccount);
             }
@@ -102,8 +102,8 @@ public class InternationalBankAccountConverter
         return swagInternationalBankAccount;
     }
 
-    private Residence convertCountryToResidence(String country) {
-        return country != null ? Residence.valueOf(country) : null;
+    private CountryCode convertCountryToResidence(String country) {
+        return country != null ? CountryCode.valueOf(country) : null;
     }
 
 }

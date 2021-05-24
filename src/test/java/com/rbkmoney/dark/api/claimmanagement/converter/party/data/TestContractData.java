@@ -2,10 +2,10 @@ package com.rbkmoney.dark.api.claimmanagement.converter.party.data;
 
 import com.rbkmoney.damsel.claim_management.ContractModification;
 import com.rbkmoney.damsel.claim_management.ContractModificationUnit;
+import com.rbkmoney.damsel.domain.CountryCode;
 import com.rbkmoney.damsel.domain.InternationalBankAccount;
 import com.rbkmoney.damsel.domain.InternationalBankDetails;
 import com.rbkmoney.damsel.domain.LegalAgreement;
-import com.rbkmoney.damsel.domain.Residence;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolCreationModification;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolInfoModification;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolModificationUnit;
@@ -36,7 +36,7 @@ public final class TestContractData {
                         .setAbaRtn("rtn")
                         .setAddress("addr")
                         .setBic("bic123456")
-                        .setCountry(Residence.AGO)
+                        .setCountry(CountryCode.AGO)
                         .setName("some name"))
                 .setCorrespondentAccount(new InternationalBankAccount()
                         .setNumber("3332211")
@@ -46,7 +46,7 @@ public final class TestContractData {
                                 .setAbaRtn("21312")
                                 .setAddress("qweqwe")
                                 .setBic("321321")
-                                .setCountry(Residence.ALB)
+                                .setCountry(CountryCode.ALB)
                                 .setName("aasdasd")));
         return thriftInternationalBankAccount;
     }

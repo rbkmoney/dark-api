@@ -57,6 +57,7 @@ public class ClaimContractorConvertersTest {
         var swagInternationalLegalEntity =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalLegalEntity.class);
         swagInternationalLegalEntity.setLegalEntityType(INTERNATIONALLEGALENTITY);
+        swagInternationalLegalEntity.setCountry(CountryCode.GLP.name());
 
         var resultSwagInternationalLegalEntityConverter = converter.convertToSwag(
                 converter.convertToThrift(swagInternationalLegalEntity)
@@ -102,6 +103,7 @@ public class ClaimContractorConvertersTest {
                 var swagInternationalLegalEntity =
                         EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalLegalEntity.class);
                 swagInternationalLegalEntity.setLegalEntityType(INTERNATIONALLEGALENTITY);
+                swagInternationalLegalEntity.setCountry(CountryCode.EGY.name());
                 swagLegalEntity.setLegalEntityType(swagInternationalLegalEntity);
                 break;
             default:
