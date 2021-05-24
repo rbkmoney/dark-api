@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.PayoutToolInfo.PayoutToolTypeEnum.INTERNATIONALBANKACCOUNT;
 
 @Component
-public class InternationalBankAccountConverter
-        implements
+public class InternationalBankAccountConverter implements
         DarkApiConverter<InternationalBankAccount, com.rbkmoney.swag.claim_management.model.InternationalBankAccount> {
 
     @Override

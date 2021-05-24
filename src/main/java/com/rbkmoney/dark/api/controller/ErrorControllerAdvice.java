@@ -109,8 +109,8 @@ public class ErrorControllerAdvice {
     @ExceptionHandler(HttpClientErrorException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleHttpClientErrorException(HttpClientErrorException e) {
-        log.error("<- Res [500]: Error with using inner http client, code={}, body={}", e.getStatusCode(),
-                e.getResponseBodyAsString(), e);
+        log.error("<- Res [500]: Error with using inner http client, code={}, body={}",
+                e.getStatusCode(), e.getResponseBodyAsString(), e);
     }
 
     @ExceptionHandler(HttpTimeoutException.class)

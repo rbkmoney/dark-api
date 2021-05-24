@@ -41,8 +41,8 @@ public class PartyManagementService {
         if (status.getBlocking().isSetBlocked()) {
             Blocked blocked = status.getBlocking().getBlocked();
             throw new ForbiddenException(
-                    String.format("Party is blocked xRequestId=%s, since=%s, reason=%s", xRequestId, blocked.getSince(),
-                            blocked.getReason())
+                    String.format("Party is blocked xRequestId=%s, since=%s, reason=%s",
+                            xRequestId, blocked.getSince(), blocked.getReason())
             );
         }
 

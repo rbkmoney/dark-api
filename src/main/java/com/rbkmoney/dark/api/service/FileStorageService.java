@@ -1,7 +1,6 @@
 package com.rbkmoney.dark.api.service;
 
 import com.rbkmoney.dark.api.converter.filestorage.FileStorageConverter;
-import com.rbkmoney.file.storage.FileNotFound;
 import com.rbkmoney.file.storage.FileStorageSrv;
 import com.rbkmoney.swag.dark_api.model.FileData;
 import com.rbkmoney.swag.dark_api.model.FileDownload;
@@ -22,6 +21,7 @@ public class FileStorageService {
 
     private final FileStorageSrv.Iface fileStorageClient;
     private final FileStorageConverter fileStorageConverter;
+
     @Value("${filestorage.expiration.time.download.hours}")
     private Integer downloadExpirationHours;
     @Value("${filestorage.expiration.time.upload.hours}")

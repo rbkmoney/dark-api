@@ -8,8 +8,7 @@ import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.Cla
 import static com.rbkmoney.swag.claim_management.model.CommentModification.CommentModificationTypeEnum.*;
 
 @Component
-public class ClaimCommentModificationUnitConverter
-        implements
+public class ClaimCommentModificationUnitConverter implements
         DarkApiConverter<CommentModificationUnit, com.rbkmoney.swag.claim_management.model.CommentModificationUnit> {
 
     @Override

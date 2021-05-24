@@ -45,8 +45,8 @@ public class ShopConvertersTest {
         swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATIONMODIFICATION);
 
         var resultShopAccountParams = converter.convertToSwag(converter.convertToThrift(swagShopAccountParams));
-        assertEquals("Swag objects 'ShopAccountParams' not equals", swagShopAccountParams,
-                resultShopAccountParams);
+        assertEquals("Swag objects 'ShopAccountParams' not equals",
+                swagShopAccountParams, resultShopAccountParams);
 
         ShopAccountParams thriftShopAccountParams = new ShopAccountParams();
         thriftShopAccountParams = new MockTBaseProcessor(MockMode.ALL)
@@ -54,8 +54,8 @@ public class ShopConvertersTest {
         ShopAccountParams resultThriftShopAccountParams =
                 converter.convertToThrift(converter.convertToSwag(thriftShopAccountParams));
 
-        assertEquals("Thrift objects 'ShopAccountParams' not equals", thriftShopAccountParams,
-                resultThriftShopAccountParams);
+        assertEquals("Thrift objects 'ShopAccountParams' not equals",
+                thriftShopAccountParams, resultThriftShopAccountParams);
     }
 
     @Test

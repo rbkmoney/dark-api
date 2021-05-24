@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class KonturFocusResponseSwagConverter
-        implements
+public class KonturFocusResponseSwagConverter implements
         SwagConverter<KonturFocusResponse, com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse> {
 
     @Override

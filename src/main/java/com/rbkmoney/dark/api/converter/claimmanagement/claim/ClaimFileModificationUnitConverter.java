@@ -8,8 +8,7 @@ import static com.rbkmoney.swag.claim_management.model.ClaimModificationType.Cla
 import static com.rbkmoney.swag.claim_management.model.FileModification.FileModificationTypeEnum.*;
 
 @Component
-public class ClaimFileModificationUnitConverter
-        implements
+public class ClaimFileModificationUnitConverter implements
         DarkApiConverter<FileModificationUnit, com.rbkmoney.swag.claim_management.model.FileModificationUnit> {
 
     @Override

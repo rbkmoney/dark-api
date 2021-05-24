@@ -19,8 +19,7 @@ import static com.rbkmoney.swag.claim_management.model.PartyModificationType.Par
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ContractModificationUnitConverter
-        implements
+public class ContractModificationUnitConverter implements
         DarkApiConverter<ContractModificationUnit, com.rbkmoney.swag.claim_management.model.ContractModificationUnit> {
 
     private final DarkApiConverter<ContractParams, ContractCreationModification> contractModificationCreationConverter;

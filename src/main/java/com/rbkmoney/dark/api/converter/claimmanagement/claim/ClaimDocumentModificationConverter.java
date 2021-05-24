@@ -12,8 +12,7 @@ import static com.rbkmoney.swag.claim_management.model.DocumentModification.Docu
 import static com.rbkmoney.swag.claim_management.model.DocumentModification.DocumentModificationTypeEnum.DOCUMENTCREATED;
 
 @Component
-public class ClaimDocumentModificationConverter
-        implements
+public class ClaimDocumentModificationConverter implements
         DarkApiConverter<DocumentModificationUnit, com.rbkmoney.swag.claim_management.model.DocumentModificationUnit> {
 
     @Override

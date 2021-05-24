@@ -125,8 +125,9 @@ public class MagistaService {
                                             List<StatRefund> refunds = enrichedStatInvoice.getRefunds();
                                             List<StatPayment> payments = enrichedStatInvoice.getPayments();
                                             return new EnrichedSearchResult()
-                                                    .refund(refunds.isEmpty() ? null :
-                                                            StatRefundToRefundSearchResultConverter
+                                                    .refund(refunds.isEmpty()
+                                                            ? null
+                                                            : StatRefundToRefundSearchResultConverter
                                                                     .convert(refunds.get(0)))
                                                     .payment(StatPaymentToPaymentSearchResultConverter
                                                             .convert(payments.get(0), invoiceContext));

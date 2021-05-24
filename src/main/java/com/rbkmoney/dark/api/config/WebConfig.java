@@ -29,6 +29,7 @@ import static com.rbkmoney.woody.api.trace.ContextUtils.setCustomMetadataValue;
 import static com.rbkmoney.woody.api.trace.ContextUtils.setDeadline;
 
 @Configuration
+@SuppressWarnings({"ParameterName", "LocalVariableName"})
 public class WebConfig {
 
     @Bean
@@ -83,22 +84,22 @@ public class WebConfig {
     }
 
     private void setWoodyDeadline(HttpServletRequest request) {
-        String requestDeadline = request.getHeader("X-Request-Deadline");
-        String requestId = request.getHeader("X-Request-ID");
-        if (requestDeadline != null) {
-            setDeadline(getInstant(requestDeadline, requestId));
+        String xRequestDeadline = request.getHeader("X-Request-Deadline");
+        String xRequestId = request.getHeader("X-Request-ID");
+        if (xRequestDeadline != null) {
+            setDeadline(getInstant(xRequestDeadline, xRequestId));
         }
     }
 
-    private Instant getInstant(String requestDeadline, String requestId) {
+    private Instant getInstant(String xRequestDeadline, String xRequestId) {
         Instant instant;
-        if (containsRelativeValues(requestDeadline, requestId)) {
+        if (containsRelativeValues(xRequestDeadline, xRequestId)) {
             instant = Instant.now()
-                    .plus(extractMilliseconds(requestDeadline, requestId), ChronoUnit.MILLIS)
-                    .plus(extractSeconds(requestDeadline, requestId), ChronoUnit.MILLIS)
-                    .plus(extractMinutes(requestDeadline, requestId), ChronoUnit.MILLIS);
+                    .plus(extractMilliseconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
+                    .plus(extractSeconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
+                    .plus(extractMinutes(xRequestDeadline, xRequestId), ChronoUnit.MILLIS);
         } else {
-            instant = Instant.parse(requestDeadline);
+            instant = Instant.parse(xRequestDeadline);
         }
         return instant;
     }

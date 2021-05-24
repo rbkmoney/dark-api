@@ -66,8 +66,8 @@ public class SearchController implements SearchApi {
         try {
             String partyId = keycloakService.getPartyId();
 
-            log.info("Handling request for /search/payments, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID,
-                    partyId);
+            log.info("Handling request for /search/payments, xRequestId={}, shopID={}, partyId={}",
+                    xRequestId, shopID, partyId);
 
             partyManagementService.checkStatus(xRequestId);
 
@@ -105,8 +105,8 @@ public class SearchController implements SearchApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidRequest ex) {
-            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId,
-                    String.join(", ", ex.getErrors()));
+            String msg = String.format("Invalid request, xRequestId=%s, errors=%s",
+                    xRequestId, String.join(", ", ex.getErrors()));
             InlineResponse400 response = new InlineResponse400()
                     .code(InlineResponse400.CodeEnum.INVALIDREQUEST)
                     .message(msg);
@@ -141,8 +141,8 @@ public class SearchController implements SearchApi {
         try {
             String partyId = keycloakService.getPartyId();
 
-            log.info("Handling request for /search/refunds, xRequestId={}, shopID={}, partyId={}", xRequestId, shopID,
-                    partyId);
+            log.info("Handling request for /search/refunds, xRequestId={}, shopID={}, partyId={}",
+                    xRequestId, shopID, partyId);
 
             partyManagementService.checkStatus(xRequestId);
 
@@ -169,8 +169,8 @@ public class SearchController implements SearchApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (InvalidRequest ex) {
-            String msg = String.format("Invalid request, xRequestId=%s, errors=%s", xRequestId,
-                    String.join(", ", ex.getErrors()));
+            String msg = String.format("Invalid request, xRequestId=%s, errors=%s",
+                    xRequestId, String.join(", ", ex.getErrors()));
             InlineResponse400 response = new InlineResponse400()
                     .code(InlineResponse400.CodeEnum.INVALIDREQUEST)
                     .message(msg);

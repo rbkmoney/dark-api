@@ -12,8 +12,7 @@ import static com.rbkmoney.swag.claim_management.model.StatusModification.Status
 
 @Component
 @RequiredArgsConstructor
-public class ClaimStatusModificationUnitConverter
-        implements
+public class ClaimStatusModificationUnitConverter implements
         DarkApiConverter<StatusModificationUnit, com.rbkmoney.swag.claim_management.model.StatusModificationUnit> {
 
     private final DarkApiConverter<ClaimStatus,

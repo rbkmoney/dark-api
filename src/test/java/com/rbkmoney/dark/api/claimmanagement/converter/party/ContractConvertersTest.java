@@ -138,8 +138,8 @@ public class ContractConvertersTest {
                 converter.convertToSwag(thriftLegalAgreement)
         );
 
-        assertEquals("Thrift objects 'LegalAgreement' (MockMode.ALL) not equals", thriftLegalAgreement,
-                resultLegalAgreement);
+        assertEquals("Thrift objects 'LegalAgreement' (MockMode.ALL) not equals",
+                thriftLegalAgreement, resultLegalAgreement);
 
         thriftLegalAgreement = new MockTBaseProcessor(MockMode.REQUIRED_ONLY)
                 .process(thriftLegalAgreement, new TBaseHandler<>(LegalAgreement.class));
@@ -147,8 +147,8 @@ public class ContractConvertersTest {
                 converter.convertToSwag(thriftLegalAgreement)
         );
 
-        assertEquals("Thrift objects 'LegalAgreement' (MockMode.REQUIRED_ONLY) not equals", thriftLegalAgreement,
-                resultLegalAgreementReq);
+        assertEquals("Thrift objects 'LegalAgreement' (MockMode.REQUIRED_ONLY) not equals",
+                thriftLegalAgreement, resultLegalAgreementReq);
     }
 
     @Test

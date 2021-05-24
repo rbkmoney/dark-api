@@ -212,8 +212,8 @@ public class ClaimManagementController implements ProcessingApi {
             InlineResponse200 response = claimManagementService
                     .searchClaims(keycloakService.getPartyId(), limit, continuationToken, claimId, claimStatuses);
 
-            log.info("For status list, xRequestId={}, claimId={}, list statuses={}, size results={}", xRequestId,
-                    claimId, claimStatuses, response.getResult().size());
+            log.info("For status list, xRequestId={}, claimId={}, list statuses={}, size results={}",
+                    xRequestId, claimId, claimStatuses, response.getResult().size());
 
             return ResponseEntity.ok(response);
         } catch (DeadlineException ex) {
@@ -278,8 +278,8 @@ public class ClaimManagementController implements ProcessingApi {
                     .message(msg);
             throw badRequestException(msg, ex, response);
         } catch (ChangesetConflict ex) {
-            String msg = String.format("Changeset conflict, xRequestId=%s, conflictedId=%s", xRequestId,
-                    ex.getConflictedId());
+            String msg = String.format("Changeset conflict, xRequestId=%s, conflictedId=%s",
+                    xRequestId, ex.getConflictedId());
             InlineResponse4003 response = new InlineResponse4003()
                     .code(InlineResponse4003.CodeEnum.CHANGESETCONFLICT)
                     .message(msg);

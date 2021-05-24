@@ -30,8 +30,9 @@ public class StatPaymentToPaymentSearchResultConverter {
     public static PaymentSearchResult convert(StatPayment statPayment, Content invoiceMetadata) {
         try {
             return new PaymentSearchResult()
-                    .invoiceMetadata(invoiceMetadata == null ? Map.of() :
-                            objectMapper.readValue(invoiceMetadata.getData(), HashMap.class))
+                    .invoiceMetadata(invoiceMetadata == null
+                            ? Map.of()
+                            : objectMapper.readValue(invoiceMetadata.getData(), HashMap.class))
                     .amount(statPayment.amount)
                     .cart(getCart(statPayment.cart))
                     .createdAt(OffsetDateTime.parse(statPayment.created_at))
@@ -44,15 +45,16 @@ public class StatPaymentToPaymentSearchResultConverter {
                     .id(statPayment.id)
                     .invoiceID(statPayment.invoice_id)
                     .makeRecurrent(statPayment.make_recurrent)
-                    .metadata(statPayment.context == null ? Map.of() :
-                            objectMapper.readValue(statPayment.context.getData(), HashMap.class))
+                    .metadata(statPayment.context == null
+                            ? Map.of()
+                            : objectMapper.readValue(statPayment.context.getData(), HashMap.class))
                     .payer(getPayer(statPayment.payer))
                     .shortID(statPayment.short_id)
 
                     .status(getStatus(statPayment.status));
         } catch (IOException e) {
-            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}", invoiceMetadata,
-                    statPayment.context, e);
+            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}",
+                    invoiceMetadata, statPayment.context, e);
             return null;
         }
     }
