@@ -12,8 +12,8 @@ import static com.rbkmoney.swag.claim_management.model.PartyModificationType.Par
 
 @Component
 @RequiredArgsConstructor
-public class ContractorModificationUnitConverter
-        implements
+@SuppressWarnings("LineLength")
+public class ContractorModificationUnitConverter implements
         DarkApiConverter<ContractorModificationUnit, com.rbkmoney.swag.claim_management.model.ContractorModificationUnit> {
 
     private final DarkApiConverter<Contractor,

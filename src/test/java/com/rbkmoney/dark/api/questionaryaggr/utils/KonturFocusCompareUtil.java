@@ -226,6 +226,7 @@ public class KonturFocusCompareUtil {
         Assert.assertEquals(thriftShareHolderFL.getDate(), swagShareFolderFl.getDate());
     }
 
+    @SuppressWarnings("AbbreviationAsWordInName")
     private static void shareHolderULCompare(ShareHolderUL thriftShareHolderUL, ShareHolderUl swagShareHolderUl) {
         Assert.assertEquals(thriftShareHolderUL.getAddress(), swagShareHolderUl.getAddress());
         Assert.assertEquals(thriftShareHolderUL.getCapitalSharesPercent(),
@@ -450,6 +451,7 @@ public class KonturFocusCompareUtil {
         }
     }
 
+    @SuppressWarnings("LineLength")
     public static void beneficialOwnerResponseCompare(BeneficialOwnerResponse thriftBeneficialOwnerResponse,
                                                       com.rbkmoney.swag.questionary_aggr_proxy.model.BeneficialOwnerResponse swagBeneficialOwnerResponse) {
         Assert.assertEquals(thriftBeneficialOwnerResponse.getInn(), swagBeneficialOwnerResponse.getInn());
@@ -516,6 +518,7 @@ public class KonturFocusCompareUtil {
         addressRFCompare(thriftBranch.getAddressRf(), swagBranch.getAddressRf());
     }
 
+    @SuppressWarnings("AbbreviationAsWordInName")
     private static void addressRFCompare(
             com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF thriftParsedAddressRF,
             ParsedAddressRF swagParsedAddressRF) {
@@ -597,6 +600,7 @@ public class KonturFocusCompareUtil {
         Assert.assertEquals(thriftBeneficialOwnerFl.isIsAccurate(), swagBeneficialOwnerFl.isIsAccurate());
     }
 
+    @SuppressWarnings("LineLength")
     private static void beneficialOwnerOtherCompare(
             com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerOther thriftBeneficialOwnerOther,
             BeneficialOwnerOther swagBeneficialOwnerOther) {
@@ -606,6 +610,7 @@ public class KonturFocusCompareUtil {
         Assert.assertEquals(thriftBeneficialOwnerOther.isIsAccurate(), swagBeneficialOwnerOther.isIsAccurate());
     }
 
+    @SuppressWarnings("LineLength")
     private static void beneficialOwnerForeignCompare(
             com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerForeign thriftBeneficialOwnerForeign,
             BeneficialOwnerForeign swagBeneficialOwnerForeign) {

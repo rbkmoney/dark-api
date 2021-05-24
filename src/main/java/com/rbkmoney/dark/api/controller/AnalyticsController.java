@@ -24,6 +24,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class AnalyticsController implements AnalyticsApi {
 
     private final AnalyticsService analyticsService;

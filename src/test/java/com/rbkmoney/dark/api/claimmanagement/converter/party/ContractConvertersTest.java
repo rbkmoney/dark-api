@@ -153,8 +153,6 @@ public class ContractConvertersTest {
 
     @Test
     public void reportPreferencesConverterTest() throws IOException {
-        ContractReportPreferencesModificationConverter converter =
-                new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter());
         var swagReportPreferences = EnhancedRandom.random(ContractReportPreferencesModification.class);
         swagReportPreferences.setContractModificationType(CONTRACTREPORTPREFERENCESMODIFICATION);
         var articlesOfAssociation = new com.rbkmoney.swag.claim_management.model.ArticlesOfAssociation();
@@ -162,6 +160,8 @@ public class ContractConvertersTest {
         swagReportPreferences.getReportPreferences().getServiceAcceptanceActPreferences().getSigner()
                 .setDocument(articlesOfAssociation);
 
+        ContractReportPreferencesModificationConverter converter =
+                new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter());
         var resultSwagReportPreferences = converter.convertToSwag(
                 converter.convertToThrift(swagReportPreferences)
         );

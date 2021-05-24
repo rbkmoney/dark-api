@@ -16,6 +16,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class PartyManagementService {
 
     private final PartyManagementSrv.Iface partyManagementClient;
@@ -46,8 +47,8 @@ public class PartyManagementService {
         }
 
         log.info(
-                "Request has been got on party-management service, party-status=unblocked, xRequestId='{}', partyId='{}'",
-                xRequestId, partyId);
+                "Request has been got on party-management service, party-status=unblocked, " +
+                        "xRequestId='{}', partyId='{}'", xRequestId, partyId);
     }
 
     private PartyStatus getPartyStatus(String xRequestId, String partyId) {

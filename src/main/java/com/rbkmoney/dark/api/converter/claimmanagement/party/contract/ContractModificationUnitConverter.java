@@ -37,6 +37,7 @@ public class ContractModificationUnitConverter
     private final DarkApiConverter<LegalAgreement, ContractLegalAgreementBindingModification> legalAgreementConverter;
 
     @Override
+    @SuppressWarnings("LineLength")
     public ContractModificationUnit convertToThrift(
             com.rbkmoney.swag.claim_management.model.ContractModificationUnit swagContractModificationUnit
     ) {

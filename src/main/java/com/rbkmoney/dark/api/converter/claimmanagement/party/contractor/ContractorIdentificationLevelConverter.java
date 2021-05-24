@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.ContractorModification.ContractorModificationTypeEnum.CONTRACTORIDENTIFICATIONLEVEL;
 
 @Component
-public class ContractorIdentificationLevelConverter
-        implements
+@SuppressWarnings("LineLength")
+public class ContractorIdentificationLevelConverter implements
         DarkApiConverter<ContractorIdentificationLevel, com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel> {
 
     @Override

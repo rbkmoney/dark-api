@@ -73,7 +73,7 @@ public class ConversationControllerTest extends AbstractKeycloakOpenIdAsWiremock
                 objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(conversationParams);
 
         mvc.perform(post("/conversation")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(conversationParamJson))
                 .andDo(print())

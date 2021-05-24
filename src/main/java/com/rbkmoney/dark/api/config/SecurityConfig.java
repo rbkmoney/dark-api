@@ -36,7 +36,9 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 @ComponentScan(
         basePackageClasses = KeycloakSecurityComponents.class,
-        excludeFilters = @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.keycloak.adapters.springsecurity.management.HttpSessionManager"))
+        excludeFilters = @ComponentScan.Filter(
+                type = FilterType.REGEX,
+                pattern = "org.keycloak.adapters.springsecurity.management.HttpSessionManager"))
 @EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 @ConditionalOnProperty(value = "auth.enabled", havingValue = "true")
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@SuppressWarnings("LineLength")
 public class EgrDetailsHistorySwagConverter implements
         SwagConverter<EgrDetailsHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsHistory> {
 

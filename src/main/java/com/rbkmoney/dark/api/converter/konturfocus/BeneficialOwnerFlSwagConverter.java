@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class BeneficialOwnerFlSwagConverter
-        implements
+@SuppressWarnings("LineLength")
+public class BeneficialOwnerFlSwagConverter implements
         SwagConverter<BeneficialOwnerFl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerFl> {
 
     @Override

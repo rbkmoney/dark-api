@@ -107,7 +107,6 @@ public class ConversationServiceTest {
     }
 
     private SaveConversationParams saveConversationParams() {
-        SaveConversationParams saveConversationParams = new SaveConversationParams();
 
         ConversationParam conversationParam = new ConversationParam();
         conversationParam.setConversationId("24134238");
@@ -116,6 +115,7 @@ public class ConversationServiceTest {
         messageParam.setText("some test text");
         conversationParam.setMessages(Collections.singletonList(messageParam));
 
+        SaveConversationParams saveConversationParams = new SaveConversationParams();
         saveConversationParams.add(conversationParam);
 
         return saveConversationParams;

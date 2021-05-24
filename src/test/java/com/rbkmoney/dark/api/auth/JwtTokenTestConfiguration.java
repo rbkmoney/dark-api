@@ -32,7 +32,7 @@ public class JwtTokenTestConfiguration {
     }
 
     @Bean
-    public JwtTokenBuilder JwtTokenBuilder(KeyPair keyPair) {
+    public JwtTokenBuilder jwtTokenBuilder(KeyPair keyPair) {
         return new JwtTokenBuilder(keyPair.getPrivate());
     }
 

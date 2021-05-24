@@ -33,14 +33,14 @@ public class WebConfig {
 
     @Bean
     public FilterRegistrationBean woodyFilter() {
-        WFlow wFlow = new WFlow();
+        WFlow woodyFlow = new WFlow();
         Filter filter = new OncePerRequestFilter() {
 
             @Override
             protected void doFilterInternal(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain filterChain) throws ServletException, IOException {
-                wFlow.createServiceFork(
+                woodyFlow.createServiceFork(
                         () -> {
                             try {
                                 if (request.getUserPrincipal() != null) {
@@ -83,22 +83,22 @@ public class WebConfig {
     }
 
     private void setWoodyDeadline(HttpServletRequest request) {
-        String xRequestDeadline = request.getHeader("X-Request-Deadline");
-        String xRequestId = request.getHeader("X-Request-ID");
-        if (xRequestDeadline != null) {
-            setDeadline(getInstant(xRequestDeadline, xRequestId));
+        String requestDeadline = request.getHeader("X-Request-Deadline");
+        String requestId = request.getHeader("X-Request-ID");
+        if (requestDeadline != null) {
+            setDeadline(getInstant(requestDeadline, requestId));
         }
     }
 
-    private Instant getInstant(String xRequestDeadline, String xRequestId) {
+    private Instant getInstant(String requestDeadline, String requestId) {
         Instant instant;
-        if (containsRelativeValues(xRequestDeadline, xRequestId)) {
+        if (containsRelativeValues(requestDeadline, requestId)) {
             instant = Instant.now()
-                    .plus(extractMilliseconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
-                    .plus(extractSeconds(xRequestDeadline, xRequestId), ChronoUnit.MILLIS)
-                    .plus(extractMinutes(xRequestDeadline, xRequestId), ChronoUnit.MILLIS);
+                    .plus(extractMilliseconds(requestDeadline, requestId), ChronoUnit.MILLIS)
+                    .plus(extractSeconds(requestDeadline, requestId), ChronoUnit.MILLIS)
+                    .plus(extractMinutes(requestDeadline, requestId), ChronoUnit.MILLIS);
         } else {
-            instant = Instant.parse(xRequestDeadline);
+            instant = Instant.parse(requestDeadline);
         }
         return instant;
     }

@@ -36,6 +36,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @RestController
 @RequestMapping("")
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class ClaimManagementController implements ProcessingApi {
 
     private final ClaimManagementService claimManagementService;

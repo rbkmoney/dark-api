@@ -7,6 +7,7 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Toponim;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("AbbreviationAsWordInName")
 public class ParsedAddressRFSwagConverter implements
         SwagConverter<ParsedAddressRF, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF> {
 

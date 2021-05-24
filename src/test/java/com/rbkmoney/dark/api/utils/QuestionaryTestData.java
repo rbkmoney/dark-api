@@ -177,8 +177,8 @@ public class QuestionaryTestData {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
         questionaryParams.getData().setShopInfo(
-                EnhancedRandom.random(ShopInfo.class).
-                        location(EnhancedRandom.random(ShopLocationUrl.class)
+                EnhancedRandom.random(ShopInfo.class)
+                        .location(EnhancedRandom.random(ShopLocationUrl.class)
                                 .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
@@ -236,8 +236,8 @@ public class QuestionaryTestData {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
         questionaryParams.getData().setShopInfo(
-                EnhancedRandom.random(ShopInfo.class).
-                        location(EnhancedRandom.random(ShopLocationUrl.class)
+                EnhancedRandom.random(ShopInfo.class)
+                        .location(EnhancedRandom.random(ShopLocationUrl.class)
                                 .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
@@ -274,7 +274,7 @@ public class QuestionaryTestData {
     }
 
     @SneakyThrows
-    public <T extends TBase> T fillTBaseObject(T tBase, Class<T> type) {
-        return mockTBaseProcessor.process(tBase, new TBaseHandler<>(type));
+    public <T extends TBase> T fillTBaseObject(T thriftBase, Class<T> type) {
+        return mockTBaseProcessor.process(thriftBase, new TBaseHandler<>(type));
     }
 }

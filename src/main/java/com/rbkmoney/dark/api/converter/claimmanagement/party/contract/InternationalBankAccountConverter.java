@@ -24,8 +24,9 @@ public class InternationalBankAccountConverter
 
         var swagBankDetails = swagInternationalBankAccount.getBank();
 
-        internationalBankAccount.setBank(swagBankDetails == null ?
-                null : new InternationalBankDetails()
+        internationalBankAccount.setBank(swagBankDetails == null
+                ? null
+                : new InternationalBankDetails()
                 .setAbaRtn(swagBankDetails.getAbaRtn())
                 .setAddress(swagBankDetails.getAddress())
                 .setBic(swagBankDetails.getBic())
@@ -92,8 +93,9 @@ public class InternationalBankAccountConverter
                 swagCorrespondentBankDetails.setAddress(correspondentAccountBank.getAddress());
                 swagCorrespondentBankDetails.setBic(correspondentAccountBank.getBic());
                 swagCorrespondentBankDetails.setName(correspondentAccountBank.getName());
-                swagCorrespondentBankDetails.setCountry(correspondentAccountBank.getCountry() != null ?
-                        correspondentAccountBank.getCountry().name() : null);
+                swagCorrespondentBankDetails.setCountry(correspondentAccountBank.getCountry() != null
+                        ? correspondentAccountBank.getCountry().name()
+                        : null);
 
                 swagCorrespondentAccount.setBank(swagCorrespondentBankDetails);
             }

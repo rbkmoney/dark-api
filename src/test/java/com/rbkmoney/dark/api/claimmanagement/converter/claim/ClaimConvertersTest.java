@@ -137,12 +137,6 @@ public class ClaimConvertersTest {
 
     @Test
     public void claimModificationConverterTest() throws IOException {
-        ClaimModificationConverter converter = new ClaimModificationConverter(
-                new ClaimDocumentModificationConverter(),
-                new ClaimCommentModificationUnitConverter(),
-                new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
-                new ClaimFileModificationUnitConverter()
-        );
 
         var swagStatusModUnit = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
         swagStatusModUnit.setClaimModificationType(STATUSMODIFICATIONUNIT);
@@ -156,6 +150,12 @@ public class ClaimConvertersTest {
         swagClaimModification.setClaimModificationType(swagStatusModUnit);
         swagClaimModification.setModificationType(CLAIMMODIFICATION);
 
+        ClaimModificationConverter converter = new ClaimModificationConverter(
+                new ClaimDocumentModificationConverter(),
+                new ClaimCommentModificationUnitConverter(),
+                new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
+                new ClaimFileModificationUnitConverter()
+        );
         var resultClaimModification = converter.convertToSwag(converter.convertToThrift(swagClaimModification));
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);
 

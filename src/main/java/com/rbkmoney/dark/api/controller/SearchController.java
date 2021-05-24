@@ -29,6 +29,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @RestController
 @PreAuthorize("hasAuthority('invoices:read')")
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class SearchController implements SearchApi {
 
     private final MagistaService magistaService;

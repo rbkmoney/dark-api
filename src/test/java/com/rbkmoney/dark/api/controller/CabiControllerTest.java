@@ -140,7 +140,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
                 .thenThrow(CurrencyRequestFail.class);
         mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", "BTC")
                 .param("to", "RUR")
                 .param("action", "BUY")
@@ -154,7 +154,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
                 .thenThrow(TException.class);
         mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", "BTC")
                 .param("to", "RUR")
                 .param("action", "BUY")
@@ -190,7 +190,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
                                             String to,
                                             String action) throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", from)
                 .param("to", to)
                 .param("action", action)

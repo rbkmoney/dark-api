@@ -20,6 +20,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 
 @RestController
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class SenderController implements MessageApi {
 
     private final FeedbackProperties feedbackProperties;

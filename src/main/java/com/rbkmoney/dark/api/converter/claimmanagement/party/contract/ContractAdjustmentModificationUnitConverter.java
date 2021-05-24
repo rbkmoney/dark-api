@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTADJUSTMENTMODIFICATIONUNIT;
 
 @Component
-public class ContractAdjustmentModificationUnitConverter
-        implements
+@SuppressWarnings("LineLength")
+public class ContractAdjustmentModificationUnitConverter implements
         DarkApiConverter<ContractAdjustmentModificationUnit, com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit> {
 
     @Override

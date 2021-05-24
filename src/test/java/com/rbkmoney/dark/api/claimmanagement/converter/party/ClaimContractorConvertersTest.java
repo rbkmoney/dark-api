@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ClaimContractorConvertersTest {
 
+    @SuppressWarnings("LineLength")
     private static com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel getTestContractorIdentificationLevel() {
         var swagIdentificationLevel =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractorIdentificationLevel.class);
@@ -218,10 +219,6 @@ public class ClaimContractorConvertersTest {
 
     @Test
     public void contractorConverterTest() throws IOException {
-        ClaimContractorConverter converter = new ClaimContractorConverter(
-                new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(),
-                        new RussianLegalEntityConverter()),
-                new PrivateEntityConverter());
         var swagRegisteredUser = new com.rbkmoney.swag.claim_management.model.RegisteredUser();
         swagRegisteredUser.setContractorType(REGISTEREDUSER);
         swagRegisteredUser.setEmail("some email");
@@ -229,6 +226,10 @@ public class ClaimContractorConvertersTest {
         swagContractor.setContractorModificationType(CONTRACTOR);
         swagContractor.setContractorType(swagRegisteredUser);
 
+        ClaimContractorConverter converter = new ClaimContractorConverter(
+                new ClaimLegalEntityConverter(new InternationalLegalEntityConverter(),
+                        new RussianLegalEntityConverter()),
+                new PrivateEntityConverter());
         var resultContractor = converter.convertToSwag(converter.convertToThrift(swagContractor));
         assertEquals("Swag objects 'ContractorIdentificationLevel' not equals",
                 swagContractor, resultContractor);

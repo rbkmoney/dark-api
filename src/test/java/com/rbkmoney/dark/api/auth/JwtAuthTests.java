@@ -47,13 +47,13 @@ public class JwtAuthTests extends AbstractKeycloakOpenIdAsWiremockConfig {
         mockMvc.perform(
                 get("/ping")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .header("Authorization", "Bearer " + generateRBKadminJwt())
+                        .header("Authorization", "Bearer " + generateRbkAdminJwt())
         ).andExpect(status().isOk()).andExpect(content().string("pong"));
 
         mockMvc.perform(
                 get("/testAdmin")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                        .header("Authorization", "Bearer " + generateRBKadminJwt())
+                        .header("Authorization", "Bearer " + generateRbkAdminJwt())
         ).andExpect(status().isOk()).andExpect(content().string("testAdmin!"));
     }
 
@@ -72,7 +72,7 @@ public class JwtAuthTests extends AbstractKeycloakOpenIdAsWiremockConfig {
 
         mockMvc.perform(
                 get("/testManager")
-                        .header("Authorization", "Bearer " + generateRBKadminJwt())
+                        .header("Authorization", "Bearer " + generateRbkAdminJwt())
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         ).andExpect(status().isForbidden());
     }

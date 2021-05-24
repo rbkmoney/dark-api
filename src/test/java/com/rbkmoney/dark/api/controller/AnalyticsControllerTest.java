@@ -31,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {DarkApiApplication.class})
 @AutoConfigureMockMvc
+@SuppressWarnings("MemberName")
 public class AnalyticsControllerTest {
 
     public static final String PARTY_ID = "partyId";

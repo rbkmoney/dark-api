@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class BeneficialOwnerResponseSwagConverter
-        implements
+@SuppressWarnings("LineLength")
+public class BeneficialOwnerResponseSwagConverter implements
         SwagConverter<BeneficialOwnerResponse, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerResponse> {
 
     @Override

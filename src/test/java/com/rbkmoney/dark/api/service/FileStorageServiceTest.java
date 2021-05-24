@@ -62,9 +62,9 @@ public class FileStorageServiceTest {
 
     @Test
     public void getFileInfoSuccessWithEmptyMetadata() throws TException {
-        String created_at = Instant.now().toString();
+        String createdAt = Instant.now().toString();
         when(fileStorageClient.getFileData(any())).thenReturn(new FileData()
-                .setCreatedAt(created_at)
+                .setCreatedAt(createdAt)
                 .setFileDataId(fileId)
                 .setFileName(fileName)
                 .setMetadata(metadata)
@@ -74,17 +74,16 @@ public class FileStorageServiceTest {
         Assert.assertEquals(fileId, fileInfo.getFileId());
         Assert.assertEquals(fileName, fileInfo.getFileName());
         Assert.assertEquals(metadata, fileInfo.getMetadata());
-        Assert.assertEquals(created_at, fileInfo.getCreatedAt().toString());
+        Assert.assertEquals(createdAt, fileInfo.getCreatedAt().toString());
     }
 
     @Test
     public void getFileInfoSuccessWithMetadata() throws TException {
-        String created_at = Instant.now().toString();
-        Map<String, Value> metadata = new HashMap<>() {{
-            put("test", new Value());
-        }};
+        String createdAt = Instant.now().toString();
+        Map<String, Value> metadata = new HashMap<>();
+        metadata.put("test", new Value());
         when(fileStorageClient.getFileData(any())).thenReturn(new FileData()
-                .setCreatedAt(created_at)
+                .setCreatedAt(createdAt)
                 .setFileDataId(fileId)
                 .setFileName(fileName)
                 .setMetadata(metadata)
@@ -94,17 +93,12 @@ public class FileStorageServiceTest {
         Assert.assertEquals(fileId, fileInfo.getFileId());
         Assert.assertEquals(fileName, fileInfo.getFileName());
         Assert.assertEquals(metadata, fileInfo.getMetadata());
-        Assert.assertEquals(created_at, fileInfo.getCreatedAt().toString());
+        Assert.assertEquals(createdAt, fileInfo.getCreatedAt().toString());
     }
 
     @Test(expected = FileNotFound.class)
     public void getFileNotFound() throws TException {
-        String created_at = Instant.now().toString();
-        Map<String, Value> metadata = new HashMap<>() {{
-            put("test", new Value());
-        }};
         when(fileStorageClient.getFileData(any())).thenThrow(FileNotFound.class);
-
         service.getFileInfo(fileId);
     }
 

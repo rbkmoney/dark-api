@@ -57,7 +57,6 @@ public class ClaimManagementServiceTest {
     }
 
     private static ClaimChangeset getChangeset() {
-        ClaimChangeset changeset = new ClaimChangeset();
         var modificationUnit = new com.rbkmoney.swag.claim_management.model.ModificationUnit();
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
         swagClaimModification.setModificationType(CLAIMMODIFICATION);
@@ -79,6 +78,7 @@ public class ClaimManagementServiceTest {
                         .userType(com.rbkmoney.swag.claim_management.model.UserInfo.UserTypeEnum.INTERNAL_USER)
         );
 
+        ClaimChangeset changeset = new ClaimChangeset();
         changeset.add(modificationUnit);
         return changeset;
     }
@@ -110,7 +110,6 @@ public class ClaimManagementServiceTest {
         claimMetadata.put("test_key", new Value());
         claim.setMetadata(claimMetadata);
         claim.setUpdatedAt("2019-08-21T12:09:32.449571+03:00");
-        List<com.rbkmoney.damsel.claim_management.ModificationUnit> changeset = new ArrayList<>();
         DocumentModification documentModification = new DocumentModification();
         documentModification.setCreation(new DocumentCreated());
 
@@ -134,6 +133,8 @@ public class ClaimManagementServiceTest {
                         .setType(UserType.internal_user(new InternalUser()))
         );
         thriftModificationUnit.setModification(modification);
+
+        List<com.rbkmoney.damsel.claim_management.ModificationUnit> changeset = new ArrayList<>();
         changeset.add(thriftModificationUnit);
         claim.setChangeset(changeset);
         return claim;

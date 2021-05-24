@@ -41,12 +41,12 @@ public class AccountantInfoConverter implements
 
                 return accountingOrganization;
             } else {
-                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
-                        + value.getWithoutChiefAccountant().getClass().getName());
+                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: " +
+                        value.getWithoutChiefAccountant().getClass().getName());
             }
         } else {
-            throw new IllegalArgumentException("Unknown withChiefAccountant type: "
-                    + value.getWithChiefAccountant().getClass().getName());
+            throw new IllegalArgumentException("Unknown withChiefAccountant type: " +
+                    value.getWithChiefAccountant().getClass().getName());
         }
     }
 

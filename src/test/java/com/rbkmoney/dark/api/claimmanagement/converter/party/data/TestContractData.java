@@ -51,6 +51,7 @@ public final class TestContractData {
         return thriftInternationalBankAccount;
     }
 
+    @SuppressWarnings("LineLength")
     public static com.rbkmoney.swag.claim_management.model.InternationalBankAccount getTestSwagInternationalBankAccount() {
         var swagInternationalBankAccount =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
@@ -75,14 +76,14 @@ public final class TestContractData {
                 swagPayoutToolModificationUnit.setModification(swagPayoutToolParams);
                 break;
             case CONTRACTPAYOUTTOOLINFOMODIFICATION:
-                var contractPayoutToolInfoModification =
-                        EnhancedRandom.random(ContractPayoutToolInfoModification.class);
                 var swagInternationalBankAccount =
                         EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
 
                 swagInternationalBankAccount.setPayoutToolType(INTERNATIONALBANKACCOUNT);
                 swagInternationalBankAccount.getBank().setCountry("RUS");
                 swagInternationalBankAccount.getCorrespondentAccount().getBank().setCountry("RUS");
+                var contractPayoutToolInfoModification =
+                        EnhancedRandom.random(ContractPayoutToolInfoModification.class);
                 contractPayoutToolInfoModification.setPayoutToolInfo(swagInternationalBankAccount);
                 contractPayoutToolInfoModification.setPayoutToolModificationType(CONTRACTPAYOUTTOOLINFOMODIFICATION);
 
@@ -94,6 +95,7 @@ public final class TestContractData {
         return swagPayoutToolModificationUnit;
     }
 
+    @SuppressWarnings("LineLength")
     public static com.rbkmoney.swag.claim_management.model.ContractModificationUnit getTestSwagContractModificationUnit() {
         var swagContractModificationUnit = new com.rbkmoney.swag.claim_management.model.ContractModificationUnit();
         swagContractModificationUnit.setId("123");

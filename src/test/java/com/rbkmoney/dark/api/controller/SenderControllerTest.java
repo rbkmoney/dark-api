@@ -62,7 +62,7 @@ public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig
         String content = objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(emailPayload);
 
         mvc.perform(post("/message/feedback")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .header("X-Request-ID", "testRequestId")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(content))

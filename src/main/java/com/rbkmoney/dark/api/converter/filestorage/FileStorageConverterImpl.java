@@ -12,19 +12,19 @@ import java.time.OffsetDateTime;
 public class FileStorageConverterImpl implements FileStorageConverter {
 
     @Override
-    public FileData convertFileData(com.rbkmoney.file.storage.FileData tFileData) {
+    public FileData convertFileData(com.rbkmoney.file.storage.FileData fileData) {
         return new FileData()
-                .fileId(tFileData.getFileDataId())
-                .fileName(tFileData.getFileName())
-                .createdAt(OffsetDateTime.parse(tFileData.getCreatedAt()))
-                .metadata(tFileData.getMetadata());
+                .fileId(fileData.getFileDataId())
+                .fileName(fileData.getFileName())
+                .createdAt(OffsetDateTime.parse(fileData.getCreatedAt()))
+                .metadata(fileData.getMetadata());
     }
 
     @Override
-    public FileUploadData convertFileUploadData(NewFileResult tNewFileResult) {
+    public FileUploadData convertFileUploadData(NewFileResult newFileResult) {
         return new FileUploadData()
-                .url(tNewFileResult.getUploadUrl())
-                .fileId(tNewFileResult.getFileDataId());
+                .url(newFileResult.getUploadUrl())
+                .fileId(newFileResult.getFileDataId());
     }
 
     @Override

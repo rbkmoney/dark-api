@@ -422,6 +422,7 @@ public class QuestionaryCompareUtil {
         Assert.assertEquals(international.getRegisteredNumber(), internationalLegalEntity.getRegisteredNumber());
     }
 
+    @SuppressWarnings("LineLength")
     public static void internationalBankAccountCompare(com.rbkmoney.questionary.BankAccount thriftBankAccount,
                                                        com.rbkmoney.swag.questionary.model.BankAccount swagBankAccount) {
         if (swagBankAccount instanceof InternationalBankAccount) {
