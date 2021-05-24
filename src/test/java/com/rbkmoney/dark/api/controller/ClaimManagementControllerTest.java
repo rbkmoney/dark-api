@@ -65,7 +65,8 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "          \"contractorType\": \"LegalEntity\",\n" +
                                 "          \"legalEntityType\": {\n" +
                                 "            \"legalEntityType\": \"RussianLegalEntity\",\n" +
-                                "            \"actualAddress\": \"обл Московская, г Ивантеевка, ул Новая Слобода, дом 9\",\n" +
+                                "            \"actualAddress\": " +
+                                "\"обл Московская, г Ивантеевка, ул Новая Слобода, дом 9\",\n" +
                                 "            \"russianBankAccount\": {\n" +
                                 "              \"payoutToolModificationType\": \"RussianBankAccount\",\n" +
                                 "              \"payoutToolType\": \"RussianBankAccount\",\n" +
@@ -75,7 +76,8 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "              \"bankPostAccount\": \"30101810145250000974\"\n" +
                                 "            },\n" +
                                 "            \"inn\": \"5016003824\",\n" +
-                                "            \"postAddress\": \"обл Московская, г Ивантеевка, ул Новая Слобода, дом 9\",\n" +
+                                "            \"postAddress\": \"обл Московская, г Ивантеевка, ул Новая Слобода, " +
+                                "дом 9\",\n" +
                                 "            \"registeredName\": \"ООО \\\"Батя\\\"\",\n" +
                                 "            \"registeredNumber\": \"\",\n" +
                                 "            \"representativeDocument\": \"1111 111111\",\n" +
@@ -106,7 +108,8 @@ public class ClaimManagementControllerTest extends AbstractKeycloakOpenIdAsWirem
                                 "        \"contractModificationType\": \"ContractPayoutToolModificationUnit\",\n" +
                                 "        \"payoutToolID\": \"a5648077-a4c7-4e35-95ae-380d171fbc0f\",\n" +
                                 "        \"modification\": {\n" +
-                                "          \"payoutToolModificationType\": \"ContractPayoutToolCreationModification\",\n" +
+                                "          \"payoutToolModificationType\": " +
+                                "\"ContractPayoutToolCreationModification\",\n" +
                                 "          \"currency\": {\n" +
                                 "            \"symbolicCode\": \"RUB\"\n" +
                                 "          },\n" +

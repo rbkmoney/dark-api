@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class AnalyticsController implements AnalyticsApi {
 
     private final AnalyticsService analyticsService;

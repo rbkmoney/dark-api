@@ -1,9 +1,9 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.shop;
 
-import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.claim_management.ShopContractModification;
 import com.rbkmoney.damsel.claim_management.ShopModification;
 import com.rbkmoney.damsel.claim_management.ShopModificationUnit;
+import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.domain.CategoryRef;
 import com.rbkmoney.damsel.domain.ShopDetails;
 import com.rbkmoney.damsel.domain.ShopLocation;
@@ -18,7 +18,8 @@ import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModi
 @Component
 @RequiredArgsConstructor
 public class ShopModificationUnitConverter
-        implements DarkApiConverter<ShopModificationUnit, com.rbkmoney.swag.claim_management.model.ShopModificationUnit> {
+        implements
+        DarkApiConverter<ShopModificationUnit, com.rbkmoney.swag.claim_management.model.ShopModificationUnit> {
 
     private final DarkApiConverter<ShopParams, ShopCreationModification> shopParamsConverter;
 
@@ -45,11 +46,14 @@ public class ShopModificationUnitConverter
                 shopModification.setCreation(shopParamsConverter.convertToThrift(swagCreation));
                 break;
             case SHOPCATEGORYMODIFICATION:
-                var swagShopCategoryModification = (com.rbkmoney.swag.claim_management.model.ShopCategoryModification) swagModification;
-                shopModification.setCategoryModification(new CategoryRef().setId(swagShopCategoryModification.getCategory().getCategoryID()));
+                var swagShopCategoryModification =
+                        (com.rbkmoney.swag.claim_management.model.ShopCategoryModification) swagModification;
+                shopModification.setCategoryModification(
+                        new CategoryRef().setId(swagShopCategoryModification.getCategory().getCategoryID()));
                 break;
             case SHOPDETAILSMODIFICATION:
-                var swagShopDetails = (com.rbkmoney.swag.claim_management.model.ShopDetailsModification) swagModification;
+                var swagShopDetails =
+                        (com.rbkmoney.swag.claim_management.model.ShopDetailsModification) swagModification;
                 shopModification.setDetailsModification(claimShopDetailsConverter.convertToThrift(swagShopDetails));
                 break;
             case SHOPCONTRACTMODIFICATION:
@@ -65,18 +69,23 @@ public class ShopModificationUnitConverter
                 shopModification.setPayoutToolModification(swagShopPayoutToolModification.getPayoutToolModification());
                 break;
             case SHOPLOCATIONMODIFICATION:
-                var swagShopLocation = (com.rbkmoney.swag.claim_management.model.ShopLocationModification) swagModification;
+                var swagShopLocation =
+                        (com.rbkmoney.swag.claim_management.model.ShopLocationModification) swagModification;
                 ShopLocation locationModification = new ShopLocation();
                 locationModification.setUrl(((ShopLocationUrl) swagShopLocation.getLocation()).getUrl());
                 shopModification.setLocationModification(locationModification);
                 break;
             case SHOPACCOUNTCREATIONMODIFICATION:
-                var swagShopAccountParams = (com.rbkmoney.swag.claim_management.model.ShopAccountCreationModification) swagModification;
-                shopModification.setShopAccountCreation(shopAccountParamsConverter.convertToThrift(swagShopAccountParams));
+                var swagShopAccountParams =
+                        (com.rbkmoney.swag.claim_management.model.ShopAccountCreationModification) swagModification;
+                shopModification
+                        .setShopAccountCreation(shopAccountParamsConverter.convertToThrift(swagShopAccountParams));
                 break;
             case SHOPPAYOUTSCHEDULEMODIFICATION:
-                var swagScheduleModification = (com.rbkmoney.swag.claim_management.model.ShopPayoutScheduleModification) swagModification;
-                shopModification.setPayoutScheduleModification(scheduleModificationConverter.convertToThrift(swagScheduleModification));
+                var swagScheduleModification =
+                        (com.rbkmoney.swag.claim_management.model.ShopPayoutScheduleModification) swagModification;
+                shopModification.setPayoutScheduleModification(
+                        scheduleModificationConverter.convertToThrift(swagScheduleModification));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown shop modification type: " +
@@ -100,7 +109,8 @@ public class ShopModificationUnitConverter
             swagShopModificationUnit.setModification(shopParamsConverter.convertToSwag(shopModification.getCreation()));
         } else if (shopModification.isSetContractModification()) {
             ShopContractModification shopContractModification = shopModification.getContractModification();
-            swagShopModificationUnit.setModification(shopContractModificationConverter.convertToSwag(shopContractModification));
+            swagShopModificationUnit
+                    .setModification(shopContractModificationConverter.convertToSwag(shopContractModification));
         } else if (shopModification.isSetCategoryModification()) {
             CategoryRef categoryModification = shopModification.getCategoryModification();
             var swagCategoryRef = new com.rbkmoney.swag.claim_management.model.CategoryRef();
@@ -127,9 +137,11 @@ public class ShopModificationUnitConverter
             swagShopModificationUnit.setModification(shopAccountParamsConverter.convertToSwag(shopAccountCreation));
         } else if (shopModification.isSetPayoutScheduleModification()) {
             ScheduleModification payoutScheduleModification = shopModification.getPayoutScheduleModification();
-            swagShopModificationUnit.setModification(scheduleModificationConverter.convertToSwag(payoutScheduleModification));
+            swagShopModificationUnit
+                    .setModification(scheduleModificationConverter.convertToSwag(payoutScheduleModification));
         } else if (shopModification.isSetPayoutToolModification()) {
-            var swagShopPayoutToolModification = new com.rbkmoney.swag.claim_management.model.ShopPayoutToolModification();
+            var swagShopPayoutToolModification =
+                    new com.rbkmoney.swag.claim_management.model.ShopPayoutToolModification();
             swagShopPayoutToolModification.setPayoutToolModification(shopModification.getPayoutToolModification());
             swagShopPayoutToolModification.setShopModificationType(SHOPPAYOUTTOOLMODIFICATION);
             swagShopModificationUnit.setModification(swagShopPayoutToolModification);

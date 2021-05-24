@@ -8,6 +8,7 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Share;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("AbbreviationAsWordInName")
 public class FounderFLSwagConverter implements SwagConverter<FounderFl, FounderFL> {
 
     @Override

@@ -34,7 +34,7 @@ public abstract class AbstractKeycloakOpenIdAsWiremockConfig {
         return keycloakOpenIdStub.generateJwt(iat, exp, roles);
     }
 
-    protected String generateRBKadminJwt() {
+    protected String generateRbkAdminJwt() {
         return keycloakOpenIdStub.generateJwt("RBKadmin");
     }
 

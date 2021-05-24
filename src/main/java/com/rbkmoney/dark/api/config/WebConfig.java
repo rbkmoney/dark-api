@@ -18,6 +18,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.time.Instant;
@@ -28,18 +29,19 @@ import static com.rbkmoney.woody.api.trace.ContextUtils.setCustomMetadataValue;
 import static com.rbkmoney.woody.api.trace.ContextUtils.setDeadline;
 
 @Configuration
+@SuppressWarnings({"ParameterName", "LocalVariableName"})
 public class WebConfig {
 
     @Bean
     public FilterRegistrationBean woodyFilter() {
-        WFlow wFlow = new WFlow();
+        WFlow woodyFlow = new WFlow();
         Filter filter = new OncePerRequestFilter() {
 
             @Override
             protected void doFilterInternal(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain filterChain) throws ServletException, IOException {
-                wFlow.createServiceFork(
+                woodyFlow.createServiceFork(
                         () -> {
                             try {
                                 if (request.getUserPrincipal() != null) {
@@ -71,7 +73,8 @@ public class WebConfig {
     }
 
     private void addWoodyContext(Principal principal) {
-        KeycloakSecurityContext keycloakSecurityContext = ((KeycloakAuthenticationToken) principal).getAccount().getKeycloakSecurityContext();
+        KeycloakSecurityContext keycloakSecurityContext =
+                ((KeycloakAuthenticationToken) principal).getAccount().getKeycloakSecurityContext();
         AccessToken accessToken = keycloakSecurityContext.getToken();
 
         setCustomMetadataValue(UserIdentityIdExtensionKit.KEY, accessToken.getSubject());

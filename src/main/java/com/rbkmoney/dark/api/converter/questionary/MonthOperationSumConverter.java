@@ -13,7 +13,8 @@ public class MonthOperationSumConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.MonthOperationSum, MonthOperationSum> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.MonthOperationSum toSwag(MonthOperationSum value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.MonthOperationSum toSwag(MonthOperationSum value,
+                                                                        SwagConverterContext ctx) {
         switch (value) {
             case gt_one_million:
                 return com.rbkmoney.swag.questionary.model.MonthOperationSum.GTONEMILLION;
@@ -27,7 +28,8 @@ public class MonthOperationSumConverter implements
     }
 
     @Override
-    public MonthOperationSum toThrift(com.rbkmoney.swag.questionary.model.MonthOperationSum value, ThriftConverterContext ctx) {
+    public MonthOperationSum toThrift(com.rbkmoney.swag.questionary.model.MonthOperationSum value,
+                                      ThriftConverterContext ctx) {
         switch (value) {
             case GTONEMILLION:
                 return MonthOperationSum.gt_one_million;

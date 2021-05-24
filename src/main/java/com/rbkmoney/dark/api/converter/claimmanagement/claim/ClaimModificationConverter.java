@@ -25,27 +25,37 @@ public class ClaimModificationConverter
             com.rbkmoney.swag.claim_management.model.FileModificationUnit> fileModificationUnitConverter;
 
     @Override
-    public Modification convertToThrift(com.rbkmoney.swag.claim_management.model.ClaimModification swagClaimModification) {
+    public Modification convertToThrift(
+            com.rbkmoney.swag.claim_management.model.ClaimModification swagClaimModification) {
         Modification modification = new Modification();
-        var claimModification = new com.rbkmoney.damsel.claim_management.ClaimModification(); // todo: напилить проверку на null
+        var claimModification =
+                new com.rbkmoney.damsel.claim_management.ClaimModification(); // todo: напилить проверку на null
         var swagClaimModificationType = swagClaimModification.getClaimModificationType();
 
         switch (swagClaimModificationType.getClaimModificationType()) {
             case DOCUMENTMODIFICATIONUNIT:
-                var swagDocModification = (com.rbkmoney.swag.claim_management.model.DocumentModificationUnit) swagClaimModificationType;
-                claimModification.setDocumentModification(documentModificationConverter.convertToThrift(swagDocModification));
+                var swagDocModification =
+                        (com.rbkmoney.swag.claim_management.model.DocumentModificationUnit) swagClaimModificationType;
+                claimModification
+                        .setDocumentModification(documentModificationConverter.convertToThrift(swagDocModification));
                 break;
             case COMMENTMODIFICATIONUNIT:
-                var commentModificationUnit = (com.rbkmoney.swag.claim_management.model.CommentModificationUnit) swagClaimModificationType;
-                claimModification.setCommentModification(commentModificationUnitConverter.convertToThrift(commentModificationUnit));
+                var commentModificationUnit =
+                        (com.rbkmoney.swag.claim_management.model.CommentModificationUnit) swagClaimModificationType;
+                claimModification.setCommentModification(
+                        commentModificationUnitConverter.convertToThrift(commentModificationUnit));
                 break;
             case STATUSMODIFICATIONUNIT:
-                var swagStatusModificationUnit = (com.rbkmoney.swag.claim_management.model.StatusModificationUnit) swagClaimModificationType;
-                claimModification.setStatusModification(statusModificationUnitConverter.convertToThrift(swagStatusModificationUnit));
+                var swagStatusModificationUnit =
+                        (com.rbkmoney.swag.claim_management.model.StatusModificationUnit) swagClaimModificationType;
+                claimModification.setStatusModification(
+                        statusModificationUnitConverter.convertToThrift(swagStatusModificationUnit));
                 break;
             case FILEMODIFICATIONUNIT:
-                var fileModificationUnit = (com.rbkmoney.swag.claim_management.model.FileModificationUnit) swagClaimModificationType;
-                claimModification.setFileModification(fileModificationUnitConverter.convertToThrift(fileModificationUnit));
+                var fileModificationUnit =
+                        (com.rbkmoney.swag.claim_management.model.FileModificationUnit) swagClaimModificationType;
+                claimModification
+                        .setFileModification(fileModificationUnitConverter.convertToThrift(fileModificationUnit));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown claim modification type: " +
@@ -61,16 +71,20 @@ public class ClaimModificationConverter
         ClaimModification claimModification = unit.getClaimModification();
         if (claimModification.isSetDocumentModification()) {
             DocumentModificationUnit documentModification = claimModification.getDocumentModification();
-            swagClaimModification.setClaimModificationType(documentModificationConverter.convertToSwag(documentModification));
+            swagClaimModification
+                    .setClaimModificationType(documentModificationConverter.convertToSwag(documentModification));
         } else if (claimModification.isSetCommentModification()) {
             CommentModificationUnit commentModification = claimModification.getCommentModification();
-            swagClaimModification.setClaimModificationType(commentModificationUnitConverter.convertToSwag(commentModification));
+            swagClaimModification
+                    .setClaimModificationType(commentModificationUnitConverter.convertToSwag(commentModification));
         } else if (claimModification.isSetStatusModification()) {
             StatusModificationUnit statusModification = claimModification.getStatusModification();
-            swagClaimModification.setClaimModificationType(statusModificationUnitConverter.convertToSwag(statusModification));
+            swagClaimModification
+                    .setClaimModificationType(statusModificationUnitConverter.convertToSwag(statusModification));
         } else if (claimModification.isSetFileModification()) {
             FileModificationUnit fileModificationUnit = claimModification.getFileModification();
-            swagClaimModification.setClaimModificationType(fileModificationUnitConverter.convertToSwag(fileModificationUnit));
+            swagClaimModification
+                    .setClaimModificationType(fileModificationUnitConverter.convertToSwag(fileModificationUnit));
         } else {
             throw new IllegalArgumentException("Unknown claim modification type!");
         }

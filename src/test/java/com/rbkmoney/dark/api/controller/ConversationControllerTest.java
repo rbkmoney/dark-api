@@ -46,7 +46,8 @@ public class ConversationControllerTest extends AbstractKeycloakOpenIdAsWiremock
     @BeforeEach
     public void setUp() throws Exception {
         Authentication authentication = Mockito.mock(Authentication.class);
-        KeycloakSecurityContext keycloakSecurityContext = new KeycloakSecurityContext("tokenTest", new AccessToken(), "testToken", new IDToken());
+        KeycloakSecurityContext keycloakSecurityContext =
+                new KeycloakSecurityContext("tokenTest", new AccessToken(), "testToken", new IDToken());
         KeycloakPrincipal keycloakPrincipal = new KeycloakPrincipal<>("test", keycloakSecurityContext);
         Mockito.when(authentication.getPrincipal()).thenReturn(keycloakPrincipal);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
@@ -68,10 +69,11 @@ public class ConversationControllerTest extends AbstractKeycloakOpenIdAsWiremock
 
         List<ConversationParam> conversationParams = List.of(conversationParam);
 
-        String conversationParamJson = objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(conversationParams);
+        String conversationParamJson =
+                objectMapper.writer().withDefaultPrettyPrinter().writeValueAsString(conversationParams);
 
         mvc.perform(post("/conversation")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(conversationParamJson))
                 .andDo(print())

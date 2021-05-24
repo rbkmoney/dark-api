@@ -13,7 +13,8 @@ public class MigrationCardInfoConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.MigrationCardInfo, MigrationCardInfo> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.MigrationCardInfo toSwag(MigrationCardInfo value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.MigrationCardInfo toSwag(MigrationCardInfo value,
+                                                                        SwagConverterContext ctx) {
         return new com.rbkmoney.swag.questionary.model.MigrationCardInfo()
                 .beginningDate(value.getBeginningDate())
                 .cardNumber(value.getCardNumber())
@@ -21,7 +22,8 @@ public class MigrationCardInfoConverter implements
     }
 
     @Override
-    public MigrationCardInfo toThrift(com.rbkmoney.swag.questionary.model.MigrationCardInfo value, ThriftConverterContext ctx) {
+    public MigrationCardInfo toThrift(com.rbkmoney.swag.questionary.model.MigrationCardInfo value,
+                                      ThriftConverterContext ctx) {
         return new MigrationCardInfo()
                 .setExpirationDate(value.getExpirationDate())
                 .setBeginningDate(value.getBeginningDate())

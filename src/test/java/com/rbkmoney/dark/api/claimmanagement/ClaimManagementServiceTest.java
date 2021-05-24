@@ -42,35 +42,6 @@ public class ClaimManagementServiceTest {
     @MockBean
     private PartyManagementService partyManagementService;
 
-    @Before
-    public void setUp() {
-        doNothing().when(partyManagementService).checkStatus(any());
-    }
-
-    @Test
-    public void test() throws Exception {
-        when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class))).thenReturn(getTestCreateClaim());
-        when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
-        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(
-                new ClaimSearchResponse(getTestSearchClaim())
-                        .setContinuationToken("continuation_token")
-        );
-
-        var requestClaim = claimManagementService.createClaim("test_request_1", getModifications());
-        assertEquals("Swag objects 'Claim' (create) not equals",
-                getTestAnswerCreateClaim().toString(), requestClaim.toString());
-
-        var claimById = claimManagementService.getClaimById("test_request_1", 1L);
-        assertEquals("Swag objects 'Claim' (by id) not equals",
-                getTestAnswerCreateClaim().toString(), claimById.toString());
-
-        InlineResponse200 response =
-                claimManagementService.searchClaims("test_request_1", 1, "token", 123L, new ArrayList<>());
-        assertEquals("Swag objects 'Claim' (search) not equals",
-                getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
-        assertEquals("continuation_token", response.getContinuationToken());
-    }
-
     private static com.rbkmoney.swag.claim_management.model.Claim getTestAnswerCreateClaim() {
         var testClaim = new com.rbkmoney.swag.claim_management.model.Claim();
         testClaim.setId(1L);
@@ -86,7 +57,6 @@ public class ClaimManagementServiceTest {
     }
 
     private static ClaimChangeset getChangeset() {
-        ClaimChangeset changeset = new ClaimChangeset();
         var modificationUnit = new com.rbkmoney.swag.claim_management.model.ModificationUnit();
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
         swagClaimModification.setModificationType(CLAIMMODIFICATION);
@@ -108,6 +78,7 @@ public class ClaimManagementServiceTest {
                         .userType(com.rbkmoney.swag.claim_management.model.UserInfo.UserTypeEnum.INTERNAL_USER)
         );
 
+        ClaimChangeset changeset = new ClaimChangeset();
         changeset.add(modificationUnit);
         return changeset;
     }
@@ -139,7 +110,6 @@ public class ClaimManagementServiceTest {
         claimMetadata.put("test_key", new Value());
         claim.setMetadata(claimMetadata);
         claim.setUpdatedAt("2019-08-21T12:09:32.449571+03:00");
-        List<com.rbkmoney.damsel.claim_management.ModificationUnit> changeset = new ArrayList<>();
         DocumentModification documentModification = new DocumentModification();
         documentModification.setCreation(new DocumentCreated());
 
@@ -149,7 +119,8 @@ public class ClaimManagementServiceTest {
                         .setId("id_1")
                         .setModification(documentModification)
         );
-        com.rbkmoney.damsel.claim_management.Modification modification = new com.rbkmoney.damsel.claim_management.Modification();
+        com.rbkmoney.damsel.claim_management.Modification modification =
+                new com.rbkmoney.damsel.claim_management.Modification();
         modification.setClaimModification(claimModification);
         var thriftModificationUnit = new com.rbkmoney.damsel.claim_management.ModificationUnit();
         thriftModificationUnit.setCreatedAt("2019-08-21T12:09:32.449571+03:00");
@@ -162,6 +133,8 @@ public class ClaimManagementServiceTest {
                         .setType(UserType.internal_user(new InternalUser()))
         );
         thriftModificationUnit.setModification(modification);
+
+        List<com.rbkmoney.damsel.claim_management.ModificationUnit> changeset = new ArrayList<>();
         changeset.add(thriftModificationUnit);
         claim.setChangeset(changeset);
         return claim;
@@ -175,6 +148,36 @@ public class ClaimManagementServiceTest {
         List<Claim> claimList = new ArrayList<>();
         claimList.add(getTestCreateClaim());
         return claimList;
+    }
+
+    @Before
+    public void setUp() {
+        doNothing().when(partyManagementService).checkStatus(any());
+    }
+
+    @Test
+    public void test() throws Exception {
+        when(claimManagementClient.createClaim(any(String.class), any(ArrayList.class)))
+                .thenReturn(getTestCreateClaim());
+        when(claimManagementClient.getClaim(any(String.class), any(Long.class))).thenReturn(getTestClaimById());
+        when(claimManagementClient.searchClaims(any(ClaimSearchQuery.class))).thenReturn(
+                new ClaimSearchResponse(getTestSearchClaim())
+                        .setContinuationToken("continuation_token")
+        );
+
+        var requestClaim = claimManagementService.createClaim("test_request_1", getModifications());
+        assertEquals("Swag objects 'Claim' (create) not equals",
+                getTestAnswerCreateClaim().toString(), requestClaim.toString());
+
+        var claimById = claimManagementService.getClaimById("test_request_1", 1L);
+        assertEquals("Swag objects 'Claim' (by id) not equals",
+                getTestAnswerCreateClaim().toString(), claimById.toString());
+
+        InlineResponse200 response =
+                claimManagementService.searchClaims("test_request_1", 1, "token", 123L, new ArrayList<>());
+        assertEquals("Swag objects 'Claim' (search) not equals",
+                getTestAnswerCreateClaim().toString(), response.getResult().get(0).toString());
+        assertEquals("continuation_token", response.getContinuationToken());
     }
 
 }

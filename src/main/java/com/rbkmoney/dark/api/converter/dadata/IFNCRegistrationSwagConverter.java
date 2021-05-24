@@ -7,6 +7,7 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.IFNCRegistration;
 import org.springframework.stereotype.Component;
 
 @Component
+@SuppressWarnings("AbbreviationAsWordInName")
 public class IFNCRegistrationSwagConverter implements SwagConverter<IFNCRegistration, Registration> {
 
     @Override

@@ -25,10 +25,27 @@ import static org.junit.Assert.assertEquals;
 
 public class ContractConvertersTest {
 
+    private static PayoutToolModificationUnit getTestPayoutToolModificationUnit() {
+        PayoutToolInfo payoutToolInfo = new PayoutToolInfo();
+        payoutToolInfo.setInternationalBankAccount(getTestInternationalBankAccount());
+
+        var payoutToolModification = new com.rbkmoney.damsel.claim_management.PayoutToolModification();
+        payoutToolModification.setCreation(new com.rbkmoney.damsel.claim_management.PayoutToolParams()
+                .setCurrency(new CurrencyRef().setSymbolicCode("RUB"))
+                .setToolInfo(payoutToolInfo));
+
+        PayoutToolModificationUnit payoutToolModificationUnit = new PayoutToolModificationUnit()
+                .setPayoutToolId("toolID")
+                .setModification(payoutToolModification);
+
+        return payoutToolModificationUnit;
+    }
+
     @Test
     public void russianBankAccountConverterTest() throws IOException {
         ClaimRussianBankAccountConverter converter = new ClaimRussianBankAccountConverter();
-        var swagRussianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
+        var swagRussianBankAccount =
+                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
         swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
         var resultSwagRussianBankAccount = converter.convertToSwag(
                 converter.convertToThrift(swagRussianBankAccount));
@@ -121,7 +138,8 @@ public class ContractConvertersTest {
                 converter.convertToSwag(thriftLegalAgreement)
         );
 
-        assertEquals("Thrift objects 'LegalAgreement' (MockMode.ALL) not equals", thriftLegalAgreement, resultLegalAgreement);
+        assertEquals("Thrift objects 'LegalAgreement' (MockMode.ALL) not equals",
+                thriftLegalAgreement, resultLegalAgreement);
 
         thriftLegalAgreement = new MockTBaseProcessor(MockMode.REQUIRED_ONLY)
                 .process(thriftLegalAgreement, new TBaseHandler<>(LegalAgreement.class));
@@ -129,18 +147,21 @@ public class ContractConvertersTest {
                 converter.convertToSwag(thriftLegalAgreement)
         );
 
-        assertEquals("Thrift objects 'LegalAgreement' (MockMode.REQUIRED_ONLY) not equals", thriftLegalAgreement, resultLegalAgreementReq);
+        assertEquals("Thrift objects 'LegalAgreement' (MockMode.REQUIRED_ONLY) not equals",
+                thriftLegalAgreement, resultLegalAgreementReq);
     }
 
     @Test
     public void reportPreferencesConverterTest() throws IOException {
-        ContractReportPreferencesModificationConverter converter = new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter());
         var swagReportPreferences = EnhancedRandom.random(ContractReportPreferencesModification.class);
         swagReportPreferences.setContractModificationType(CONTRACTREPORTPREFERENCESMODIFICATION);
         var articlesOfAssociation = new com.rbkmoney.swag.claim_management.model.ArticlesOfAssociation();
         articlesOfAssociation.setDocumentType(ARTICLESOFASSOCIATION);
-        swagReportPreferences.getReportPreferences().getServiceAcceptanceActPreferences().getSigner().setDocument(articlesOfAssociation);
+        swagReportPreferences.getReportPreferences().getServiceAcceptanceActPreferences().getSigner()
+                .setDocument(articlesOfAssociation);
 
+        ContractReportPreferencesModificationConverter converter =
+                new ContractReportPreferencesModificationConverter(new RepresentativeDocumentConverter());
         var resultSwagReportPreferences = converter.convertToSwag(
                 converter.convertToThrift(swagReportPreferences)
         );
@@ -175,7 +196,8 @@ public class ContractConvertersTest {
         );
 
         var swagPayoutToolModificationUnit = getTestSwagPayoutToolModificationUnit();
-        PayoutToolModificationUnit tmpThriftPayoutToolModificationUnit = converter.convertToThrift(swagPayoutToolModificationUnit);
+        PayoutToolModificationUnit tmpThriftPayoutToolModificationUnit =
+                converter.convertToThrift(swagPayoutToolModificationUnit);
         var resultSwagPayoutToolModificationUnit = converter.convertToSwag(tmpThriftPayoutToolModificationUnit);
         assertEquals("Swag objects 'PayoutToolModificationUnit' not equals",
                 swagPayoutToolModificationUnit, resultSwagPayoutToolModificationUnit);
@@ -200,23 +222,6 @@ public class ContractConvertersTest {
 
     }
 
-
-    private static PayoutToolModificationUnit getTestPayoutToolModificationUnit() {
-        PayoutToolInfo payoutToolInfo = new PayoutToolInfo();
-        payoutToolInfo.setInternationalBankAccount(getTestInternationalBankAccount());
-
-        var payoutToolModification = new com.rbkmoney.damsel.claim_management.PayoutToolModification();
-        payoutToolModification.setCreation(new com.rbkmoney.damsel.claim_management.PayoutToolParams()
-                .setCurrency(new CurrencyRef().setSymbolicCode("RUB"))
-                .setToolInfo(payoutToolInfo));
-
-        PayoutToolModificationUnit payoutToolModificationUnit = new PayoutToolModificationUnit()
-                .setPayoutToolId("toolID")
-                .setModification(payoutToolModification);
-
-        return payoutToolModificationUnit;
-    }
-
     @Test
     public void contractModificationUnitConverterTest() {
         ContractModificationUnitConverter converter = new ContractModificationUnitConverter(
@@ -231,7 +236,8 @@ public class ContractConvertersTest {
         );
 
         var swagContractModificationUnit = getTestSwagContractModificationUnit();
-        ContractModificationUnit tmpThriftContractModificationUnit = converter.convertToThrift(swagContractModificationUnit);
+        ContractModificationUnit tmpThriftContractModificationUnit =
+                converter.convertToThrift(swagContractModificationUnit);
         var resultSwagContractModificationUnit = converter.convertToSwag(tmpThriftContractModificationUnit);
         assertEquals("Swag objects 'ContractParams' not equals",
                 swagContractModificationUnit, resultSwagContractModificationUnit);
@@ -274,7 +280,8 @@ public class ContractConvertersTest {
     public void contractAdjustmentModificationUnitConverterTest() throws IOException {
         var converter = new ContractAdjustmentModificationUnitConverter();
         var swagContractAdjustmentModificationUnit =
-                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit.class);
+                EnhancedRandom
+                        .random(com.rbkmoney.swag.claim_management.model.ContractAdjustmentModificationUnit.class);
         swagContractAdjustmentModificationUnit.setContractModificationType(CONTRACTADJUSTMENTMODIFICATIONUNIT);
         ContractAdjustmentModificationUnit tmpThriftContractAdjustmentModificationUnit =
                 converter.convertToThrift(swagContractAdjustmentModificationUnit);
@@ -284,9 +291,11 @@ public class ContractConvertersTest {
         assertEquals("Swag objects 'ContractAdjustmentModificationUnit' not equals",
                 swagContractAdjustmentModificationUnit, resultSwagContractAdjustmentModificationUnit);
 
-        ContractAdjustmentModificationUnit thriftContractAdjustmentModificationUnit = new ContractAdjustmentModificationUnit();
+        ContractAdjustmentModificationUnit thriftContractAdjustmentModificationUnit =
+                new ContractAdjustmentModificationUnit();
         thriftContractAdjustmentModificationUnit = new MockTBaseProcessor(MockMode.ALL)
-                .process(thriftContractAdjustmentModificationUnit, new TBaseHandler<>(ContractAdjustmentModificationUnit.class));
+                .process(thriftContractAdjustmentModificationUnit,
+                        new TBaseHandler<>(ContractAdjustmentModificationUnit.class));
         ContractAdjustmentModificationUnit resultContractAdjustmentModificationUnit = converter.convertToThrift(
                 converter.convertToSwag(thriftContractAdjustmentModificationUnit)
         );
@@ -294,7 +303,8 @@ public class ContractConvertersTest {
                 thriftContractAdjustmentModificationUnit, resultContractAdjustmentModificationUnit);
 
         thriftContractAdjustmentModificationUnit = new MockTBaseProcessor(MockMode.REQUIRED_ONLY)
-                .process(thriftContractAdjustmentModificationUnit, new TBaseHandler<>(ContractAdjustmentModificationUnit.class));
+                .process(thriftContractAdjustmentModificationUnit,
+                        new TBaseHandler<>(ContractAdjustmentModificationUnit.class));
         ContractAdjustmentModificationUnit resultContractAdjustmentModificationUnitReq = converter.convertToThrift(
                 converter.convertToSwag(thriftContractAdjustmentModificationUnit)
         );

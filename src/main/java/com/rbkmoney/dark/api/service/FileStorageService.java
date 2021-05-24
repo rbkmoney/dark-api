@@ -1,7 +1,6 @@
 package com.rbkmoney.dark.api.service;
 
 import com.rbkmoney.dark.api.converter.filestorage.FileStorageConverter;
-import com.rbkmoney.file.storage.FileNotFound;
 import com.rbkmoney.file.storage.FileStorageSrv;
 import com.rbkmoney.swag.dark_api.model.FileData;
 import com.rbkmoney.swag.dark_api.model.FileDownload;
@@ -20,16 +19,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class FileStorageService {
 
-    @Value("${filestorage.expiration.time.download.hours}")
-    private Integer downloadExpirationHours;
-
-    @Value("${filestorage.expiration.time.upload.hours}")
-    private Integer uploadExpirationHours;
-
     private final FileStorageSrv.Iface fileStorageClient;
     private final FileStorageConverter fileStorageConverter;
 
-    public FileDownload downloadFile(String fileID) throws FileNotFound, TException {
+    @Value("${filestorage.expiration.time.download.hours}")
+    private Integer downloadExpirationHours;
+    @Value("${filestorage.expiration.time.upload.hours}")
+    private Integer uploadExpirationHours;
+
+    public FileDownload downloadFile(String fileID) throws TException {
         return fileStorageConverter.convertFileDownload(
                 fileStorageClient.generateDownloadUrl(
                         fileID,
@@ -38,7 +36,7 @@ public class FileStorageService {
         );
     }
 
-    public FileData getFileInfo(String fileID) throws FileNotFound, TException {
+    public FileData getFileInfo(String fileID) throws TException {
         return fileStorageConverter.convertFileData(fileStorageClient.getFileData(fileID));
     }
 

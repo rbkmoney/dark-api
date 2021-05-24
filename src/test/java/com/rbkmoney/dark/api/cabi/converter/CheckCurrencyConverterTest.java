@@ -27,6 +27,13 @@ public class CheckCurrencyConverterTest {
 
     public static final Currency RUB_CURRENCY = new Currency("Russian ruble", "RUB", (short) 643, (short) 2);
 
+    public static long gcd(long a, long b) {
+        if (b == 0) {
+            return Math.abs(a);
+        }
+        return gcd(b, a % b);
+    }
+
     @Test
     public void checkCurrencyConvertToSwagTest() {
         CabiCheckCurrencyRequestDto cabiCheckCurrencyRequestDto = new CabiCheckCurrencyRequestDto(
@@ -68,19 +75,14 @@ public class CheckCurrencyConverterTest {
         cabiCheckCurrencyResponseDto.setAmountExchanged(MathUtils.covertToRational(amountExchanged));
 
         SwagConverterContext swagConverterContext = Mockito.mock(SwagConverterContext.class);
-        CurrencyExchange currencyExchange = new CurrencyExchangeConverter().toSwag(cabiCheckCurrencyResponseDto, swagConverterContext);
+        CurrencyExchange currencyExchange =
+                new CurrencyExchangeConverter().toSwag(cabiCheckCurrencyResponseDto, swagConverterContext);
 
         Assert.assertEquals(cabiCheckCurrencyResponseDto.getFrom().getSymbolicCode(), currencyExchange.getFrom());
         Assert.assertEquals(cabiCheckCurrencyResponseDto.getTo().getSymbolicCode(), currencyExchange.getTo());
         Assert.assertEquals(0, amount.compareTo(currencyExchange.getAmount()));
         Assert.assertEquals(0, rate.compareTo(currencyExchange.getRate()));
         Assert.assertEquals(0, amountExchanged.compareTo(currencyExchange.getAmountExchange()));
-    }
-
-    public static long gcd(long a, long b) {
-        if (b == 0)
-            return Math.abs(a);
-        return gcd(b, a % b);
     }
 
     public void compareCurrency(Currency damselCurrency, com.rbkmoney.cabi.Currency cabiCurrency) {

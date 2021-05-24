@@ -15,9 +15,9 @@ import java.util.UUID;
  **/
 public class JwtTokenBuilder {
 
-    public final static String DEFAULT_USERNAME = "Darth Vader";
+    public static final String DEFAULT_USERNAME = "Darth Vader";
 
-    public final static String DEFAULT_EMAIL = "darkside-the-best@mail.com";
+    public static final String DEFAULT_EMAIL = "darkside-the-best@mail.com";
 
     private final String userId;
 

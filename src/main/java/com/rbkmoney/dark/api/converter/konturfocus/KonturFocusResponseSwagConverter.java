@@ -9,11 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class KonturFocusResponseSwagConverter
-        implements SwagConverter<KonturFocusResponse, com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse> {
+public class KonturFocusResponseSwagConverter implements
+        SwagConverter<KonturFocusResponse, com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse> {
 
     @Override
-    public KonturFocusResponse toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse value, SwagConverterContext ctx) {
+    public KonturFocusResponse toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_api.KonturFocusResponse value,
+                                      SwagConverterContext ctx) {
         if (value.isSetReqResponses()) {
             List<ReqResponse> swagReqResponseList = value.getReqResponses().getReqResponses().stream()
                     .map(thriftReqResponse -> convertReqResponse(thriftReqResponse, ctx))
@@ -25,9 +26,10 @@ public class KonturFocusResponseSwagConverter
         }
 
         if (value.isSetEgrDetailsResponses()) {
-            List<EgrDetailsResponse> swagEgrDetailsResponseList = value.getEgrDetailsResponses().getEgrDetailsResponses().stream()
-                    .map(thriftEgrDetailsResponse -> convertEgrDetailsResponse(thriftEgrDetailsResponse, ctx))
-                    .collect(Collectors.toList());
+            List<EgrDetailsResponse> swagEgrDetailsResponseList =
+                    value.getEgrDetailsResponses().getEgrDetailsResponses().stream()
+                            .map(thriftEgrDetailsResponse -> convertEgrDetailsResponse(thriftEgrDetailsResponse, ctx))
+                            .collect(Collectors.toList());
             EgrDetailsResponses egrDetailsResponses = new EgrDetailsResponses();
             egrDetailsResponses.setResponses(swagEgrDetailsResponseList);
 
@@ -35,9 +37,10 @@ public class KonturFocusResponseSwagConverter
         }
 
         if (value.isSetLicencesResponses()) {
-            List<LicencesResponse> swagLicencesResponseList = value.getLicencesResponses().getLicenseResponses().stream()
-                    .map(licencesResponse -> ctx.convert(licencesResponse, LicencesResponse.class))
-                    .collect(Collectors.toList());
+            List<LicencesResponse> swagLicencesResponseList =
+                    value.getLicencesResponses().getLicenseResponses().stream()
+                            .map(licencesResponse -> ctx.convert(licencesResponse, LicencesResponse.class))
+                            .collect(Collectors.toList());
             LicencesResponses licencesResponses = new LicencesResponses();
             licencesResponses.setResponses(swagLicencesResponseList);
 
@@ -45,9 +48,11 @@ public class KonturFocusResponseSwagConverter
         }
 
         if (value.isSetBeneficialOwnerResponses()) {
-            List<BeneficialOwnerResponse> swagBeneficialOwnerResponseList = value.getBeneficialOwnerResponses().getBeneficialOwnerResponses().stream()
-                    .map(beneficialOwnerResponse -> ctx.convert(beneficialOwnerResponse, BeneficialOwnerResponse.class))
-                    .collect(Collectors.toList());
+            List<BeneficialOwnerResponse> swagBeneficialOwnerResponseList =
+                    value.getBeneficialOwnerResponses().getBeneficialOwnerResponses().stream()
+                            .map(beneficialOwnerResponse -> ctx
+                                    .convert(beneficialOwnerResponse, BeneficialOwnerResponse.class))
+                            .collect(Collectors.toList());
             BeneficialOwnerResponses beneficialOwnerResponses = new BeneficialOwnerResponses();
             beneficialOwnerResponses.setResponses(swagBeneficialOwnerResponseList);
 
@@ -57,7 +62,8 @@ public class KonturFocusResponseSwagConverter
         throw new IllegalArgumentException("Need to specify response value");
     }
 
-    private ReqResponse convertReqResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponse reqResponse, SwagConverterContext ctx) {
+    private ReqResponse convertReqResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqResponse reqResponse,
+                                           SwagConverterContext ctx) {
         ReqResponse swagReqResponse = new ReqResponse();
         swagReqResponse.setInn(reqResponse.getInn());
         swagReqResponse.setOgrn(reqResponse.getOgrn());
@@ -80,20 +86,23 @@ public class KonturFocusResponseSwagConverter
         return swagReqResponse;
     }
 
-    private EgrDetailsResponse convertEgrDetailsResponse(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse,
-                                                         SwagConverterContext ctx) {
+    private EgrDetailsResponse convertEgrDetailsResponse(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsResponse egrDetailsResponse,
+            SwagConverterContext ctx) {
         EgrDetailsResponse swagEgrDetailsResponse = new EgrDetailsResponse();
         swagEgrDetailsResponse.setInn(egrDetailsResponse.getInn());
         swagEgrDetailsResponse.setFocusHref(egrDetailsResponse.getFocusHref());
         swagEgrDetailsResponse.setOgrn(egrDetailsResponse.getOgrn());
         if (egrDetailsResponse.isSetContractor()) {
-            EgrDetailsContractor swagEgrDetailsContractor = ctx.convert(egrDetailsResponse.getContractor(), EgrDetailsContractor.class);
+            EgrDetailsContractor swagEgrDetailsContractor =
+                    ctx.convert(egrDetailsResponse.getContractor(), EgrDetailsContractor.class);
             swagEgrDetailsResponse.setContractor(swagEgrDetailsContractor);
         }
         return swagEgrDetailsResponse;
     }
 
-    private BriefReportSummary convertBriefReportSummary(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.BriefReportSummary briefReportSummary) {
+    private BriefReportSummary convertBriefReportSummary(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.BriefReportSummary briefReportSummary) {
         BriefReportSummary swagBriefReportSummary = new BriefReportSummary();
         swagBriefReportSummary.setGreenStatements(briefReportSummary.isGreenStatements());
         swagBriefReportSummary.setRedStatements(briefReportSummary.isRedStatements());
@@ -101,7 +110,8 @@ public class KonturFocusResponseSwagConverter
         return swagBriefReportSummary;
     }
 
-    private ContactPhones convertContactPhones(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ContactPhones contactPhones) {
+    private ContactPhones convertContactPhones(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ContactPhones contactPhones) {
         var swagContactPhones = new com.rbkmoney.swag.questionary_aggr_proxy.model.ContactPhones();
         swagContactPhones.setCount(contactPhones.getCount());
         swagContactPhones.setPhones(contactPhones.getPhones());

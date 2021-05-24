@@ -13,7 +13,8 @@ public class ReqLegalEntitySwagConverter
         implements SwagConverter<ReqLegalEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqLegalEntity> {
 
     @Override
-    public ReqLegalEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqLegalEntity value, SwagConverterContext ctx) {
+    public ReqLegalEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqLegalEntity value,
+                                 SwagConverterContext ctx) {
         ReqLegalEntity swagReqLegalEntity = new ReqLegalEntity()
                 .kpp(value.getKpp())
                 .okato(value.getOkato())
@@ -63,7 +64,8 @@ public class ReqLegalEntitySwagConverter
         return swagReqLegalEntity;
     }
 
-    private LegalEntityStatusDetail convertLegalEntityStatusDetail(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.LegalEntityStatusDetail legalEntityStatusDetail) {
+    private LegalEntityStatusDetail convertLegalEntityStatusDetail(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.LegalEntityStatusDetail legalEntityStatusDetail) {
         LegalEntityStatusDetail swagLegalEntityStatusDetail = new LegalEntityStatusDetail();
         swagLegalEntityStatusDetail.setStatus(legalEntityStatusDetail.getStatus());
         swagLegalEntityStatusDetail.setDate(legalEntityStatusDetail.getDate());

@@ -31,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {DarkApiApplication.class})
 @AutoConfigureMockMvc
+@SuppressWarnings("MemberName")
 public class AnalyticsControllerTest {
 
     public static final String PARTY_ID = "partyId";
@@ -40,18 +41,15 @@ public class AnalyticsControllerTest {
     public static final String NAME = "Name";
     public static final Long PERCENTS = 89L;
     public static final Long OFFSET = 12L;
+    private static final String X_REQUEST_ID = "xRequestID";
+    private static final String X_REQUEST_DEADLINE = "xRequestID";
 
     @Autowired
     AnalyticsController analyticsController;
-
     @MockBean
     KeycloakService keycloakService;
-
     @MockBean
     AnalyticsServiceSrv.Iface analyticsClient;
-
-    private final String xRequestID = "xRequestID";
-    private final String xRequestDeadline = "xRequestID";
 
     @Before
     public void init() {
@@ -68,8 +66,8 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getAveragePayment(any()))
                 .thenReturn(new AmountResponse().setGroupsAmount(groupedAmounts));
 
-        ResponseEntity<InlineResponse200> averagePayment = analyticsController.getAveragePayment(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse200> averagePayment = analyticsController.getAveragePayment(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(averagePayment.getStatusCode().is2xxSuccessful());
 
@@ -94,8 +92,8 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getPaymentsAmount(any()))
                 .thenReturn(new AmountResponse().setGroupsAmount(groupedAmounts));
 
-        ResponseEntity<InlineResponse200> averagePayment = analyticsController.getPaymentsAmount(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse200> averagePayment = analyticsController.getPaymentsAmount(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(averagePayment.getStatusCode().is2xxSuccessful());
 
@@ -115,8 +113,8 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getPaymentsCount(any()))
                 .thenReturn(new CountResponse().setGroupsCount(groupedAmounts));
 
-        ResponseEntity<InlineResponse2002> paymentsCount = analyticsController.getPaymentsCount(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2002> paymentsCount = analyticsController.getPaymentsCount(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(paymentsCount.getStatusCode().is2xxSuccessful());
 
@@ -136,12 +134,14 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getPaymentsErrorDistribution(any()))
                 .thenReturn(new ErrorDistributionsResponse().setErrorDistributions(namingDistributions));
 
-        ResponseEntity<InlineResponse2003> paymentsErrorDistribution = analyticsController.getPaymentsErrorDistribution(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2003> paymentsErrorDistribution =
+                analyticsController.getPaymentsErrorDistribution(X_REQUEST_ID,
+                        OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(paymentsErrorDistribution.getStatusCode().is2xxSuccessful());
 
-        PaymentsErrorsDistributionResult paymentsErrorsDistributionResult = paymentsErrorDistribution.getBody().getResult().get(0);
+        PaymentsErrorsDistributionResult paymentsErrorsDistributionResult =
+                paymentsErrorDistribution.getBody().getResult().get(0);
 
         assertEquals(NAME, paymentsErrorsDistributionResult.getError());
         assertEquals(PERCENTS, paymentsErrorsDistributionResult.getPercents());
@@ -162,8 +162,9 @@ public class AnalyticsControllerTest {
                         .setGroupedCurrencyAmounts(groupedCurrencyOffsetAmounts)
                         .setResultSplitUnit(SplitUnit.DAY));
 
-        ResponseEntity<InlineResponse2004> paymentsSplitAmount = analyticsController.getPaymentsSplitAmount(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), SplitUnit.DAY.name(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2004> paymentsSplitAmount = analyticsController.getPaymentsSplitAmount(
+                X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), SplitUnit.DAY.name(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(paymentsSplitAmount.getStatusCode().is2xxSuccessful());
 
@@ -197,8 +198,8 @@ public class AnalyticsControllerTest {
                         .setPaymentToolsDestrobutions(groupedCurrencyOffsetCounts)
                         .setResultSplitUnit(SplitUnit.DAY));
 
-        ResponseEntity<InlineResponse2005> paymentsSplitCount = analyticsController.getPaymentsSplitCount(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), SplitUnit.DAY.name(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2005> paymentsSplitCount = analyticsController.getPaymentsSplitCount(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), SplitUnit.DAY.name(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(paymentsSplitCount.getStatusCode().is2xxSuccessful());
 
@@ -223,8 +224,8 @@ public class AnalyticsControllerTest {
                 .thenReturn(new PaymentToolDistributionResponse()
                         .setPaymentToolsDistributions(paymentToolsDistributions));
 
-        ResponseEntity<InlineResponse2001> paymentsCount = analyticsController.getPaymentsToolDistribution(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse2001> paymentsCount = analyticsController.getPaymentsToolDistribution(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(paymentsCount.getStatusCode().is2xxSuccessful());
 
@@ -244,8 +245,8 @@ public class AnalyticsControllerTest {
         Mockito.when(analyticsClient.getRefundsAmount(any()))
                 .thenReturn(new AmountResponse().setGroupsAmount(groupsAmount));
 
-        ResponseEntity<InlineResponse200> refundsAmount = analyticsController.getRefundsAmount(xRequestID,
-                OffsetDateTime.now(), OffsetDateTime.now(), xRequestDeadline, List.of());
+        ResponseEntity<InlineResponse200> refundsAmount = analyticsController.getRefundsAmount(X_REQUEST_ID,
+                OffsetDateTime.now(), OffsetDateTime.now(), X_REQUEST_DEADLINE, List.of());
 
         assertTrue(refundsAmount.getStatusCode().is2xxSuccessful());
 

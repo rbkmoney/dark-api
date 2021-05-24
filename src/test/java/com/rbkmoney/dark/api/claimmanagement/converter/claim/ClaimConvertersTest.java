@@ -32,7 +32,8 @@ public class ClaimConvertersTest {
         assertEquals("Swag objects 'StatusModificationUnit' not equals", swagStatus, resultSwagStatus);
 
         ClaimStatus thriftClaimStatus = new ClaimStatus();
-        thriftClaimStatus = new MockTBaseProcessor(MockMode.ALL).process(thriftClaimStatus, new TBaseHandler<>(ClaimStatus.class));
+        thriftClaimStatus =
+                new MockTBaseProcessor(MockMode.ALL).process(thriftClaimStatus, new TBaseHandler<>(ClaimStatus.class));
         var statusModificationUnitTmp = statusConverter.convertToSwag(thriftClaimStatus);
         ClaimStatus resultClaimStatus = statusConverter.convertToThrift(statusModificationUnitTmp);
 
@@ -136,24 +137,25 @@ public class ClaimConvertersTest {
 
     @Test
     public void claimModificationConverterTest() throws IOException {
-        ClaimModificationConverter converter = new ClaimModificationConverter(
-                new ClaimDocumentModificationConverter(),
-                new ClaimCommentModificationUnitConverter(),
-                new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
-                new ClaimFileModificationUnitConverter()
-        );
 
         var swagStatusModUnit = new com.rbkmoney.swag.claim_management.model.StatusModificationUnit();
         swagStatusModUnit.setClaimModificationType(STATUSMODIFICATIONUNIT);
         swagStatusModUnit.setReason("testReason");
         swagStatusModUnit.setStatus(DENIED);
 
-        swagStatusModUnit.setStatusModification(EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
+        swagStatusModUnit.setStatusModification(
+                EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.StatusModification.class));
 
         var swagClaimModification = new com.rbkmoney.swag.claim_management.model.ClaimModification();
         swagClaimModification.setClaimModificationType(swagStatusModUnit);
         swagClaimModification.setModificationType(CLAIMMODIFICATION);
 
+        ClaimModificationConverter converter = new ClaimModificationConverter(
+                new ClaimDocumentModificationConverter(),
+                new ClaimCommentModificationUnitConverter(),
+                new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
+                new ClaimFileModificationUnitConverter()
+        );
         var resultClaimModification = converter.convertToSwag(converter.convertToThrift(swagClaimModification));
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);
 

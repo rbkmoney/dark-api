@@ -23,6 +23,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class FileStorageController implements FilesApi {
 
     private final FileStorageService fileStorageService;

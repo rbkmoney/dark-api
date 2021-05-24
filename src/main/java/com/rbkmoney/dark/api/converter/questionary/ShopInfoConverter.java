@@ -18,7 +18,8 @@ public class ShopInfoConverter implements
     public com.rbkmoney.swag.questionary.model.ShopInfo toSwag(ShopInfo value, SwagConverterContext ctx) {
         var shopInfo = new com.rbkmoney.swag.questionary.model.ShopInfo();
         if (value.isSetLocation()) {
-            shopInfo.setLocation(ctx.convert(value.getLocation(), com.rbkmoney.swag.questionary.model.ShopLocation.class));
+            shopInfo.setLocation(
+                    ctx.convert(value.getLocation(), com.rbkmoney.swag.questionary.model.ShopLocation.class));
         }
         if (value.isSetDetails()) {
             shopInfo.setDetails(ctx.convert(value.getDetails(), com.rbkmoney.swag.questionary.model.ShopDetails.class));

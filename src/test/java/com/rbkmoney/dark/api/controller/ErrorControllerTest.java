@@ -110,7 +110,8 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         ).andExpect(status().isBadRequest());
 
         reset(claimManagementService);
-        doThrow(InvalidClaimRevision.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
+        doThrow(InvalidClaimRevision.class).when(claimManagementService)
+                .updateClaimById(any(), any(), any(), anyList());
 
         mockMvc.perform(
                 put("/processing/claims/{claimID}/update", anyLong())
@@ -243,7 +244,8 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
 
     @Test
     public void testThenQuestionaryClientThrowingExceptions() throws Exception {
-        doThrow(QuestionaryNotFound.class).when(questionaryService).getQuestionary(anyString(), anyString(), anyString());
+        doThrow(QuestionaryNotFound.class).when(questionaryService)
+                .getQuestionary(anyString(), anyString(), anyString());
 
         mockMvc.perform(
                 get("/questionary/{questionaryId}", string())
@@ -269,7 +271,8 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
 
     @Test
     public void testThenSearchClientThrowingExceptions() throws Exception {
-        doThrow(BadToken.class).when(magistaService).getRefundsByQuery(any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+        doThrow(BadToken.class).when(magistaService)
+                .getRefundsByQuery(any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
 
         mockMvc.perform(
                 get("/search/refunds/{shopID}", string())
@@ -283,7 +286,8 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         ).andExpect(status().isBadRequest());
 
         reset(magistaService);
-        doThrow(TException.class).when(magistaService).getRefundsByQuery(any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
+        doThrow(TException.class).when(magistaService)
+                .getRefundsByQuery(any(), any(), any(), any(), any(), any(), any(), any(), any(), any());
 
         mockMvc.perform(
                 get("/search/refunds/{shopID}", string())

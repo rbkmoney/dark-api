@@ -92,7 +92,8 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(keycloakService.getPartyId()).thenReturn(UUID.randomUUID().toString());
         when(dominantService.getCurrency("BTC")).thenReturn(new Currency("Bitcoin", "BTC", (short) 999, (short) 6));
         when(dominantService.getCurrency("USD")).thenReturn(new Currency("Доллары США", "USD", (short) 840, (short) 2));
-        when(dominantService.getCurrency("RUR")).thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
+        when(dominantService.getCurrency("RUR"))
+                .thenReturn(new Currency("Российские рубли", "RUR", (short) 643, (short) 2));
     }
 
     @Test
@@ -139,7 +140,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
                 .thenThrow(CurrencyRequestFail.class);
         mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", "BTC")
                 .param("to", "RUR")
                 .param("action", "BUY")
@@ -153,7 +154,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
         when(cryptoApiService.checkCurrencyExchange(any(CheckCurrencyExchangeParams.class)))
                 .thenThrow(TException.class);
         mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", "BTC")
                 .param("to", "RUR")
                 .param("action", "BUY")
@@ -189,7 +190,7 @@ public class CabiControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
                                             String to,
                                             String action) throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/currency")
-                .header("Authorization", "Bearer " + generateRBKadminJwt())
+                .header("Authorization", "Bearer " + generateRbkAdminJwt())
                 .param("from", from)
                 .param("to", to)
                 .param("action", action)

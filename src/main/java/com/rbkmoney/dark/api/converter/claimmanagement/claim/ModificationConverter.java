@@ -24,7 +24,8 @@ public class ModificationConverter
                 var claimModification = (com.rbkmoney.swag.claim_management.model.ClaimModification) swagModification;
                 return claimModificationConverter.convertToThrift(claimModification);
             case PARTYMODIFICATION:
-                var swagPartyModification = (com.rbkmoney.swag.claim_management.model.PartyModification) swagModification;
+                var swagPartyModification =
+                        (com.rbkmoney.swag.claim_management.model.PartyModification) swagModification;
                 return partyModificationConverter.convertToThrift(swagPartyModification);
             default:
                 throw new IllegalArgumentException("Unknown claim management modification type: " + swagModification);

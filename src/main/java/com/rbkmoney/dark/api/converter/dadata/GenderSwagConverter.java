@@ -6,7 +6,8 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Gender;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenderSwagConverter implements SwagConverter<Gender, com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender> {
+public class GenderSwagConverter
+        implements SwagConverter<Gender, com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender> {
 
     @Override
     public Gender toSwag(com.rbkmoney.questionary_proxy_aggr.base_dadata.Gender value, SwagConverterContext ctx) {

@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("ParameterName")
 public class DeadlineUtils {
 
     public static void checkDeadline(String xRequestDeadline, String xRequestId) {
@@ -25,13 +26,14 @@ public class DeadlineUtils {
                 throw new DeadlineException(String.format("Deadline is expired, xRequestId=%s ", xRequestId));
             }
         } catch (Exception ex) {
-            throw new DeadlineException(String.format("Deadline has invalid 'Instant' format, xRequestId=%s ", xRequestId));
+            throw new DeadlineException(
+                    String.format("Deadline has invalid 'Instant' format, xRequestId=%s ", xRequestId));
         }
     }
 
     public static boolean containsRelativeValues(String xRequestDeadline, String xRequestId) {
-        return (extractMinutes(xRequestDeadline, xRequestId) + extractSeconds(xRequestDeadline, xRequestId)
-                + extractMilliseconds(xRequestDeadline, xRequestId)) > 0;
+        return (extractMinutes(xRequestDeadline, xRequestId) + extractSeconds(xRequestDeadline, xRequestId) +
+                extractMilliseconds(xRequestDeadline, xRequestId)) > 0;
     }
 
     public static Long extractMinutes(String xRequestDeadline, String xRequestId) {
@@ -62,7 +64,9 @@ public class DeadlineUtils {
         Double milliseconds = extractValue(xRequestDeadline, "([0-9]+([.][0-9]+)?[m][s])", xRequestId, format);
 
         if (milliseconds != null && Math.ceil(milliseconds % 1) > 0) {
-            throw new DeadlineException(String.format("Deadline 'milliseconds' parameter can have only integer value, xRequestId=%s ", xRequestId));
+            throw new DeadlineException(
+                    String.format("Deadline 'milliseconds' parameter can have only integer value, xRequestId=%s ",
+                            xRequestId));
         }
 
         return Optional.ofNullable(milliseconds).map(Double::longValue).orElse(0L);
@@ -70,7 +74,8 @@ public class DeadlineUtils {
 
     private static void checkNegativeValues(String xRequestDeadline, String xRequestId, String regex, String format) {
         if (!match(regex, xRequestDeadline).isEmpty()) {
-            throw new DeadlineException(String.format("Deadline '%s' parameter has negative value, xRequestId=%s ", format, xRequestId));
+            throw new DeadlineException(
+                    String.format("Deadline '%s' parameter has negative value, xRequestId=%s ", format, xRequestId));
         }
     }
 
@@ -82,7 +87,9 @@ public class DeadlineUtils {
             doubles.addAll(match(numberRegex, string));
         }
         if (doubles.size() > 1) {
-            throw new DeadlineException(String.format("Deadline '%s' parameter has a few relative value, xRequestId=%s ", format, xRequestId));
+            throw new DeadlineException(
+                    String.format("Deadline '%s' parameter has a few relative value, xRequestId=%s ", format,
+                            xRequestId));
         }
         if (doubles.isEmpty()) {
             return null;

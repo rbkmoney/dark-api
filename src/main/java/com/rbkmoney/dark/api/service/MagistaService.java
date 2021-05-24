@@ -45,7 +45,8 @@ public class MagistaService {
                                                 String bankCardTokenProvider,
                                                 String bankCardPaymentSystem,
                                                 Long paymentAmount,
-                                                String continuationToken) throws JsonProcessingException, InvalidRequest, BadToken, TException {
+                                                String continuationToken)
+            throws JsonProcessingException, TException {
         StatResponse statResponse = magistaClient.getByQuery(
                 new StatRequest()
                         .setDsl(
@@ -88,7 +89,8 @@ public class MagistaService {
                                                String paymentID,
                                                String refundID,
                                                String refundStatus,
-                                               String continuationToken) throws JsonProcessingException, InvalidRequest, BadToken, TException {
+                                               String continuationToken)
+            throws JsonProcessingException, TException {
         StatResponse statResponse = magistaClient.getByQuery(
                 new StatRequest()
                         .setDsl(
@@ -123,8 +125,12 @@ public class MagistaService {
                                             List<StatRefund> refunds = enrichedStatInvoice.getRefunds();
                                             List<StatPayment> payments = enrichedStatInvoice.getPayments();
                                             return new EnrichedSearchResult()
-                                                    .refund(refunds.isEmpty() ? null : StatRefundToRefundSearchResultConverter.convert(refunds.get(0)))
-                                                    .payment(StatPaymentToPaymentSearchResultConverter.convert(payments.get(0), invoiceContext));
+                                                    .refund(refunds.isEmpty()
+                                                            ? null
+                                                            : StatRefundToRefundSearchResultConverter
+                                                                    .convert(refunds.get(0)))
+                                                    .payment(StatPaymentToPaymentSearchResultConverter
+                                                            .convert(payments.get(0), invoiceContext));
                                         }
                                 )
                                 .collect(Collectors.toList())

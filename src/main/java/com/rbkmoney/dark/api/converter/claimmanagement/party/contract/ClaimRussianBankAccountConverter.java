@@ -24,7 +24,8 @@ public class ClaimRussianBankAccountConverter
     }
 
     @Override
-    public com.rbkmoney.swag.claim_management.model.RussianBankAccount convertToSwag(RussianBankAccount russianBankAccount) {
+    public com.rbkmoney.swag.claim_management.model.RussianBankAccount convertToSwag(
+            RussianBankAccount russianBankAccount) {
         var swagRussianBankAccount = new com.rbkmoney.swag.claim_management.model.RussianBankAccount();
         swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
         swagRussianBankAccount.setAccount(russianBankAccount.getAccount());

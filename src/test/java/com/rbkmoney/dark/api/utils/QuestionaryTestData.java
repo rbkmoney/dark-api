@@ -30,7 +30,8 @@ public class QuestionaryTestData {
 
         var individualEntity = new com.rbkmoney.questionary.IndividualEntity();
         var russianIndividualEntity = new com.rbkmoney.questionary.RussianIndividualEntity();
-        russianIndividualEntity = fillTBaseObject(russianIndividualEntity, com.rbkmoney.questionary.RussianIndividualEntity.class);
+        russianIndividualEntity =
+                fillTBaseObject(russianIndividualEntity, com.rbkmoney.questionary.RussianIndividualEntity.class);
         individualEntity.setRussianIndividualEntity(russianIndividualEntity);
 
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
@@ -59,7 +60,8 @@ public class QuestionaryTestData {
 
         var legalEntity = new com.rbkmoney.questionary.LegalEntity();
         var internationalLegalEntity = new com.rbkmoney.questionary.InternationalLegalEntity();
-        internationalLegalEntity = fillTBaseObject(internationalLegalEntity, com.rbkmoney.questionary.InternationalLegalEntity.class);
+        internationalLegalEntity =
+                fillTBaseObject(internationalLegalEntity, com.rbkmoney.questionary.InternationalLegalEntity.class);
         legalEntity.setInternationalLegalEntity(internationalLegalEntity);
 
         var questionaryData = new com.rbkmoney.questionary.manage.QuestionaryData();
@@ -121,7 +123,8 @@ public class QuestionaryTestData {
                         .identityDocumentType(IdentityDocument.IdentityDocumentTypeEnum.RUSSIANDOMESTICPASSPORT));
 
         IndividualRegistrationInfo individualRegistrationInfo = EnhancedRandom.random(IndividualRegistrationInfo.class);
-        individualRegistrationInfo.setRegistrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO);
+        individualRegistrationInfo
+                .setRegistrationInfoType(RegistrationInfo.RegistrationInfoTypeEnum.INDIVIDUALREGISTRATIONINFO);
         russianIndividualEntity.setRegistrationInfo(individualRegistrationInfo);
 
         IndividualResidencyInfo individualResidencyInfo = EnhancedRandom.random(IndividualResidencyInfo.class);
@@ -134,14 +137,18 @@ public class QuestionaryTestData {
 
         russianIndividualEntity.getAdditionalInfo().setFinancialPosition(
                 Collections.singletonList(
-                        new AnnualFinancialStatements().financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS)));
+                        new AnnualFinancialStatements().financialPositionType(
+                                FinancialPosition.FinancialPositionTypeEnum.ANNUALFINANCIALSTATEMENTS)));
 
         russianIndividualEntity.getAdditionalInfo().setBusinessInfo(
                 Collections.singletonList(
-                        new AnotherBusiness().description("test").businessInfoType(BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS)));
+                        new AnotherBusiness().description("test")
+                                .businessInfoType(BusinessInfo.BusinessInfoTypeEnum.ANOTHERBUSINESS)));
 
-        WithoutChiefAccountingOrganization withoutChiefAccountingOrganization = new WithoutChiefAccountingOrganization();
-        withoutChiefAccountingOrganization.setAccountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
+        WithoutChiefAccountingOrganization withoutChiefAccountingOrganization =
+                new WithoutChiefAccountingOrganization();
+        withoutChiefAccountingOrganization
+                .setAccountantInfoType(AccountantInfo.AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
         withoutChiefAccountingOrganization.setInn("test inn");
         russianIndividualEntity.getAdditionalInfo().setAccountantInfo(withoutChiefAccountingOrganization);
 
@@ -170,8 +177,8 @@ public class QuestionaryTestData {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
         questionaryParams.getData().setShopInfo(
-                EnhancedRandom.random(ShopInfo.class).
-                        location(EnhancedRandom.random(ShopLocationUrl.class)
+                EnhancedRandom.random(ShopInfo.class)
+                        .location(EnhancedRandom.random(ShopLocationUrl.class)
                                 .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
@@ -187,8 +194,9 @@ public class QuestionaryTestData {
         var russianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.questionary.model.RussianBankAccount.class);
         russianBankAccount.setBankAccountType(BankAccount.BankAccountTypeEnum.RUSSIANBANKACCOUNT);
         russianLegalEntity.getAdditionalInfo().setBankAccount(russianBankAccount);
-        russianLegalEntity.getAdditionalInfo().setFinancialPosition(Collections.singletonList(new AnnualTaxReturnWithMark()
-                .financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK)));
+        russianLegalEntity.getAdditionalInfo()
+                .setFinancialPosition(Collections.singletonList(new AnnualTaxReturnWithMark()
+                        .financialPositionType(FinancialPosition.FinancialPositionTypeEnum.ANNUALTAXRETURNWITHMARK)));
         russianLegalEntity.getAdditionalInfo().setBusinessInfo(Collections.singletonList(new RetailTradeBusiness()
                 .businessInfoType(BusinessInfo.BusinessInfoTypeEnum.RETAILTRADEBUSINESS)));
         russianLegalEntity.getAdditionalInfo().setAccountantInfo(EnhancedRandom.random(WithChiefAccountant.class)
@@ -228,8 +236,8 @@ public class QuestionaryTestData {
         QuestionaryParams questionaryParams = EnhancedRandom.random(QuestionaryParams.class);
         questionaryParams.setVersion("0");
         questionaryParams.getData().setShopInfo(
-                EnhancedRandom.random(ShopInfo.class).
-                        location(EnhancedRandom.random(ShopLocationUrl.class)
+                EnhancedRandom.random(ShopInfo.class)
+                        .location(EnhancedRandom.random(ShopLocationUrl.class)
                                 .locationType(ShopLocation.LocationTypeEnum.SHOPLOCATIONURL)));
 
         LegalEntityContractor legalEntityContractor = new LegalEntityContractor();
@@ -266,7 +274,7 @@ public class QuestionaryTestData {
     }
 
     @SneakyThrows
-    public <T extends TBase> T fillTBaseObject(T tBase, Class<T> type) {
-        return mockTBaseProcessor.process(tBase, new TBaseHandler<>(type));
+    public <T extends TBase> T fillTBaseObject(T thriftBase, Class<T> type) {
+        return mockTBaseProcessor.process(thriftBase, new TBaseHandler<>(type));
     }
 }

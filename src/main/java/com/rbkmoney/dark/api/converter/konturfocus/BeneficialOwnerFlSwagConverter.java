@@ -8,11 +8,14 @@ import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 
 @Component
-public class BeneficialOwnerFlSwagConverter
-        implements SwagConverter<BeneficialOwnerFl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerFl> {
+@SuppressWarnings("LineLength")
+public class BeneficialOwnerFlSwagConverter implements
+        SwagConverter<BeneficialOwnerFl, com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerFl> {
 
     @Override
-    public BeneficialOwnerFl toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerFl value, SwagConverterContext ctx) {
+    public BeneficialOwnerFl toSwag(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_beneficial_owner.BeneficialOwnerFl value,
+            SwagConverterContext ctx) {
         BeneficialOwnerFl beneficialOwnerFl = new BeneficialOwnerFl();
         beneficialOwnerFl.setFio(value.getFio());
         beneficialOwnerFl.setInnfl(value.getInnfl());

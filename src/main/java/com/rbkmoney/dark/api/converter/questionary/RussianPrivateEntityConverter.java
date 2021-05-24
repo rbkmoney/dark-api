@@ -14,7 +14,8 @@ public class RussianPrivateEntityConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.RussianPrivateEntity, RussianPrivateEntity> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.RussianPrivateEntity toSwag(RussianPrivateEntity value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.RussianPrivateEntity toSwag(RussianPrivateEntity value,
+                                                                           SwagConverterContext ctx) {
         var russianPrivateEntity = new com.rbkmoney.swag.questionary.model.RussianPrivateEntity()
                 .actualAddress(value.getActualAddress())
                 .birthDate(value.getBirthDate())
@@ -30,7 +31,8 @@ public class RussianPrivateEntityConverter implements
     }
 
     @Override
-    public RussianPrivateEntity toThrift(com.rbkmoney.swag.questionary.model.RussianPrivateEntity value, ThriftConverterContext ctx) {
+    public RussianPrivateEntity toThrift(com.rbkmoney.swag.questionary.model.RussianPrivateEntity value,
+                                         ThriftConverterContext ctx) {
         RussianPrivateEntity russianPrivateEntity = new RussianPrivateEntity()
                 .setCitizenship(value.getCitizenship())
                 .setBirthDate(value.getBirthDate())
@@ -38,7 +40,8 @@ public class RussianPrivateEntityConverter implements
                 .setActualAddress(value.getActualAddress())
                 .setResidenceAddress(value.getResidenceAddress());
         if (value.getContactInfo() != null) {
-            russianPrivateEntity.setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
+            russianPrivateEntity
+                    .setContactInfo(ctx.convert(value.getContactInfo(), com.rbkmoney.questionary.ContactInfo.class));
         }
         russianPrivateEntity.setFio(value.getFio());
 

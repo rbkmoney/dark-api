@@ -71,8 +71,9 @@ public class InternationalBankAccountQuestionaryConverter implements
                     .address(swagBank.getAddress())
                     .name(swagBank.getName())
                     .bic(swagBank.getBic())
-                    .country(swagBank.getCountry() == null ?
-                            null : swagBank.getCountry().getValue());
+                    .country(swagBank.getCountry() == null
+                            ? null
+                            : swagBank.getCountry().getValue());
         } else {
             return null;
         }
@@ -87,8 +88,9 @@ public class InternationalBankAccountQuestionaryConverter implements
                     .address(swagBank.getAddress())
                     .name(swagBank.getName())
                     .bic(swagBank.getBic())
-                    .country(swagBank.getCountry() == null ?
-                            null : swagBank.getCountry().getValue());
+                    .country(swagBank.getCountry() == null
+                            ? null
+                            : swagBank.getCountry().getValue());
         } else {
             return null;
         }
@@ -123,8 +125,9 @@ public class InternationalBankAccountQuestionaryConverter implements
                                                                  String bic) {
         InternationalBankDetails bankDetails = new InternationalBankDetails()
                 .setName(name)
-                .setCountry(country == null ?
-                        null : Residence.findByValue(country))
+                .setCountry(country == null
+                        ? null
+                        : Residence.findByValue(country))
                 .setAbaRtn(abaRtn)
                 .setAddress(address)
                 .setBic(bic);

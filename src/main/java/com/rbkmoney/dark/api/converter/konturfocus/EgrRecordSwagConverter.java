@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EgrRecordSwagConverter implements SwagConverter<EgrRecord, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord> {
+public class EgrRecordSwagConverter
+        implements SwagConverter<EgrRecord, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord> {
 
     @Override
-    public EgrRecord toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord value, SwagConverterContext ctx) {
+    public EgrRecord toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrRecord value,
+                            SwagConverterContext ctx) {
         EgrRecord swagEgrRecord = new EgrRecord();
         swagEgrRecord.setDate(value.getDate());
         swagEgrRecord.setGrn(value.getGrn());
@@ -40,14 +42,16 @@ public class EgrRecordSwagConverter implements SwagConverter<EgrRecord, com.rbkm
         return swagEgrRecord;
     }
 
-    private Certificate convertCertificate(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Certificate certificate) {
+    private Certificate convertCertificate(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Certificate certificate) {
         Certificate swagCertificate = new Certificate();
         swagCertificate.setDate(certificate.getDate());
         swagCertificate.setSerialNumber(certificate.getSerialNumber());
         return swagCertificate;
     }
 
-    private RecordDocument convertRecordDocument(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.RecordDocument recordDocument) {
+    private RecordDocument convertRecordDocument(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.RecordDocument recordDocument) {
         RecordDocument swagRecordDocument = new RecordDocument();
         swagRecordDocument.setDate(recordDocument.getDate());
         swagRecordDocument.setName(recordDocument.getName());

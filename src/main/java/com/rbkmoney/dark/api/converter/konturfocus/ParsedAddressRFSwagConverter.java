@@ -7,10 +7,13 @@ import com.rbkmoney.swag.questionary_aggr_proxy.model.Toponim;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ParsedAddressRFSwagConverter implements SwagConverter<ParsedAddressRF, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF> {
+@SuppressWarnings("AbbreviationAsWordInName")
+public class ParsedAddressRFSwagConverter implements
+        SwagConverter<ParsedAddressRF, com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF> {
 
     @Override
-    public ParsedAddressRF toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF value, SwagConverterContext ctx) {
+    public ParsedAddressRF toSwag(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.ParsedAddressRF value,
+                                  SwagConverterContext ctx) {
         ParsedAddressRF swagParsedAddressRF = new ParsedAddressRF();
         if (value.isSetBulk()) {
             swagParsedAddressRF.setBulk(ctx.convert(value.getBulk(), Toponim.class));

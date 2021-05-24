@@ -13,7 +13,8 @@ public class BusinessReputationConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.BusinessReputation, BusinessReputation> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.BusinessReputation toSwag(BusinessReputation value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.BusinessReputation toSwag(BusinessReputation value,
+                                                                         SwagConverterContext ctx) {
         switch (value) {
             case no_reviews:
                 return com.rbkmoney.swag.questionary.model.BusinessReputation.NOREVIEWS;
@@ -25,7 +26,8 @@ public class BusinessReputationConverter implements
     }
 
     @Override
-    public BusinessReputation toThrift(com.rbkmoney.swag.questionary.model.BusinessReputation value, ThriftConverterContext ctx) {
+    public BusinessReputation toThrift(com.rbkmoney.swag.questionary.model.BusinessReputation value,
+                                       ThriftConverterContext ctx) {
         switch (value) {
             case PROVIDEREVIEWS:
                 return BusinessReputation.provide_reviews;

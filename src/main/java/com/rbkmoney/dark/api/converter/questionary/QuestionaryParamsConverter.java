@@ -22,7 +22,8 @@ public class QuestionaryParamsConverter implements
     }
 
     @Override
-    public com.rbkmoney.questionary.manage.QuestionaryParams toThrift(QuestionaryParams value, ThriftConverterContext ctx) {
+    public com.rbkmoney.questionary.manage.QuestionaryParams toThrift(QuestionaryParams value,
+                                                                      ThriftConverterContext ctx) {
         return new com.rbkmoney.questionary.manage.QuestionaryParams()
                 .setId(value.getId())
                 .setOwnerId(value.getOwnerId())

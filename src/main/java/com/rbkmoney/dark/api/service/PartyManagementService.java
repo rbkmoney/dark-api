@@ -16,6 +16,7 @@ import static com.rbkmoney.dark.api.util.ExceptionUtils.darkApi5xxException;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@SuppressWarnings("ParameterName")
 public class PartyManagementService {
 
     private final PartyManagementSrv.Iface partyManagementClient;
@@ -33,17 +34,21 @@ public class PartyManagementService {
     }
 
     private void checkStatus(String xRequestId, String partyId) {
-        log.info("Trying to get request on party-management service for party-status, xRequestId='{}', partyId='{}'", xRequestId, partyId);
+        log.info("Trying to get request on party-management service for party-status, xRequestId='{}', partyId='{}'",
+                xRequestId, partyId);
 
         PartyStatus status = getPartyStatus(xRequestId, partyId);
         if (status.getBlocking().isSetBlocked()) {
             Blocked blocked = status.getBlocking().getBlocked();
             throw new ForbiddenException(
-                    String.format("Party is blocked xRequestId=%s, since=%s, reason=%s", xRequestId, blocked.getSince(), blocked.getReason())
+                    String.format("Party is blocked xRequestId=%s, since=%s, reason=%s",
+                            xRequestId, blocked.getSince(), blocked.getReason())
             );
         }
 
-        log.info("Request has been got on party-management service, party-status=unblocked, xRequestId='{}', partyId='{}'", xRequestId, partyId);
+        log.info(
+                "Request has been got on party-management service, party-status=unblocked, " +
+                        "xRequestId='{}', partyId='{}'", xRequestId, partyId);
     }
 
     private PartyStatus getPartyStatus(String xRequestId, String partyId) {

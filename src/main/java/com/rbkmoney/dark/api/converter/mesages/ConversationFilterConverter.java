@@ -9,7 +9,8 @@ import com.rbkmoney.swag.messages.model.ConversationStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ConversationFilterConverter implements SwagConverter<ConversationFilter, com.rbkmoney.damsel.messages.ConversationFilter>,
+public class ConversationFilterConverter
+        implements SwagConverter<ConversationFilter, com.rbkmoney.damsel.messages.ConversationFilter>,
         ThriftConverter<com.rbkmoney.damsel.messages.ConversationFilter, ConversationFilter> {
 
     @Override
@@ -21,9 +22,12 @@ public class ConversationFilterConverter implements SwagConverter<ConversationFi
     }
 
     @Override
-    public com.rbkmoney.damsel.messages.ConversationFilter toThrift(ConversationFilter value, ThriftConverterContext ctx) {
-        com.rbkmoney.damsel.messages.ConversationFilter conversationFilter = new com.rbkmoney.damsel.messages.ConversationFilter();
-        conversationFilter.setConversationStatus(ctx.convert(value.getConversationStatus(), com.rbkmoney.damsel.messages.ConversationStatus.class));
+    public com.rbkmoney.damsel.messages.ConversationFilter toThrift(ConversationFilter value,
+                                                                    ThriftConverterContext ctx) {
+        com.rbkmoney.damsel.messages.ConversationFilter conversationFilter =
+                new com.rbkmoney.damsel.messages.ConversationFilter();
+        conversationFilter.setConversationStatus(
+                ctx.convert(value.getConversationStatus(), com.rbkmoney.damsel.messages.ConversationStatus.class));
 
         return conversationFilter;
     }

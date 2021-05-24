@@ -9,12 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EgrDetailsIndividualEntitySwagConverter
-        implements SwagConverter<EgrDetailsIndividualEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity> {
+@SuppressWarnings("LineLength")
+public class EgrDetailsIndividualEntitySwagConverter implements
+        SwagConverter<EgrDetailsIndividualEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity> {
 
     @Override
-    public EgrDetailsIndividualEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity value,
-                                             SwagConverterContext ctx) {
+    public EgrDetailsIndividualEntity toSwag(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsIndividualEntity value,
+            SwagConverterContext ctx) {
         EgrDetailsIndividualEntity swagEgrDetailsIndividualEntity = new EgrDetailsIndividualEntity();
         swagEgrDetailsIndividualEntity.setFomsRegNumber(value.getFomsRegNumber());
         swagEgrDetailsIndividualEntity.setFssRegNumber(value.getFssRegNumber());

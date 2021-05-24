@@ -72,9 +72,12 @@ public class QuestionaryServiceTest {
         Assert.assertEquals(swagSnapshot.getQuestionary().getId(), snapshot.getQuestionary().getId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
-        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
-        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
-        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
+        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(),
+                swagSnapshot.getQuestionary().getData().getBankAccount());
+        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(),
+                swagSnapshot.getQuestionary().getData().getContactInfo());
+        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(),
+                swagSnapshot.getQuestionary().getData().getContractor());
     }
 
     @Test
@@ -133,9 +136,12 @@ public class QuestionaryServiceTest {
         Assert.assertEquals(swagSnapshot.getQuestionary().getOwnerId(), snapshot.getQuestionary().getOwnerId());
         Assert.assertEquals(swagSnapshot.getQuestionary().getPartyId(), snapshot.getQuestionary().getPartyId());
 
-        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(), swagSnapshot.getQuestionary().getData().getBankAccount());
-        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(), swagSnapshot.getQuestionary().getData().getContactInfo());
-        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(), swagSnapshot.getQuestionary().getData().getContractor());
+        QuestionaryCompareUtil.bankAccountCompare(snapshot.getQuestionary().getData().getBankAccount(),
+                swagSnapshot.getQuestionary().getData().getBankAccount());
+        QuestionaryCompareUtil.contactInfoCompare(snapshot.getQuestionary().getData().getContactInfo(),
+                swagSnapshot.getQuestionary().getData().getContactInfo());
+        QuestionaryCompareUtil.contractorCompare(snapshot.getQuestionary().getData().getContractor(),
+                swagSnapshot.getQuestionary().getData().getContractor());
     }
 
     @Test
@@ -146,7 +152,8 @@ public class QuestionaryServiceTest {
         questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
-        QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
+        QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(),
+                questionaryParams.getData().getContractor());
     }
 
     @Test
@@ -157,7 +164,8 @@ public class QuestionaryServiceTest {
         questionaryService.saveQuestionary(questionaryParams, "12345", Long.parseLong(questionaryParams.getVersion()));
         verify(questionaryManagerSrv).save(captor.capture(), anyLong());
         com.rbkmoney.questionary.manage.QuestionaryParams thriftQuestionaryParams = captor.getValue();
-        QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(), questionaryParams.getData().getContractor());
+        QuestionaryCompareUtil.contractorCompare(thriftQuestionaryParams.getData().getContractor(),
+                questionaryParams.getData().getContractor());
     }
 
     @Test

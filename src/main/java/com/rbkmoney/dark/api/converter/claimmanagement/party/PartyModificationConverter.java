@@ -22,7 +22,8 @@ public class PartyModificationConverter
             com.rbkmoney.swag.claim_management.model.ShopModificationUnit> shopModificationUnitConverter;
 
     @Override
-    public Modification convertToThrift(com.rbkmoney.swag.claim_management.model.PartyModification swagPartyModification) {
+    public Modification convertToThrift(
+            com.rbkmoney.swag.claim_management.model.PartyModification swagPartyModification) {
         Modification modification = new Modification();
         PartyModification partyModification = new PartyModification();
         var swagPartyModificationType = swagPartyModification.getPartyModificationType();
@@ -50,7 +51,8 @@ public class PartyModificationConverter
                 );
                 break;
             default:
-                throw new IllegalArgumentException("Unknown claim management party modification type: " + swagPartyModification);
+                throw new IllegalArgumentException(
+                        "Unknown claim management party modification type: " + swagPartyModification);
         }
 
         modification.setPartyModification(partyModification);
@@ -64,13 +66,16 @@ public class PartyModificationConverter
         PartyModification partyModification = unit.getPartyModification();
         if (partyModification.isSetContractModification()) {
             ContractModificationUnit contractModificationUnit = partyModification.getContractModification();
-            swagPartyModification.setPartyModificationType(contractModificationUnitConverter.convertToSwag(contractModificationUnit));
+            swagPartyModification.setPartyModificationType(
+                    contractModificationUnitConverter.convertToSwag(contractModificationUnit));
         } else if (partyModification.isSetContractorModification()) {
             ContractorModificationUnit contractorModificationUnit = partyModification.getContractorModification();
-            swagPartyModification.setPartyModificationType(contractorModificationUnitConverter.convertToSwag(contractorModificationUnit));
+            swagPartyModification.setPartyModificationType(
+                    contractorModificationUnitConverter.convertToSwag(contractorModificationUnit));
         } else if (partyModification.isSetShopModification()) {
             ShopModificationUnit shopModificationUnit = partyModification.getShopModification();
-            swagPartyModification.setPartyModificationType(shopModificationUnitConverter.convertToSwag(shopModificationUnit));
+            swagPartyModification
+                    .setPartyModificationType(shopModificationUnitConverter.convertToSwag(shopModificationUnit));
         } else {
             throw new IllegalArgumentException("Unknown party modification type!");
         }

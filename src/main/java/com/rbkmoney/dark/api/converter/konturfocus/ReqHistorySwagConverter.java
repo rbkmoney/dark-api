@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ReqHistorySwagConverter implements SwagConverter<ReqHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory> {
+public class ReqHistorySwagConverter
+        implements SwagConverter<ReqHistory, com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory> {
 
     @Override
-    public ReqHistory toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory value, SwagConverterContext ctx) {
+    public ReqHistory toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_req.ReqHistory value,
+                             SwagConverterContext ctx) {
         ReqHistory reqHistory = new ReqHistory();
         if (value.isSetBranches()) {
             List<Branch> swagBranchList = value.getBranches().stream()

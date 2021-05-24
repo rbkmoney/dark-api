@@ -45,15 +45,17 @@ public class ShopConvertersTest {
         swagShopAccountParams.setShopModificationType(SHOPACCOUNTCREATIONMODIFICATION);
 
         var resultShopAccountParams = converter.convertToSwag(converter.convertToThrift(swagShopAccountParams));
-        assertEquals("Swag objects 'ShopAccountParams' not equals", swagShopAccountParams,
-                resultShopAccountParams);
+        assertEquals("Swag objects 'ShopAccountParams' not equals",
+                swagShopAccountParams, resultShopAccountParams);
 
         ShopAccountParams thriftShopAccountParams = new ShopAccountParams();
         thriftShopAccountParams = new MockTBaseProcessor(MockMode.ALL)
                 .process(thriftShopAccountParams, new TBaseHandler<>(ShopAccountParams.class));
-        ShopAccountParams resultThriftShopAccountParams = converter.convertToThrift(converter.convertToSwag(thriftShopAccountParams));
+        ShopAccountParams resultThriftShopAccountParams =
+                converter.convertToThrift(converter.convertToSwag(thriftShopAccountParams));
 
-        assertEquals("Thrift objects 'ShopAccountParams' not equals", thriftShopAccountParams, resultThriftShopAccountParams);
+        assertEquals("Thrift objects 'ShopAccountParams' not equals",
+                thriftShopAccountParams, resultThriftShopAccountParams);
     }
 
     @Test
@@ -105,7 +107,8 @@ public class ShopConvertersTest {
         ShopDetailsModificationConverter converter = new ShopDetailsModificationConverter();
         var swagShopDetails = EnhancedRandom.random(ShopDetailsModification.class);
         swagShopDetails.setShopModificationType(SHOPDETAILSMODIFICATION);
-        var resultShopContractModificationConverter = converter.convertToSwag(converter.convertToThrift(swagShopDetails));
+        var resultShopContractModificationConverter =
+                converter.convertToSwag(converter.convertToThrift(swagShopDetails));
         assertEquals("Swag objects 'ShopDetails' not equals",
                 swagShopDetails, resultShopContractModificationConverter);
 

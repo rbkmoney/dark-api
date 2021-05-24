@@ -33,15 +33,19 @@ public class ConversationService {
     }
 
     public ConversationResponse getConversation(List<String> conversationIdList,
-                                                com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus) throws ConversationsNotFound, TException {
+                                                com.rbkmoney.swag.messages.model.ConversationStatus conversationStatus)
+            throws TException {
         if (conversationStatus == null) {
             conversationStatus = com.rbkmoney.swag.messages.model.ConversationStatus.ACTUAL;
         }
-        var swagConversationFilter = new com.rbkmoney.swag.messages.model.ConversationFilter().conversationStatus(conversationStatus);
+        var swagConversationFilter =
+                new com.rbkmoney.swag.messages.model.ConversationFilter().conversationStatus(conversationStatus);
 
-        ConversationFilter conversationFilter = swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
+        ConversationFilter conversationFilter =
+                swagConvertManager.convertToThrift(swagConversationFilter, ConversationFilter.class);
 
-        GetConversationResponse conversations = messageServiceClient.getConversations(conversationIdList, conversationFilter);
+        GetConversationResponse conversations =
+                messageServiceClient.getConversations(conversationIdList, conversationFilter);
 
         return swagConvertManager.convertFromThrift(conversations, ConversationResponse.class);
     }

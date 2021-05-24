@@ -43,15 +43,14 @@ public class ContractReportPreferencesModificationConverter
 
     @Override
     public ContractReportPreferencesModification convertToSwag(ReportPreferences reportPreferences) {
-        ContractReportPreferencesModification contractReportPreferencesModification = new ContractReportPreferencesModification();
+        ContractReportPreferencesModification contractReportPreferencesModification =
+                new ContractReportPreferencesModification();
         contractReportPreferencesModification.setContractModificationType(CONTRACTREPORTPREFERENCESMODIFICATION);
         var swagReportPreferences = new com.rbkmoney.swag.claim_management.model.ReportPreferences();
 
         if (reportPreferences.isSetServiceAcceptanceActPreferences()) {
             ServiceAcceptanceActPreferences serviceAcceptanceActPreferences =
                     reportPreferences.getServiceAcceptanceActPreferences();
-            var swagServiceAcceptanceActPreferences =
-                    new com.rbkmoney.swag.claim_management.model.ServiceAcceptanceActPreferences();
             var swagSchedule = new com.rbkmoney.swag.claim_management.model.BusinessScheduleRef();
             swagSchedule.setId(serviceAcceptanceActPreferences.getSchedule().getId());
 
@@ -61,6 +60,8 @@ public class ContractReportPreferencesModificationConverter
             swagSigner.setPosition(signer.getPosition());
             swagSigner.setDocument(representativeDocumentConverter.convertToSwag(signer.getDocument()));
 
+            var swagServiceAcceptanceActPreferences =
+                    new com.rbkmoney.swag.claim_management.model.ServiceAcceptanceActPreferences();
             swagServiceAcceptanceActPreferences.setSchedule(swagSchedule);
             swagServiceAcceptanceActPreferences.setSigner(swagSigner);
             swagReportPreferences.setServiceAcceptanceActPreferences(swagServiceAcceptanceActPreferences);

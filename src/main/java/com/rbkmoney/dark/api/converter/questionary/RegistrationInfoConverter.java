@@ -16,7 +16,8 @@ public class RegistrationInfoConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.RegistrationInfo, RegistrationInfo> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.RegistrationInfo toSwag(RegistrationInfo value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.RegistrationInfo toSwag(RegistrationInfo value,
+                                                                       SwagConverterContext ctx) {
         if (value.isSetIndividualRegistrationInfo()) {
             return new IndividualRegistrationInfo()
                     .ogrnip(value.getIndividualRegistrationInfo().getOgrnip())
@@ -38,7 +39,8 @@ public class RegistrationInfoConverter implements
     }
 
     @Override
-    public RegistrationInfo toThrift(com.rbkmoney.swag.questionary.model.RegistrationInfo value, ThriftConverterContext ctx) {
+    public RegistrationInfo toThrift(com.rbkmoney.swag.questionary.model.RegistrationInfo value,
+                                     ThriftConverterContext ctx) {
         switch (value.getRegistrationInfoType()) {
             case INDIVIDUALREGISTRATIONINFO:
                 var individualRegistrationInfo = new com.rbkmoney.questionary.IndividualRegistrationInfo()

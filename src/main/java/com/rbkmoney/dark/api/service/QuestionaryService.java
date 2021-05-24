@@ -18,7 +18,8 @@ public class QuestionaryService {
 
     private final SwagConvertManager swagConvertManager;
 
-    public Snapshot getQuestionary(String questionaryId, String partyId, String version) throws QuestionaryNotFound, TException {
+    public Snapshot getQuestionary(String questionaryId, String partyId, String version)
+            throws TException {
         log.info("Get questionary by id={}, partyId={}, version={}", questionaryId, partyId, version);
         Reference reference = getReference(version);
 
@@ -27,7 +28,7 @@ public class QuestionaryService {
     }
 
     public Long saveQuestionary(QuestionaryParams questionaryParams, String partyId, Long version)
-            throws QuestionaryNotValid, QuestionaryVersionConflict, TException {
+            throws TException {
         var thriftQuestionaryParams = swagConvertManager.convertToThrift(questionaryParams,
                 com.rbkmoney.questionary.manage.QuestionaryParams.class);
         thriftQuestionaryParams.setPartyId(partyId);

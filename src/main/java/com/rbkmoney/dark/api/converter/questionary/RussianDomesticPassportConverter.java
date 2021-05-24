@@ -13,7 +13,8 @@ public class RussianDomesticPassportConverter implements
         SwagConverter<RussianDomesticPassport, com.rbkmoney.questionary.RussianDomesticPassport> {
 
     @Override
-    public RussianDomesticPassport toSwag(com.rbkmoney.questionary.RussianDomesticPassport value, SwagConverterContext ctx) {
+    public RussianDomesticPassport toSwag(com.rbkmoney.questionary.RussianDomesticPassport value,
+                                          SwagConverterContext ctx) {
         return new RussianDomesticPassport()
                 .issuedAt(value.getIssuedAt())
                 .issuer(value.getIssuer())
@@ -22,7 +23,8 @@ public class RussianDomesticPassportConverter implements
     }
 
     @Override
-    public com.rbkmoney.questionary.RussianDomesticPassport toThrift(RussianDomesticPassport value, ThriftConverterContext ctx) {
+    public com.rbkmoney.questionary.RussianDomesticPassport toThrift(RussianDomesticPassport value,
+                                                                     ThriftConverterContext ctx) {
         return new com.rbkmoney.questionary.RussianDomesticPassport()
                 .setIssuerCode(value.getIssuerCode())
                 .setIssuer(value.getIssuer())

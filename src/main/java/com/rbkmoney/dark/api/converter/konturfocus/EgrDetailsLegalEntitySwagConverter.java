@@ -9,10 +9,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDetailsLegalEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity> {
+@SuppressWarnings("LineLength")
+public class EgrDetailsLegalEntitySwagConverter implements
+        SwagConverter<EgrDetailsLegalEntity, com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity> {
 
     @Override
-    public EgrDetailsLegalEntity toSwag(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity value, SwagConverterContext ctx) {
+    public EgrDetailsLegalEntity toSwag(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.EgrDetailsLegalEntity value,
+            SwagConverterContext ctx) {
         EgrDetailsLegalEntity egrDetailsLegalEntity = new EgrDetailsLegalEntity();
         if (value.isSetActivities()) {
             egrDetailsLegalEntity.setActivities(ctx.convert(value.getActivities(), Activity.class));
@@ -80,8 +84,9 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         return egrDetailsLegalEntity;
     }
 
-    private ShareHolders convertShareHolders(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders shareHolders,
-                                             SwagConverterContext ctx) {
+    private ShareHolders convertShareHolders(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.ShareHolders shareHolders,
+            SwagConverterContext ctx) {
         ShareHolders swagShareHolders = new ShareHolders();
         swagShareHolders.setDate(shareHolders.getDate());
         if (shareHolders.isSetShareholdersFl()) {
@@ -105,14 +110,16 @@ public class EgrDetailsLegalEntitySwagConverter implements SwagConverter<EgrDeta
         return swagShareHolders;
     }
 
-    private StatedCapital convertStatedCapital(com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.StatedCapital statedCapital) {
+    private StatedCapital convertStatedCapital(
+            com.rbkmoney.questionary_proxy_aggr.base_kontur_focus.StatedCapital statedCapital) {
         StatedCapital swagStatedCapital = new StatedCapital();
         swagStatedCapital.setDate(statedCapital.getDate());
         swagStatedCapital.setSum(statedCapital.getSum());
         return swagStatedCapital;
     }
 
-    private Successor convertSuccessor(com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Successor successor) {
+    private Successor convertSuccessor(
+            com.rbkmoney.questionary_proxy_aggr.kontur_focus_egr_details.Successor successor) {
         Successor swagSuccessor = new Successor();
         swagSuccessor.setDate(successor.getDate());
         swagSuccessor.setInn(successor.getInn());

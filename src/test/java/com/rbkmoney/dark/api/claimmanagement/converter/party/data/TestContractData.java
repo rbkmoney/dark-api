@@ -2,10 +2,10 @@ package com.rbkmoney.dark.api.claimmanagement.converter.party.data;
 
 import com.rbkmoney.damsel.claim_management.ContractModification;
 import com.rbkmoney.damsel.claim_management.ContractModificationUnit;
+import com.rbkmoney.damsel.domain.CountryCode;
 import com.rbkmoney.damsel.domain.InternationalBankAccount;
 import com.rbkmoney.damsel.domain.InternationalBankDetails;
 import com.rbkmoney.damsel.domain.LegalAgreement;
-import com.rbkmoney.damsel.domain.Residence;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolCreationModification;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolInfoModification;
 import com.rbkmoney.swag.claim_management.model.ContractPayoutToolModificationUnit;
@@ -14,8 +14,8 @@ import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
-import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTPAYOUTTOOLMODIFICATIONUNIT;
+import static com.rbkmoney.swag.claim_management.model.ContractModification.ContractModificationTypeEnum.CONTRACTTERMINATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLCREATIONMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.ContractPayoutToolModification.PayoutToolModificationTypeEnum.CONTRACTPAYOUTTOOLINFOMODIFICATION;
 import static com.rbkmoney.swag.claim_management.model.PartyModificationType.PartyModificationTypeEnum.CONTRACTMODIFICATIONUNIT;
@@ -36,7 +36,7 @@ public final class TestContractData {
                         .setAbaRtn("rtn")
                         .setAddress("addr")
                         .setBic("bic123456")
-                        .setCountry(Residence.AGO)
+                        .setCountry(CountryCode.AGO)
                         .setName("some name"))
                 .setCorrespondentAccount(new InternationalBankAccount()
                         .setNumber("3332211")
@@ -46,11 +46,12 @@ public final class TestContractData {
                                 .setAbaRtn("21312")
                                 .setAddress("qweqwe")
                                 .setBic("321321")
-                                .setCountry(Residence.ALB)
+                                .setCountry(CountryCode.ALB)
                                 .setName("aasdasd")));
         return thriftInternationalBankAccount;
     }
 
+    @SuppressWarnings("LineLength")
     public static com.rbkmoney.swag.claim_management.model.InternationalBankAccount getTestSwagInternationalBankAccount() {
         var swagInternationalBankAccount =
                 EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
@@ -67,19 +68,22 @@ public final class TestContractData {
         switch (swagPayoutToolModificationUnit.getModification().getPayoutToolModificationType()) {
             case CONTRACTPAYOUTTOOLCREATIONMODIFICATION:
                 var swagPayoutToolParams = EnhancedRandom.random(ContractPayoutToolCreationModification.class);
-                var swagRussianBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
+                var swagRussianBankAccount =
+                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.RussianBankAccount.class);
                 swagRussianBankAccount.setPayoutToolType(RUSSIANBANKACCOUNT);
                 swagPayoutToolParams.setPayoutToolModificationType(CONTRACTPAYOUTTOOLCREATIONMODIFICATION);
                 swagPayoutToolParams.setToolInfo(swagRussianBankAccount);
                 swagPayoutToolModificationUnit.setModification(swagPayoutToolParams);
                 break;
             case CONTRACTPAYOUTTOOLINFOMODIFICATION:
-                var contractPayoutToolInfoModification = EnhancedRandom.random(ContractPayoutToolInfoModification.class);
-                var swagInternationalBankAccount = EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
+                var swagInternationalBankAccount =
+                        EnhancedRandom.random(com.rbkmoney.swag.claim_management.model.InternationalBankAccount.class);
 
                 swagInternationalBankAccount.setPayoutToolType(INTERNATIONALBANKACCOUNT);
                 swagInternationalBankAccount.getBank().setCountry("RUS");
                 swagInternationalBankAccount.getCorrespondentAccount().getBank().setCountry("RUS");
+                var contractPayoutToolInfoModification =
+                        EnhancedRandom.random(ContractPayoutToolInfoModification.class);
                 contractPayoutToolInfoModification.setPayoutToolInfo(swagInternationalBankAccount);
                 contractPayoutToolInfoModification.setPayoutToolModificationType(CONTRACTPAYOUTTOOLINFOMODIFICATION);
 
@@ -91,6 +95,7 @@ public final class TestContractData {
         return swagPayoutToolModificationUnit;
     }
 
+    @SuppressWarnings("LineLength")
     public static com.rbkmoney.swag.claim_management.model.ContractModificationUnit getTestSwagContractModificationUnit() {
         var swagContractModificationUnit = new com.rbkmoney.swag.claim_management.model.ContractModificationUnit();
         swagContractModificationUnit.setId("123");

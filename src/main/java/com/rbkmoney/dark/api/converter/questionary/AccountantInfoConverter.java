@@ -34,23 +34,25 @@ public class AccountantInfoConverter implements
 
                 return individualAccountant;
             } else if (value.getWithoutChiefAccountant().isSetAccountingOrganization()) {
-                var accountingOrganization = new com.rbkmoney.swag.questionary.model.WithoutChiefAccountingOrganization();
+                var accountingOrganization =
+                        new com.rbkmoney.swag.questionary.model.WithoutChiefAccountingOrganization();
                 accountingOrganization.setInn(value.getWithoutChiefAccountant().getAccountingOrganization().getInn());
                 accountingOrganization.setAccountantInfoType(AccountantInfoTypeEnum.WITHOUTCHIEFACCOUNTINGORGANIZATION);
 
                 return accountingOrganization;
             } else {
-                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: "
-                        + value.getWithoutChiefAccountant().getClass().getName());
+                throw new IllegalArgumentException("Unknown withoutChiefAccountant type: " +
+                        value.getWithoutChiefAccountant().getClass().getName());
             }
         } else {
-            throw new IllegalArgumentException("Unknown withChiefAccountant type: "
-                    + value.getWithChiefAccountant().getClass().getName());
+            throw new IllegalArgumentException("Unknown withChiefAccountant type: " +
+                    value.getWithChiefAccountant().getClass().getName());
         }
     }
 
     @Override
-    public AccountantInfo toThrift(com.rbkmoney.swag.questionary.model.AccountantInfo value, ThriftConverterContext ctx) {
+    public AccountantInfo toThrift(com.rbkmoney.swag.questionary.model.AccountantInfo value,
+                                   ThriftConverterContext ctx) {
         WithoutChiefAccountant withoutChiefAccountant = new WithoutChiefAccountant();
         switch (value.getAccountantInfoType()) {
             case WITHCHIEFACCOUNTANT:
@@ -60,7 +62,8 @@ public class AccountantInfoConverter implements
 
                 return AccountantInfo.without_chief_accountant(withoutChiefAccountant);
             case WITHOUTCHIEFACCOUNTINGORGANIZATION:
-                WithoutChiefAccountingOrganization swagWithoutChiefAccountantOrg = (WithoutChiefAccountingOrganization) value;
+                WithoutChiefAccountingOrganization swagWithoutChiefAccountantOrg =
+                        (WithoutChiefAccountingOrganization) value;
                 AccountingOrganization accountingOrganization = new AccountingOrganization();
                 accountingOrganization.setInn(swagWithoutChiefAccountantOrg.getInn());
                 withoutChiefAccountant.setAccountingOrganization(accountingOrganization);

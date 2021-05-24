@@ -13,7 +13,8 @@ public class RussianBankAccountConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.RussianBankAccount, RussianBankAccount> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.RussianBankAccount toSwag(RussianBankAccount value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.RussianBankAccount toSwag(RussianBankAccount value,
+                                                                         SwagConverterContext ctx) {
         return new com.rbkmoney.swag.questionary.model.RussianBankAccount()
                 .account(value.getAccount())
                 .bankBik(value.getBankBik())
@@ -22,7 +23,8 @@ public class RussianBankAccountConverter implements
     }
 
     @Override
-    public RussianBankAccount toThrift(com.rbkmoney.swag.questionary.model.RussianBankAccount value, ThriftConverterContext ctx) {
+    public RussianBankAccount toThrift(com.rbkmoney.swag.questionary.model.RussianBankAccount value,
+                                       ThriftConverterContext ctx) {
         return new RussianBankAccount()
                 .setBankName(value.getBankName())
                 .setBankBik(value.getBankBik())

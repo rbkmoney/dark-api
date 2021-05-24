@@ -23,7 +23,8 @@ public class BeneficialOwnerConverter implements
                 .snils(value.getSnils())
                 .ownershipPercentage((int) value.getOwnershipPercentage());
         if (value.isSetRussianPrivateEntity()) {
-            beneficialOwner.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
+            beneficialOwner
+                    .setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
         }
         if (value.isSetIdentityDocument()) {
             beneficialOwner.setIdentityDocument(ctx.convert(value.getIdentityDocument(), IdentityDocument.class));
@@ -42,7 +43,8 @@ public class BeneficialOwnerConverter implements
     }
 
     @Override
-    public BeneficialOwner toThrift(com.rbkmoney.swag.questionary.model.BeneficialOwner value, ThriftConverterContext ctx) {
+    public BeneficialOwner toThrift(com.rbkmoney.swag.questionary.model.BeneficialOwner value,
+                                    ThriftConverterContext ctx) {
         BeneficialOwner beneficialOwner = new BeneficialOwner()
                 .setInn(value.getInn())
                 .setPdlCategory(ConverterUtils.safeSetValue(value.isPdlCategory()))
@@ -52,19 +54,24 @@ public class BeneficialOwnerConverter implements
             beneficialOwner.setOwnershipPercentage(value.getOwnershipPercentage().byteValue());
         }
         if (value.getRussianPrivateEntity() != null) {
-            beneficialOwner.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
+            beneficialOwner.setRussianPrivateEntity(
+                    ctx.convert(value.getRussianPrivateEntity(), com.rbkmoney.questionary.RussianPrivateEntity.class));
         }
         if (value.getIdentityDocument() != null) {
-            beneficialOwner.setIdentityDocument(ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
+            beneficialOwner.setIdentityDocument(
+                    ctx.convert(value.getIdentityDocument(), com.rbkmoney.questionary.IdentityDocument.class));
         }
         if (value.getMigrationCardInfo() != null) {
-            beneficialOwner.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
+            beneficialOwner.setMigrationCardInfo(
+                    ctx.convert(value.getMigrationCardInfo(), com.rbkmoney.questionary.MigrationCardInfo.class));
         }
         if (value.getResidenceApprove() != null) {
-            beneficialOwner.setResidenceApprove(ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
+            beneficialOwner.setResidenceApprove(
+                    ctx.convert(value.getResidenceApprove(), com.rbkmoney.questionary.ResidenceApprove.class));
         }
         if (value.getResidencyInfo() != null) {
-            beneficialOwner.setResidencyInfo(ctx.convert(value.getResidencyInfo(), com.rbkmoney.questionary.ResidencyInfo.class));
+            beneficialOwner.setResidencyInfo(
+                    ctx.convert(value.getResidencyInfo(), com.rbkmoney.questionary.ResidencyInfo.class));
         }
 
         return beneficialOwner;

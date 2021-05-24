@@ -21,7 +21,8 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
         daDataRequestHolder.setDaDataRequest(daDataRequest);
         switch (daDataParams.getRequest().getDaDataRequestType()) {
             case OKVEDQUERY:
-                daDataRequestHolder.setDaDataEndpoint(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint.okved2);
+                daDataRequestHolder
+                        .setDaDataEndpoint(com.rbkmoney.questionary_proxy_aggr.dadata_api.DaDataEndpoint.okved2);
                 OkvedQuery swagOkvedQuery = ((OkvedQuery) daDataParams.getRequest());
                 daDataRequest.setOkvedQuery(convertOkvedQuery(swagOkvedQuery));
                 break;
@@ -51,7 +52,8 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
                 daDataRequest.setAddressQuery(convertAddressQuery(swagAddressQuery));
                 break;
             default:
-                throw new IllegalArgumentException("Unknown endpoint: " + daDataParams.getRequest().getDaDataRequestType());
+                throw new IllegalArgumentException(
+                        "Unknown endpoint: " + daDataParams.getRequest().getDaDataRequestType());
         }
 
         return daDataRequestHolder;
@@ -146,9 +148,10 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
             thriftBankQuery.setCount(swagBankQuery.getCount().byteValue());
         }
         if (swagBankQuery.getStatus() != null) {
-            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagBankQuery.getStatus().stream()
-                    .map(this::convertOrgStatus)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList =
+                    swagBankQuery.getStatus().stream()
+                            .map(this::convertOrgStatus)
+                            .collect(Collectors.toList());
             thriftBankQuery.setStatus(thriftOrgStatusList);
         }
         if (swagBankQuery.getType() != null) {
@@ -164,56 +167,64 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
             thriftPartyQuery.setCount(swagPartyQuery.getCount().byteValue());
         }
         if (swagPartyQuery.getStatus() != null) {
-            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList = swagPartyQuery.getStatus().stream()
-                    .map(this::convertOrgStatus)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.OrgStatus> thriftOrgStatusList =
+                    swagPartyQuery.getStatus().stream()
+                            .map(this::convertOrgStatus)
+                            .collect(Collectors.toList());
             thriftPartyQuery.setStatus(thriftOrgStatusList);
         }
         if (swagPartyQuery.getType() != null) {
             thriftPartyQuery.setType(convertOrgType(swagPartyQuery.getType()));
         }
         if (swagPartyQuery.getLocationsBoost() != null) {
-            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters = swagPartyQuery.getLocationsBoost().stream()
-                    .map(this::convertLocationBoostFilter)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters =
+                    swagPartyQuery.getLocationsBoost().stream()
+                            .map(this::convertLocationBoostFilter)
+                            .collect(Collectors.toList());
             thriftPartyQuery.setLocationsBoost(thriftLocationBoostFilters);
         }
         if (swagPartyQuery.getLocations() != null) {
-            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter> thriftLocationFilters = swagPartyQuery.getLocations().stream()
-                    .map(this::convertLocationFilter)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter> thriftLocationFilters =
+                    swagPartyQuery.getLocations().stream()
+                            .map(this::convertLocationFilter)
+                            .collect(Collectors.toList());
             thriftPartyQuery.setLocations(thriftLocationFilters);
         }
         return thriftPartyQuery;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter convertLocationFilter(LocationFilter locationFilter) {
+    private com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter convertLocationFilter(
+            LocationFilter locationFilter) {
         var thriftLocationFilter = new com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationFilter();
         thriftLocationFilter.setKladrId(locationFilter.getKladrId());
         return thriftLocationFilter;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery convertFmsUnitQuery(FmsUnitQuery swagFmsUnitQuery) {
+    private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery convertFmsUnitQuery(
+            FmsUnitQuery swagFmsUnitQuery) {
         var thriftFmsUnitQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQuery();
         thriftFmsUnitQuery.setQuery(swagFmsUnitQuery.getQuery());
         thriftFmsUnitQuery.setQueryType(convertQueryType(swagFmsUnitQuery.getQueryType()));
         if (swagFmsUnitQuery.getFilters() != null && !swagFmsUnitQuery.getFilters().isEmpty()) {
-            List<com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter> thriftFmsUnitQueryFilters = swagFmsUnitQuery.getFilters().stream()
-                    .map(this::convertFmsUnitQuery)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter> thriftFmsUnitQueryFilters =
+                    swagFmsUnitQuery.getFilters().stream()
+                            .map(this::convertFmsUnitQuery)
+                            .collect(Collectors.toList());
             thriftFmsUnitQuery.setFilters(thriftFmsUnitQueryFilters);
         }
         return thriftFmsUnitQuery;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter convertFmsUnitQuery(FmsUnitQueryFilter fmsUnitQueryFilter) {
+    private com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter convertFmsUnitQuery(
+            FmsUnitQueryFilter fmsUnitQueryFilter) {
         var thriftFmsUnitQueryFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_fms_unit.FmsUnitQueryFilter();
         thriftFmsUnitQueryFilter.setRegionCode(fmsUnitQueryFilter.getRegionCode());
         thriftFmsUnitQueryFilter.setType(fmsUnitQueryFilter.getType());
         return thriftFmsUnitQueryFilter;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressQuery convertAddressQuery(AddressQuery swagAddressQuery) {
+    private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressQuery convertAddressQuery(
+            AddressQuery swagAddressQuery) {
         var thriftAddressQuery = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressQuery();
         thriftAddressQuery.setQuery(swagAddressQuery.getQuery());
         thriftAddressQuery.setRestrictValue(ConverterUtils.safeSetValue(swagAddressQuery.isRestrictValue()));
@@ -227,28 +238,33 @@ public class DaDataParamToDaDataRequest implements ThriftConverter<DaDataRequest
             thriftAddressQuery.setCount(swagAddressQuery.getCount().byteValue());
         }
         if (swagAddressQuery.getLocations() != null && !swagAddressQuery.getLocations().isEmpty()) {
-            List<com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter> thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
+            List<com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter>
+                    thriftAddressLocationFilters = swagAddressQuery.getLocations().stream()
                     .map(this::convertAddressLocationFilter)
                     .collect(Collectors.toList());
             thriftAddressQuery.setLocations(thriftAddressLocationFilters);
         }
         if (swagAddressQuery.getLocationsBoost() != null && !swagAddressQuery.getLocationsBoost().isEmpty()) {
-            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters = swagAddressQuery.getLocationsBoost().stream()
-                    .map(this::convertLocationBoostFilter)
-                    .collect(Collectors.toList());
+            List<com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter> thriftLocationBoostFilters =
+                    swagAddressQuery.getLocationsBoost().stream()
+                            .map(this::convertLocationBoostFilter)
+                            .collect(Collectors.toList());
             thriftAddressQuery.setLocationsBoost(thriftLocationBoostFilters);
         }
         return thriftAddressQuery;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter convertLocationBoostFilter(LocationBoostFilter locationBoostFilter) {
+    private com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter convertLocationBoostFilter(
+            LocationBoostFilter locationBoostFilter) {
         var thriftLocationBoostFilter = new com.rbkmoney.questionary_proxy_aggr.base_dadata.LocationBoostFilter();
         thriftLocationBoostFilter.setKladrId(locationBoostFilter.getKladrId());
         return thriftLocationBoostFilter;
     }
 
-    private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter convertAddressLocationFilter(AddressLocationFilter addressLocationFilter) {
-        var thriftAddressLocationFilter = new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter();
+    private com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter convertAddressLocationFilter(
+            AddressLocationFilter addressLocationFilter) {
+        var thriftAddressLocationFilter =
+                new com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressLocationFilter();
         thriftAddressLocationFilter.setCityFiasId(addressLocationFilter.getCityFiasId());
         thriftAddressLocationFilter.setCity(addressLocationFilter.getCity());
         thriftAddressLocationFilter.setKladrId(addressLocationFilter.getKladrId());

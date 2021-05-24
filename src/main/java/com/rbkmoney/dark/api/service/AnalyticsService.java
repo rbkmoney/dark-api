@@ -37,12 +37,10 @@ public class AnalyticsService {
         return analyticsConverter.convertAmountResponse(averagePayment);
     }
 
-
-    public InlineResponse200 getCurrentBalances(String partyId, List<String> shopIds) throws TException {
-        return null;
-    }
-
-    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId, List<String> shopIds) throws TException {
+    public InlineResponse200 getPaymentsAmount(OffsetDateTime fromTime,
+                                               OffsetDateTime toTime,
+                                               String partyId,
+                                               List<String> shopIds) throws TException {
         AmountResponse paymentsAmount = analyticsClient.getPaymentsAmount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
@@ -54,8 +52,10 @@ public class AnalyticsService {
         return analyticsConverter.convertAmountResponse(paymentsAmount);
     }
 
-    public InlineResponse2002 getPaymentsCount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                               String partyId, List<String> shopIds) throws TException {
+    public InlineResponse2002 getPaymentsCount(OffsetDateTime fromTime,
+                                               OffsetDateTime toTime,
+                                               String partyId,
+                                               List<String> shopIds) throws TException {
         CountResponse countResponse = analyticsClient.getPaymentsCount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
@@ -67,8 +67,10 @@ public class AnalyticsService {
         return analyticsConverter.convertCountResponse(countResponse);
     }
 
-    public InlineResponse2003 getPaymentsErrorDistribution(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                           String partyId, List<String> shopIds) throws TException {
+    public InlineResponse2003 getPaymentsErrorDistribution(OffsetDateTime fromTime,
+                                                           OffsetDateTime toTime,
+                                                           String partyId,
+                                                           List<String> shopIds) throws TException {
         ErrorDistributionsResponse countResponse = analyticsClient.getPaymentsErrorDistribution(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
@@ -80,8 +82,12 @@ public class AnalyticsService {
         return analyticsConverter.convertErrorDistributionsResponse(countResponse);
     }
 
-    public InlineResponse2004 getPaymentsSplitAmount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                     String splitUnit, String partyId, List<String> shopIds) throws TException {
+    public InlineResponse2004 getPaymentsSplitAmount(OffsetDateTime fromTime,
+                                                     OffsetDateTime toTime,
+                                                     String splitUnit,
+                                                     String partyId,
+                                                     List<String> shopIds)
+            throws TException {
         SplitAmountResponse response = analyticsClient.getPaymentsSplitAmount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()
@@ -95,8 +101,12 @@ public class AnalyticsService {
         return analyticsConverter.convertSplitAmountResponse(response);
     }
 
-    public InlineResponse2005 getPaymentsSplitCount(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                    String splitUnit, String partyId, List<String> shopIds) throws TException {
+    public InlineResponse2005 getPaymentsSplitCount(OffsetDateTime fromTime,
+                                                    OffsetDateTime toTime,
+                                                    String splitUnit,
+                                                    String partyId,
+                                                    List<String> shopIds)
+            throws TException {
         SplitCountResponse response = analyticsClient.getPaymentsSplitCount(new SplitFilterRequest()
                 .setSplitUnit(SplitUnit.valueOf(splitUnit))
                 .setFilterRequest(new FilterRequest()
@@ -110,8 +120,10 @@ public class AnalyticsService {
         return analyticsConverter.convertSplitCountResponse(response);
     }
 
-    public InlineResponse2001 getPaymentsToolDistribution(OffsetDateTime fromTime, OffsetDateTime toTime,
-                                                          String partyId, List<String> shopIds) throws TException {
+    public InlineResponse2001 getPaymentsToolDistribution(OffsetDateTime fromTime,
+                                                          OffsetDateTime toTime,
+                                                          String partyId,
+                                                          List<String> shopIds) throws TException {
         PaymentToolDistributionResponse response = analyticsClient.getPaymentsToolDistribution(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()
                         .setPartyId(partyId)
@@ -123,7 +135,9 @@ public class AnalyticsService {
         return analyticsConverter.convertPaymentToolDistributionResponse(response);
     }
 
-    public InlineResponse200 getRefundsAmount(OffsetDateTime fromTime, OffsetDateTime toTime, String partyId,
+    public InlineResponse200 getRefundsAmount(OffsetDateTime fromTime,
+                                              OffsetDateTime toTime,
+                                              String partyId,
                                               List<String> shopIds) throws TException {
         AmountResponse response = analyticsClient.getRefundsAmount(new FilterRequest()
                 .setMerchantFilter(new MerchantFilter()

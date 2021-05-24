@@ -33,7 +33,8 @@ public class LegalOwnerInfoConverter implements
             legalOwnerInfo.setMigrationCardInfo(ctx.convert(value.getMigrationCardInfo(), MigrationCardInfo.class));
         }
         if (value.isSetRussianPrivateEntity()) {
-            legalOwnerInfo.setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
+            legalOwnerInfo
+                    .setRussianPrivateEntity(ctx.convert(value.getRussianPrivateEntity(), RussianPrivateEntity.class));
         }
         if (value.isSetAuthorityConfirmingDocument()) {
             legalOwnerInfo.setAuthorityConfirmingDocument(
@@ -70,7 +71,8 @@ public class LegalOwnerInfoConverter implements
         }
         if (value.getAuthorityConfirmingDocument() != null) {
             legalOwnerInfo.setAuthorityConfirmingDocument(
-                    ctx.convert(value.getAuthorityConfirmingDocument(), com.rbkmoney.questionary.AuthorityConfirmingDocument.class));
+                    ctx.convert(value.getAuthorityConfirmingDocument(),
+                            com.rbkmoney.questionary.AuthorityConfirmingDocument.class));
         }
 
         return legalOwnerInfo;

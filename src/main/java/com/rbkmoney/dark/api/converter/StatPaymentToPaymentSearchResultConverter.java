@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rbkmoney.damsel.base.Content;
 import com.rbkmoney.damsel.merch_stat.*;
+import com.rbkmoney.mamsel.PaymentSystemUtil;
+import com.rbkmoney.mamsel.TokenProviderUtil;
 import com.rbkmoney.swag.dark_api.model.CustomerPayer;
 import com.rbkmoney.swag.dark_api.model.Payer;
 import com.rbkmoney.swag.dark_api.model.PaymentResourcePayer;
@@ -28,7 +30,9 @@ public class StatPaymentToPaymentSearchResultConverter {
     public static PaymentSearchResult convert(StatPayment statPayment, Content invoiceMetadata) {
         try {
             return new PaymentSearchResult()
-                    .invoiceMetadata(invoiceMetadata == null ? Map.of() : objectMapper.readValue(invoiceMetadata.getData(), HashMap.class))
+                    .invoiceMetadata(invoiceMetadata == null
+                            ? Map.of()
+                            : objectMapper.readValue(invoiceMetadata.getData(), HashMap.class))
                     .amount(statPayment.amount)
                     .cart(getCart(statPayment.cart))
                     .createdAt(OffsetDateTime.parse(statPayment.created_at))
@@ -41,13 +45,16 @@ public class StatPaymentToPaymentSearchResultConverter {
                     .id(statPayment.id)
                     .invoiceID(statPayment.invoice_id)
                     .makeRecurrent(statPayment.make_recurrent)
-                    .metadata(statPayment.context == null ? Map.of() : objectMapper.readValue(statPayment.context.getData(), HashMap.class))
+                    .metadata(statPayment.context == null
+                            ? Map.of()
+                            : objectMapper.readValue(statPayment.context.getData(), HashMap.class))
                     .payer(getPayer(statPayment.payer))
                     .shortID(statPayment.short_id)
 
                     .status(getStatus(statPayment.status));
         } catch (IOException e) {
-            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}", invoiceMetadata, statPayment.context, e);
+            log.error("Error at parsing invoice metadata: {} or statPayment.context: {}",
+                    invoiceMetadata, statPayment.context, e);
             return null;
         }
     }
@@ -73,11 +80,15 @@ public class StatPaymentToPaymentSearchResultConverter {
                 return paymentResourcePayer
                         .paymentToolToken(bankCard.getToken())
                         .paymentToolDetails(new PaymentToolDetailsBankCard()
-                                .paymentSystem(PaymentToolDetailsBankCard.PaymentSystemEnum.fromValue(bankCard.payment_system.name()))
+                                .paymentSystem(PaymentToolDetailsBankCard.PaymentSystemEnum
+                                        .fromValue(PaymentSystemUtil.getPaymentSystemName(bankCard)))
                                 .bin(bankCard.bin)
                                 .cardNumberMask(bankCard.bin + StringUtils.repeat("*", 6) + bankCard.masked_pan)
                                 .lastDigits(bankCard.masked_pan)
-                                .tokenProvider(bankCard.token_provider == null ? null : PaymentToolDetailsBankCard.TokenProviderEnum.fromValue(bankCard.token_provider.name())));
+                                .tokenProvider(TokenProviderUtil.getTokenProviderName(bankCard) == null
+                                        ? null
+                                        : PaymentToolDetailsBankCard.TokenProviderEnum
+                                        .fromValue(TokenProviderUtil.getTokenProviderName(bankCard))));
             }
             if (paymentResource.payment_tool.isSetDigitalWallet()) {
                 DigitalWallet digitalWallet = paymentResource.payment_tool.getDigitalWallet();
@@ -89,7 +100,8 @@ public class StatPaymentToPaymentSearchResultConverter {
                 PaymentTerminal paymentTerminal = paymentResource.payment_tool.getPaymentTerminal();
                 return paymentResourcePayer
                         .paymentToolDetails(new PaymentToolDetailsPaymentTerminal()
-                                .provider(PaymentToolDetailsPaymentTerminal.ProviderEnum.fromValue(paymentTerminal.terminal_type.name())));
+                                .provider(PaymentToolDetailsPaymentTerminal.ProviderEnum
+                                        .fromValue(paymentTerminal.terminal_type.name())));
             }
         }
         if (payer.isSetRecurrent()) {

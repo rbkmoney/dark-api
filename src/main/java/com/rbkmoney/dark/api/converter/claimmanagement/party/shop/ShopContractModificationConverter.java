@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import static com.rbkmoney.swag.claim_management.model.ShopModification.ShopModificationTypeEnum.SHOPCONTRACTMODIFICATION;
 
 @Component
-public class ShopContractModificationConverter
-        implements DarkApiConverter<ShopContractModification, com.rbkmoney.swag.claim_management.model.ShopContractModification> {
+public class ShopContractModificationConverter implements
+        DarkApiConverter<ShopContractModification, com.rbkmoney.swag.claim_management.model.ShopContractModification> {
 
     @Override
     public ShopContractModification convertToThrift(

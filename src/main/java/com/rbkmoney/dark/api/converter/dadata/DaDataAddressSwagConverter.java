@@ -84,7 +84,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
         return daDataAddress;
     }
 
-    private AddressAreaData convertAddressAreaData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressAreaData addressAreaData) {
+    private AddressAreaData convertAddressAreaData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressAreaData addressAreaData) {
         return new AddressAreaData()
                 .area(addressAreaData.getArea())
                 .areaFiasId(addressAreaData.getAreaFiasId())
@@ -94,14 +95,16 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .areaWithType(addressAreaData.getAreaWithType());
     }
 
-    private AddressBlockData convertAddressBlock(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressBlockData addressBlockData) {
+    private AddressBlockData convertAddressBlock(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressBlockData addressBlockData) {
         return new AddressBlockData()
                 .block(addressBlockData.getBlock())
                 .blockTypeFull(addressBlockData.getBlockTypeFull())
                 .blockType(addressBlockData.getBlockType());
     }
 
-    private AddressCityData convertAddressCityData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData addressCityData) {
+    private AddressCityData convertAddressCityData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityData addressCityData) {
         return new AddressCityData()
                 .city(addressCityData.getCity())
                 .cityArea(addressCityData.getCityArea())
@@ -112,7 +115,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .cityWithType(addressCityData.getCityWithType());
     }
 
-    private AddressCityDistrictData convertAddressCityDistrictData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityDistrictData addressCityDistrictData) {
+    private AddressCityDistrictData convertAddressCityDistrictData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressCityDistrictData addressCityDistrictData) {
         return new AddressCityDistrictData()
                 .cityDistrict(addressCityDistrictData.getCityDistrict())
                 .cityDistrictFiasId(addressCityDistrictData.getCityDistrictFiasId())
@@ -122,7 +126,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .cityDistrictWithType(addressCityDistrictData.getCityDistrictWithType());
     }
 
-    private AddressFlatData convertAddressFlatData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressFlatData addressFlatData) {
+    private AddressFlatData convertAddressFlatData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressFlatData addressFlatData) {
         return new AddressFlatData()
                 .flatType(addressFlatData.getFlatType())
                 .flat(addressFlatData.getFlat())
@@ -131,7 +136,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .flatTypeFull(addressFlatData.getFlatTypeFull());
     }
 
-    private AddressHouseData convertAddressHouseData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressHouseData addressHouseData) {
+    private AddressHouseData convertAddressHouseData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressHouseData addressHouseData) {
         return new AddressHouseData()
                 .house(addressHouseData.getHouse())
                 .houseFiasId(addressHouseData.getHouseFiasId())
@@ -140,7 +146,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .houseTypeFull(addressHouseData.getHouseTypeFull());
     }
 
-    private AddressRegionData convertAddressRegionData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressRegionData addressRegionData) {
+    private AddressRegionData convertAddressRegionData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressRegionData addressRegionData) {
         return new AddressRegionData()
                 .region(addressRegionData.getRegion())
                 .regionFiasId(addressRegionData.getRegionFiasId())
@@ -149,7 +156,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .regionWithType(addressRegionData.getRegionWithType());
     }
 
-    private AddressSettlementData convertAddressSettlementData(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressSettlementData addressSettlementData) {
+    private AddressSettlementData convertAddressSettlementData(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressSettlementData addressSettlementData) {
         return new AddressSettlementData()
                 .settlement(addressSettlementData.getSettlement())
                 .settlementFiasId(addressSettlementData.getSettlementFiasId())
@@ -159,7 +167,8 @@ public class DaDataAddressSwagConverter implements SwagConverter<DaDataAddress, 
                 .settlementWithType(addressSettlementData.getSettlementWithType());
     }
 
-    private AddressMetro convertAddressMetro(com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro addressMetro) {
+    private AddressMetro convertAddressMetro(
+            com.rbkmoney.questionary_proxy_aggr.dadata_address.AddressMetro addressMetro) {
         return new AddressMetro()
                 .name(addressMetro.getName())
                 .distance(addressMetro.getDistance())

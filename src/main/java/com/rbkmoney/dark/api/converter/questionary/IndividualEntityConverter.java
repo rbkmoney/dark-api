@@ -15,16 +15,19 @@ public class IndividualEntityConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.IndividualEntity, IndividualEntity> {
 
     @Override
-    public com.rbkmoney.swag.questionary.model.IndividualEntity toSwag(IndividualEntity value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.IndividualEntity toSwag(IndividualEntity value,
+                                                                       SwagConverterContext ctx) {
         if (value.isSetRussianIndividualEntity()) {
-            return ctx.convert(value.getRussianIndividualEntity(), com.rbkmoney.swag.questionary.model.RussianIndividualEntity.class);
+            return ctx.convert(value.getRussianIndividualEntity(),
+                    com.rbkmoney.swag.questionary.model.RussianIndividualEntity.class);
         } else {
             throw new IllegalArgumentException("Unknown individualEntity type: " + value.getClass().getName());
         }
     }
 
     @Override
-    public IndividualEntity toThrift(com.rbkmoney.swag.questionary.model.IndividualEntity value, ThriftConverterContext ctx) {
+    public IndividualEntity toThrift(com.rbkmoney.swag.questionary.model.IndividualEntity value,
+                                     ThriftConverterContext ctx) {
         IndividualEntity individualEntity = new IndividualEntity();
         if (value.getIndividualEntityType() == IndividualEntityTypeEnum.RUSSIANINDIVIDUALENTITY) {
             individualEntity.setRussianIndividualEntity(ctx.convert(value, RussianIndividualEntity.class));

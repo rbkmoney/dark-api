@@ -13,7 +13,8 @@ public class PropertyInfoDocumentTypeConverter implements
         SwagConverter<com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType, PropertyInfoDocumentType> {
 
     @Override
-    public PropertyInfoDocumentType toThrift(com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType value, ThriftConverterContext ctx) {
+    public PropertyInfoDocumentType toThrift(com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType value,
+                                             ThriftConverterContext ctx) {
         switch (value.getDocumentType()) {
             case LEASECONTRACT:
                 return PropertyInfoDocumentType.lease_contract(new LeaseContract());
@@ -22,7 +23,8 @@ public class PropertyInfoDocumentTypeConverter implements
             case CERTIFICATEOFOWNERSHIP:
                 return PropertyInfoDocumentType.certificate_of_ownership(new CertificateOfOwnership());
             case OTHERPROPERTYINFODOCUMENTTYPE:
-                var swagOtherPropertyInfoDocumentType = (com.rbkmoney.swag.questionary.model.OtherPropertyInfoDocumentType) value;
+                var swagOtherPropertyInfoDocumentType =
+                        (com.rbkmoney.swag.questionary.model.OtherPropertyInfoDocumentType) value;
                 OtherPropertyInfoDocumentType otherPropertyInfoDocumentType = new OtherPropertyInfoDocumentType()
                         .setName(swagOtherPropertyInfoDocumentType.getName());
                 return PropertyInfoDocumentType.other_property_info_document_type(otherPropertyInfoDocumentType);
@@ -33,7 +35,8 @@ public class PropertyInfoDocumentTypeConverter implements
 
 
     @Override
-    public com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType toSwag(PropertyInfoDocumentType value, SwagConverterContext ctx) {
+    public com.rbkmoney.swag.questionary.model.PropertyInfoDocumentType toSwag(PropertyInfoDocumentType value,
+                                                                               SwagConverterContext ctx) {
         if (value.isSetLeaseContract()) {
             return new com.rbkmoney.swag.questionary.model.LeaseContract();
         } else if (value.isSetSubleaseContract()) {
