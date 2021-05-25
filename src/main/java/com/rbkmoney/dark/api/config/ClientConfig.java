@@ -2,7 +2,6 @@ package com.rbkmoney.dark.api.config;
 
 import com.rbkmoney.cabi.CryptoApiSrv;
 import com.rbkmoney.damsel.analytics.AnalyticsServiceSrv;
-import com.rbkmoney.damsel.claim_management.ClaimManagementSrv;
 import com.rbkmoney.damsel.domain_config.RepositoryClientSrv;
 import com.rbkmoney.damsel.merch_stat.DarkMessiahStatisticsSrv;
 import com.rbkmoney.damsel.message_sender.MessageSenderSrv;
@@ -13,10 +12,6 @@ import com.rbkmoney.dark.api.config.property.CabiProperties;
 import com.rbkmoney.dark.api.config.property.ConversationProperties;
 import com.rbkmoney.dark.api.config.property.QuestionaryAggrProxyProperties;
 import com.rbkmoney.dark.api.config.property.QuestionaryProperties;
-import com.rbkmoney.dark.api.meta.UserIdentityEmailExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
 import com.rbkmoney.file.storage.FileStorageSrv;
 import com.rbkmoney.questionary.manage.QuestionaryManagerSrv;
 import com.rbkmoney.woody.thrift.impl.http.THSpawnClientBuilder;
@@ -32,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 
 @Slf4j
 @Configuration
@@ -61,24 +55,6 @@ public class ClientConfig {
                 .withAddress(resource.getURI())
                 .withNetworkTimeout(timeout)
                 .build(DarkMessiahStatisticsSrv.Iface.class);
-    }
-
-    @Bean
-    public ClaimManagementSrv.Iface claimManagementClient(
-            @Value("${claimmanagement.client.adapter.url}") Resource resource,
-            @Value("${claimmanagement.client.adapter.networkTimeout}") int timeout) throws IOException {
-        return new THSpawnClientBuilder()
-                .withMetaExtensions(
-                        Arrays.asList(
-                                UserIdentityIdExtensionKit.INSTANCE,
-                                UserIdentityEmailExtensionKit.INSTANCE,
-                                UserIdentityUsernameExtensionKit.INSTANCE,
-                                UserIdentityRealmExtensionKit.INSTANCE
-                        )
-                )
-                .withAddress(resource.getURI())
-                .withNetworkTimeout(timeout)
-                .build(ClaimManagementSrv.Iface.class);
     }
 
     @Bean
