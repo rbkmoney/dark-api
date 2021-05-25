@@ -1,11 +1,9 @@
 package com.rbkmoney.dark.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.damsel.claim_management.*;
 import com.rbkmoney.damsel.merch_stat.BadToken;
 import com.rbkmoney.damsel.messages.ConversationsNotFound;
 import com.rbkmoney.damsel.questionary_proxy_aggr.DaDataNotFound;
-import com.rbkmoney.dark.api.claimmanagement.ClaimManagementServiceTest;
 import com.rbkmoney.dark.api.config.AbstractKeycloakOpenIdAsWiremockConfig;
 import com.rbkmoney.dark.api.service.*;
 import com.rbkmoney.file.storage.FileNotFound;
@@ -50,9 +48,6 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
     private FileStorageService fileStorageService;
 
     @MockBean
-    private ClaimManagementService claimManagementService;
-
-    @MockBean
     private ConversationService conversationService;
 
     @MockBean
@@ -69,98 +64,6 @@ public class ErrorControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig 
         doNothing().when(partyManagementService).checkStatus(anyString());
         doNothing().when(partyManagementService).checkStatus();
         when(keycloakService.getPartyId()).thenReturn(string());
-    }
-
-    @Test
-    public void testThenClaimManagementClientThrowingExceptions() throws Exception {
-        doThrow(ClaimNotFound.class).when(claimManagementService).getClaimById(any(), any());
-
-        mockMvc.perform(
-                get("/processing/claims/{claimID}", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateReadJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-        ).andExpect(status().isNotFound());
-
-        reset(claimManagementService);
-        doThrow(ClaimNotFound.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isNotFound());
-
-        reset(claimManagementService);
-        doThrow(InvalidClaimStatus.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isBadRequest());
-
-        reset(claimManagementService);
-        doThrow(InvalidClaimRevision.class).when(claimManagementService)
-                .updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isBadRequest());
-
-        reset(claimManagementService);
-        doThrow(ChangesetConflict.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isBadRequest());
-
-        reset(claimManagementService);
-        doThrow(InvalidChangeset.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isBadRequest());
-
-        reset(claimManagementService);
-        doThrow(TException.class).when(claimManagementService).updateClaimById(any(), any(), any(), anyList());
-
-        mockMvc.perform(
-                put("/processing/claims/{claimID}/update", anyLong())
-                        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                        .header("Authorization", "Bearer " + generateWriteJwt())
-                        .header("X-Request-ID", string())
-                        .header("X-Request-Deadline", Instant.now().plus(1, ChronoUnit.DAYS).toString())
-                        .param("claimRevision", String.valueOf(123))
-                        .content(objectMapper.writeValueAsBytes(ClaimManagementServiceTest.getModifications()))
-        ).andExpect(status().isInternalServerError());
     }
 
     @Test
