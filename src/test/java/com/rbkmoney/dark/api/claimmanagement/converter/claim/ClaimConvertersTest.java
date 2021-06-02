@@ -154,7 +154,8 @@ public class ClaimConvertersTest {
                 new ClaimDocumentModificationConverter(),
                 new ClaimCommentModificationUnitConverter(),
                 new ClaimStatusModificationUnitConverter(new ClaimStatusModificationConverter()),
-                new ClaimFileModificationUnitConverter()
+                new ClaimFileModificationUnitConverter(),
+                new ClaimExternalInfoModificationUnitConverter()
         );
         var resultClaimModification = converter.convertToSwag(converter.convertToThrift(swagClaimModification));
         assertEquals("Swag objects 'ClaimModification' not equals", swagClaimModification, resultClaimModification);

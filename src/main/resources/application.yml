@@ -4,7 +4,7 @@ management:
   security:
     flag: false
   server:
-    port: @management.port@
+    port: '@management.port@'
   metrics:
     export:
       statsd:
@@ -26,8 +26,8 @@ management:
 
 spring:
   application:
-    name: @project.name@
-    description: @project.description@
+    name: '@project.name@'
+    description: '@project.description@'
   output:
     ansi:
       enabled: ALWAYS
