@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.rbkmoney</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.4</version>
     </parent>
 
     <artifactId>dark-api</artifactId>
@@ -86,7 +86,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-claim-management</artifactId>
-            <version>1.29-d665bf2-server</version>
+            <version>1.30-eafa8b6-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -139,6 +139,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>5.4.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>5.4.6</version>
         </dependency>
         <dependency>
             <groupId>org.keycloak</groupId>
@@ -283,6 +293,7 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
 
     <build>
         <resources>
