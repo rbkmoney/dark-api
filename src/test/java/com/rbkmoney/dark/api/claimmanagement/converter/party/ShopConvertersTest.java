@@ -139,6 +139,9 @@ public class ShopConvertersTest {
         ShopModificationUnit thriftShopModificationUnit = new ShopModificationUnit();
         thriftShopModificationUnit = new MockTBaseProcessor(MockMode.ALL)
                 .process(thriftShopModificationUnit, new TBaseHandler<>(ShopModificationUnit.class));
+        if (thriftShopModificationUnit.getModification().isSetCashRegisterModificationUnit()) {
+            thriftShopModificationUnit.setModification(ShopModification.payout_tool_modification("kek"));
+        }
         ShopModificationUnit resultThriftShopModificationUnit = converter.convertToThrift(
                 converter.convertToSwag(thriftShopModificationUnit));
         assertEquals("Thrift objects 'ShopModificationUnit' not equals",
