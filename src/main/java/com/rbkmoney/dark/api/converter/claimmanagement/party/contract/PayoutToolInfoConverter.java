@@ -1,9 +1,6 @@
 package com.rbkmoney.dark.api.converter.claimmanagement.party.contract;
 
-import com.rbkmoney.damsel.domain.InternationalBankAccount;
-import com.rbkmoney.damsel.domain.PayoutToolInfo;
-import com.rbkmoney.damsel.domain.RussianBankAccount;
-import com.rbkmoney.damsel.domain.WalletInfo;
+import com.rbkmoney.damsel.domain.*;
 import com.rbkmoney.dark.api.converter.DarkApiConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -68,6 +65,8 @@ public class PayoutToolInfoConverter
             swagWalletInfo.setPayoutToolType(WALLETINFO);
             swagWalletInfo.setWalletID(walletInfo.getWalletId());
             return swagWalletInfo;
+        } else if (payoutToolInfo.isSetPaymentInstitutionAccount()) {
+            return new com.rbkmoney.swag.claim_management.model.PaymentInstitutionAccount();
         } else {
             throw new IllegalArgumentException("Unknown payout tool type!");
         }
