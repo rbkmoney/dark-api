@@ -1,10 +1,10 @@
 package com.rbkmoney.dark.api.config;
 
-import com.rbkmoney.dark.api.meta.UserIdentityEmailExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityIdExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityRealmExtensionKit;
-import com.rbkmoney.dark.api.meta.UserIdentityUsernameExtensionKit;
 import com.rbkmoney.woody.api.flow.WFlow;
+import com.rbkmoney.woody.api.trace.context.metadata.user.UserIdentityEmailExtensionKit;
+import com.rbkmoney.woody.api.trace.context.metadata.user.UserIdentityIdExtensionKit;
+import com.rbkmoney.woody.api.trace.context.metadata.user.UserIdentityRealmExtensionKit;
+import com.rbkmoney.woody.api.trace.context.metadata.user.UserIdentityUsernameExtensionKit;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.keycloak.representations.AccessToken;
@@ -24,7 +24,10 @@ import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import static com.rbkmoney.dark.api.util.DeadlineUtils.*;
+import static com.rbkmoney.dark.api.util.DeadlineUtils.containsRelativeValues;
+import static com.rbkmoney.dark.api.util.DeadlineUtils.extractMilliseconds;
+import static com.rbkmoney.dark.api.util.DeadlineUtils.extractMinutes;
+import static com.rbkmoney.dark.api.util.DeadlineUtils.extractSeconds;
 import static com.rbkmoney.woody.api.trace.ContextUtils.setCustomMetadataValue;
 import static com.rbkmoney.woody.api.trace.ContextUtils.setDeadline;
 
