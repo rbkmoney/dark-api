@@ -57,6 +57,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
+            <version>1.509-b7f092e</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
@@ -126,7 +127,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-sender</artifactId>
-            <version>1.3-72d3be1-server</version>
+            <version>1.5-ae725d0-epic-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>

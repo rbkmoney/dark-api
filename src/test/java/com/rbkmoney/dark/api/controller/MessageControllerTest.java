@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class SenderControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
+public class MessageControllerTest extends AbstractKeycloakOpenIdAsWiremockConfig {
 
     @MockBean
     private MessageSenderSrv.Iface messageSenderClientMock;
