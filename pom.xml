@@ -126,7 +126,7 @@
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>swag-sender</artifactId>
-            <version>1.5-ae725d0-epic-server</version>
+            <version>1.7-120f2f4-server</version>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
