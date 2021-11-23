@@ -68,20 +68,15 @@ public class StatPaymentToPaymentSearchResultConverter {
         String resultTimeString = null;
         if (status.isSetProcessed()) {
             resultTimeString = status.getProcessed().getAt();
-        }
-        else if (status.isSetCaptured()) {
+        } else if (status.isSetCaptured()) {
             resultTimeString = status.getCaptured().getAt();
-        }
-        else if (status.isSetCancelled()) {
+        } else if (status.isSetCancelled()) {
             resultTimeString = status.getCancelled().getAt();
-        }
-        else if (status.isSetRefunded()) {
+        } else if (status.isSetRefunded()) {
             resultTimeString = status.getRefunded().getAt();
-        }
-        else if (status.isSetFailed()) {
+        } else if (status.isSetFailed()) {
             resultTimeString = status.getFailed().getAt();
-        }
-        else if (status.isSetChargedBack()) {
+        } else if (status.isSetChargedBack()) {
             resultTimeString = status.getChargedBack().getAt();
         }
         return !StringUtils.isEmpty(resultTimeString) ? OffsetDateTime.parse(resultTimeString) : null;
