@@ -50,8 +50,8 @@ public class StatPaymentToPaymentSearchResultConverter {
                             : objectMapper.readValue(statPayment.context.getData(), HashMap.class))
                     .payer(getPayer(statPayment.payer))
                     .shortID(statPayment.short_id)
-
-                    .status(getStatus(statPayment.status));
+                    .status(getStatus(statPayment.status))
+                    .statusChangedAt(getStatusChangedAt(statPayment.status));
         } catch (IOException e) {
             log.error("Error at parsing invoice metadata: {} or statPayment.context: {}",
                     invoiceMetadata, statPayment.context, e);
@@ -62,6 +62,29 @@ public class StatPaymentToPaymentSearchResultConverter {
     private static PaymentSearchResult.StatusEnum getStatus(InvoicePaymentStatus status) {
 
         return PaymentSearchResult.StatusEnum.fromValue(status.getSetField().getFieldName());
+    }
+
+    private static OffsetDateTime getStatusChangedAt(InvoicePaymentStatus status) {
+        String resultTimeString = null;
+        if (status.isSetProcessed()) {
+            resultTimeString = status.getProcessed().getAt();
+        }
+        else if (status.isSetCaptured()) {
+            resultTimeString = status.getCaptured().getAt();
+        }
+        else if (status.isSetCancelled()) {
+            resultTimeString = status.getCancelled().getAt();
+        }
+        else if (status.isSetRefunded()) {
+            resultTimeString = status.getRefunded().getAt();
+        }
+        else if (status.isSetFailed()) {
+            resultTimeString = status.getFailed().getAt();
+        }
+        else if (status.isSetChargedBack()) {
+            resultTimeString = status.getChargedBack().getAt();
+        }
+        return !StringUtils.isEmpty(resultTimeString) ? OffsetDateTime.parse(resultTimeString) : null;
     }
 
     private static Payer getPayer(com.rbkmoney.damsel.merch_stat.Payer payer) {

@@ -16,11 +16,25 @@ public class StatPaymentToPaymentSearchResultConverterTest {
     @Test
     public void convert() {
         StatPayment statPayment = new StatPayment("1", "1", "1", "1", OffsetDateTime.now().toString(),
-                InvoicePaymentStatus.captured(new InvoicePaymentCaptured()), 100L, 100L, "KEK",
+                InvoicePaymentStatus.captured(new InvoicePaymentCaptured().setAt(OffsetDateTime.now().toString())), 100L, 100L, "KEK",
                 Payer.customer(new CustomerPayer()), InvoicePaymentFlow.hold(new InvoicePaymentFlowHold()), 1L);
         statPayment.setContext(new Content("kek", ByteBuffer.wrap("{ \"test\": \"kek\" }".getBytes())));
         PaymentSearchResult convert = StatPaymentToPaymentSearchResultConverter.convert(statPayment, null);
+        Assert.assertNotNull(convert.getStatusChangedAt());
         Assert.assertTrue(convert.getInvoiceMetadata() instanceof Map);
         Assert.assertTrue(convert.getMetadata() instanceof Map);
     }
+
+    @Test
+    public void convertPendingPayment() {
+        StatPayment statPayment = new StatPayment("1", "1", "1", "1", OffsetDateTime.now().toString(),
+                InvoicePaymentStatus.pending(new InvoicePaymentPending()), 100L, 100L, "KEK",
+                Payer.customer(new CustomerPayer()), InvoicePaymentFlow.hold(new InvoicePaymentFlowHold()), 1L);
+        statPayment.setContext(new Content("kek", ByteBuffer.wrap("{ \"test\": \"kek\" }".getBytes())));
+        PaymentSearchResult convert = StatPaymentToPaymentSearchResultConverter.convert(statPayment, null);
+        Assert.assertNull(convert.getStatusChangedAt());
+        Assert.assertTrue(convert.getInvoiceMetadata() instanceof Map);
+        Assert.assertTrue(convert.getMetadata() instanceof Map);
+    }
+
 }
