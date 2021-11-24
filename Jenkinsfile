@@ -5,7 +5,7 @@ build('dark-api', 'java-maven') {
 
     def javaServicePipeline
     runStage('load JavaService pipeline') {
-        javaServicePipeline = load("build_utils/jenkins_lib/pipeJavaService.groovy")
+        javaServicePipeline = load("build_utils/jenkins_lib/pipeJavaServiceInsideDocker.groovy")
     }
 
     def serviceName = env.REPO_NAME
