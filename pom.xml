@@ -22,7 +22,7 @@
         <exposed.ports>${server.port} ${management.port}</exposed.ports>
         <dockerfile.registry>${env.REGISTRY}</dockerfile.registry>
         <mapstruct.processor.version>1.3.0.Final</mapstruct.processor.version>
-        <resteasy.versions>4.5.8.Final</resteasy.versions>
+        <resteasy.versions>4.6.0.Final</resteasy.versions>
     </properties>
 
     <dependencies>
